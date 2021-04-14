@@ -7,7 +7,7 @@
      http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
      
       <changeSet author="d" id="1">
-         <createTable tableName="user">
+         <createTable tableName="usuario">
              <column autoIncrement="true" name="id" type="INT">
                  <constraints primaryKey="true"/>
              </column>
@@ -44,11 +44,67 @@
              </column>          
              
          </createTable>    
+
+         
          
          <rollback>
-             <dropTable tableName="user"/>
+             <dropTable tableName="usuario"/>
          </rollback>
      </changeSet>
+     
+     
+          <changeSet author="d" id="1a">
+         <insert tableName="usuario">
+         
+                  <column name="firstName" value="firstName"></column>
+                  <column name="lastName" value="lastName"></column>
+                  <column name="apellido2" value="apellido2"></column>
+                  <column name="direccion" value="direccion"></column>
+                  <column name="email" value="email"></column>
+                  <column name="municipio" value="municipio"></column>
+                  <column name="telefono"  value="telefono"></column>
+         		  <column name="observaciones" value="obser"></column>
+         		  <column name="username" value="user"></column>
+         		  <column name="password" value="123"></column>
+            
+         </insert>
+     </changeSet>
+     
+     <changeSet author="d" id="1b">
+         <insert tableName="usuario">
+         
+                  <column name="firstName" value="Administrador"></column>
+                  <column name="lastName" value="Last"></column>
+                  <column name="apellido2" value="ap2"></column>
+                  <column name="direccion" value="direccion"></column>
+                  <column name="email" value="emailf"></column>
+                  <column name="municipio" value="municipio"></column>
+                  <column name="telefono"  value="telefono"></column>
+         		  <column name="observaciones" value="obser"></column>
+         		  <column name="username" value="admin"></column>
+         		  <column name="password" value="123"></column>
+            
+         </insert>
+     </changeSet>
+
+     <changeSet author="d" id="1c">
+         <insert tableName="usuario">
+         
+                  <column name="firstName" value="Operador"></column>
+                  <column name="lastName" value="Last"></column>
+                  <column name="apellido2" value="ap2"></column>
+                  <column name="direccion" value="direccion"></column>
+                  <column name="email" value="emailf"></column>
+                  <column name="municipio" value="municipio"></column>
+                  <column name="telefono"  value="telefono"></column>
+         		  <column name="observaciones" value="obser"></column>
+         		  <column name="username" value="ope"></column>
+         		  <column name="password" value="123"></column>
+            
+         </insert>
+     </changeSet>
+     
+     
      
       <changeSet author="d" id="2">
          <createTable tableName="role">
@@ -70,6 +126,27 @@
          </rollback>
      </changeSet>
      
+           <changeSet author="d" id="2a">
+         <insert tableName="role">
+                  <column name="name" value="cl"></column>
+                  <column name="descripcion" value="cliente"></column>      
+         </insert>
+     </changeSet>
+     
+      <changeSet author="d" id="2b">
+         <insert tableName="role">
+                  <column name="name" value="ad"></column>
+                  <column name="descripcion" value="administrador"></column>      
+         </insert>
+     </changeSet>
+     
+      <changeSet author="d" id="2c">
+         <insert tableName="role">
+                  <column name="name" value="op"></column>
+                  <column name="descripcion" value="Operador"></column>      
+         </insert>
+     </changeSet>
+     
      
      
        <changeSet author="d" id="3">
@@ -88,7 +165,32 @@
              <dropTable tableName="user_roles"/>
          </rollback>
      </changeSet>
+        
+     <changeSet author="d" id="3a">
+         <insert tableName="user_roles">
+                  <column name="user_id" value="1"></column>
+                  <column name="role_id" value="1"></column>      
+         </insert>
+     </changeSet> 
      
+     <changeSet author="d" id="3b">
+         <insert tableName="user_roles">
+                  <column name="user_id" value="2"></column>
+                  <column name="role_id" value="2"></column>      
+         </insert>
+     </changeSet> 
+     
+     <changeSet author="d" id="3c">
+         <insert tableName="user_roles">
+                  <column name="user_id" value="3"></column>
+                  <column name="role_id" value="3"></column>      
+         </insert>
+     </changeSet> 
+     
+
+     
+     
+
      
      
 <!-- 
