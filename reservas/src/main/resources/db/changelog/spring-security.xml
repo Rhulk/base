@@ -1,0 +1,175 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <databaseChangeLog
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+     
+      <changeSet author="d" id="1">
+         <createTable tableName="user">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="firstName" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="lastName" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="apellido2" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="direccion" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="email" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+             <column name="municipio" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+              <column name="telefono" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>            
+             <column name="observaciones" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>   
+             
+             <column name="username" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="password" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>          
+             
+         </createTable>    
+         
+         <rollback>
+             <dropTable tableName="user"/>
+         </rollback>
+     </changeSet>
+     
+      <changeSet author="d" id="2">
+         <createTable tableName="role">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="name" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="descripcion" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+        
+             
+         </createTable>    
+         
+         <rollback>
+             <dropTable tableName="role"/>
+         </rollback>
+     </changeSet>
+     
+     
+     
+       <changeSet author="d" id="3">
+         <createTable tableName="user_roles">
+             <column  name="user_id" type="INT">
+                 <constraints nullable="false"/>
+             </column>
+             
+             <column  name="role_id" type="INT">
+                 <constraints nullable="false"/>
+             </column>
+
+         </createTable>    
+         
+         <rollback>
+             <dropTable tableName="user_roles"/>
+         </rollback>
+     </changeSet>
+     
+     
+     
+<!-- 
+     <changeSet author="rhulk" id="1">
+         <createTable tableName="cliente">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="nombre" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="apellido1" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="apellido2" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="direccion" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="email" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+             <column name="municipio" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+              <column name="telefono" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>            
+             <column name="observaciones" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+             
+         </createTable>
+         <rollback>
+             <dropTable tableName="cliente"/>
+         </rollback>
+     </changeSet>
+          <changeSet author="rhulk" id="2">
+         <insert tableName="cliente">
+             
+             <column name="nombre" value="Tom"/>
+             <column name="direccion" value="Lepanto 3"/>
+             <column name="apellido1" value="Carvajal"/>
+             <column name="apellido2" value="Jara"/>
+             <column name="email" value="quique1904@gmail.com"/>
+             <column name="municipio" value="Zarzalejo"/>
+             <column name="telefono" value="676293018"/>
+             <column name="observaciones" value="liquibase"/>
+         </insert>
+     </changeSet>
+     
+     <changeSet author="rhulk" id="3">
+         <preConditions>
+             <dbms  type="mssql"/>
+         </preConditions>
+         <update tableName="cliente">
+             <column name="direccion" value="India"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+     </changeSet>
+     
+      <changeSet author="rhulk" id="4">
+      	<addColumn tableName="cliente" >
+			<column name="id_bike" 	type="INT"/>  
+			<column name="id_venta" type="INT"/>  
+		</addColumn>
+      </changeSet>
+ 	  <changeSet author="rhulk" id="5">
+ 	     <update tableName="cliente">
+             <column name="id_bike" value="0"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+ 	  
+ 	  </changeSet>
+ 	  <changeSet author="rhulk" id="6">
+ 	     <update tableName="cliente">
+             <column name="id_venta" value="0"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+ 	  
+ 	  </changeSet>
+  -->    
+ </databaseChangeLog>
