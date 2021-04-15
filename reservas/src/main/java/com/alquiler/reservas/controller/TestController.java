@@ -31,6 +31,11 @@ public class TestController {
 	public String login() {
 		return "login";
 	}
+
+	@GetMapping("/index")
+	public String index() {
+		return "index";
+	}
 	
 	@GetMapping("/accessdenied")
 	public String accessdenied() {
