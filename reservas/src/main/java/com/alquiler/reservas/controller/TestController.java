@@ -37,6 +37,11 @@ public class TestController {
 		return "index";
 	}
 	
+	@GetMapping("/user")
+	public String user() {
+		return "user-form";
+	}
+	
 	@GetMapping("/accessdenied")
 	public String accessdenied() {
 		return "accessdenied";
