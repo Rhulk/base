@@ -39,7 +39,7 @@ public class TestController {
 	
 	@GetMapping("/user")
 	public String user() {
-		return "user-form";
+		return "security/user-form/user-view";
 	}
 	
 	@GetMapping("/accessdenied")
