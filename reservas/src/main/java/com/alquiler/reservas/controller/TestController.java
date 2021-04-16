@@ -17,7 +17,6 @@ public class TestController {
 	}
 	
 
-	
 	/*
 	@GetMapping("/login")
 	public String login() {
@@ -26,7 +25,7 @@ public class TestController {
 
 	@GetMapping("/index")
 	public String index() {
-		return "index";
+		return "home";
 	}
 	
 */
