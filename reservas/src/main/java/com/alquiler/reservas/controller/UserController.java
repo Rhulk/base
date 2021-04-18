@@ -1,6 +1,9 @@
 package com.alquiler.reservas.controller;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.authentication.AnonymousAuthenticationToken;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
@@ -11,8 +14,11 @@ import com.alquiler.reservas.repository.UserRepository;
 import com.alquiler.reservas.service.UserService;
 
 
+
 @Controller
 public class UserController {
+	
+	boolean login=false;
 
 	@Autowired
 	RoleRepository roleRepository;
@@ -31,7 +37,7 @@ public class UserController {
 	
 	@GetMapping({"/","/login"})
 	public String index() {
-		return "index";
+		return "login";
 	}
 	
 	@GetMapping("/admin/dashboard")

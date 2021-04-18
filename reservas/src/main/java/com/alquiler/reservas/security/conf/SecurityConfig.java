@@ -30,6 +30,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.antMatchers("/user/dashboard").hasAnyRole("cl","ad")
             .antMatchers("/").hasAnyRole("cl","ad")
             .and().formLogin()
+           // .defaultSuccessUrl("/userForm",true)
 			//.successHandler(successHandler)
             //.loginPage("/login").permitAll()
 			.and().logout().and().exceptionHandling().accessDeniedPage("/accessdenied")
