@@ -11,7 +11,7 @@ public class TestController {
 		return "home";
 	}
 */	
-	@GetMapping("/test")
+	@GetMapping("/menu")
 	public String test() {
 		return "home";
 	}
