@@ -37,8 +37,13 @@ public class LoginController {
 		return "security/user-form/user-view";
 	}
 	
-	@GetMapping({"/","/login"})
+	@GetMapping("/")
 	public String index() {
+		return "index";
+	}
+	
+	@GetMapping("/login")
+	public String login() {
 		return "login";
 	}
 	
