@@ -46,7 +46,7 @@ public class LoginController {
 	public String login() {
 		return "login";
 	}
-	
+	/*
 	@GetMapping("/admin/dashboard")
 	public String dashboardAdmin() {
 		return "dashboardAmin";
@@ -66,5 +66,6 @@ public class LoginController {
 	public String accessdenied() {
 		return "accessdenied";
 	}
+	*/
 }
 
