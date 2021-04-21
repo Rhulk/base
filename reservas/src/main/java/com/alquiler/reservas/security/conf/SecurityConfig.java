@@ -32,7 +32,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .and().formLogin()
            // .defaultSuccessUrl("/userForm",true)
 			//.successHandler(successHandler)
-            //.loginPage("/login").permitAll()
+            .loginPage("/login").permitAll()
 			.and().logout().and().exceptionHandling().accessDeniedPage("/accessdenied")
 			;
 
