@@ -33,7 +33,7 @@ public class LoginController {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
-	/*	model.addAttribute("listTab","active");*/
+		model.addAttribute("listTab","active");
 		return "security/user-form/user-view";
 	}
 	
