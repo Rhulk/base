@@ -31,9 +31,9 @@ public class User implements Serializable{
 	private Long id;
 
 	@Column
-	private String firstName;
+	private String firstname;
 	@Column
-	private String lastName;
+	private String lastname;
 	@Column
 	private String email;
 	@Column
@@ -68,19 +68,19 @@ public class User implements Serializable{
 	}
 
 	public String getFirstName() {
-		return firstName;
+		return firstname;
 	}
 
 	public void setFirstName(String firstName) {
-		this.firstName = firstName;
+		this.firstname = firstName;
 	}
 
 	public String getLastName() {
-		return lastName;
+		return lastname;
 	}
 
 	public void setLastName(String lastName) {
-		this.lastName = lastName;
+		this.lastname = lastName;
 	}
 
 	public String getEmail() {
@@ -125,7 +125,7 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstName=" + firstName + ", lastName=" + lastName + ", email=" + email
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
 				+ ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword
 				+ ", roles=" + roles + "]";
 	}
