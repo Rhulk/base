@@ -20,8 +20,6 @@ import com.alquiler.reservas.service.UserService;
 @Controller
 public class LoginController {
 	
-	boolean login=false;
-
 	@Autowired
 	RoleRepository roleRepository;
 	
