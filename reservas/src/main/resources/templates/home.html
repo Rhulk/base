@@ -5,7 +5,7 @@
 <title>Pagina Principal</title>
 </head>
 <body>
-	<h1> Bienvenido a la pagina principal</h1>
+	<h1 th:inline="text">Bienvenido a la pagina principal !! [[${#httpServletRequest.remoteUser}]] !!</h1>
 	<br>
 	<a href="/admin/dashboard">DashBoard Admin</a>
 	<br>
