@@ -3,12 +3,13 @@ package com.alquiler.reservas.controller;
 import org.springframework.web.bind.annotation.ControllerAdvice;
 import org.springframework.web.bind.annotation.ExceptionHandler;
 
-@ControllerAdvice
+//@ControllerAdvice
 public class DemoExceptionHandler {
 
 	//up
-    @ExceptionHandler(Exception.class)
+/*    @ExceptionHandler(Exception.class)
     public String exceptionHandler(){
-        return "error";
-    }
+    	System.out.println("uuodd");
+        return "pedo";
+    }*/
 }
