@@ -2,13 +2,19 @@ package com.alquiler.reservas.controller;
 
 
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.authentication.AnonymousAuthenticationToken;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
@@ -25,6 +31,28 @@ public class LoginController {
 	
 	@Autowired 
 	UserService userService;
+	
+	@PostMapping("/userForm")
+	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
+			if(result.hasErrors()) {
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+			}else {
+				try {//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
+					userService.createUser(user);
+					model.addAttribute("userForm", new User());
+					model.addAttribute("listTab","active");
+				} catch (Exception e) {
+					model.addAttribute("formError",e.getMessage());
+					model.addAttribute("userForm", user);
+					model.addAttribute("formTab","active");
+				}
+			}
+
+			model.addAttribute("userList", userService.getAllUsers());
+			model.addAttribute("roles",roleRepository.findAll());
+			return "security/user-form/user-view";
+		}
 	
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {

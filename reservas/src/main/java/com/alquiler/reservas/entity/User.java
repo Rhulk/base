@@ -14,8 +14,15 @@ import javax.persistence.JoinTable;
 import javax.persistence.ManyToMany;
 import javax.persistence.Table;
 import javax.persistence.Transient;
+import javax.validation.constraints.Email;
+import javax.validation.constraints.NotBlank;
+import javax.validation.constraints.NotEmpty;
 
 import org.hibernate.annotations.GenericGenerator;
+import org.hibernate.annotations.NotFound;
+
+
+import com.sun.istack.NotNull;
 
 @Entity
 @Table(name="usuario")
@@ -31,16 +38,29 @@ public class User implements Serializable{
 	private Long id;
 
 	@Column
+	@NotBlank
 	private String firstname;
 	@Column
+	@NotNull
 	private String lastname;
+	
 	@Column
+	@NotNull
+	private String apellido2;
+	
+	@Column(unique = true) 
+	@NotBlank
+	@Email
 	private String email;
-	@Column
+	
+	@Column(unique = true) 
+	@NotBlank
 	private String username;
 	@Column
+	@NotBlank
 	private String password;
 
+	@NotBlank
 	@Transient
 	private String confirmPassword;
 
@@ -52,6 +72,14 @@ public class User implements Serializable{
 
 	public User() {
 		super();
+	}
+
+	public String getApellido2() {
+		return apellido2;
+	}
+
+	public void setApellido2(String apellido2) {
+		this.apellido2 = apellido2;
 	}
 
 	public User(Long id) {
