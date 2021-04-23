@@ -50,7 +50,10 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User updateUser(User fromUser) throws Exception {
 		User toUser = getUserById(fromUser.getId());
+		
+		System.out.println(toUser.toString());
 		mapUser(fromUser, toUser);
+		System.out.println(" >> toUser: "+toUser.toString());
 		return userRepository.save(toUser);
 	}
 	
@@ -60,11 +63,14 @@ public class UserServiceImpl implements UserService{
 	 * @param to
 	 */
 	protected void mapUser(User from,User to) {
+		System.out.println(" >> User to: "+to.toString());
 		to.setUsername(from.getUsername());
 		to.setFirstName(from.getFirstName());
 		to.setLastName(from.getLastName());
 		to.setEmail(from.getEmail());
-		to.setRoles(from.getRoles());
+		to.setRoles(from.getRoles());		
+		System.out.println(" >> User from: "+from.toString());
+		
 	}
 	
 }
