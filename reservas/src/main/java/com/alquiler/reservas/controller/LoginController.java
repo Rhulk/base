@@ -14,6 +14,7 @@ import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 
 import com.alquiler.reservas.entity.User;
@@ -61,6 +62,20 @@ public class LoginController {
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("listTab","active");
 		return "security/user-form/user-view";
+	}
+	
+	@GetMapping("/editUser/{id}")
+	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
+		User user = userService.getUserById(id);
+		
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("userForm", user);
+		model.addAttribute("formTab","active");//Activa el tab del formulario.
+		
+		model.addAttribute("editMode",true);//Mira siguiente seccion para mas informacion
+		
+		return "user-form/user-view";
 	}
 	
 	@GetMapping("/")
