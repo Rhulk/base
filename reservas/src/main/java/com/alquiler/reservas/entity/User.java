@@ -63,6 +63,15 @@ public class User implements Serializable{
 	@NotBlank
 	@Transient
 	private String confirmPassword;
+	
+	@NotBlank
+	private String municipio;
+	@NotBlank
+	private String direccion;
+	@NotBlank
+	private String telefono;
+	@NotBlank
+	private String observaciones;
 
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",
@@ -141,6 +150,38 @@ public class User implements Serializable{
 
 	public void setConfirmPassword(String confirmPassword) {
 		this.confirmPassword = confirmPassword;
+	}
+
+	public String getMunicipio() {
+		return municipio;
+	}
+
+	public void setMunicipio(String municipio) {
+		this.municipio = municipio;
+	}
+
+	public String getDireccion() {
+		return direccion;
+	}
+
+	public void setDireccion(String direccion) {
+		this.direccion = direccion;
+	}
+
+	public String getTelefono() {
+		return telefono;
+	}
+
+	public void setTelefono(String telefono) {
+		this.telefono = telefono;
+	}
+
+	public String getObservaciones() {
+		return observaciones;
+	}
+
+	public void setObservaciones(String observaciones) {
+		this.observaciones = observaciones;
 	}
 
 	public Set<Role> getRoles() {
