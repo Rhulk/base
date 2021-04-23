@@ -75,7 +75,7 @@ public class LoginController {
 		
 		model.addAttribute("editMode",true);//Mira siguiente seccion para mas informacion
 		
-		return "user-form/user-view";
+		return "security/user-form/user-view";
 	}
 	
 	@GetMapping("/")
