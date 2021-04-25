@@ -2,6 +2,8 @@ package com.alquiler.reservas.service;
 
 import java.util.Optional;
 
+import javax.transaction.Transactional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
 import com.alquiler.reservas.entity.User;
@@ -48,29 +50,25 @@ public class UserServiceImpl implements UserService{
 	}	
 	
 	@Override
-	public User updateUser(User fromUser) throws Exception {
+	public User updateUser(User fromUser)  throws Exception {
 		User toUser = getUserById(fromUser.getId());
-		
-		System.out.println(toUser.toString());
 		mapUser(fromUser, toUser);
-		System.out.println(" >> toUser: "+toUser.toString());
 		return userRepository.save(toUser);
 	}
 	
 	/**
-	 * Map everythin but the password.
+	 * Map everythin but the password. Without password problem with validation @NotBlank in field confirm password
 	 * @param from
 	 * @param to
 	 */
 	protected void mapUser(User from,User to) {
-		System.out.println(" >> User to: "+to.toString());
 		to.setUsername(from.getUsername());
 		to.setFirstName(from.getFirstName());
 		to.setLastName(from.getLastName());
 		to.setEmail(from.getEmail());
 		to.setRoles(from.getRoles());		
-		System.out.println(" >> User from: "+from.toString());
-		
+		to.setPassword(from.getPassword());
+		to.setConfirmPassword(from.getConfirmPassword());	
 	}
 	
 }
