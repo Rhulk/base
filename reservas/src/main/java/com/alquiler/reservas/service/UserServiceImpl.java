@@ -56,6 +56,13 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(toUser);
 	}
 	
+	public void deleteUser(Long id) throws Exception {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new Exception("UsernotFound in deleteUser -"+this.getClass().getName()));
+
+		userRepository.delete(user);
+	}
+	
 	/**
 	 * Map everythin but the password. Without password problem with validation @NotBlank in field confirm password
 	 * @param from
