@@ -82,6 +82,8 @@
 	</div>
 </div>
 		
-  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div> 
+ <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  -->
+  <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>
+  <div th:include="security/user-form/confirm-delete-modal.html" th:remove="tag"></div>
 </body>
 </html>

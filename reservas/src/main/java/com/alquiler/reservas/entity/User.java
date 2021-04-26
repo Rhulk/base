@@ -60,7 +60,7 @@ public class User implements Serializable{
 	@NotBlank
 	private String password;
 
-	@NotBlank
+	//@NotBlank
 	@Transient
 	private String confirmPassword;
 	

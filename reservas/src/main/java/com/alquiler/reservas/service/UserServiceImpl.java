@@ -6,6 +6,8 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Service;
+
+import com.alquiler.reservas.entity.ChangePasswordForm;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.UserRepository;
 
@@ -62,6 +64,27 @@ public class UserServiceImpl implements UserService{
 
 		userRepository.delete(user);
 	}
+	
+	public User changePassword(ChangePasswordForm form) throws Exception{
+		User storedUser = userRepository
+				.findById( form.getId() )
+				.orElseThrow(() -> new Exception("UsernotFound in ChangePassword -"+this.getClass().getName()));
+		
+		if( form.getCurrentPassword().equals(storedUser.getPassword())) {
+			throw new Exception("Current Password Incorrect.");
+		}
+		
+		if ( form.getCurrentPassword().equals(form.getNewPassword())) {
+			throw new Exception("New Password must be different than Current Password!");
+		}
+		
+		if( !form.getNewPassword().equals(form.getConfirmPassword())) {
+			throw new Exception("New Password and Confirm Password does not match!");
+		}
+		
+		storedUser.setPassword(form.getNewPassword());
+		return userRepository.save(storedUser);
+	}	
 	
 	/**
 	 * Map everythin but the password. Without password problem with validation @NotBlank in field confirm password

@@ -84,24 +84,25 @@
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Password</label>
+		<label class="col-lg-3 col-form-label form-control-label" th:if="${editMode} == false">Password</label>
 		<div class="col-lg-9">
 
-			<input class="form-control" type="password" th:field="${userForm.password}">
+			<input class="form-control" type="password" th:field="${userForm.password}"  th:if="${editMode} == false">
 			<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
-		<label class="col-lg-3 col-form-label form-control-label">Confirm</label>
+		<label class="col-lg-3 col-form-label form-control-label" th:if="${editMode} == false">Confirm</label>
 		<div class="col-lg-9">
 		
-			<input class="form-control" type="password" th:field="${userForm.confirmPassword}">
+			<input class="form-control" type="password" th:field="${userForm.confirmPassword}" th:if="${editMode} == false">
 			<div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<div class="col-lg-12 text-center">
 			<input type="reset" class="btn btn-secondary" value="Cancel">
+			<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Change Password</button>
 			<input type="submit" class="btn btn-primary"
 				value="Save Changes" th:value="${editMode}?'Save User':'Create User'">
 		</div>
