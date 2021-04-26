@@ -3,6 +3,7 @@
 <form class="form" role="form" id="userForm" th:object="${userForm}" method="post" th:action="${editMode} ?@{/editUser} :@{/userForm}"  autocomplete="off" >
 	
 	<input class="form-control" type=hidden th:field="${userForm.id}"  th:if="${editMode}"> <!--Es necesario para poder pasar la validacion del Model-->
+	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">First name</label>
 		<div class="col-lg-9">
@@ -85,9 +86,8 @@
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Password</label>
 		<div class="col-lg-9">
-			
-			<input class="form-control" type="password" th:field="${userForm.password}" th:if="!${editMode}">
-			<input class="form-control" type="password" th:field="${userForm.password}" th:if="${editMode}" value="xxxx">
+
+			<input class="form-control" type="password" th:field="${userForm.password}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">Name Error</div>
 		</div>
 	</div>
@@ -106,4 +106,5 @@
 				value="Save Changes" th:value="${editMode}?'Save User':'Create User'">
 		</div>
 	</div>
+	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
 </form>
