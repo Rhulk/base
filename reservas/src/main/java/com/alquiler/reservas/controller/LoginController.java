@@ -107,7 +107,11 @@ public class LoginController {
 		return "security/user-form/user-view";
 		
 	}
-	
+/*	
+ * 		Pendinete problema con los tag
+ * 
+ * 
+*/
 	@GetMapping("/deleteUser/{id}")
 	public String deleteUser(Model model, @PathVariable(name="id") Long id) {
 		try {
