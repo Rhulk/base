@@ -45,7 +45,7 @@ public class LoginController {
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 			}else {
-				try {//Aca tendras error porque este metodo no existe, pero lo crearemos en la siguiente seccion.
+				try {
 					userService.createUser(user);
 					model.addAttribute("userForm", new User());
 					model.addAttribute("listTab","active");
@@ -63,7 +63,6 @@ public class LoginController {
 	
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {
-		model.addAttribute("editMode",false);
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
