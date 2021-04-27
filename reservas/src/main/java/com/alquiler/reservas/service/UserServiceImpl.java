@@ -6,6 +6,9 @@ import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.access.prepost.PreAuthorize;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.entity.ChangePasswordForm;
@@ -60,6 +63,7 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(toUser);
 	}
 	
+	@PreAuthorize("hasAnyRole('ad')")
 	public void deleteUser(Long id) throws Exception {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new Exception("UsernotFound in deleteUser -"+this.getClass().getName()));
@@ -68,9 +72,14 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	public User changePassword(ChangePasswordForm form) throws Exception{
+		BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
 		User storedUser = userRepository
 				.findById( form.getId() )
 				.orElseThrow(() -> new Exception("UsernotFound in ChangePassword -"+this.getClass().getName()));
+		
+		if ( !isLoggedUserADMIN() && !storedUser.getPassword().equals(form.getCurrentPassword())) {
+			throw new Exception ("Current Password invalido.");
+		}
 		
 		if( form.getCurrentPassword().equals(storedUser.getPassword())) {
 			throw new Exception("Current Password Incorrect.");
@@ -84,9 +93,26 @@ public class UserServiceImpl implements UserService{
 			throw new Exception("New Password and Confirm Password does not match!");
 		}
 		
-		storedUser.setPassword(form.getNewPassword());
+		 // se almacena la pass encriptada.
+		//storedUser.setPassword(form.getNewPassword());
+		String encodePassword = bCryptPasswordEncoder.encode(form.getNewPassword());
+		storedUser.setPassword(encodePassword);
 		return userRepository.save(storedUser);
 	}	
+	
+	
+	private boolean isLoggedUserADMIN() {
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		UserDetails loggedUser = null;
+		if (principal instanceof UserDetails) {
+			loggedUser = (UserDetails) principal;
+
+			loggedUser.getAuthorities().stream()
+					.filter(x -> "ad".equals(x.getAuthority() ))      
+					.findFirst().orElse(null); //loggedUser = null;
+		}
+		return loggedUser != null ?true :false;
+	}
 	
 	/**
 	 * Map everythin but the password. Without password problem with validation @NotBlank in field confirm password

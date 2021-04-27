@@ -1,13 +1,11 @@
-
-<!-- <form class="form" role="form" id="userForm" th:object="${userForm}" method="post" th:action="@{/userForm}" autocomplete="off"> -->
+<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''cl'')')}">
 <form class="form" role="form" id="userForm" th:object="${userForm}" method="post" th:action="${editMode} ?@{/editUser} :@{/userForm}"  autocomplete="off" >
-	
 	<input class="form-control" type=hidden th:field="${userForm.id}"  th:if="${editMode}"> <!--Es necesario para poder pasar la validacion del Model-->
 	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">First name</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.firstName}">
+			<input class="form-control" type="text" th:field="${userForm.firstName}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('firstName')}" th:errors="*{firstName}">Name Error</div>
 		</div>
 	</div>
@@ -15,7 +13,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Last
 			name</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.lastName}">
+			<input class="form-control" type="text" th:field="${userForm.lastName}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('lastName')}" th:errors="*{lastName}">Name Error</div>
 		</div>
 	</div>
@@ -23,7 +21,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Apellido 2
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.apellido2}">
+			<input class="form-control" type="text" th:field="${userForm.apellido2}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('apellido2')}" th:errors="*{apellido2}">Name Error</div>
 		</div>
 	</div>
@@ -31,7 +29,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Municipio
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.municipio}">
+			<input class="form-control" type="text" th:field="${userForm.municipio}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('municipio')}" th:errors="*{municipio}">Name Error</div>
 		</div>
 	</div>
@@ -39,7 +37,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Direccion
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.direccion}">
+			<input class="form-control" type="text" th:field="${userForm.direccion}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('direccion')}" th:errors="*{direccion}">Name Error</div>
 		</div>
 	</div>
@@ -47,7 +45,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Telefono
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.telefono}">
+			<input class="form-control" type="text" th:field="${userForm.telefono}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('telefono')}" th:errors="*{telefono}">Name Error</div>
 		</div>
 	</div>
@@ -55,7 +53,7 @@
 		<label class="col-lg-3 col-form-label form-control-label">Observaciones
 			</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.observaciones}">
+			<input class="form-control" type="text" th:field="${userForm.observaciones}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('observaciones')}" th:errors="*{observaciones}">Name Error</div>
 		</div>
 	</div>
@@ -63,14 +61,14 @@
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Email</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="email" th:field="${userForm.email}">
+			<input class="form-control" type="email" th:field="${userForm.email}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('email')}" th:errors="*{email}">Name Error</div>
 		</div>
 	</div>
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Username</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${userForm.username}">
+			<input class="form-control" type="text" th:field="${userForm.username}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('username')}" th:errors="*{username}">Name Error</div>
 		</div>
 	</div>
@@ -87,14 +85,14 @@
 	<div class="form-group row" th:if="${editMode==null or editMode==false}">
 		<label class="col-lg-3 col-form-label form-control-label">Password</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.password}">
+			<input class="form-control" type="password" th:field="${userForm.password}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('password')}" th:errors="*{password}">password Error</div>
 		</div>
 	</div>
 	<div class="form-group row" th:if="${editMode==null or editMode==false}">
 		<label class="col-lg-3 col-form-label form-control-label">Confirm</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="password" th:field="${userForm.confirmPassword}">
+			<input class="form-control" type="password" th:field="${userForm.confirmPassword}" th:disabled="${disableFields}">
 			<div class="alert-danger" th:if="${#fields.hasErrors('confirmPassword')}" th:errors="*{confirmPassword}">confirmPassword Error</div>
 		</div>
 	</div>
@@ -108,3 +106,4 @@
 	</div>
 	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
 </form>
+</div>
