@@ -26,21 +26,21 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
     };
 	
-	/* Auth in Memory
+	/* Auth in Memory*/
 	@Override		
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
-		.withUser("user").password("{noop}123").roles("cl")
+		.withUser("user").password("$2a$04$0hjek8BtsnJBBbfL6FhviuhjZyCjxELIvvWxP0uLRh6B5EPg0xigq").roles("cl")
 		.and()
-		.withUser("admin").password("{noop}123").roles("ad");
+		.withUser("admin").password("$2a$04$0hjek8BtsnJBBbfL6FhviuhjZyCjxELIvvWxP0uLRh6B5EPg0xigq").roles("ad");
 	}
-	*/
+	
 	
 	/*
 	 * 
 	 *  Previo a la restructuración de la seguridad
 	 *  
-	 
+	 */
 	
     @Override
     public void configure(HttpSecurity http) throws Exception {
@@ -58,9 +58,9 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 			;
 
     }
-    */
     
     
+    /*
     @Override
     protected void configure(HttpSecurity http) throws Exception {
     	http
@@ -82,7 +82,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             .permitAll()
             .logoutSuccessUrl("/login?logout");
     }
-    
+    */
     BCryptPasswordEncoder bCryptPasswordEncoder;
     
     
@@ -91,8 +91,8 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
 		bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
         return bCryptPasswordEncoder;
     }
-    
-    
+   
+  
     @Autowired
     UserDetailsServiceImpl userDetailsService;   
     

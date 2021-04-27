@@ -9,7 +9,7 @@ public class Passgenerator {
         BCryptPasswordEncoder bCryptPasswordEncoder = new BCryptPasswordEncoder(4);
        
         //El String que mandamos al metodo encode es el password que queremos encriptar.
-        System.out.println(bCryptPasswordEncoder.encode("1234"));
+        System.out.println(bCryptPasswordEncoder.encode("123"));
         /*
          * Resultado: $2a$04$n6WIRDQlIByVFi.5rtQwEOTAzpzLPzIIG/O6quaxRKY2LlIHG8uty
          * 	          $2a$04$yg199ptmYo5jmHn9wNGuR.WM5vtQq7brIzjG26PEhwwLJ7Q9gQDgi

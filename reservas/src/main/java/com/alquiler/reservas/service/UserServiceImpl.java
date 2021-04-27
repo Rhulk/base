@@ -5,6 +5,7 @@ import java.util.Optional;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.security.access.prepost.PreAuthorize;
 import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.entity.ChangePasswordForm;
@@ -51,6 +52,7 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}	
 	
+	@PreAuthorize("hasAnyRole('ad','cl')")
 	@Override
 	public User updateUser(User fromUser)  throws Exception {
 		User toUser = getUserById(fromUser.getId());
