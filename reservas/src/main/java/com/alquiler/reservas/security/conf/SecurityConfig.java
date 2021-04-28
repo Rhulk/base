@@ -50,6 +50,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.antMatchers("/admin/dashboard").hasAnyRole("ad")
         	.antMatchers("/user/dashboard").hasAnyRole("cl","ad")
             .antMatchers("/").hasAnyRole("cl","ad")
+            .antMatchers("/singnup").permitAll()
             .and().formLogin()
             .defaultSuccessUrl("/userForm",true)
 			//.successHandler(successHandler)

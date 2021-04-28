@@ -2,6 +2,8 @@ package com.alquiler.reservas.controller;
 
 
 
+import java.util.Arrays;
+import java.util.List;
 import java.util.stream.Collectors;
 
 import javax.validation.Valid;
@@ -24,6 +26,7 @@ import org.springframework.web.bind.annotation.RequestBody;
 
 import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
+import com.alquiler.reservas.entity.Role;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
@@ -39,29 +42,48 @@ public class LoginController {
 	
 	@Autowired 
 	UserService userService;
-/*	
-	@PostMapping("/userForm")
-	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
-			if(result.hasErrors()) {
-				model.addAttribute("userForm", user);
-				model.addAttribute("formTab","active");
-			}else {
-				try {
-					userService.createUser(user);
-					model.addAttribute("userForm", new User());
-					model.addAttribute("listTab","active");
-				} catch (Exception e) {
-					model.addAttribute("formError",e.getMessage());
-					model.addAttribute("userForm", user);
-					model.addAttribute("formTab","active");
-				}
-			}
 
-			model.addAttribute("userList", userService.getAllUsers());
-			model.addAttribute("roles",roleRepository.findAll());
-			return "security/user-form/user-view";
+	@GetMapping("/signup")
+	public String signup(Model model) {
+		Role rol = roleRepository.findByName("cl");
+		List <Role> roles = Arrays.asList(rol);
+		model.addAttribute("userForm", new User());
+		model.addAttribute("roles",roles);
+		model.addAttribute("signup", true);
+		
+		return "security/user-form/user-signup";
+	}
+	
+	
+	@PostMapping("/signup")
+	public String signupPost(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
+		
+		Role rol = roleRepository.findByName("cl");
+		List <Role> roles = Arrays.asList(rol);
+		model.addAttribute("userForm", user);
+		model.addAttribute("roles",roles);
+		model.addAttribute("signup", true);	
+		
+		
+		if(result.hasErrors()) {
+			return "security/user-form/user-signup";
+		}else {
+			try {
+				userService.createUser(user);
+				
+			}catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				return "security/user-form/user-signup";
+			}
+			catch (Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				return "security/user-form/user-signup";
+			}
 		}
-*/
+		
+		return "index";
+	}
+	
 	
 	@PostMapping("/userForm")
 	public String createUser(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
