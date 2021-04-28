@@ -12,6 +12,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.security.crypto.bcrypt.BCryptPasswordEncoder;
 import org.springframework.stereotype.Service;
 
+import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.UserRepository;
@@ -33,15 +34,27 @@ public class UserServiceImpl implements UserService{
 	private boolean checkUsernameAvailable(User user) throws Exception {
 
 		if (!userRepository.findByUsername(user.getUsername()).isEmpty()) {
-			throw new Exception("Username no disponible");
+			throw new CustomeFieldValidationException("Username no disponible","username");
+			//throw new Exception("Username no disponible");
 		}
 		return true;
 	}
 
 	private boolean checkPasswordValid(User user) throws Exception {
+	/*
 		if ( !user.getPassword().equals(user.getConfirmPassword())) {
-			throw new Exception("Password y Confirm Password no son iguales");
+			//throw new Exception("Password y Confirm Password no son iguales");
+			throw new CustomeFieldValidationException("Confirm Password es obligatorio","confirmPassword");
 		}
+	*/
+		if (user.getConfirmPassword() == null || user.getConfirmPassword().isEmpty()) {
+			throw new CustomeFieldValidationException("Confirm Password es obligatorio","confirmPassword");
+		}		
+		
+		if ( !user.getPassword().equals(user.getConfirmPassword())) {
+			throw new CustomeFieldValidationException("Password y Confirm Password no son iguales","password");
+		}		
+		
 		return true;
 	}
 

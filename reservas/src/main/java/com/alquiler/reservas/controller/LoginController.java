@@ -22,6 +22,7 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RequestBody;
 
+import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
@@ -38,7 +39,7 @@ public class LoginController {
 	
 	@Autowired 
 	UserService userService;
-	
+/*	
 	@PostMapping("/userForm")
 	public String postUserForm(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 			if(result.hasErrors()) {
@@ -60,6 +61,39 @@ public class LoginController {
 			model.addAttribute("roles",roleRepository.findAll());
 			return "security/user-form/user-view";
 		}
+*/
+	
+	@PostMapping("/userForm")
+	public String createUser(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			model.addAttribute("userForm", user);
+			model.addAttribute("formTab","active");
+		}else {
+			try {
+				userService.createUser(user);
+				model.addAttribute("userForm", new User());
+				model.addAttribute("listTab","active");
+				
+			}catch (CustomeFieldValidationException cfve) {
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("roles",roleRepository.findAll());
+			}
+			catch (Exception e) {
+				model.addAttribute("formErrorMessage",e.getMessage());
+				model.addAttribute("userForm", user);
+				model.addAttribute("formTab","active");
+				model.addAttribute("userList", userService.getAllUsers());
+				model.addAttribute("roles",roleRepository.findAll());
+			}
+		}
+		
+		model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("roles",roleRepository.findAll());
+		return "user-form/user-view";
+	}
 	
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {
