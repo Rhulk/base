@@ -21,6 +21,10 @@ public class UserServiceImpl implements UserService{
 	@Autowired
 	UserRepository userRepository;
 	
+	//Asegurate de tener este autowired al inicio de la clase
+	@Autowired
+	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
 	public Iterable getAllUsers(){
 		return userRepository.findAll();
 	}
@@ -44,6 +48,8 @@ public class UserServiceImpl implements UserService{
 	@Override
 	public User createUser(User user) throws Exception {
 		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {
+			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
+			user.setPassword(encodedPassword);
 			user = userRepository.save(user);
 		}
 		return user;
