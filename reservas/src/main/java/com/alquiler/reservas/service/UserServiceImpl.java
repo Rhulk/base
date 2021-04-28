@@ -1,5 +1,6 @@
 package com.alquiler.reservas.service;
 
+import java.util.List;
 import java.util.Optional;
 
 import javax.transaction.Transactional;
@@ -107,17 +108,40 @@ public class UserServiceImpl implements UserService{
 	}	
 	
 	
+	
+	
 	private boolean isLoggedUserADMIN() {
+		//Obtener el usuario logeado
 		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
 		UserDetails loggedUser = null;
+		Object roles = null;
+
+		//Verificar que ese objeto traido de sesion es el usuario
 		if (principal instanceof UserDetails) {
 			loggedUser = (UserDetails) principal;
 
-			loggedUser.getAuthorities().stream()
-					.filter(x -> "ad".equals(x.getAuthority() ))      
-					.findFirst().orElse(null); //loggedUser = null;
+			roles = loggedUser.getAuthorities().stream()
+					.filter(x -> "ad".equals(x.getAuthority())).findFirst()
+					.orElse(null); 
 		}
-		return loggedUser != null ?true :false;
+		return roles != null ? true : false;
+	}
+	
+	private User getLoggedUser() throws Exception {
+		//Obtener el usuario logeado
+		Object principal = SecurityContextHolder.getContext().getAuthentication().getPrincipal();
+		
+		UserDetails loggedUser = null;
+
+		//Verificar que ese objeto traido de sesion es el usuario
+		if (principal instanceof UserDetails) {
+			loggedUser = (UserDetails) principal;
+		}
+		
+		List<User> myUser = userRepository.findByUsername(loggedUser.getUsername());
+
+		return myUser.get(0);
 	}
 	
 	/**
