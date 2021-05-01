@@ -11,10 +11,10 @@
              <column autoIncrement="true" name="id" type="INT">
                  <constraints primaryKey="true"/>
              </column>
-             <column name="firstName" type="VARCHAR(255)">
+             <column name="firstname" type="VARCHAR(255)">
                  <constraints nullable="false"/>
              </column>
-             <column name="lastName" type="VARCHAR(255)">
+             <column name="lastname" type="VARCHAR(255)">
                  <constraints nullable="false"/>
              </column>
              <column name="apellido2" type="VARCHAR(255)">
@@ -53,11 +53,13 @@
      </changeSet>
      
      
-          <changeSet author="d" id="1a">
+      <changeSet author="d" id="1a">
+      <preConditions  onFail="WARN">
+      </preConditions>
          <insert tableName="usuario">
          
-                  <column name="firstName" value="firstName"></column>
-                  <column name="lastName" value="lastName"></column>
+                  <column name="firstname" value="firstname"></column>
+                  <column name="lastname" value="lastname"></column>
                   <column name="apellido2" value="apellido2"></column>
                   <column name="direccion" value="direccion"></column>
                   <column name="email" value="email"></column>
@@ -68,13 +70,16 @@
          		  <column name="password" value="123"></column>
             
          </insert>
+     
      </changeSet>
      
      <changeSet author="d" id="1b">
+            <preConditions  onFail="WARN">
+      </preConditions>     
          <insert tableName="usuario">
-         
-                  <column name="firstName" value="Administrador"></column>
-                  <column name="lastName" value="Last"></column>
+  
+                  <column name="firstname" value="Administrador"></column>
+                  <column name="lastname" value="Last"></column>
                   <column name="apellido2" value="ap2"></column>
                   <column name="direccion" value="direccion"></column>
                   <column name="email" value="emailf"></column>
@@ -90,8 +95,8 @@
      <changeSet author="d" id="1c">
          <insert tableName="usuario">
          
-                  <column name="firstName" value="Operador"></column>
-                  <column name="lastName" value="Last"></column>
+                  <column name="firstname" value="Operador"></column>
+                  <column name="lastname" value="Last"></column>
                   <column name="apellido2" value="ap2"></column>
                   <column name="direccion" value="direccion"></column>
                   <column name="email" value="emailf"></column>
@@ -100,6 +105,24 @@
          		  <column name="observaciones" value="obser"></column>
          		  <column name="username" value="ope"></column>
          		  <column name="password" value="123"></column>
+            
+         </insert>
+     </changeSet>
+     
+     
+           <changeSet author="d" id="1d">
+         <insert tableName="usuario">
+         
+                  <column name="firstname" value="postgres"></column>
+                  <column name="lastname" value="postgres"></column>
+                  <column name="apellido2" value="postgres"></column>
+                  <column name="direccion" value="postgres"></column>
+                  <column name="email" value="postgres"></column>
+                  <column name="municipio" value="postgres"></column>
+                  <column name="telefono"  value="postgres"></column>
+         		  <column name="observaciones" value="postgres"></column>
+         		  <column name="username" value="postgres"></column>
+         		  <column name="password" value="postgres"></column>
             
          </insert>
      </changeSet>
@@ -126,7 +149,7 @@
          </rollback>
      </changeSet>
      
-           <changeSet author="d" id="2a">
+     <changeSet author="d" id="2a">
          <insert tableName="role">
                   <column name="name" value="cl"></column>
                   <column name="descripcion" value="cliente"></column>      
@@ -147,7 +170,12 @@
          </insert>
      </changeSet>
      
-     
+       <changeSet author="d" id="2d">
+         <insert tableName="role">
+                  <column name="name" value="test"></column>
+                  <column name="descripcion" value="Usuario de pruebas"></column>      
+         </insert>
+     </changeSet>   
      
        <changeSet author="d" id="3">
          <createTable tableName="user_roles">

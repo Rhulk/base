@@ -114,7 +114,7 @@ public class LoginController {
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
-		return "user-form/user-view";
+		return "security/user-form/user-view";
 	}
 	
 	@GetMapping("/userForm")
