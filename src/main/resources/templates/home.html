@@ -1,0 +1,24 @@
+<!DOCTYPE html>
+<html>
+<head>
+<meta charset="ISO-8859-1">
+<title>Pagina Principal</title>
+</head>
+<body>
+	<h1 th:inline="text">Bienvenido a la pagina principal !! [[${#httpServletRequest.remoteUser}]] !!</h1>
+	<br>
+	<a href="/admin/dashboard">DashBoard Admin</a>
+	<br>
+	<a href="/user/dashboard">DashBoard User</a>
+	<br>
+
+	<br>
+	<a href="/user">Signup</a>	
+	<br>
+	
+	<br>
+	<a href="/index">Futuro login</a>	
+	<br>
+	<a href="/logout">Logout</a>
+</body>
+</html>
