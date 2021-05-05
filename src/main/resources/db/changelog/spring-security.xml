@@ -52,6 +52,23 @@
          </rollback>
      </changeSet>
      
+     <changeSet author="d" id="1+"> 
+		<addColumn 
+				tableName="usuario" >
+			<column name="status" 
+				position="2"  
+				type="bit"/>  
+		</addColumn>  
+	</changeSet>
+	
+	<changeSet author="d" id="1++">
+	      <update 
+	      tableName="usuario">
+	      <column name="status" value="1"/>
+	      
+	      </update>
+	</changeSet>
+     
      
       <changeSet author="d" id="1a">
       <preConditions  onFail="WARN">

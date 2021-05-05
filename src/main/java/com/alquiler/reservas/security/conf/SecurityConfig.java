@@ -6,6 +6,8 @@ import org.springframework.security.config.annotation.web.builders.HttpSecurity;
 import org.springframework.security.config.annotation.web.configuration.EnableWebSecurity;
 import org.springframework.security.config.annotation.web.configuration.WebSecurityConfigurerAdapter;
 
+import javax.sql.DataSource;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.context.annotation.Bean;
 import org.springframework.context.annotation.Configuration;
@@ -26,13 +28,28 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
             "/include/**","/css/**","/icons/**","/img/**","/js/**","/layer/**"
     };
 	
-	/* Auth in Memory*/
+	/* Auth in Memory
 	@Override		
 	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
 		auth.inMemoryAuthentication()
 		.withUser("user").password("$2a$04$0hjek8BtsnJBBbfL6FhviuhjZyCjxELIvvWxP0uLRh6B5EPg0xigq").roles("cl")
 		.and()
 		.withUser("admin").password("$2a$04$0hjek8BtsnJBBbfL6FhviuhjZyCjxELIvvWxP0uLRh6B5EPg0xigq").roles("ad");
+	}
+	*/
+
+    
+	@Autowired
+	private DataSource dataSource;
+	
+	@Override
+	protected void configure(AuthenticationManagerBuilder auth) throws Exception {
+		auth.jdbcAuthentication().dataSource(dataSource)
+		.usersByUsernameQuery("select username, password, status from usuario where username=?")
+		.authoritiesByUsernameQuery("select u.username, r.name from user_roles ur " +
+		"inner join usuario u on u.id = ur.user_id " +
+		"inner join role r on r.id = ur.role_id " +
+		"where u.username = ?");
 	}
 	
 	
