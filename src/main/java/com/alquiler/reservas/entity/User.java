@@ -24,6 +24,8 @@ import org.hibernate.annotations.NotFound;
 
 import com.sun.istack.NotNull;
 
+import lombok.Builder.Default;
+
 @Entity
 @Table(name="usuario")
 public class User implements Serializable{
@@ -73,6 +75,18 @@ public class User implements Serializable{
 	@NotBlank
 	private String observaciones;
 
+	@NotBlank
+	private boolean status= true;
+	
+
+	public boolean isStatus() {
+		return status;
+	}
+
+	public void setStatus(boolean status) {
+		this.status = status;
+	}
+
 	@ManyToMany(fetch = FetchType.LAZY)
 	@JoinTable(name = "user_roles",
 			joinColumns=@JoinColumn(name="user_id"),
@@ -80,7 +94,9 @@ public class User implements Serializable{
 	private Set<Role> roles;
 
 	public User() {
+		
 		super();
+		this.status = true;
 	}
 
 	public String getApellido2() {
