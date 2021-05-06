@@ -20,7 +20,7 @@ public class ReservasApplication {
 		System.out.println(" Start Timer ");
         Tarea tarea = new Tarea();
         Timer temporizador = new Timer();
-        Integer segundos = 5;
+        Integer segundos = 1;
         
         temporizador.scheduleAtFixedRate(tarea, 0, 1000*segundos);
 		
