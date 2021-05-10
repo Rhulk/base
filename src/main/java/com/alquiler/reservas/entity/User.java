@@ -75,11 +75,10 @@ public class User implements Serializable{
 	@NotBlank
 	private String observaciones;
 
-	@NotBlank
 	private int status= 1;
 	
 
-	public int isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
