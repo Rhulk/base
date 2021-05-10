@@ -75,15 +75,14 @@ public class User implements Serializable{
 	@NotBlank
 	private String observaciones;
 
-	@NotBlank
-	private boolean status= true;
+	private int status= 1;
 	
 
-	public boolean isStatus() {
+	public int getStatus() {
 		return status;
 	}
 
-	public void setStatus(boolean status) {
+	public void setStatus(int status) {
 		this.status = status;
 	}
 
@@ -96,7 +95,7 @@ public class User implements Serializable{
 	public User() {
 		
 		super();
-		this.status = true;
+		this.status = 1;
 	}
 
 	public String getApellido2() {
