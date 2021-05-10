@@ -68,6 +68,13 @@
 	      
 	      </update>
 	</changeSet>
+	<changeSet author="d" id="1++tempo">
+	      <update 
+	      tableName="usuario">
+	      <column name="status" value="1"/>
+	      
+	      </update>
+	</changeSet>
      
      
       <changeSet author="d" id="1a">
