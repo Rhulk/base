@@ -8,7 +8,7 @@
 		<div class="col-lg-9">
 		  <input type="radio" id="activo_si" name="activo" value=1 th:field="${userForm.status}">
 		  <label for="deweyd">Si</label>
-		  <input type="radio" id="activo_no" name="activo" value=0 th:field="${userForm.status}" >
+		  <input type="radio" id="activo_no" name="activo" value=0 th:field="${userForm.status}" th:disabled=true>
 		  <label for="dewey">No</label>
 		  <div class="alert-danger" th:if="${#fields.hasErrors('status')}" th:errors="*{status}">Name Error</div>
 		</div>
