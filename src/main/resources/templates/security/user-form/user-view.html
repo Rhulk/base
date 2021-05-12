@@ -57,19 +57,7 @@
 			<li class="nav-item">
 			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout </span><span> ` </span><span class="float-right"> <i class="fas fa-sign-out-alt"></i></span></a>
 			
-		<div th:text="${#authorization.expression('hasRole(''cl'')')} "></div> ---<br>
-		<div th:text="${#authorization.expression('hasRole(''ad'')')} "></div> ---<br>
-		<span th:text="${#authentication.getPrincipal().getUsername()}"></span> ---<br>
-		Detalle del usuario:<span th:text="${#authentication.getPrincipal()}"></span> ---<br>
-		Rol:<span sec:authentication="principal.authorities"></span>
-				
-				    <div class="row" sec:authorize="hasRole('cl')">
-        <h2>This will only be displayed if authenticated user has role ROLE_SUPERUSER.</h2>
-    </div>
-    <br>--<span sec:authorize="hasAuthority('cl')">true</span><br>
-    <div class="row" th:if="${#request.isUserInRole('cl')}">
-    <h2>This will only be displayed if authenticated user has role ROLE_SUPERUSER.</h2>
-</div>
+		
 							   	
 			</li>
 		</ul>

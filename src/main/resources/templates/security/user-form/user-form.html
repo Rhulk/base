@@ -3,11 +3,6 @@
 	<input class="form-control" type=hidden th:field="${userForm.id}"  th:if="${editMode}"> <!--Es necesario para poder pasar la validacion del Model-->
 	<input class="form-control" type=hidden name="password" value="xxxx" th:if="${editMode}">
 	
-	<div th:text="${#authorization.expression('hasRole(''cl'')')} "></div> ---<br>
-	<div th:text="${#authorization.expression('hasRole(''ad'')')} "></div> ---<br>
-	<span th:text="${#authentication.getPrincipal().getUsername()}"></span> ---<br>
-	Detalle del usuario:<span th:text="${#authentication.getPrincipal()}"></span> ---<br>
-	Rol:<span sec:authentication="principal.authorities"></span>
 	
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Activo</label>	

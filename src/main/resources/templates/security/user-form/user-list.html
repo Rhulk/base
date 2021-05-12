@@ -18,16 +18,13 @@
 			<td th:text="${user.username}"></td>
 			<td th:text="${user.email}"></td>
 			<td>	
-						<span th:text="${#authorization.expression('isAuthenticated()')}"> </span> <!-- works fine -->
-						<div th:text="${#authorization.expression('hasRole(''CL'')')} "></div>
-					  <span th:if="${#authorization.expression('hasRole(''cl'')')}">
-						
-						<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
-					<!--  </span> -->
-					<span th:if="${#authorization.expression('hasRole(''ad'')')} or (${#authorization.expression('hasRole(''cl'')')} and ${#httpServletRequest.remoteUser==user.username})">
+					<span security:authorize access="hasAnyRole('ad', 'cl')">
 						<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
 					</span>
-					<span th:if="${#authorization.expression('hasRole(''ad'')')}" >
+					<span th:if="${#authorization.expression('hasRole(''ad'')')} or (${#authorization.expression('hasRole(''cl'')')} and ${#httpServletRequest.remoteUser==user.username})">
+					Spring 3	<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+					</span>
+					<span sec:authorize="hasAuthority('ad')">
 					
 					| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
 			</td>
