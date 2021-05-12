@@ -67,6 +67,7 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         	.antMatchers("/admin/dashboard").hasAnyRole("ad")
         	.antMatchers("/user/dashboard").hasAnyRole("cl","ad")
             .antMatchers("/").hasAnyRole("cl","ad")
+            //.antMatchers("/userForm").hasAnyRole("ad") bloquea el login a todos menos los admin Pendiente mostrar el error correcto ahora sale 404
             .antMatchers("/singnup").permitAll()
             .and().formLogin()
             .defaultSuccessUrl("/userForm",true)
