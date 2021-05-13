@@ -75,8 +75,10 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}	
 	
-	@PreAuthorize("hasAnyRole('ad','cl')")
+	//@PreAuthorize("hasAnyRole('ad','cl')")
 	@Override
+	//@PreAuthorize("hasAuthority('ad','cl')")
+	@PreAuthorize("isAuthenticated()")  
 	public User updateUser(User fromUser)  throws Exception {
 		User toUser = getUserById(fromUser.getId());
 		mapUser(fromUser, toUser);
