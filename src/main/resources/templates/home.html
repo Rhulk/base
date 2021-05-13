@@ -6,6 +6,7 @@
 </head>
 <body>
 	<h1 th:inline="text">Bienvenido a la pagina principal !! [[${#httpServletRequest.remoteUser}]] !!</h1>
+	<p th:text="#{info.DDBB}">Welcome to our grocery store!</p>
 	<br>
 	<a href="/admin/dashboard">DashBoard Admin</a>
 	<br>

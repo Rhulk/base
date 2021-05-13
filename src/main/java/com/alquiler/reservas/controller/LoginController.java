@@ -42,6 +42,12 @@ public class LoginController {
 	
 	@Autowired 
 	UserService userService;
+	
+	@GetMapping("/home")
+	public String home(Model model) {
+		
+		return "home";
+	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
