@@ -195,6 +195,8 @@ public class LoginController {
 		try {
 			userService.deleteUser(id);
 		} catch (Exception e) {
+			// test problema borrando 
+			
 			model.addAttribute("deleteError","The user could not be deleted.");
 		}
 		return getUserForm(model);

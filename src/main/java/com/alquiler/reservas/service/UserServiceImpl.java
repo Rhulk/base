@@ -83,7 +83,8 @@ public class UserServiceImpl implements UserService{
 		return userRepository.save(toUser);
 	}
 	
-	@PreAuthorize("hasAnyRole('ad')")
+	//@PreAuthorize("hasAnyRole('ad')") old
+	//@PreAuthorize("hasAuthority('ad')") not working
 	public void deleteUser(Long id) throws Exception {
 		User user = userRepository.findById(id)
 				.orElseThrow(() -> new Exception("UsernotFound in deleteUser -"+this.getClass().getName()));
