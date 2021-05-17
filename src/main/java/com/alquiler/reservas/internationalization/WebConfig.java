@@ -32,15 +32,18 @@ public class WebConfig implements ApplicationContextAware{
   public void setApplicationContext(ApplicationContext context) {
     this.context = context;
   }
-
+/*
   @Bean
   public MessageSource messageSource() {
     ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
-    messageSource.setBasenames("i18n/messages");
+   // messageSource.setBasenames("C:/Users/enrique/git/base2/src/main/resourcesi18n/messages/");
+    messageSource.setBasenames("C:\\Users\\enrique\\git\\base2\\src\\main\\resources\\i18n\\messages");
+   // messageSource.setBasename("C:\\Users\\enrique\\git\\base2\\src\\main\\resources\\i18n\\messages");
     messageSource.setDefaultEncoding("UTF-8");
     return messageSource;
   }
-
+*/
+  /**/
   @Bean
   public ITemplateResolver thymeleafTemplateResolver() {
     final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -53,6 +56,7 @@ public class WebConfig implements ApplicationContextAware{
     return resolver;
   }
 
+  
   @Bean
   public SessionLocaleResolver localeResolver() {
       SessionLocaleResolver slr = new SessionLocaleResolver();
@@ -60,10 +64,12 @@ public class WebConfig implements ApplicationContextAware{
       return slr;
   }
   
+  
   @Bean
   public LocaleChangeInterceptor localeChangeInterceptor() {
       LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
       lci.setParamName("lang");
       return lci;
   }
+  
 }
