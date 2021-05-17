@@ -43,7 +43,7 @@ public class WebConfig implements ApplicationContextAware{
     return messageSource;
   }
 */
-  /**/
+  /*
   @Bean
   public ITemplateResolver thymeleafTemplateResolver() {
     final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -63,7 +63,7 @@ public class WebConfig implements ApplicationContextAware{
       slr.setDefaultLocale(Locale.US);
       return slr;
   }
-  
+ 
   
   @Bean
   public LocaleChangeInterceptor localeChangeInterceptor() {
@@ -71,5 +71,5 @@ public class WebConfig implements ApplicationContextAware{
       lci.setParamName("lang");
       return lci;
   }
-  
+   */
 }
