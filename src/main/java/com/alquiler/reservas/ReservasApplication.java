@@ -18,7 +18,7 @@ public class ReservasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReservasApplication.class, args);
 		//start();
-		//i18n();
+		i18n();
 	}
 	// up
 	public static void start() {
