@@ -22,8 +22,11 @@ import org.thymeleaf.spring5.ISpringWebFluxTemplateEngine;
 import org.thymeleaf.spring5.view.reactive.ThymeleafReactiveViewResolver;
 import org.thymeleaf.spring5.templateresolver.SpringResourceTemplateResolver;
 
+import org.springframework.context.annotation.Bean;
+import org.springframework.context.annotation.Configuration;
+import org.springframework.context.support.ResourceBundleMessageSource;
+
 @Configuration
-//@EnableWebFlux
 public class WebConfig implements ApplicationContextAware{
 
   private ApplicationContext context;
@@ -32,7 +35,7 @@ public class WebConfig implements ApplicationContextAware{
   public void setApplicationContext(ApplicationContext context) {
     this.context = context;
   }
-/*
+/* 
   @Bean
   public MessageSource messageSource() {
     ResourceBundleMessageSource messageSource = new ResourceBundleMessageSource();
@@ -42,8 +45,8 @@ public class WebConfig implements ApplicationContextAware{
     messageSource.setDefaultEncoding("UTF-8");
     return messageSource;
   }
-*/
-  /*
+
+  
   @Bean
   public ITemplateResolver thymeleafTemplateResolver() {
     final SpringResourceTemplateResolver resolver = new SpringResourceTemplateResolver();
@@ -70,6 +73,13 @@ public class WebConfig implements ApplicationContextAware{
       LocaleChangeInterceptor lci = new LocaleChangeInterceptor();
       lci.setParamName("lang");
       return lci;
+  }
+  
+  @Bean
+  public ResourceBundleMessageSource messageSource() {
+      ResourceBundleMessageSource rbms = new ResourceBundleMessageSource();
+      rbms.setBasename("i18n/message");
+      return rbms;
   }
    */
 }
