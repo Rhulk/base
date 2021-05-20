@@ -6,8 +6,8 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class In18Controller {
 
-	@GetMapping("/in18")
+	@GetMapping("/i18n")
 	public String index() {
-		return "in18";
+		return "i18n";
 	}
 }
