@@ -9,7 +9,7 @@ import org.springframework.context.annotation.AnnotationConfigApplicationContext
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.alquiler.reservas.internationalization.SpringConfiguration;
-import com.alquiler.reservas.util.Tarea;
+//import com.alquiler.reservas.util.Tarea;
 
 
 @SpringBootApplication
@@ -21,7 +21,7 @@ public class ReservasApplication {
 		i18n();
 	}
 	// up
-	public static void start() {
+/*	public static void start() {
 		System.out.println(" Start Timer ");
         Tarea tarea = new Tarea();
         Timer temporizador = new Timer();
@@ -30,7 +30,7 @@ public class ReservasApplication {
         temporizador.scheduleAtFixedRate(tarea, 0, 1000*segundos);
 		
 	}
-	
+	*/
 	public static void i18n() {
         AbstractApplicationContext ctx 
         = new AnnotationConfigApplicationContext(SpringConfiguration.class);
