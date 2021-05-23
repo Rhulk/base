@@ -24,7 +24,7 @@ import org.hibernate.annotations.NotFound;
 
 import com.sun.istack.NotNull;
 
-import lombok.Builder.Default;
+//import lombok.Builder.Default;
 
 @Entity
 @Table(name="usuario")
