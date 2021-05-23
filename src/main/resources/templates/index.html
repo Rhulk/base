@@ -37,6 +37,9 @@
                 <div class="col-12 forgot">
                  	<a href="#">Recuperar Password</a><br>
                     <a th:href="@{/signup}">Crear Usuario</a>
+                    <p  th:text="#{info.DDBB}">properties</p>
+                    <p  th:text="#{version.numero}">properties</p>
+                    <p  th:text="#{version.fecha}">properties</p>
                 </div>
                 <div th:if="${param.error}" class="alert alert-danger" role="alert">
 		            Invalid username and password.
