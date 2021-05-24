@@ -219,11 +219,15 @@ public class LoginController {
 	 * 
 	 * In delop
 	 * 
+	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
+	 * 
 	 */
-	@GetMapping("/active/{id}")
-	public String modStatusUser(Model model, @PathVariable(name="id") Long id) {
+	@GetMapping("/active/{id}/{status}")
+	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
 		try {
-			userService.modStatusUser(id, 1);
+			userService.modStatusUser(id, status);
+			
+			System.out.println(" --\n"+ userService.getUserById(id).getStatus());
 		} catch (Exception e) {
 			// test problema borrando 
 			
