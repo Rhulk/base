@@ -214,6 +214,23 @@ public class LoginController {
 		}
 		return getUserForm(model);
 	}
+	/*
+	 * Metodo para activar user desde el correo tras ser creado.
+	 * 
+	 * In delop
+	 * 
+	 */
+	@GetMapping("/active/{id}")
+	public String modStatusUser(Model model, @PathVariable(name="id") Long id) {
+		try {
+			userService.modStatusUser(id, 1);
+		} catch (Exception e) {
+			// test problema borrando 
+			
+			model.addAttribute("modStatusUserError","The user could not be Actived.");
+		}
+		return getUserForm(model);
+	}
 	
 	@GetMapping("/editUser/cancel")
 	public String cancelEditUser(ModelMap model) {
