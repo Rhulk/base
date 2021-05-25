@@ -226,11 +226,10 @@ public class LoginController {
 	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
 		try {
 			userService.modStatusUser(id, status);
-			
-			System.out.println(" --\n"+ userService.getUserById(id).getStatus());
+
 		} catch (Exception e) {
 			// test problema borrando 
-			
+			System.out.println(" -- Error -- "+e.toString());
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
