@@ -75,14 +75,28 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}	
 	
-	//@PreAuthorize("hasAnyRole('ad','cl')")
-	@Override
-	//@PreAuthorize("hasAuthority('ad','cl')")
+	/*
+	 *  Update User
+	 *  
+	 */
 	@PreAuthorize("isAuthenticated()")  
 	public User updateUser(User fromUser)  throws Exception {
 		User toUser = getUserById(fromUser.getId());
 		mapUser(fromUser, toUser);
 		return userRepository.save(toUser);
+	}
+	
+	/*
+	 *  For Active user
+	 * 
+	 * 	In delop proges
+	 */
+	public User modStatusUser(Long id, int status) throws Exception {
+		User user = userRepository.findById(id)
+				.orElseThrow(() -> new Exception("UsernotFound in modStatusUser -"+this.getClass().getName()));
+		user.setStatus(status);
+		userRepository.save(user);
+		return null;
 	}
 	
 	//@PreAuthorize("hasAnyRole('ad')") old
