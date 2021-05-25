@@ -27,6 +27,15 @@
 					<span sec:authorize="hasAuthority('ad')">
 					
 					| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
+					</span>
+			</td>
+			<td>	
+					<span sec:authorize="hasAuthority('ad')">
+					<a href="#" th:href="@{'/active/'+ ${user.id}}+'/0'"><i class="fas fa-ban"></i></a>
+					</span>
+					<span security:authorize access="hasAnyRole('ad', 'cl')">
+					<a href="#" th:href="@{'/active/'+ ${user.id}}+'/1'"><i class="fas fa-check"></i></a>
+					</span>
 			</td>
 		</tr>
 		</tbody>
