@@ -8,6 +8,7 @@
 			<th scope="col">Username</th>
 			<th scope="col">E-mail</th>
 			<th></th>
+			<th></th>
 		</tr>
 		</thead>
 		<tbody>
@@ -29,7 +30,7 @@
 					| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
 					</span>
 			</td>
-			<td>	
+		<td>	
 				
 				
 					<span sec:authorize="hasAuthority('ad')" th:if="${user.status}">
