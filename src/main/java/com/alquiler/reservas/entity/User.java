@@ -209,10 +209,13 @@ public class User implements Serializable{
 
 	@Override
 	public String toString() {
-		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", email=" + email
-				+ ", username=" + username + ", password=" + password + ", confirmPassword=" + confirmPassword
-				+ ", roles=" + roles + "]";
+		return "User [id=" + id + ", firstname=" + firstname + ", lastname=" + lastname + ", apellido2=" + apellido2
+				+ ", email=" + email + ", username=" + username + ", password=" + password + ", confirmPassword="
+				+ confirmPassword + ", municipio=" + municipio + ", direccion=" + direccion + ", telefono=" + telefono
+				+ ", observaciones=" + observaciones + ", status=" + status + ", roles=" + roles + "]";
 	}
+
+
 /*
 	@Override
 	public int hashCode() {

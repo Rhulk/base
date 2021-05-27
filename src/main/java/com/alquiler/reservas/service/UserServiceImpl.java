@@ -64,6 +64,7 @@ public class UserServiceImpl implements UserService{
 		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {
 			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
+			System.out.println(" -- user -- " + user.toString());
 			user = userRepository.save(user);
 		}
 		return user;
