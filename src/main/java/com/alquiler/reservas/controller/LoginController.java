@@ -233,6 +233,7 @@ public class LoginController {
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
+
 	}
 	
 	@GetMapping("/editUser/cancel")

@@ -3,12 +3,15 @@ package com.alquiler.reservas;
 import java.util.Locale;
 import java.util.Timer;
 
+
+
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.alquiler.reservas.conf.SpringConfiguration;
+import com.alquiler.reservas.util.EmailSenderService;
 import com.alquiler.reservas.util.Tarea;
 
 @SpringBootApplication
@@ -17,7 +20,10 @@ public class ReservasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReservasApplication.class, args);
 		//start();
-		i18n();
+		//i18n();
+		EmailSenderService e = new EmailSenderService();
+		
+		e.run();// correo tipo.
 	}
 	// up
 	public static void start() {

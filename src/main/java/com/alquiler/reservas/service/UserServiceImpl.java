@@ -79,12 +79,13 @@ public class UserServiceImpl implements UserService{
 	 *  Update User
 	 *  
 	 */
+	@Override
 	@PreAuthorize("isAuthenticated()")  
 	public User updateUser(User fromUser)  throws Exception {
 		User toUser = getUserById(fromUser.getId());
 		mapUser(fromUser, toUser);
 		return userRepository.save(toUser);
-	}
+	} 
 	
 	/*
 	 *  For Active user
@@ -97,6 +98,7 @@ public class UserServiceImpl implements UserService{
 		user.setStatus(status);
 		userRepository.save(user);
 		return null;
+
 	}
 	
 	//@PreAuthorize("hasAnyRole('ad')") old
