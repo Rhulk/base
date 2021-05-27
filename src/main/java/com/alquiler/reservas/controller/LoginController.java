@@ -214,6 +214,26 @@ public class LoginController {
 		}
 		return getUserForm(model);
 	}
+	/*
+	 * Metodo para activar user desde el correo tras ser creado.
+	 * 
+	 * In delop
+	 * 
+	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
+	 * 
+	 */
+	@GetMapping("/active/{id}/{status}")
+	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
+		try {
+			userService.modStatusUser(id, status);
+
+		} catch (Exception e) {
+			// test problema borrando 
+			System.out.println(" -- Error -- "+e.toString());
+			model.addAttribute("modStatusUserError","The user could not be Actived.");
+		}
+		return getUserForm(model);
+	}
 	
 	@GetMapping("/editUser/cancel")
 	public String cancelEditUser(ModelMap model) {
