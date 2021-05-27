@@ -23,7 +23,7 @@ public class ReservasApplication {
 		//i18n();
 		EmailSenderService e = new EmailSenderService();
 		
-		e.run();
+		e.run();// correo tipo.
 	}
 	// up
 	public static void start() {

@@ -26,6 +26,7 @@ public class EmailSenderService extends Thread{
 		properties.put("mail.smtp.user", "todo.develop.gestion");
 		properties.put("mail.smtp.auth", "true");
 		properties.put("password", "08180818");
+		properties.put("to", "quique1904@gmail.com");
 
  
 		session = Session.getDefaultInstance(properties);
@@ -37,7 +38,7 @@ public class EmailSenderService extends Thread{
 		try{
 			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress("quique1904@gmail.com"));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(properties.getProperty("to")));
 			message.setSubject("Mantenimiento pendiente");
 			message.setText("Correo prueba de mantenimiento");
 			Transport t = session.getTransport("smtp");
@@ -46,13 +47,41 @@ public class EmailSenderService extends Thread{
 			t.close();
 			System.out.println("Mensaje enviado...");
 		}catch (MessagingException me){
-                        //Aqui se deberia o mostrar un mensaje de error o en lugar
-                        //de no hacer nada con la excepcion, lanzarla para que el modulo
-                        //superior la capture y avise al usuario con un popup, por ejemplo.
 			me.printStackTrace();
 			return;
 		}
 		
+	}
+	/*
+	 * Metodo para mandar mail
+	 * 
+	 * Parametros: asunto, cuerpo y to
+	 * 
+	 * Opcional si se pone default en el parametro to recuperara el valor de la propiedad properties.put("to", "quique1904@gmail.com");
+	 * 
+	 */
+	
+	public void send(String asunto, String cuerpo, String to) {
+		
+		if (to.equals("default")) {
+			to = properties.getProperty("to");
+		}
+		init();
+		try{
+			MimeMessage message = new MimeMessage(session);
+			message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.setSubject(asunto);
+			message.setText(cuerpo);
+			Transport t = session.getTransport("smtp");
+			t.connect((String)properties.get("mail.smtp.user"), properties.getProperty("password"));
+			t.sendMessage(message, message.getAllRecipients());
+			t.close();
+			System.out.println("Mensaje enviado...");
+		}catch (MessagingException me){
+			me.printStackTrace();
+			return;
+		}		
 	}
  
 }
