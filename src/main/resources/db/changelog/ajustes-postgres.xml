@@ -38,6 +38,13 @@
 	</changeSet>
   	
 
+			<changeSet author="d" id="statusNull1">
+	      <update 
+	      tableName="usuario">
+	      <column name="status" value="1"/>
+	      
+	      </update>
+	</changeSet>
  
 
 
