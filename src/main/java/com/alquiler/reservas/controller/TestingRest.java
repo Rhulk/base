@@ -54,5 +54,15 @@ public class TestingRest {
 
 
 		return "Hecho";
+	}
+	@GetMapping("/delete/{id}")
+	public String deleteUser(@PathVariable(name="id") Long id) throws Exception {
+		//falta recuperar total user
+
+		userService.deleteUser(id);
+
+
+
+		return "Hecho";
 	}	
 }
