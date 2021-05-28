@@ -21,6 +21,14 @@
             newDataType="integer"   
             tableName="usuario"/>  
 	</changeSet>
+	
+		<changeSet author="d" id="statusNull">
+	      <update 
+	      tableName="usuario">
+	      <column name="status" value="1"/>
+	      
+	      </update>
+	</changeSet>
   	
 
  
