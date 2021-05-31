@@ -12,7 +12,7 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 	
 # Rama: Heroku-pre
-# Fecha Committer: 2021-05-31 16:02:59
+# Fecha Committer: 2021-05-31 23:39
 # LastChange: Ajustes para el mantenimiento de los usuarios
 # Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
@@ -20,9 +20,9 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	
 
 # Rama: Heroku
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: Merge remote-tracking branch 'origin/master' into delop (i18n)
-# Problem: Merge de Heroku-pre tras validacion
+# Fecha Committer: 2021-05-31 23:39
+# LastChange: Merge witch Heroku-pre
+# Problem: 
 	* Entorno Producción de Heroku estable.
 	
 	
