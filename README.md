@@ -20,8 +20,8 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	
 
 # Rama: Heroku
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: Merge remote-tracking branch 'origin/master' into delop (i18n)
+# Fecha Committer: 2021-05-31 23:49
+# LastChange: In line with heroku-pre
 # Problem: Merge de Heroku-pre tras validacion
 	* Entorno Producción de Heroku estable.
 	
@@ -33,6 +33,6 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	* Entorno principal de desarrollo
 	
 # Rama: master
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: En linea con i18n, SearchList branch heroku,delop
+# Fecha Committer: 2021-05-31 23:45
+# LastChange: En linea con Heroku-pre
 	* Entorno estable base
