@@ -12,9 +12,9 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 	
 # Rama: Heroku-pre
-# Fecha Committer: 
-# LastChange: 
-# Problem:
+# Fecha Committer: 2021-05-28 14:31:16
+# LastChange: Ajustes para el mantenimiento de los usuarios
+# Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
 	--> Punto a resolver operatividad con postges
 	
