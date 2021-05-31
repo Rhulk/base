@@ -3,7 +3,13 @@
 
 #Ramas avances y desarrollos
 
-Doc de los avandes y modificaciones en las diferentes ramas
+Doc de los avances y modificaciones en las diferentes ramas
+
+# Rama: feature/ActiveMail
+# Fecha Committer: 2021-06-1 0:0
+# LastChange: Init branck feature activacion por mail
+# Problem: Activar las cuentas nuevas mediante enlace a un correo
+	
 
 # Rama: feature/Mail
 # Fecha Committer: 2021-05-27 10:37:27
