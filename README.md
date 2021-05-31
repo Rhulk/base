@@ -27,8 +27,8 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	
 	
 # Rama: delop
-# Fecha Committer: 2021-05-26 16:18:33
-# LastChange: En linea con i18n, SearchList branch heroku,master
+# Fecha Committer: 2021-05-31 23:45
+# LastChange: In line with branch Heroku-pre
 # Problem:
 	* Entorno principal de desarrollo
 	
