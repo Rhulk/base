@@ -21,9 +21,7 @@ public class ReservasApplication {
 		SpringApplication.run(ReservasApplication.class, args);
 		//start();
 		//i18n();
-		EmailSenderService e = new EmailSenderService();
-		
-		e.run();// correo tipo.
+
 	}
 	// up
 	public static void start() {

@@ -36,6 +36,7 @@ import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
 import com.alquiler.reservas.service.UserService;
+import com.alquiler.reservas.util.EmailSenderService;
 
 
 
@@ -48,7 +49,7 @@ public class LoginController {
 	@Autowired 
 	UserService userService;
 	
-
+	EmailSenderService email = new EmailSenderService();
 	
 	@GetMapping("/home")
 	public String home(Model model) {
@@ -82,7 +83,13 @@ public class LoginController {
 			return "security/user-form/user-signup";
 		}else {
 			try {
+				user.setStatus(0);// mejora en la vista
 				userService.createUser(user);
+				String host= "https://rhulk.herokuapp.com";
+				String url= host+"/active/"+user.getId()+"/1";
+				
+				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
+				
 				
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
