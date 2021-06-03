@@ -17,11 +17,14 @@ import com.alquiler.reservas.util.Tarea;
 @SpringBootApplication
 public class ReservasApplication {
 
+	
+	
 	public static void main(String[] args) {
 		SpringApplication.run(ReservasApplication.class, args);
 		//start();
 		//i18n();
-
+		//EmailSenderService e = new EmailSenderService();
+		//e.testMail();
 	}
 	// up
 	public static void start() {

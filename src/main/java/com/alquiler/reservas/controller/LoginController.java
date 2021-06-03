@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -80,16 +81,22 @@ public class LoginController {
 		
 		
 		if(result.hasErrors()) {
+			List<ObjectError>  e = result.getAllErrors();
+			System.out.println( e);
+			System.out.println(" Error signup");
 			return "security/user-form/user-signup";
 		}else {
 			try {
 				user.setStatus(0);// mejora en la vista
+				System.out.println(" Creando user...");
 				userService.createUser(user);
+				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
 				String url= host+"/active/"+user.getId()+"/1";
 				
 				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
-				
+				email.testMail(); // test ssl
+				System.out.println(" [Send Mail Activation]");
 				
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());

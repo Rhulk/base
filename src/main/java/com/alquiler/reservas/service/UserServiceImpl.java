@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 			System.out.println(" -- user -- " + user.toString());
 			user = userRepository.save(user);
 		}
-		System.out.println(" [Hecho]");
+		System.out.println(" [User Create]");
 		return user;
 	}
 	
