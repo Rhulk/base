@@ -21,13 +21,18 @@ public class EmailSenderService extends Thread{
  
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.port",587);
+	//	properties.put("mail.smtp.port",587);
 		properties.put("mail.smtp.mail.sender","todo.develop.gestion@gmail.com");
 		properties.put("mail.smtp.user", "todo.develop.gestion");
 		properties.put("mail.smtp.auth", "true");
 		properties.put("password", "08180818");
 		properties.put("to", "quique1904@gmail.com");
 
+
+		// Use the following if you need SSL
+		properties.put("mail.smtp.socketFactory.port", 587);
+		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+		properties.put("mail.smtp.socketFactory.fallback", "false");
  
 		session = Session.getDefaultInstance(properties);
 	}
