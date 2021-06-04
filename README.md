@@ -6,8 +6,8 @@
 Doc de los avances y modificaciones en las diferentes ramas
 
 # Rama: feature/ActiveMail
-# Fecha Committer: 2021-06-1 12:48
-# LastChange: Creado envido mail active user
+# Fecha Committer: 2021-06-03 18:29:01
+# LastChange: Pruebas locas
 # Problem: Activar las cuentas nuevas mediante enlace a un correo
 	
 
