@@ -104,6 +104,10 @@ public class LoginController {
 			}
 			catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
+				e.printStackTrace();
+				System.out.println("[Error] "+e.getMessage());
+				System.out.println("[Error] "+e.toString());
+				
 				return "security/user-form/user-signup";
 			}
 		}
