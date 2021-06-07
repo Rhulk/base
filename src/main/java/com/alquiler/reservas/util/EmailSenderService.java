@@ -138,8 +138,9 @@ public class EmailSenderService extends Thread{
 			message.setSubject(asunto);
 			message.setText(cuerpo);
 			
-			Transport t = session.getTransport("smtp");
-
+			//Transport t = session.getTransport("smtp");
+			SMTPTransport t = (SMTPTransport)session.getTransport("smtp");
+			
 			t.connect((String)properties.get("mail.smtp.user"), properties.getProperty("password"));
 			t.sendMessage(message, message.getAllRecipients());
 			t.close();

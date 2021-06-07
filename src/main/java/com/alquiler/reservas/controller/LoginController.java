@@ -72,6 +72,8 @@ public class LoginController {
 	
 	@PostMapping("/signup")
 	public String signupPost(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
+
+		User doneUser = null;
 		
 		Role rol = roleRepository.findByName("cl");
 		List <Role> roles = Arrays.asList(rol);
@@ -89,7 +91,7 @@ public class LoginController {
 			try {
 				user.setStatus(0);// mejora en la vista
 				System.out.println(" Creando user...");
-				userService.createUser(user);
+				doneUser = userService.createUser(user);
 				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
 				String url= host+"/active/"+user.getId()+"/1";
@@ -100,6 +102,13 @@ public class LoginController {
 				
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				try {
+					//userService.deleteUser(doneUser.getId()); //lo borro para forzar volver a crear el mismo user desde la misma vista.
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				return "security/user-form/user-signup";
 			}
 			catch (Exception e) {
