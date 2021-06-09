@@ -6,8 +6,8 @@
 Doc de los avances y modificaciones en las diferentes ramas
 
 # Rama: feature/ActiveMail
-# Fecha Committer: 2021-06-07 12:22
-# LastChange: Pruebas locas 2
+# Fecha Committer: 2021-06-09 18:45
+# LastChange: igualando con la rama Mail Not work
 # Problem: Activar las cuentas nuevas mediante enlace a un correo
 	
 
