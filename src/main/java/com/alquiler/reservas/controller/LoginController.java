@@ -97,7 +97,7 @@ public class LoginController {
 				String url= host+"/active/"+user.getId()+"/1";
 				
 				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
-				email.testMail(); // test ssl
+				//email.testMail(); // test ssl
 				System.out.println(" [Send Mail Activation]");
 				
 			}catch (CustomeFieldValidationException cfve) {

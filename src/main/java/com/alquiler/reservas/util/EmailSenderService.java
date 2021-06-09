@@ -9,7 +9,6 @@ import javax.mail.event.*;
 import javax.mail.internet.InternetAddress;
 import javax.mail.internet.MimeMessage;
 import javax.activation.*;
-
  
 public class EmailSenderService extends Thread{
 	private final Properties properties = new Properties();
@@ -28,11 +27,11 @@ public class EmailSenderService extends Thread{
 		properties.put("mail.smtp.auth", "true");
 		properties.put("password", "08180818");
 		properties.put("to", "quique1904@gmail.com");
-		
-		
+
+ 
 		session = Session.getDefaultInstance(properties);
 	}
-
+ 
 	public void run(){
  
 		init();
@@ -44,7 +43,7 @@ public class EmailSenderService extends Thread{
 			message.setText("Correo prueba de mantenimiento");
 			Transport t = session.getTransport("smtp");
 			t.connect((String)properties.get("mail.smtp.user"), properties.getProperty("password"));
-			t.sendMessage(message, message.getAllRecipients());		
+			t.sendMessage(message, message.getAllRecipients());
 			t.close();
 			System.out.println("Mensaje enviado...");
 		}catch (MessagingException me){
@@ -63,25 +62,26 @@ public class EmailSenderService extends Thread{
 	 */
 	
 	public void send(String asunto, String cuerpo, String to) {
-		
+		init();// Importante al inicio para recuperar datos de los properties.
+		ssl(); // test ssl
 		if (to.equals("default")) {
 			to = properties.getProperty("to");
+			System.out.println(to);
 		}
-		init();
+		
 		try{
-			MimeMessage message = new MimeMessage(session);		
+			MimeMessage message = new MimeMessage(session);
 			message.setFrom(new InternetAddress((String)properties.get("mail.smtp.mail.sender")));
-			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to));
+			message.addRecipient(Message.RecipientType.TO, new InternetAddress(to)); 
 			message.setSubject(asunto);
 			message.setText(cuerpo);
 			Transport t = session.getTransport("smtp");
 			t.connect((String)properties.get("mail.smtp.user"), properties.getProperty("password"));
 			t.sendMessage(message, message.getAllRecipients());
-			t.close();			
+			t.close();
 			System.out.println("Mensaje enviado...");
 		}catch (MessagingException me){
 			me.printStackTrace();
-			System.out.println(" -- Error Mail --"+me);
 			return;
 		}		
 	}
@@ -118,28 +118,26 @@ public class EmailSenderService extends Thread{
 		}	
 		
 	}
-	
-	// Use the following if you need SSL
-//	properties.put("mail.smtp.socketFactory.port", 587);
-//		properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
-//		properties.put("mail.smtp.socketFactory.fallback", "false");
-		
-		
-		// Set debug so we see the whole communication with the server
-	//	properties.put("mail.debug", "true");
+	public void ssl() {
+		// Use the following if you need SSL
+		properties.put("mail.smtp.socketFactory.port", 587);
+			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
+			properties.put("mail.smtp.socketFactory.fallback", "false");
+			
+			
+			// Set debug so we see the whole communication with the server
+			properties.put("mail.debug", "true");
 
-		//properties.put("mail.transport.protocol", "smtp");
-		//props.put("mail.host", outgoingHost);
-		//props.put("mail.smtp.auth", "true");
-		//props.put("mail.smtp.port", "587");
 
-		// Enable STARTTLS
-		//properties.put("mail.smtp.starttls.enable", "true");
+			// Enable STARTTLS
+			properties.put("mail.smtp.starttls.enable", "true");
 
-		// Accept only TLS 1.1 and 1.2
-		//properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.1 TLSv1.2");
+			// Accept only TLS 1.1 and 1.2
+			properties.setProperty("mail.smtp.ssl.protocols", "TLSv1.1 TLSv1.2");
 
-	//	Session session = Session.getInstance(properties, null);
-	//	session.setDebug(true);
+			Session session = Session.getInstance(properties, null);
+			session.setDebug(true);
+	}
+
  
 }
