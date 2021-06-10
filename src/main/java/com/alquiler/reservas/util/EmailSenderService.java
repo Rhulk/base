@@ -21,12 +21,12 @@ public class EmailSenderService extends Thread{
  
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.port",587);
-		properties.put("mail.smtp.mail.sender","todo.develop.gestion@gmail.com");
-		properties.put("mail.smtp.user", "todo.develop.gestion");
+		properties.put("mail.smtp.port",587); // 465 ssl // 587 local tls
+		properties.put("mail.smtp.mail.sender","activerhulk@gmail.com");
+		properties.put("mail.smtp.user", "activerhulk@gmail.com");
 		properties.put("mail.smtp.auth", "true");
 		properties.put("password", "08180818");
-		properties.put("to", "quique1904@gmail.com");
+		properties.put("to", "todo.develop.gestion@gmail.com");
 
  
 		session = Session.getDefaultInstance(properties);
@@ -63,7 +63,7 @@ public class EmailSenderService extends Thread{
 	
 	public void send(String asunto, String cuerpo, String to) {
 		init();// Importante al inicio para recuperar datos de los properties.
-		ssl(); // test ssl
+		//ssl(); // test ssl
 		if (to.equals("default")) {
 			to = properties.getProperty("to");
 			System.out.println(to);
