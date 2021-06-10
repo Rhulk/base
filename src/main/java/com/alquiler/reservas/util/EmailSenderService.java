@@ -21,7 +21,7 @@ public class EmailSenderService extends Thread{
  
 		properties.put("mail.smtp.host", "smtp.gmail.com");
 		properties.put("mail.smtp.starttls.enable", "true");
-		properties.put("mail.smtp.port",587); // 465 ssl // 587 local tls
+		properties.put("mail.smtp.port",465); // 465 ssl // 587 local tls
 		properties.put("mail.smtp.mail.sender","activerhulk@gmail.com");
 		properties.put("mail.smtp.user", "activerhulk@gmail.com");
 		properties.put("mail.smtp.auth", "true");
@@ -120,7 +120,7 @@ public class EmailSenderService extends Thread{
 	}
 	public void ssl() {
 		// Use the following if you need SSL
-		properties.put("mail.smtp.socketFactory.port", 587);
+			//properties.put("mail.smtp.socketFactory.port", 587);
 			properties.put("mail.smtp.socketFactory.class", "javax.net.ssl.SSLSocketFactory");
 			properties.put("mail.smtp.socketFactory.fallback", "false");
 			
