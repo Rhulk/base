@@ -92,6 +92,7 @@ public class LoginController {
 				user.setStatus(0);// mejora en la vista
 				System.out.println(" Creando user...");
 				doneUser = userService.createUser(user);
+				userService.deleteUser(user.getId()); // test Para dejar de crear usuarios a lo loco
 				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
 				String url= host+"/active/"+user.getId()+"/1";
@@ -103,7 +104,7 @@ public class LoginController {
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
 				try {
-					//userService.deleteUser(doneUser.getId()); //lo borro para forzar volver a crear el mismo user desde la misma vista.
+					userService.deleteUser(doneUser.getId()); //lo borro para forzar volver a crear el mismo user desde la misma vista.
 				} catch (Exception e) {
 					// TODO Auto-generated catch block
 					e.printStackTrace();
@@ -120,8 +121,8 @@ public class LoginController {
 				return "security/user-form/user-signup";
 			}
 		}
-		
-		return "index";
+		return "security/user-form/user-signup";
+		//return "index"; Para dejar de crear usuarios a lo loco
 	}
 	
 	
