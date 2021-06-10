@@ -63,7 +63,7 @@ public class EmailSenderService extends Thread{
 	
 	public void send(String asunto, String cuerpo, String to) {
 		init();// Importante al inicio para recuperar datos de los properties.
-		//ssl(); // test ssl
+		ssl(); // test ssl
 		if (to.equals("default")) {
 			to = properties.getProperty("to");
 			System.out.println(to);
