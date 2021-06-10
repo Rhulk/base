@@ -6,8 +6,8 @@
 Doc de los avances y modificaciones en las diferentes ramas
 
 # Rama: feature/ActiveMail
-# Fecha Committer: 2021-06-10 16:57
-# LastChange: Port 465 + test borrado user y redirect pag sinup
+# Fecha Committer: 2021-06-10 17:40
+# LastChange: Operativo con ssl de heroku
 # Problem: Activar las cuentas nuevas mediante enlace a un correo
 	
 
