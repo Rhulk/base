@@ -126,7 +126,7 @@ public class EmailSenderService extends Thread{
 			
 			
 			// Set debug so we see the whole communication with the server
-			properties.put("mail.debug", "true");
+			//properties.put("mail.debug", "true");
 
 
 			// Enable STARTTLS

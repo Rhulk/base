@@ -92,7 +92,7 @@ public class LoginController {
 				user.setStatus(0);// mejora en la vista
 				System.out.println(" Creando user...");
 				doneUser = userService.createUser(user);
-				userService.deleteUser(user.getId()); // test Para dejar de crear usuarios a lo loco
+				//userService.deleteUser(user.getId());  test Para dejar de crear usuarios a lo loco
 				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
 				String url= host+"/active/"+user.getId()+"/1";
@@ -121,8 +121,8 @@ public class LoginController {
 				return "security/user-form/user-signup";
 			}
 		}
-		return "security/user-form/user-signup";
-		//return "index"; Para dejar de crear usuarios a lo loco
+		//return "security/user-form/user-signup";
+		return "index"; //Para dejar de crear usuarios a lo loco
 	}
 	
 	
