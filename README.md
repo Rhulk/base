@@ -12,27 +12,25 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 	
 # Rama: Heroku-pre
-# Fecha Committer: 2021-05-31 23:39
-# LastChange: Ajustes para el mantenimiento de los usuarios
-# Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
-	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
-	--> Punto a resolver operatividad con postges
+# Fecha Committer: 2021-06-10 13:55
+# LastChange: In line with feature/ActiveMail
+# Problem: Testar en Heroku
 	
 
 # Rama: Heroku
-# Fecha Committer: 2021-05-31 23:39
+# Fecha Committer: 2021-06-14 11:52
 # LastChange: Merge witch Heroku-pre
-# Problem: 
+# Problem: Tras pruebas en Heroku-pre ok
 	* Entorno Producción de Heroku estable.
 	
 	
 # Rama: delop
-# Fecha Committer: 2021-05-26 16:18:33
-# LastChange: En linea con i18n, SearchList branch heroku,master
+# Fecha Committer: 2021-05-31 23:45
+# LastChange: In line with branch Heroku-pre
 # Problem:
 	* Entorno principal de desarrollo
 	
 # Rama: master
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: En linea con i18n, SearchList branch heroku,delop
+# Fecha Committer: 2021-05-31 23:45
+# LastChange: En linea con Heroku-pre
 	* Entorno estable base
