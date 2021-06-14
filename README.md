@@ -31,8 +31,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 	
 # Rama: delop
-# Fecha Committer: 2021-05-31 23:45
-# LastChange: In line with branch Heroku-pre
+# Fecha Committer: 2021-06-14 12:05
+# LastChange: In line with branch Heroku
 # Problem:
 	* Entorno principal de desarrollo
 	
