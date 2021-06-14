@@ -3,7 +3,13 @@
 
 #Ramas avances y desarrollos
 
-Doc de los avandes y modificaciones en las diferentes ramas
+Doc de los avances y modificaciones en las diferentes ramas
+
+# Rama: feature/ActiveMail
+# Fecha Committer: 2021-06-10 17:40
+# LastChange: Operativo con ssl de heroku
+# Problem: Activar las cuentas nuevas mediante enlace a un correo
+	
 
 # Rama: feature/Mail
 # Fecha Committer: 2021-05-27 10:37:27
