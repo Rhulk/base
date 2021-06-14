@@ -37,6 +37,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno principal de desarrollo
 	
 # Rama: master
-# Fecha Committer: 2021-05-31 23:45
-# LastChange: En linea con Heroku-pre
+# Fecha Committer: 2021-06-14 12:15
+# LastChange: En linea con delop
 	* Entorno estable base
