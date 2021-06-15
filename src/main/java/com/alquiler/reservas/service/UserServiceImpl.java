@@ -77,6 +77,11 @@ public class UserServiceImpl implements UserService{
 		return user;
 	}	
 	
+	@Override
+	public User getUserByName(String username) throws Exception  {
+		return (User) userRepository.findByUsername(username);
+	}
+	
 	/*
 	 *  Update User
 	 *  

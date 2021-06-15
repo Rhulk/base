@@ -38,6 +38,7 @@ import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
 import com.alquiler.reservas.service.UserService;
 import com.alquiler.reservas.util.EmailSenderService;
+import com.alquiler.reservas.util.SpringCoder;
 
 
 
@@ -49,6 +50,8 @@ public class LoginController {
 	
 	@Autowired 
 	UserService userService;
+	
+	SpringCoder dcode;
 	
 	EmailSenderService email = new EmailSenderService();
 	
@@ -95,7 +98,8 @@ public class LoginController {
 				//userService.deleteUser(user.getId());  test Para dejar de crear usuarios a lo loco
 				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
-				String url= host+"/active/"+user.getId()+"/1";
+				String cifrado= dcode.cifrar(user.getUsername());
+				String url= host+"/active/"+ cifrado +"/1"; //String url= host+"/active/"+user.getId()+"/1";
 				
 				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
 				//email.testMail(); // test ssl
@@ -247,11 +251,11 @@ public class LoginController {
 	 * 
 	 * In delop
 	 * 
-	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
+	 * Interno
 	 * 
 	 */
-	@GetMapping("/active/{id}/{status}")
-	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
+	@GetMapping("/active_/{id}/{status}")
+	public String modStatusUserSimple(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
 		try {
 			userService.modStatusUser(id, status);
 
@@ -261,6 +265,28 @@ public class LoginController {
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
+
+	}
+	
+	/*
+	 * Metodo para activar user desde el correo tras ser creado.
+	 * 
+	 * In delop
+	 * 
+	 * Modificación con cifrado
+	 * 
+	 */
+	@GetMapping("/active/{cadenaCifrada}/{status}")
+	public String modStatusUser(Model model, @PathVariable(name="cadenaCifrada") String cadenaCifrada, @PathVariable(name="status") int status) {
+		try {
+			userService.modStatusUser(userService.getUserByName(dcode.descifrar(cadenaCifrada)).getId(), status);
+
+		} catch (Exception e) {
+			// test problema borrando 
+			System.out.println(" -- Error -- "+e.toString());
+			model.addAttribute("ErrorMessage","The user could not be Actived: \n"+e.getMessage());
+		}
+		return "index";
 
 	}
 	
