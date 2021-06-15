@@ -280,6 +280,7 @@ public class LoginController {
 	public String modStatusUser(Model model, @PathVariable(name="cadenaCifrada") String cadenaCifrada, @PathVariable(name="status") int status) {
 		try {
 			userService.modStatusUser(userService.getUserByName(dcode.descifrar(cadenaCifrada)).getId(), status);
+			System.out.println("[ Activado ] "+dcode.descifrar(cadenaCifrada));
 		} catch (Exception e) {
 			// test problema borrando 
 			System.out.println(" -- Error -- "+e.toString());
