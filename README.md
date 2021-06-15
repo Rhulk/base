@@ -33,7 +33,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Rama: delop
 # Fecha Committer: 2021-06-15 10:05
 # LastChange: Activar user cifrando username
-# Problem: class java.util.ArrayList cannot be cast to class com.alquiler.reservas.entity.User (java.util.ArrayList is in module java.base of loader 'bootstrap'; com.alquiler.reservas.entity.User is in unnamed module of loader org.springframework.boot.devtools.restart.classloader.RestartClassLoader @6b3a7d8a)
+# Problem: Testing
 	* Entorno principal de desarrollo
 	
 # Rama: master
