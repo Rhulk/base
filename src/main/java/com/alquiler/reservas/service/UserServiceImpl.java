@@ -79,7 +79,8 @@ public class UserServiceImpl implements UserService{
 	
 	@Override
 	public User getUserByName(String username) throws Exception  {
-		return (User) userRepository.findByUsername(username);
+		List<User> uu = userRepository.findByUsername(username);
+		return uu.get(uu.size()-1);
 	}
 	
 	/*
