@@ -261,7 +261,7 @@ public class LoginController {
 
 		} catch (Exception e) {
 			// test problema borrando 
-			System.out.println(" -- Error -- "+e.toString());
+			System.out.println(" -- Error -- To -- modStatusUserSimple -- "+e.toString());
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
@@ -283,7 +283,7 @@ public class LoginController {
 			System.out.println("[ Activado ] "+dcode.descifrar(cadenaCifrada));
 		} catch (Exception e) {
 			// test problema borrando 
-			System.out.println(" -- Error -- "+e.toString());
+			System.out.println(" -- Error -- To -- modStatusUser -- "+e.toString());
 			model.addAttribute("ErrorMessage","The user could not be Actived: \n"+e.getMessage());
 		}
 		return "index";
