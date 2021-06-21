@@ -34,11 +34,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno Producción de Heroku estable.
 #####################################################################################
 # Rama: delop
-# Fecha Committer: 2021-06-15 10:05
+# Fecha Committer: 2021-06-21 16:55
 # LastChange: Activar user cifrando username
 # Origen: Heroku -- 2021-06-14 11:52
-# Situación: Testing
-# Problem: Testing
+# Situación: Estable
+# Problem: Estable
 	* Entorno principal de desarrollo
 #####################################################################################
 # Rama: master
