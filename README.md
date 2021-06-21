@@ -19,11 +19,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 #####################################################################################	
 # Rama: Heroku-pre
-# Fecha Committer: 2021-06-10 13:55
-# LastChange: In line with feature/ActiveMail
-# Origen: feature/ActiveMail -- 2021-06-10 13:55
-# Situación: Estable
-# Problem: Testar en Heroku
+# Fecha Committer: 2021-06-21 17:00
+# LastChange:  Activar user cifrando username
+# Origen: delop -- 2021-06-21 17:00
+# Situación: Testing
+# Problem: Testar en Heroku los cambios de la Rama delop
 #####################################################################################
 # Rama: Heroku
 # Fecha Committer: 2021-06-14 11:52
