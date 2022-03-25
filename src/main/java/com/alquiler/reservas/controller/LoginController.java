@@ -92,7 +92,7 @@ public class LoginController {
 			return "security/user-form/user-signup";
 		}else {
 			try {
-				user.setStatus(0);// mejora en la vista
+				user.setStatus(1);// mejora en la vista // mod temporal para activar el usuario creado sin validación
 				System.out.println(" Creando user...");
 				doneUser = userService.createUser(user);
 				//userService.deleteUser(user.getId());  test Para dejar de crear usuarios a lo loco
