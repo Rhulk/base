@@ -18,25 +18,25 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Problem: Merge a Heroku-pre tras validación.
 	Implementado el envio de mail y la activación de usuarios.
 #####################################################################################	
-# Rama: Heroku-pre
-# Fecha Committer: 2022-03-24 23:22:59
-# LastChange: Ajustes para el mantenimiento de los usuarios
-# Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
+#1 Rama: Heroku-pre
+#2 Fecha Committer: 2022-03-24 23:22:59
+#3 LastChange: Ajustes para el mantenimiento de los usuarios
+#4 Origen: Heroku
+#5 Situacion: No login
+#6 Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
 	--> Punto a resolver operatividad con postges
-# Fecha Committer: 2021-06-21 17:00
-# LastChange:  Activar user cifrando username
-# Origen: delop -- 2021-06-21 17:00
-# Situación: Testing
-# Problem: Testar en Heroku los cambios de la Rama delop
+	* No login por la fuerza de pass
+#7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento.
+			Comentado el control de Spring Security
 #####################################################################################
 
-# Rama: Heroku
-# Fecha Committer: 2021-06-14 11:52
-# LastChange: Merge witch Heroku-pre
-# Origen: Heroku-pre -- 2021-06-14 11:52
-# Situación: Estable
-# Problem: Tras pruebas en Heroku-pre ok
+#1 Rama: Heroku
+#2 Fecha Committer: 2021-06-14 11:52
+#3 LastChange: Merge witch Heroku-pre
+#4 Origen: Heroku-pre -- 2021-06-14 11:52
+#5 Situación: Estable
+#6 Problem: Tras pruebas en Heroku-pre ok
 	* Entorno Producción de Heroku estable.
 #####################################################################################
 # Rama: delop
