@@ -24,8 +24,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
 	--> Punto a resolver operatividad con postges
-	
-
 # Fecha Committer: 2021-06-21 17:00
 # LastChange:  Activar user cifrando username
 # Origen: delop -- 2021-06-21 17:00
