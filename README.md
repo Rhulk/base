@@ -19,7 +19,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 #####################################################################################	
 # Rama: Heroku-pre
-<<<<<<< HEAD
 # Fecha Committer: 2022-03-24 23:22:59
 # LastChange: Ajustes para el mantenimiento de los usuarios
 # Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
@@ -27,14 +26,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 	--> Punto a resolver operatividad con postges
 	
 
-=======
 # Fecha Committer: 2021-06-21 17:00
 # LastChange:  Activar user cifrando username
 # Origen: delop -- 2021-06-21 17:00
 # Situación: Testing
 # Problem: Testar en Heroku los cambios de la Rama delop
 #####################################################################################
->>>>>>> branch 'heroku-pre' of https://github.com/Rhulk/base
+
 # Rama: Heroku
 # Fecha Committer: 2021-06-14 11:52
 # LastChange: Merge witch Heroku-pre
