@@ -1,17 +1,25 @@
-# reservas
-
-
+# Proyecto Origen: http://cristianruizblog.com/
 #Ramas avances y desarrollos
+Doc de los avances y modificaciones en las diferentes ramas
 
-Doc de los avandes y modificaciones en las diferentes ramas
-
+#####################################################################################
+# Rama: feature/ActiveMail
+# Fecha Committer: 2021-06-10 17:40
+# LastChange: Operativo con ssl de heroku
+# Origen: delop
+# Situación: Finalizada
+# Problem: Activar las cuentas nuevas mediante enlace a un correo
+#####################################################################################	
 # Rama: feature/Mail
 # Fecha Committer: 2021-05-27 10:37:27
 # LastChange: Personalizado metodo send para el envio de correos desde la app
+# Origen: delop
+# Situación: Finalizada
 # Problem: Merge a Heroku-pre tras validación.
 	Implementado el envio de mail y la activación de usuarios.
-	
+#####################################################################################	
 # Rama: Heroku-pre
+<<<<<<< HEAD
 # Fecha Committer: 2022-03-24 23:22:59
 # LastChange: Ajustes para el mantenimiento de los usuarios
 # Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
@@ -19,20 +27,35 @@ Doc de los avandes y modificaciones en las diferentes ramas
 	--> Punto a resolver operatividad con postges
 	
 
+=======
+# Fecha Committer: 2021-06-21 17:00
+# LastChange:  Activar user cifrando username
+# Origen: delop -- 2021-06-21 17:00
+# Situación: Testing
+# Problem: Testar en Heroku los cambios de la Rama delop
+#####################################################################################
+>>>>>>> branch 'heroku-pre' of https://github.com/Rhulk/base
 # Rama: Heroku
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: Merge remote-tracking branch 'origin/master' into delop (i18n)
-# Problem: Merge de Heroku-pre tras validacion
+# Fecha Committer: 2021-06-14 11:52
+# LastChange: Merge witch Heroku-pre
+# Origen: Heroku-pre -- 2021-06-14 11:52
+# Situación: Estable
+# Problem: Tras pruebas en Heroku-pre ok
 	* Entorno Producción de Heroku estable.
-	
-	
+#####################################################################################
 # Rama: delop
-# Fecha Committer: 2021-05-26 16:18:33
-# LastChange: En linea con i18n, SearchList branch heroku,master
-# Problem:
+# Fecha Committer: 2021-06-21 16:55
+# LastChange: Activar user cifrando username
+# Origen: Heroku -- 2021-06-14 11:52
+# Situación: Estable
+# Problem: Estable
 	* Entorno principal de desarrollo
-	
+#####################################################################################
 # Rama: master
-# Fecha Committer: 2021-05-23 23:29:43
-# LastChange: En linea con i18n, SearchList branch heroku,delop
+# Fecha Committer: 2021-06-14 12:15
+# LastChange: En linea con delop
+# Origen: delop -- 2021-06-14 12:15
+# Situación: Estable
+# Problem: 
 	* Entorno estable base
+#####################################################################################

@@ -21,6 +21,7 @@ import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
 import org.springframework.validation.BindingResult;
 import org.springframework.validation.Errors;
+import org.springframework.validation.ObjectError;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -36,6 +37,8 @@ import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
 import com.alquiler.reservas.service.UserService;
+import com.alquiler.reservas.util.EmailSenderService;
+import com.alquiler.reservas.util.SpringCoder;
 
 
 
@@ -48,7 +51,9 @@ public class LoginController {
 	@Autowired 
 	UserService userService;
 	
-
+	SpringCoder dcode;
+	
+	EmailSenderService email = new EmailSenderService();
 	
 	@GetMapping("/home")
 	public String home(Model model) {
@@ -70,6 +75,8 @@ public class LoginController {
 	
 	@PostMapping("/signup")
 	public String signupPost(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
+
+		User doneUser = null;
 		
 		Role rol = roleRepository.findByName("cl");
 		List <Role> roles = Arrays.asList(rol);
@@ -79,22 +86,47 @@ public class LoginController {
 		
 		
 		if(result.hasErrors()) {
+			List<ObjectError>  e = result.getAllErrors();
+			System.out.println( e);
+			System.out.println(" Error signup");
 			return "security/user-form/user-signup";
 		}else {
 			try {
-				userService.createUser(user);
+				user.setStatus(0);// mejora en la vista
+				System.out.println(" Creando user...");
+				doneUser = userService.createUser(user);
+				//userService.deleteUser(user.getId());  test Para dejar de crear usuarios a lo loco
+				System.out.println(" [Hecho]");
+				String host= "https://rhulk.herokuapp.com";
+				String cifrado= dcode.cifrar(user.getUsername());
+				String url= host+"/active/"+ cifrado +"/1"; //String url= host+"/active/"+user.getId()+"/1";
+				
+				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
+				//email.testMail(); // test ssl
+				System.out.println(" [Send Mail Activation]");
 				
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				try {
+					userService.deleteUser(doneUser.getId()); //lo borro para forzar volver a crear el mismo user desde la misma vista.
+				} catch (Exception e) {
+					// TODO Auto-generated catch block
+					e.printStackTrace();
+				}
+				
 				return "security/user-form/user-signup";
 			}
 			catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
+				e.printStackTrace();
+				System.out.println("[Error] "+e.getMessage());
+				System.out.println("[Error] "+e.toString());
+				
 				return "security/user-form/user-signup";
 			}
 		}
-		
-		return "index";
+		//return "security/user-form/user-signup";
+		return "index"; //Para dejar de crear usuarios a lo loco
 	}
 	
 	
@@ -219,20 +251,42 @@ public class LoginController {
 	 * 
 	 * In delop up
 	 * 
-	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
+	 * Interno
 	 * 
 	 */
-	@GetMapping("/active/{id}/{status}")
-	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
+	@GetMapping("/active_/{id}/{status}")
+	public String modStatusUserSimple(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
 		try {
 			userService.modStatusUser(id, status);
 
 		} catch (Exception e) {
 			// test problema borrando 
-			System.out.println(" -- Error -- "+e.toString());
+			System.out.println(" -- Error -- To -- modStatusUserSimple -- "+e.toString());
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
+
+	}
+	
+	/*
+	 * Metodo para activar user desde el correo tras ser creado.
+	 * 
+	 * In delop
+	 * 
+	 * Modificación con cifrado
+	 * 
+	 */
+	@GetMapping("/active/{cadenaCifrada}/{status}")
+	public String modStatusUser(Model model, @PathVariable(name="cadenaCifrada") String cadenaCifrada, @PathVariable(name="status") int status) {
+		try {
+			userService.modStatusUser(userService.getUserByName(dcode.descifrar(cadenaCifrada)).getId(), status);
+			System.out.println("[ Activado ] "+dcode.descifrar(cadenaCifrada));
+		} catch (Exception e) {
+			// test problema borrando 
+			System.out.println(" -- Error -- To -- modStatusUser -- "+e.toString());
+			model.addAttribute("ErrorMessage","The user could not be Actived: \n"+e.getMessage());
+		}
+		return "index";
 
 	}
 	

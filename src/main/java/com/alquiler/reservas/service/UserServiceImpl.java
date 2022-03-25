@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 			System.out.println(" -- user -- " + user.toString());
 			user = userRepository.save(user);
 		}
-		System.out.println(" [Hecho]");
+		System.out.println(" [User Create]");
 		return user;
 	}
 	
@@ -76,6 +76,12 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(id).orElseThrow(() -> new Exception("User does not exist"));
 		return user;
 	}	
+	
+	@Override
+	public User getUserByName(String username) throws Exception  {
+		List<User> uu = userRepository.findByUsername(username);
+		return uu.get(uu.size()-1);
+	}
 	
 	/*
 	 *  Update User
