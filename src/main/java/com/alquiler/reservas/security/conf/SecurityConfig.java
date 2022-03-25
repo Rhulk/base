@@ -64,10 +64,10 @@ public class SecurityConfig extends WebSecurityConfigurerAdapter{
         http
         	.csrf().disable()
         	.authorizeRequests()
-        	//.antMatchers("/admin/dashboard").hasAnyRole("ad")
-        	//.antMatchers("/user/dashboard").hasAnyRole("cl","ad")
-        	//.antMatchers("/deleteUser/12").hasAnyRole("ad")// para que pueda borrar 
-            //.antMatchers("/").hasAnyRole("cl","ad")
+        	.antMatchers("/admin/dashboard").hasAnyRole("ad")
+        	.antMatchers("/user/dashboard").hasAnyRole("cl","ad")
+        	.antMatchers("/deleteUser/12").hasAnyRole("ad")// para que pueda borrar 
+            .antMatchers("/").hasAnyRole("cl","ad")
             //.antMatchers("/userForm").hasAnyRole("ad") bloquea el login a todos menos los admin Pendiente mostrar el error correcto ahora sale 404
             .antMatchers("/singnup").permitAll()
             .and().formLogin()
