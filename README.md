@@ -19,7 +19,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 #####################################################################################	
 #1 Rama: Heroku-pre
-#2 Fecha Committer: 2022-03-24 23:22:59
+#2 Fecha Committer: 2022-03-25 20:52:59
 #3 LastChange: Ajustes para el mantenimiento de los usuarios
 #4 Origen: Heroku
 #5 Situacion: No login
