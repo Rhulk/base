@@ -217,7 +217,7 @@ public class LoginController {
 	/*
 	 * Metodo para activar user desde el correo tras ser creado.
 	 * 
-	 * In delop
+	 * In delop up
 	 * 
 	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
 	 * 
