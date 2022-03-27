@@ -22,13 +22,14 @@ Doc de los avances y modificaciones en las diferentes ramas
 #2 Fecha Committer: 2022-03-25 20:52:59
 #3 LastChange: Ajustes para el mantenimiento de los usuarios
 #4 Origen: Heroku
-#5 Situacion: No login solo con kk/kk
+#5 Situacion: Problemas con los ultimos cambios
 #6 Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
 	--> Punto a resolver operatividad con postges
 	* No login por la fuerza de pass creado user kk/kk codificado
 	* Pendiente crear cuenta de gmail. para validación del user
-#7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./porlapuertadeatras
+	* Problema recuperando datos de la BBDD tras los ultimos cambios.
+#7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
 #####################################################################################
 
 #1 Rama: Heroku
