@@ -3,6 +3,8 @@ package com.alquiler.reservas.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -26,6 +28,9 @@ public class UserServiceImpl implements UserService{
 	//Asegurate de tener este autowired al inicio de la clase
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	EntityManager em;
+	
 	
 	public Iterable getAllUsers(){
 		return userRepository.findAll();
@@ -198,5 +203,11 @@ public class UserServiceImpl implements UserService{
 		to.setPassword(from.getPassword());
 		to.setConfirmPassword(from.getConfirmPassword());	
 	}
+
+	@Override
+	public List<String> getAllTablas() {
+		return userRepository.getTablas();
+	}
+
 	
 }
