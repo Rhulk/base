@@ -63,7 +63,14 @@ public class LoginController {
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
+		
+		// Comprobar si hay roles
 		Role rol = roleRepository.findByName("cl");
+		if ( rol == null) {
+			rol.setName("cl");
+			rol.seteDscripcion("Rol Cliente");
+			roleRepository.save(rol);
+		}
 		List <Role> roles = Arrays.asList(rol);
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roles);

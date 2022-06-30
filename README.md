@@ -19,7 +19,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Implementado el envio de mail y la activación de usuarios.
 #####################################################################################	
 #1 Rama: Heroku-pre
-#2 Fecha Committer: 2022-03-25 20:52:59
+#2 Fecha Committer: 2022-06-30 21:52:59
 #3 LastChange: Ajustes para el mantenimiento de los usuarios
 #4 Origen: Heroku
 #5 Situacion: Problemas con los ultimos cambios
@@ -29,6 +29,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* No login por la fuerza de pass creado user kk/kk codificado
 	* Pendiente crear cuenta de gmail. para validación del user
 	* Problema recuperando datos de la BBDD tras los ultimos cambios.
+	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
 #7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
 #####################################################################################
 
