@@ -67,6 +67,7 @@ public class LoginController {
 		// Comprobar si hay roles
 		Role rol = roleRepository.findByName("cl");
 		if ( rol == null) {
+			rol = new Role();
 			rol.setName("cl");
 			rol.seteDscripcion("Rol Cliente");
 			roleRepository.save(rol);
