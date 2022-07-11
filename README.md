@@ -27,11 +27,12 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
 	--> Punto a resolver operatividad con postges
 	* No login por la fuerza de pass creado user kk/kk codificado
-	* Pendiente crear cuenta de gmail. para validación del user
+	* Pendiente crear cuenta de hotmail. para validación del user
 	* Problema recuperando datos de la BBDD tras los ultimos cambios.
 #7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
 	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
 	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
+		Error: no valida el usuario.
 #####################################################################################
 
 #1 Rama: Heroku

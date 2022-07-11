@@ -75,7 +75,7 @@ public class MantenimientoController {
 		user.setUsername(clave);
 		
 		userService.createUser(user);
-		
+		System.out.println(" User create: "+ user.toString());
 		
 		// sent view
 		model.addAttribute("userList", userService.getAllUsers());
