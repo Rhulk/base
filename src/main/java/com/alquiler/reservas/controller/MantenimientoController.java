@@ -1,10 +1,16 @@
 package com.alquiler.reservas.controller;
 
+import java.util.Arrays;
+import java.util.List;
+import java.util.Set;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
+import com.alquiler.reservas.entity.Role;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
@@ -39,5 +45,41 @@ public class MantenimientoController {
 		//return "security/user-form/user-view";
 		return "security/user-form/user-list";
 		//return "home";
+	}
+	
+	@GetMapping("/addUser/{clave}")
+	public String addUser(@PathVariable(name="clave") String clave, Model model) throws Exception {
+		System.out.println(" Add User Default "+clave);
+		User user = new User();
+		user.setApellido2(clave);
+		user.setConfirmPassword(clave);
+		user.setDireccion(clave);
+		user.setEmail(clave+"@email.com");
+		user.setFirstName(clave);
+		user.setLastName(clave);
+		user.setMunicipio(clave);
+		user.setObservaciones(clave);
+		user.setPassword(clave);
+		
+		Role rol = roleRepository.findByName("cl");
+		if ( rol == null) {
+			rol = new Role();
+			rol.setName("cl");
+			rol.seteDscripcion("Rol Cliente");
+			roleRepository.save(rol);
+		}
+		List <Role> roles = Arrays.asList(rol);
+		//user.setRoles(roles); //Si no exite el Rol 
+		user.setStatus(1);
+		user.setTelefono("658451235");
+		user.setUsername(clave);
+		
+		userService.createUser(user);
+		
+		
+		// sent view
+		model.addAttribute("userList", userService.getAllUsers());
+		
+		return "security/user-form/user-list";
 	}
 }

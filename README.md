@@ -29,8 +29,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* No login por la fuerza de pass creado user kk/kk codificado
 	* Pendiente crear cuenta de gmail. para validación del user
 	* Problema recuperando datos de la BBDD tras los ultimos cambios.
-	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
 #7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
+	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
+	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
 #####################################################################################
 
 #1 Rama: Heroku
