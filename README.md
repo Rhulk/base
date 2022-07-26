@@ -29,10 +29,30 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* No login por la fuerza de pass creado user kk/kk codificado
 	* Pendiente crear cuenta de hotmail. para validación del user
 	* Problema recuperando datos de la BBDD tras los ultimos cambios.
+	* Waiting for changelog lock - Pendiente poder desbloquear.
 #7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
 	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
 	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
-		Error: no valida el usuario.
+		Error: no valida el usuario. Resuelto.
+	* 23/07/22 - Add userdefault user/123
+#####################################################################################	
+#1 Rama: Heroku-mtn
+#2 Fecha Committer: 2022-07-26 18:04:00
+#3 LastChange: Versión sin liquibase y funciones nemos seguras para desbloquear postgress
+#4 Origen: Heroku-pre
+#5 Situacion: Creando rama con la idea se listar usuarios y pasword tras restablecer la BBDD
+#6 Problem: En la BBDD de postgres el campos status tiene valor null en algunos usuarios y falla al recuperar dicho registro.
+	* Entorno en el cual estaran las pre-modificaciones para desplegar en Heroku
+	--> Punto a resolver operatividad con postges
+	* No login por la fuerza de pass creado user kk/kk codificado
+	* Pendiente crear cuenta de hotmail. para validación del user
+	* Problema recuperando datos de la BBDD tras los ultimos cambios.
+	* Waiting for changelog lock - Pendiente poder desbloquear.
+#7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
+	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
+	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
+		Error: no valida el usuario. Resuelto.
+	* 23/07/22 - Add userdefault user/123
 #####################################################################################
 
 #1 Rama: Heroku

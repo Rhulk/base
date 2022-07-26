@@ -1,0 +1,72 @@
+<div class="table-responsive">
+	<table id="userList" class="table table-bordered table-hover table-striped">
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">#</th>
+			<th scope="col">First</th>
+			<th scope="col">Last</th>
+			<th scope="col">Username</th>
+			<th scope="col">Password</th>
+			<th scope="col">E-mail</th>
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+		<tr th:each="user: ${userList}">
+			<td th:text="${user.id}"></td>
+			<td th:text="${user.firstName}"></td>
+			<td th:text="${user.lastName}"></td>
+			<td th:text="${user.username}"></td>
+			
+			<td th:text="${user.email}"></td>
+			<td>	
+					<span security:authorize access="hasAnyRole('ad', 'cl')">
+						<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+					</span>
+					<span th:if="${#authorization.expression('hasRole(''ad'')')} or (${#authorization.expression('hasRole(''cl'')')} and ${#httpServletRequest.remoteUser==user.username})">
+					Spring 3	<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
+					</span>
+					<span sec:authorize="hasAuthority('ad')">
+					
+					| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
+
+					</span>
+			</td>
+		<td>	
+				
+				
+					<span security:authorize access="hasAnyRole('ad', 'cl')" th:if="${user.status}">
+					<a href="#" th:href="@{'/active_/'+ ${user.id}}+'/0'"><i class="fas fa-check"></i></a>
+					</span>
+					<span security:authorize access="hasAnyRole('ad', 'cl')" th:if="!${user.status}">
+					<a href="#" th:href="@{'/active_/'+ ${user.id}}+'/1'"><i class="fas fa-ban"></i> </a>
+					</span>
+			</td>
+		</tr>
+		</tbody>
+	</table>
+
+	
+</div>
+
+
+ 
+<div id="deleteError" th:if="${deleteError}" class="alert alert-danger text-center" role="alert">
+	<span th:text="${deleteError}"></span>
+</div>
+
+
+<script type="text/javascript">
+function confirmDelete(id){
+	$('#deleteModal').modal('show');
+	$("#userIdHiddenInput").val(id);
+}
+
+function deleteUser(){
+	var id = $("#userIdHiddenInput").val();
+    window.location = "deleteUser/"+id;
+}
+
+</script>
+

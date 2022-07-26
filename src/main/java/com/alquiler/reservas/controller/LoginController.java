@@ -55,8 +55,19 @@ public class LoginController {
 	
 	EmailSenderService email = new EmailSenderService();
 	
+	//Rama mantenimiento
+	@Autowired
+	MantenimientoController mantenimiento;
+	
 	@GetMapping("/home")
-	public String home(Model model) {
+	public String home(Model model) throws Exception {
+		System.out.println("HOME");
+		// validamos la existencia de usuarios en la bbdd
+		if (userService.getAllUsers() == null) {
+			System.out.println("Create User default");
+			mantenimiento.defaultUsert();
+		}
+		
 		
 		return "home";
 	}

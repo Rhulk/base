@@ -29,7 +29,14 @@ public class MantenimientoController {
 	@Autowired
 	SqlService sqlService;
 	
-	
+	@GetMapping("/desbloquear")
+	public String desbloqueo() {
+		
+		if(sqlService.desbloqueo()) {
+			return "Desbloqueado";
+		}
+		return "Error";
+	}
 	
 	@GetMapping("/sql")
 	public String home(Model model) {
@@ -45,6 +52,44 @@ public class MantenimientoController {
 		//return "security/user-form/user-view";
 		return "security/user-form/user-list";
 		//return "home";
+	}
+	
+	@GetMapping("/defaultUser")
+	public void defaultUsert( ) throws Exception {
+		System.err.println(" Add User Default ");
+		
+		User user = new User();
+		user.setApellido2("user");
+		user.setConfirmPassword("123");
+		user.setDireccion("user");
+		user.setEmail("user"+"@email.com");
+		user.setFirstName("user");
+		user.setLastName("user");
+		user.setMunicipio("user");
+		user.setObservaciones("user");
+		user.setPassword("123");
+		
+		Role rol = roleRepository.findByName("cl");
+		if ( rol == null) {
+			rol = new Role();
+			rol.setName("cl");
+			rol.seteDscripcion("Rol Cliente");
+			roleRepository.save(rol);
+		}
+		List <Role> roles = Arrays.asList(rol);
+		//user.setRoles(roles); //Si no exite el Rol 
+		user.setStatus(1);
+		user.setTelefono("658451235");
+		user.setUsername("user");
+		
+		userService.createUser(user);
+		System.out.println(" User create: "+ user.toString());
+		
+		// sent view
+		//model.addAttribute("userList", userService.getAllUsers());
+		
+		
+		
 	}
 	
 	@GetMapping("/addUser/{clave}")
@@ -80,6 +125,6 @@ public class MantenimientoController {
 		// sent view
 		model.addAttribute("userList", userService.getAllUsers());
 		
-		return "security/user-form/user-list";
+		return "security/user-form/user-list-mtn";
 	}
 }
