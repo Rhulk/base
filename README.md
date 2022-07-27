@@ -48,11 +48,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Pendiente crear cuenta de hotmail. para validación del user
 	* Problema recuperando datos de la BBDD tras los ultimos cambios.
 	* Waiting for changelog lock - Pendiente poder desbloquear.
+	* -- No logro lanzar querys sobre la tabla databasechaloglock
 #7 Avances: Nuevo controlador mantenimientoCotroller para la gestión del mantenimiento./sql
 	* 30/06/22 - Add validación para crear rol si no hay en el alta del usuario.
 	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
 		Error: no valida el usuario. Resuelto.
 	* 23/07/22 - Add userdefault user/123
+	* 26/07/22 - Sin liquibase.
 #####################################################################################
 
 #1 Rama: Heroku

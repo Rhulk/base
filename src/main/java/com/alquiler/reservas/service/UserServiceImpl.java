@@ -209,5 +209,24 @@ public class UserServiceImpl implements UserService{
 		return userRepository.getTablas();
 	}
 
+	@Override
+	public List<String> selectDataBaseChangelog(){
+		return userRepository.selectFromDatabasechangelog();
+	}
 	
+	@Override
+	public List<String> selectDataBaseChangeloglock(){
+		return userRepository.selectFromDatabasechangeloglock();
+	}
+
+	@Override
+	public void desbloqueo() {
+		userRepository.desbloquear();
+		
+	}
+
+	@Override
+	public void bloqueo() {
+		userRepository.bloquear();
+	}
 }

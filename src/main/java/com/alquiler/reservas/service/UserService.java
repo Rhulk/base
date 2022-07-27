@@ -19,6 +19,12 @@ public interface UserService {
 	public User changePassword(ChangePasswordForm form) throws Exception;
 	public List<String> getAllTablas();
 	//public List<String> getField(String query);
+	// liquibase
+	public List<String> selectDataBaseChangelog();
+	public List<String> selectDataBaseChangeloglock();
+	
+	public void desbloqueo();
+	public void bloqueo();
 	
 	
 }

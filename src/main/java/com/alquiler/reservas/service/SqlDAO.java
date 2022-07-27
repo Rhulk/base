@@ -24,15 +24,22 @@ public class SqlDAO implements SqlService {
 	}
 	
 	@Override
-	@Transactional(readOnly = true)
+	@Transactional
 	public boolean desbloqueo() {
 		//Query qy = em.createNamedQuery("SELECT * FROM usuario u");	//No query defined for that name [SELECT * FROM usuario]
-		//Query qy = em.createNativeQuery("SELECT * FROM usuario u");
+		//Query sifunciona = em.createNativeQuery("SELECT * FROM usuario u");
 		//Query query = em.createNativeQuery("SELECT COLUMN_NAME FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='"+"usuario"+"'");
 		
 		
 		try {
 			Query update = em.createNativeQuery("UPDATE databasechangeloglock set locked=false");
+//			Query select = em.createNamedQuery("Select * from databasechangeloglock d");
+			//Query data = em.createNamedQuery("SELECT * FROM databasechangelog d");
+			//data.getResultList();
+			//sifunciona.getResultList();
+			//select.getResultList();
+			
+			//update.getResultList();
 			return true;
 		}catch (Exception e) {
 			System.out.println(e.toString());

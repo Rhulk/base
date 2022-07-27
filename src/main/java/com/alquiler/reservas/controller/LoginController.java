@@ -62,11 +62,7 @@ public class LoginController {
 	@GetMapping("/home")
 	public String home(Model model) throws Exception {
 		System.out.println("HOME");
-		// validamos la existencia de usuarios en la bbdd
-		if (userService.getAllUsers() == null) {
-			System.out.println("Create User default");
-			mantenimiento.defaultUsert();
-		}
+
 		
 		
 		return "home";
@@ -321,7 +317,16 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) throws Exception {
+		
+		// validamos la existencia de usuarios en la bbdd
+		if (userService.getAllUsers() == null) {
+			System.out.println("Create User default in Home");
+		 return	mantenimiento.defaultUsert(model);
+		}else {
+			System.out.println(" Not user null");
+		}
+		
 		return "index";
 	}
 	/*

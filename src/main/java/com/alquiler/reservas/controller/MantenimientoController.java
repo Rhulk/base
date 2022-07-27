@@ -45,18 +45,24 @@ public class MantenimientoController {
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("listTab","active");
 		System.out.println(" -- Tablas: "+userService.getAllTablas().toString());
+		System.out.println(" -- Check Liquibase log -- "+userService.selectDataBaseChangelog().toString());
+		userService.bloqueo();
+		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
+		userService.desbloqueo();
+		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
 		//sqlService.getCampos("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='user'");
 		System.out.println(" Campos de la table User: "+ sqlService.getCampos("usuario").toString());
+		System.out.println(" Campos de la table databasechangeloglock: "+ sqlService.getCampos("databasechangeloglock").toString());
 		sqlService.desbloqueo();
 		//userService.getFieldByTable("user");
 		//return "security/user-form/user-view";
-		return "security/user-form/user-list";
+		return "security/user-form/user-list-mtn";
 		//return "home";
 	}
 	
 	@GetMapping("/defaultUser")
-	public void defaultUsert( ) throws Exception {
-		System.err.println(" Add User Default ");
+	public String defaultUsert(Model model ) throws Exception {
+		System.out.println(" Add User Default ");
 		
 		User user = new User();
 		user.setApellido2("user");
@@ -83,18 +89,18 @@ public class MantenimientoController {
 		user.setUsername("user");
 		
 		userService.createUser(user);
-		System.out.println(" User create: "+ user.toString());
+		//System.out.println(" User create: "+ user.toString());
 		
 		// sent view
-		//model.addAttribute("userList", userService.getAllUsers());
+		model.addAttribute("userList", userService.getAllUsers());
 		
 		
-		
+		return "security/user-form/user-list-mtn";
 	}
 	
 	@GetMapping("/addUser/{clave}")
 	public String addUser(@PathVariable(name="clave") String clave, Model model) throws Exception {
-		System.out.println(" Add User Default "+clave);
+		System.out.println(" Add User "+clave);
 		User user = new User();
 		user.setApellido2(clave);
 		user.setConfirmPassword(clave);
@@ -120,7 +126,7 @@ public class MantenimientoController {
 		user.setUsername(clave);
 		
 		userService.createUser(user);
-		System.out.println(" User create: "+ user.toString());
+		//System.out.println(" User create: "+ user.toString());
 		
 		// sent view
 		model.addAttribute("userList", userService.getAllUsers());
