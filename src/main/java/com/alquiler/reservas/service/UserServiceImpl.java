@@ -16,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
+import com.alquiler.reservas.entity.Databasechangeloglock;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.UserRepository;
 
@@ -215,8 +216,15 @@ public class UserServiceImpl implements UserService{
 	}
 	
 	@Override
-	public List<String> selectDataBaseChangeloglock(){
-		return userRepository.selectFromDatabasechangeloglock();
+	public Databasechangeloglock selectDataBaseChangeloglock(){
+		List<String> listado = userRepository.selectFromDatabasechangeloglock();
+		Databasechangeloglock databasechangeloglock = new Databasechangeloglock();
+		databasechangeloglock.setID(Integer.valueOf(listado.get(0)));
+		databasechangeloglock.setLOCKED(Boolean.parseBoolean(listado.get(1)));
+		databasechangeloglock.setLOCKEDBY(listado.get(2));
+		databasechangeloglock.setLOCKGRANTED(listado.get(2));
+	
+		return databasechangeloglock;
 	}
 
 	@Override

@@ -46,18 +46,33 @@ public class MantenimientoController {
 		model.addAttribute("listTab","active");
 		System.out.println(" -- Tablas: "+userService.getAllTablas().toString());
 		System.out.println(" -- Check Liquibase log -- "+userService.selectDataBaseChangelog().toString());
+		
 		userService.bloqueo();
+		
 		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
-		userService.desbloqueo();
+		//userService.desbloqueo();
 		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
 		//sqlService.getCampos("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='user'");
 		System.out.println(" Campos de la table User: "+ sqlService.getCampos("usuario").toString());
 		System.out.println(" Campos de la table databasechangeloglock: "+ sqlService.getCampos("databasechangeloglock").toString());
-		sqlService.desbloqueo();
+		System.out.println(" Campos de la table databasechangelog: "+ sqlService.getCampos("databasechangelog").toString());
+		//sqlService.desbloqueo();
 		//userService.getFieldByTable("user");
 		//return "security/user-form/user-view";
 		return "security/user-form/user-list-mtn";
 		//return "home";
+	}
+	
+	@GetMapping("/log")
+	public String logLiquibase(Model model) {
+		model.addAttribute("logList",userService.selectDataBaseChangelog());
+		return "mtn/liquibase-log-mtn";
+	}
+	
+	@GetMapping("/lock")
+	public String lockLiquibase(Model model) {
+		model.addAttribute("lock",userService.selectDataBaseChangeloglock());
+		return "mtn/liquibase-lock-mtn";
 	}
 	
 	@GetMapping("/defaultUser")

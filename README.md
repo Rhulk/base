@@ -37,7 +37,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* 23/07/22 - Add userdefault user/123
 #####################################################################################	
 #1 Rama: Heroku-mtn
-#2 Fecha Committer: 2022-07-26 18:04:00
+#2 Fecha Committer: 2022-07-29 22:15:00
 #3 LastChange: Versión sin liquibase y funciones nemos seguras para desbloquear postgress
 #4 Origen: Heroku-pre
 #5 Situacion: Creando rama con la idea se listar usuarios y pasword tras restablecer la BBDD
@@ -54,7 +54,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* 11/07/22 - Add func create user por para metro de URL /addUser/nameUser
 		Error: no valida el usuario. Resuelto.
 	* 23/07/22 - Add userdefault user/123
-	* 26/07/22 - Sin liquibase.
+	* 26/07/22 - Sin liquibase. No vale.
+	* 27/07/22 - Bloque desbloqueo no funciona desde /sql falta validar cuando este bloqueado el liquibase.
+	* 27/07/22 - Forzar el bloqueo de liquibase. En proceso. No funciono.
+	* 27/07/22 - Listar los campos de data base change log lock en la vista. Agregados los metodos "/lock" "/log"
+				 Falta impl el metodo log y la vista, el lock no reportada datos. 
 #####################################################################################
 
 #1 Rama: Heroku

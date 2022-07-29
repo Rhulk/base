@@ -5,6 +5,7 @@ import java.util.List;
 import javax.transaction.Transactional;
 
 import com.alquiler.reservas.entity.ChangePasswordForm;
+import com.alquiler.reservas.entity.Databasechangeloglock;
 import com.alquiler.reservas.entity.User;
 
 public interface UserService {
@@ -21,8 +22,9 @@ public interface UserService {
 	//public List<String> getField(String query);
 	// liquibase
 	public List<String> selectDataBaseChangelog();
-	public List<String> selectDataBaseChangeloglock();
+	public Databasechangeloglock selectDataBaseChangeloglock();//Operativo pero sin datos.
 	
+	// no funciona
 	public void desbloqueo();
 	public void bloqueo();
 	
