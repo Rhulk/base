@@ -59,6 +59,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* 27/07/22 - Forzar el bloqueo de liquibase. En proceso. No funciono.
 	* 27/07/22 - Listar los campos de data base change log lock en la vista. Agregados los metodos "/lock" "/log"
 				 Falta impl el metodo log y la vista, el lock no reportada datos. 
+	
+	* 12/11/22 - Cambio de servidor de Heroku a RailWay
+	
 #####################################################################################
 
 #1 Rama: Heroku
@@ -78,14 +81,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno principal de desarrollo
 #####################################################################################
 # Rama: master
-# Fecha Committer: 2021-06-14 12:15
-# LastChange: En linea con delop
-<<<<<<< HEAD
-	* Entorno estable base
-=======
+# Fecha Committer: 2022-06-12 18:00
+# LastChange: Merge with Heroku-mtn
+	* Cambio de servidor de BBDD railWay
 # Origen: delop -- 2021-06-14 12:15
 # Situación: Estable
 # Problem: 
 	* Entorno estable base
 #####################################################################################
->>>>>>> refs/heads/Heroku-mtn
