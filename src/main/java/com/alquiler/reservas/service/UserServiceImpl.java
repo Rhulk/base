@@ -3,6 +3,8 @@ package com.alquiler.reservas.service;
 import java.util.List;
 import java.util.Optional;
 
+import javax.persistence.EntityManager;
+import javax.persistence.Query;
 import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -14,6 +16,7 @@ import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
+import com.alquiler.reservas.entity.Databasechangeloglock;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.UserRepository;
 
@@ -26,6 +29,9 @@ public class UserServiceImpl implements UserService{
 	//Asegurate de tener este autowired al inicio de la clase
 	@Autowired
 	BCryptPasswordEncoder bCryptPasswordEncoder;
+	
+	EntityManager em;
+	
 	
 	public Iterable getAllUsers(){
 		return userRepository.findAll();
@@ -76,6 +82,12 @@ public class UserServiceImpl implements UserService{
 		User user = userRepository.findById(id).orElseThrow(() -> new Exception("User does not exist"));
 		return user;
 	}	
+	
+	@Override
+	public User getUserByName(String username) throws Exception  {
+		List<User> uu = userRepository.findByUsername(username);
+		return uu.get(uu.size()-1);
+	}
 	
 	/*
 	 *  Update User
@@ -192,5 +204,37 @@ public class UserServiceImpl implements UserService{
 		to.setPassword(from.getPassword());
 		to.setConfirmPassword(from.getConfirmPassword());	
 	}
+
+	@Override
+	public List<String> getAllTablas() {
+		return userRepository.getTablas();
+	}
+
+	@Override
+	public List<String> selectDataBaseChangelog(){
+		return userRepository.selectFromDatabasechangelog();
+	}
 	
+	@Override
+	public Databasechangeloglock selectDataBaseChangeloglock(){
+		List<String> listado = userRepository.selectFromDatabasechangeloglock();
+		Databasechangeloglock databasechangeloglock = new Databasechangeloglock();
+		databasechangeloglock.setID(Integer.valueOf(listado.get(0)));
+		databasechangeloglock.setLOCKED(Boolean.parseBoolean(listado.get(1)));
+		databasechangeloglock.setLOCKEDBY(listado.get(2));
+		databasechangeloglock.setLOCKGRANTED(listado.get(2));
+	
+		return databasechangeloglock;
+	}
+
+	@Override
+	public void desbloqueo() {
+		userRepository.desbloquear();
+		
+	}
+
+	@Override
+	public void bloqueo() {
+		userRepository.bloquear();
+	}
 }

@@ -1,6 +1,7 @@
 package com.alquiler.reservas.entity;
 
 import java.io.Serializable;
+import java.util.List;
 import java.util.Set;
 
 import javax.persistence.Column;
@@ -90,7 +91,7 @@ public class User implements Serializable{
 	@JoinTable(name = "user_roles",
 			joinColumns=@JoinColumn(name="user_id"),
 			inverseJoinColumns=@JoinColumn(name="role_id"))
-	private Set<Role> roles;
+	private List<Role> roles;
 
 	public User() {
 		
@@ -199,11 +200,11 @@ public class User implements Serializable{
 		this.observaciones = observaciones;
 	}
 
-	public Set<Role> getRoles() {
+	public List<Role> getRoles() {
 		return roles;
 	}
 
-	public void setRoles(Set<Role> roles) {
+	public void setRoles(List<Role> roles) {
 		this.roles = roles;
 	}
 

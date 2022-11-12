@@ -78,8 +78,7 @@
      
      
       <changeSet author="d" id="1a">
-      <preConditions  onFail="WARN">
-      </preConditions>
+
          <insert tableName="usuario">
          
                   <column name="firstname" value="firstname"></column>

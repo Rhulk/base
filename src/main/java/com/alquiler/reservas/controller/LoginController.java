@@ -38,6 +38,7 @@ import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
 import com.alquiler.reservas.service.UserService;
 import com.alquiler.reservas.util.EmailSenderService;
+import com.alquiler.reservas.util.SpringCoder;
 
 
 
@@ -50,17 +51,34 @@ public class LoginController {
 	@Autowired 
 	UserService userService;
 	
+	SpringCoder dcode;
+	
 	EmailSenderService email = new EmailSenderService();
 	
+	//Rama mantenimiento
+	@Autowired
+	MantenimientoController mantenimiento;
+	
 	@GetMapping("/home")
-	public String home(Model model) {
+	public String home(Model model) throws Exception {
+		System.out.println("HOME");
+
+		
 		
 		return "home";
 	}
 
 	@GetMapping("/signup")
 	public String signup(Model model) {
+		
+		// Comprobar si hay roles
 		Role rol = roleRepository.findByName("cl");
+		if ( rol == null) {
+			rol = new Role();
+			rol.setName("cl");
+			rol.seteDscripcion("Rol Cliente");
+			roleRepository.save(rol);
+		}
 		List <Role> roles = Arrays.asList(rol);
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roles);
@@ -89,13 +107,15 @@ public class LoginController {
 			return "security/user-form/user-signup";
 		}else {
 			try {
-				user.setStatus(0);// mejora en la vista
-				System.out.println(" Creando user...");
+				user.setStatus(1);// mejora en la vista // mod temporal para activar el usuario creado sin validación
+				
+				System.out.println(" Creando user...>> "+user.toString());
 				doneUser = userService.createUser(user);
 				//userService.deleteUser(user.getId());  test Para dejar de crear usuarios a lo loco
 				System.out.println(" [Hecho]");
 				String host= "https://rhulk.herokuapp.com";
-				String url= host+"/active/"+user.getId()+"/1";
+				String cifrado= dcode.cifrar(user.getUsername());
+				String url= host+"/active/"+ cifrado +"/1"; //String url= host+"/active/"+user.getId()+"/1";
 				
 				email.send("Activar Cuenta", url, "default"); //Mail activación cuenta.
 				//email.testMail(); // test ssl
@@ -245,22 +265,44 @@ public class LoginController {
 	/*
 	 * Metodo para activar user desde el correo tras ser creado.
 	 * 
-	 * In delop
+	 * In delop up
 	 * 
-	 * Futuro: usar el id para generar el token en la url y activar el usuario desde el correo.
+	 * Interno
 	 * 
 	 */
-	@GetMapping("/active/{id}/{status}")
-	public String modStatusUser(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
+	@GetMapping("/active_/{id}/{status}")
+	public String modStatusUserSimple(Model model, @PathVariable(name="id") Long id, @PathVariable(name="status") int status) {
 		try {
 			userService.modStatusUser(id, status);
 
 		} catch (Exception e) {
 			// test problema borrando 
-			System.out.println(" -- Error -- "+e.toString());
+			System.out.println(" -- Error -- To -- modStatusUserSimple -- "+e.toString());
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
 		return getUserForm(model);
+
+	}
+	
+	/*
+	 * Metodo para activar user desde el correo tras ser creado.
+	 * 
+	 * In delop
+	 * 
+	 * Modificación con cifrado
+	 * 
+	 */
+	@GetMapping("/active/{cadenaCifrada}/{status}")
+	public String modStatusUser(Model model, @PathVariable(name="cadenaCifrada") String cadenaCifrada, @PathVariable(name="status") int status) {
+		try {
+			userService.modStatusUser(userService.getUserByName(dcode.descifrar(cadenaCifrada)).getId(), status);
+			System.out.println("[ Activado ] "+dcode.descifrar(cadenaCifrada));
+		} catch (Exception e) {
+			// test problema borrando 
+			System.out.println(" -- Error -- To -- modStatusUser -- "+e.toString());
+			model.addAttribute("ErrorMessage","The user could not be Actived: \n"+e.getMessage());
+		}
+		return "index";
 
 	}
 	
@@ -275,7 +317,16 @@ public class LoginController {
 	}
 	
 	@GetMapping("/login")
-	public String login() {
+	public String login(Model model) throws Exception {
+		
+		// validamos la existencia de usuarios en la bbdd
+		if (userService.getAllUsers() == null) {
+			System.out.println("Create User default in Home");
+		 return	mantenimiento.defaultUsert(model);
+		}else {
+			System.out.println(" Not user null");
+		}
+		
 		return "index";
 	}
 	/*

@@ -3,21 +3,22 @@ package com.alquiler.reservas;
 import java.util.Locale;
 import java.util.Timer;
 
-
-
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.boot.SpringApplication;
 import org.springframework.boot.autoconfigure.SpringBootApplication;
 import org.springframework.context.annotation.AnnotationConfigApplicationContext;
 import org.springframework.context.support.AbstractApplicationContext;
 
 import com.alquiler.reservas.conf.SpringConfiguration;
+import com.alquiler.reservas.service.UserService;
 import com.alquiler.reservas.util.EmailSenderService;
 import com.alquiler.reservas.util.Tarea;
 
 @SpringBootApplication
 public class ReservasApplication {
 
-	
+
+
 	
 	public static void main(String[] args) {
 		SpringApplication.run(ReservasApplication.class, args);
@@ -25,8 +26,14 @@ public class ReservasApplication {
 		//i18n();
 		//EmailSenderService e = new EmailSenderService();
 		//e.testMail();
+		
+
+		
+		
 	}
-	// up
+
+
+	
 	public static void start() {
 		System.out.println(" Start Timer ");
         Tarea tarea = new Tarea();

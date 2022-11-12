@@ -1,0 +1,52 @@
+<div class="table-responsive">
+	<table id="userList" class="table table-bordered table-hover table-striped">
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">#_#_#</th>
+			<th scope="col">Id</th>
+			<th scope="col">Locked</th>
+			<th scope="col">Lockedby</th>
+			<th scope="col">Lockgranted</th>
+
+			<th></th>
+			<th></th>
+		</tr>
+		</thead>
+		<tbody>
+
+			<td th:text="${lock.id}"></td>
+			<td th:text="${lock.locked}"></td>
+			<td th:text="${lock.lockedby}"></td>
+			<td th:text="${lock.lockgranted}"></td>
+			
+			<td>	
+
+			</td>
+
+		</tr>
+		</tbody>
+	</table>
+
+	
+</div>
+
+
+ 
+<div id="deleteError" th:if="${deleteError}" class="alert alert-danger text-center" role="alert">
+	<span th:text="${deleteError}"></span>
+</div>
+
+
+<script type="text/javascript">
+function confirmDelete(id){
+	$('#deleteModal').modal('show');
+	$("#userIdHiddenInput").val(id);
+}
+
+function deleteUser(){
+	var id = $("#userIdHiddenInput").val();
+    window.location = "deleteUser/"+id;
+}
+
+</script>
+
