@@ -61,6 +61,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 				 Falta impl el metodo log y la vista, el lock no reportada datos. 
 	
 	* 12/11/22 - Cambio de servidor de Heroku a RailWay
+	* 12/11/22 - Desplegar RailWay
+					
 	
 #####################################################################################
 
@@ -88,4 +90,14 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación: Estable
 # Problem: 
 	Merge with Heroku-mtn
+#####################################################################################
+# Rama: railWayPre
+# Fecha Committer: 2022-11-15 15:00
+# LastChange: Merge with Heroku-mtn
+	* Cambio de servidor de BBDD railWay
+# Origen: delop -- 2021-06-14 12:15
+# Situación: No-Deploy-RailWay
+# Problem: 
+	Configuración para desplegar en RailWay
+	
 #####################################################################################
