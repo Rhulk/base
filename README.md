@@ -98,6 +98,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Origen: delop -- 2021-06-14 12:15
 # Situación: No-Deploy-RailWay
 # Problem: 
-	Configuración para desplegar en RailWay
+	Configuración para desplegar en RailWay.
 	
 #####################################################################################
