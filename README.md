@@ -99,5 +99,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación: No-Deploy-RailWay
 # Problem: 
 	Configuración para desplegar en RailWay.
+	Problema con el build.
+		[Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
+		Parece que segun el enlace anterior hay algun componente de maven que no le gusta.
+		
 	
 #####################################################################################
