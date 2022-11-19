@@ -1,0 +1,89 @@
+<div>
+<h2>Generador SQL en construccion</h2>
+<div >
+	Select * from User
+	Insert into User (name) value ("pepe");
+	Update User Set name="Jose" Where name="pepe"
+</div>
+<div class="form-filter select">
+
+	<select>
+		<option>Select</option>
+		<option>Update</option>
+		<option>Insert</option>
+	</select>
+	Tablas: 
+	<select>
+		<option>Tabla 1</option>
+		<option>Tabla 2</option>
+		<option>Tabla 3</option>
+	</select>
+	Campos: 
+	<select  id="idCampo" name="campo" class="select-css" onchange="addCampo()">
+		<option id="id_campo_*" value="*">*</option>
+		<option id="id_campo_1" value="1">Campo 1</option>
+		<option id="id_campo_2" value="2">Campo 2</option>
+		<option id="id_campo_3" value="3">Campo 3</option>
+	</select>
+	
+	<input class="inputHidden" type="text" value="campo1" placeholder="campo1" disabled="disabled">
+	<input class="inputHidden" type="text" value="campo1" placeholder="campo1" disabled="disabled">
+	<input class="inputHidden" type="text" value="campo1" placeholder="campo1" disabled="disabled">
+	<input class="inputHidden" type="text" value="campo1" placeholder="campo1" disabled="disabled">
+	
+	<input type="checkbox" name="campos" value="1"><span>Campo *</span>
+	<input type="checkbox" name="campos" value="1"><span>Campo 1</span>
+	<input type="checkbox" name="campos" value="1"><span>Campo 2</span>
+	<input type="checkbox" name="campos" value="1"><span>Campo 3</span>
+	
+	<button>Ejecutar</button> <button>Limpiar</button>
+	<div class="crud"></div>
+</div>
+<div class="form-filter insert">
+	<h4>Insert</h4>
+	<select>
+		<option>Select</option>
+		<option>Update</option>
+		<option>Insert</option>
+	</select>
+	<h4>Tablas:</h4> 
+	<select>
+		<option>Tabla 1</option>
+		<option>Tabla 2</option>
+		<option>Tabla 3</option>
+	</select>
+	<div class="form-firler valuesInsert">
+	<h4>Campos:</h4>
+	<div class="campo">
+		<select>
+			<option>Campo 1</option>
+			<option>Campo 2</option>
+			<option>Campo 3</option>
+		</select>
+		<input value="" placeholder="insert value">
+	</div>
+		<div class="campo">
+		<select>
+			<option>Campo 1</option>
+			<option>Campo 2</option>
+			<option>Campo 3</option>
+		</select>
+		<input value="" placeholder="insert value">
+	</div>
+		<div class="campo">
+		<select>
+			<option>Campo 1</option>
+			<option>Campo 2</option>
+			<option>Campo 3</option>
+		</select>
+		<input value="" placeholder="insert value">
+	</div>
+	</div>
+	<div class="crud"><button>Ejecutar</button> <button>Limpiar</button> </div>
+</div>
+
+
+
+<br>
+
+</div>

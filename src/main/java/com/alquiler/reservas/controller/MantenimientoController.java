@@ -148,4 +148,11 @@ public class MantenimientoController {
 		
 		return "security/user-form/user-list-mtn";
 	}
+	
+	@GetMapping("/generadorsql")
+	public String generadorConsultas() {
+		System.out.println("GeneradorSQL");
+		
+		return "mtn/sql/generadorsql";
+	}
 }

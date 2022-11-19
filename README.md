@@ -103,5 +103,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 		[Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
 		Parece que segun el enlace anterior hay algun componente de maven que no le gusta.
 		
-	
+		projectlombok
+		
 #####################################################################################
