@@ -19,11 +19,11 @@
 		<option>Tabla 3</option>
 	</select>
 	Campos: 
-	<select  id="idCampo" name="campo" class="select-css" onchange="addCampo()">
+	<select  id="idCampo" name="campo" class="select-css" >
 		<option id="id_campo_*" value="*">*</option>
-		<option id="id_campo_1" value="1">Campo 1</option>
-		<option id="id_campo_2" value="2">Campo 2</option>
-		<option id="id_campo_3" value="3">Campo 3</option>
+		<option id="id_campo_1" value="1" onclick="getCampo(this.id)">Campo 1</option>
+		<option id="id_campo_2" value="2" onclick="getCampo(this.id)">Campo 2</option>
+		<option id="id_campo_3" value="3" onclick="getCampo(this.id)">Campo 3</option>
 	</select>
 	
 	<input class="inputHidden" type="text" value="campo1" placeholder="campo1" disabled="disabled">

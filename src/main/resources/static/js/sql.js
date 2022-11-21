@@ -1,8 +1,14 @@
 console.log("sql.js");
 
-function addCampo(){
-	console.log("Visual Studio up");
+function getCampo(id){
+	console.log(id+' getCampo');
+    console.log(document.getElementById(id).textContent);
 	
-    document.getElementById("idCampo").
-    info(document.form.idBike.selectedIndex);
+
+}
+function getIdioma(id){
+    console.log(id+' getIdioma');
+    document.getElementById("mostrarIdioma").textContent = document.getElementById(id).textContent; // Mostramos el idioma seleccionado
+    sessionStorage.setItem(idioma, document.getElementById("mostrarIdioma").textContent = document.getElementById(id).textContent );
+    setByIdioma(sessionStorage.getItem(idioma));
 }
