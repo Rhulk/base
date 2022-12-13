@@ -1,3 +1,37 @@
-.inputHidden {
-	display: none
+body{
+    background-color: gray;
+}
+#container {
+    border: blue solid 1px;
+    height: auto;
+    width: auto;
+  }
+.crud {
+    border: rgb(183, 0, 255) solid 1px;
+}
+.form-filter{
+    border: blue solid 1px;
+    
+}
+.cabecera{
+    border: blue solid 1px;
+    background-color: rgb(241, 135, 30);
+}
+
+.ocultar{
+    display: none;
+	width: 100%;
+	margin: auto;
+	height: 0px;
+	background: #000;
+	box-shadow: 10px 10px 3px #D8D8D8;
+	transition: height .4s;
+    
+    text-align: center;
+}
+.campos-insert{
+    display: flex;
+    justify-content: center;
+    flex-direction: column;
+    align-items: center;
 }
