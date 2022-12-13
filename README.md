@@ -106,3 +106,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 		projectlombok
 		
 #####################################################################################
+# Rama:SQL
+# Fecha Committer: 2022-12-13 11:00
+# LastChange: Avances de JS para el generador
+# Origen: sin determinar
+# Situación:Beta 1
+#####################################################################################
