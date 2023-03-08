@@ -103,5 +103,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 		[Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoExecutionException
 		Parece que segun el enlace anterior hay algun componente de maven que no le gusta.
 		
-	
+		
+		projectlombok
+		
+#####################################################################################
+# Rama:SQL
+# Fecha Committer: 2022-12-13 11:00
+# LastChange: Avances de JS para el generador
+# Origen: sin determinar
+# Situación:Beta 1
 #####################################################################################
