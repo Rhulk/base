@@ -7,7 +7,7 @@
 
     	<include file="spring-security.xml" relativeToChangelogFile="true"/>
     	
-    	<!-- Solo postgres -->
-    	<include file="ajustes-postgres.xml" relativeToChangelogFile="true"/>
+    	<!-- Solo postgres 
+    	<include file="ajustes-postgres.xml" relativeToChangelogFile="true"/>-->
 
 </databaseChangeLog>
