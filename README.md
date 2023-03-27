@@ -111,4 +111,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 # LastChange: Avances de JS para el generador
 # Origen: sin determinar
 # Situación:Beta 1
+# Problem:
+	Postgres RailWay Pausado change SQL - 
+	
 #####################################################################################
