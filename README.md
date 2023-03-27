@@ -75,9 +75,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno Producción de Heroku estable.
 #####################################################################################
 # Rama: delop
-# Fecha Committer: 2021-06-21 16:55
-# LastChange: Activar user cifrando username
-# Origen: Heroku -- 2021-06-14 11:52
+# Fecha Committer: 2023-03-27
+# LastChange: Merge with railWayPre
+# Origen: railWayPre -- 2023-03-27 18:39
 # Situación: Estable
 # Problem: Estable
 	* Entorno principal de desarrollo
