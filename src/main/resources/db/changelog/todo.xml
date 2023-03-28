@@ -1,0 +1,188 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <databaseChangeLog
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+     
+      <changeSet author="t" id="1">
+         <createTable tableName="stg_todo">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="descripcion" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="estado" type="INT">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="prioridad" type="INT">
+                 <constraints nullable="false"/>
+             </column>    
+             <column name="tipo" type="INT">
+                 <constraints nullable="false"/>
+             </column>  
+             
+         </createTable>    
+
+         
+         
+         <rollback>
+             <dropTable tableName="stg_todo"/>
+         </rollback>
+     </changeSet>
+     
+
+	
+	<changeSet author="t" id="1++">
+	      <update 
+	      tableName="stg_todo">
+	      <column name="estado" value="1"/>
+	      
+	      </update>
+	</changeSet>
+
+     
+     
+      <changeSet author="t" id="1a">
+
+         <insert tableName="stg_todo">
+         
+                  <column name="descripcion" value="descripcion"></column>
+                  <column name="estado" value="1"></column>
+                  <column name="prioridad" value="1"></column>
+                  <column name="tipo" value="1"></column>
+                  
+
+            
+         </insert>
+     
+     </changeSet>
+     
+     <changeSet author="t" id="1b">
+            <preConditions  onFail="WARN">
+      </preConditions>     
+         <insert tableName="stg_todo">
+                  <column name="descripcion" value="descripcion"></column>
+                  <column name="estado" value="1"></column>
+                  <column name="prioridad" value="1"></column>
+                  <column name="tipo" value="1"></column>
+            
+         </insert>
+     </changeSet>
+
+     <changeSet author="t" id="1c">
+         <insert tableName="stg_todo">
+         
+                  <column name="descripcion" value="descripcion"></column>
+                  <column name="estado" value="1"></column>
+                  <column name="prioridad" value="1"></column>
+                  <column name="tipo" value="1"></column>
+            
+         </insert>
+     </changeSet>
+     
+     
+	<changeSet author="t" id="1d">
+         <insert tableName="stg_todo">
+         
+                  <column name="descripcion" value="descripcion"></column>
+                  <column name="estado" value="1"></column>
+                  <column name="prioridad" value="1"></column>
+                  <column name="tipo" value="1"></column>
+            
+         </insert>
+     </changeSet>
+     
+     
+     
+     
+
+     
+     
+
+     
+     
+<!-- 
+     <changeSet author="rhulk" id="1">
+         <createTable tableName="cliente">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="nombre" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="apellido1" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="apellido2" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="direccion" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>
+             <column name="email" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+             <column name="municipio" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+              <column name="telefono" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>            
+             <column name="observaciones" type="VARCHAR(255)">
+                 <constraints nullable="false"/>
+             </column>             
+             
+         </createTable>
+         <rollback>
+             <dropTable tableName="cliente"/>
+         </rollback>
+     </changeSet>
+          <changeSet author="rhulk" id="2">
+         <insert tableName="cliente">
+             
+             <column name="nombre" value="Tom"/>
+             <column name="direccion" value="Lepanto 3"/>
+             <column name="apellido1" value="Carvajal"/>
+             <column name="apellido2" value="Jara"/>
+             <column name="email" value="quique1904@gmail.com"/>
+             <column name="municipio" value="Zarzalejo"/>
+             <column name="telefono" value="676293018"/>
+             <column name="observaciones" value="liquibase"/>
+         </insert>
+     </changeSet>
+     
+     <changeSet author="rhulk" id="3">
+         <preConditions>
+             <dbms  type="mssql"/>
+         </preConditions>
+         <update tableName="cliente">
+             <column name="direccion" value="India"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+     </changeSet>
+     
+      <changeSet author="rhulk" id="4">
+      	<addColumn tableName="cliente" >
+			<column name="id_bike" 	type="INT"/>  
+			<column name="id_venta" type="INT"/>  
+		</addColumn>
+      </changeSet>
+ 	  <changeSet author="rhulk" id="5">
+ 	     <update tableName="cliente">
+             <column name="id_bike" value="0"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+ 	  
+ 	  </changeSet>
+ 	  <changeSet author="rhulk" id="6">
+ 	     <update tableName="cliente">
+             <column name="id_venta" value="0"/>
+             <where>nombre = 'Tom'</where>
+         </update>
+ 	  
+ 	  </changeSet>
+  -->    
+ </databaseChangeLog>
