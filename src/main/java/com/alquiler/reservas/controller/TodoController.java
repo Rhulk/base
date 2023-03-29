@@ -6,10 +6,10 @@ import org.springframework.web.bind.annotation.GetMapping;
 @Controller
 public class TodoController {
 	
-	@GetMapping("/listTodo")
+	@GetMapping("/todolist")
 	public String listTodo() {
-		
-		return "listTodo";
+		System.out.println("Listado de To-dos");
+		return "/todo/todo-list";
 	}
 
 }
