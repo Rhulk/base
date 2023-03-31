@@ -23,9 +23,9 @@ public class TodoController {
 		estados.add(Estado.Inicial);
 		
 		System.out.println(estados.get(0).toString());
-		System.out.println("Listado de To-dos");
+		System.out.println("Listado de To-dos Up");
 		System.out.println(todoService.getByEstado(Estado.EnProceso));
-		return "todo-list";
+		return "todo/todo-list";
 	}
 
 }
