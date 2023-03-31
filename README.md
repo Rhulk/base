@@ -90,6 +90,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación: Estable
 # Problem: 
 	Merge with Heroku-mtn
+	Conexión con PostGres
 #####################################################################################
 # Rama: railWayPre
 # Fecha Committer: 2022-11-15 15:00
