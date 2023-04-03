@@ -106,9 +106,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 		projectlombok
 		
-		#10 20.48 [ERROR] For more information about the errors and possible solutions, please read the following articles:
-		#10 20.48 [ERROR] [Help 1] http://cwiki.apache.org/confluence/display/MAVEN/MojoFailureException
-		Vuelve a fallar
+
 		
 #####################################################################################
 # Rama:SQL
