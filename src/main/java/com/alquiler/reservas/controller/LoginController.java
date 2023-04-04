@@ -184,6 +184,8 @@ public class LoginController {
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("listTab","active");
+		model.addAttribute("listTabSql","SQL");
+		model.addAttribute("listTabToDo","ToDo");
 		return "security/user-form/user-view";
 	}
 	
