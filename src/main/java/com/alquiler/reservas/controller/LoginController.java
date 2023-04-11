@@ -155,7 +155,7 @@ public class LoginController {
 			try {
 				userService.createUser(user);
 				model.addAttribute("userForm", new User());
-				model.addAttribute("listTab","active");
+				model.addAttribute("listTabUser","active");
 				
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
@@ -183,9 +183,9 @@ public class LoginController {
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("listTab","active");
-		model.addAttribute("listTabSql","SQL");
-		model.addAttribute("listTabToDo","ToDo");
+		model.addAttribute("listTabUser","active");
+		model.addAttribute("listTabSql","No");
+		model.addAttribute("listTabToDo","No");
 		return "security/user-form/user-view";
 	}
 	
@@ -216,7 +216,7 @@ public class LoginController {
 				
 				userService.updateUser(user);
 				model.addAttribute("userForm", new User());
-				model.addAttribute("listTab","active");
+				model.addAttribute("listTabUser","active");
 			} catch (Exception e) {
 				System.out.println("\n Log: "+e.toString()+"\n");
 				model.addAttribute("formErrorMessage",e.getMessage());

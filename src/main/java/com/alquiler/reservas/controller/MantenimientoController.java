@@ -38,6 +38,16 @@ public class MantenimientoController {
 		return "Error";
 	}
 	
+	@GetMapping("/admin")
+	public String index(Model model) {
+		model.addAttribute("userForm", new User());
+		model.addAttribute("listTabUser","No");
+		model.addAttribute("listTabSql","No");
+		model.addAttribute("listTabToDo","No");
+		model.addAttribute("listTabAdmin","active");
+		return "security/user-form/user-view";
+	}
+	
 	@GetMapping("/sql")
 	public String home(Model model) {
 		model.addAttribute("userForm", new User());
@@ -47,7 +57,7 @@ public class MantenimientoController {
 		System.out.println(" -- Tablas: "+userService.getAllTablas().toString());
 		System.out.println(" -- Check Liquibase log -- "+userService.selectDataBaseChangelog().toString());
 		
-		userService.bloqueo();
+		//userService.bloqueo();
 		
 		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
 		//userService.desbloqueo();
