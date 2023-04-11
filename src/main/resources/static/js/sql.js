@@ -5,15 +5,23 @@ let classCampo = "";
 let where = "";
 let condicion = 'AND';
 let sino = false;//quitar 
-// control incrementos de crementos de los parentesis
-let izqMas ='izqMas';
-let izqMenos = 'izqMenos';
-let derMas = 'derMas';
-let derMenos = 'derMenos'; 
-let izqParent = 'izqParent';
-let derParent = 'derParent';
+//query
+let tipoQuery='';
+let queryCampoWhere = 'queryCampoWhere';
+let queryCampoWhereResult = 'queryCampoWhereResult';
+
+let OR = 'OR'; let AND = 'AND'; let MenosIZQ = 'MenosIZQ'; let MasIZQ = 'MasIZQ'; let ParentIZQ ='ParentIZQ';
+let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; let MasDER ='MasDER';
+
+var btnLanzarSelect = document.getElementById("btnLanzarSelect");
+
+
+
+
+
+
 function selectOption(valor){
-    
+    tipoQuery = valor;
     switch (valor) {
         case 'select':
           document.getElementById("select").style.display = "inline-block";
@@ -57,147 +65,214 @@ function getCampo(id){
     }else{
         limpiarCampo(document.getElementById(id).value);  
     }
-    //where=''; si pincho fuera del where qu se quite
+    
+}
+function getTabla(id){
+    limpiarBtnTabla('table');
+    insertElements(document.querySelector('#'+'containerSelectTable'),'button',
+        'type','button',
+        'class','table',
+        'value',document.getElementById(id).value,
+        'id',document.getElementById(id).value,
+        '',''
+    );
+document.getElementById('QueryTable').value = 'Select Table';
+}
+function limpiarBtnTabla(filtro){
+    var btns = document.querySelectorAll('.'+filtro);
+    for (var i = 0; i < btns.length; i++) {
+        document.querySelector('#'+btns[i].id).remove();   
+    }
 }
 
 function limpiarCampo(id){
-    //console.log('Container: '+container+where+' | '+'id: '+id);
+    var isOR = false;
+    const ORIid=id;
     const divPadre = document.querySelector('#'+container+where);
-    //const condicion = document.querySelector('#'+container+where);
-    //console.log('divPadre: '+divPadre+' - tamaño:'+divPadre.ariaSetSize);
+
     let addClass='';
     if (where == 'Where'){
         addClass='Where';
     }else{
-        addClass='Select';
+        addClass='queryCampo';
     }
- 
+    // div padre del contenedor
     insertElements(divPadre,'div',
         '','',
         'class',classCampo,
         'value','',
         'id',idCampo+where+'-div-'+id,
-        '','');
+        '',''
+    );
     const divHijo = document.querySelector('#'+idCampo+where+'-div-'+id);
-    //console.log('- '+'#'+idCampo+'-div-'+id)
-    //console.log('divHijo: '+divHijo);
-
-    insertElements(divHijo,'div',
-    '','',
-    'class',classCampo,
-    'value','',
-    'id',idCampo+where+'-condicion-'+id,
-    '','');      
-    console.log('Condición:'+idCampo+where+condicion+id);
-    if (!document.getElementById( idCampo+where+condicion+id ) && where == 'Where'){
-        insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo,
-        'value',condicion,
-        'id',idCampo+where+condicion+id,
-        'onclick','AndOr(this.id)'
-        );
-        console.log('Condición:'+idCampo+where+condicion+id+' Unico campo:'+id);
-    }else{
-        if(document.getElementById( idCampo+where+condicion+id ).value == 'AND'){
-            AndOr(idCampo+where+condicion+id);
-        }
-        //console.log(' Campo repe para OR ': );
-        console.log('Condición:'+idCampo+where+condicion+id+'  Repetido: '+id);
-
-
-    }
-
-
-
+    // posiblemente hay que borrarlo se queda solo
+    // tengo que crear el id acorde con elcampo para los duplicados
     if (where == 'Where'){
-        // btn -
-        insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo,
-        'value','-',
-        'id',idCampo+where+id,
-        'onclick','addParentesis(this.value)'
-        );
-        // btn +
-        insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo,
-        'value','+',
-        'id',idCampo+where+id,
-        'onclick','addParentesis(this.value)'
-        );
-        // input (
-        insertElements(divHijo,'input',
-        '','',
-        'class',classCampo,
-        'value','(',
-        'id',idCampo+where+'-input'+id,
-        '','');
+    // div condición
+    // incremento el id para el div
+    var btns = document.querySelectorAll('.'+'ORI'+ORIid);
+    var preId= id;
+    var oldId=id; // genero el id anterior para borrar el parentesis cuando sea OR
+    for (var i = 0; i < btns.length; i++) {
+        preId=preId+''+btns[0].textContent;
+        if (i < btns.length-1){
+            oldId=oldId+''+btns[0].textContent;
+        } 
     }
-    // btn campo
-    insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo+ ' btn '+addClass,
-        'value',id,
-        'id',idCampo+where+id,
-        'onclick','quitarBtnAddOption(this.value)');
-
-    if (idCampo == "idCampoInsert" || where == 'Where' ){    
-        // input campo
-        insertElements(divHijo,'input',
+    insertElements(divHijo,'div',
         '','',
         'class',classCampo,
         'value','',
-        'id',idCampo+where+'-input'+id,
-        '','');
+        'id',idCampo+where+'-condicion-'+preId,
+        '',''
+    ); 
+    const divCondicion = document.querySelector('#'+idCampo+where+'-condicion-'+preId);
+
+    // btn OR AND Where
+    if(document.querySelectorAll('.'+'Where').length>0){
+        if (document.getElementById( idCampo+where+AND+id )){
+            insertElements(divCondicion,'button',
+                'type','button',
+                'class',classCampo+' queryCondicion',
+                'value',OR,
+                'id',idCampo+where+condicion+preId,
+                'onclick','AndOr(this.id)'
+            );
+            // delete parentesis de cierre anterior para OR
+            getDereMenos(oldId);// test ok
+            isOR=true;// para no crear el parentesis inicial en pag 213
+        }else{
+            insertElements(divCondicion,'button',
+                'type','button',
+                'class',classCampo+' queryCondicion',
+                'value',AND,
+                'id',idCampo+where+AND+id,
+                'onclick','AndOr(this.id)'
+            );
+        }
+    }else{
+        insertElements(divCondicion,'button',
+            'type','button',
+            'class',classCampo+' queryCondicion',
+            'value','Where:',
+            'id',idCampo+where+condicion+preId,
+            '',''
+        );
+    }
+    
+    // AND - OR
+    if (!document.getElementById( idCampo+where+condicion+id ) && where == 'Where'){
+
+    }else{
+
+        // for uno por cada btn esto solo funciona si el btn or es el primero.
+        var btns = document.querySelectorAll('.'+'ORI'+ORIid);
+        for (var i = 0; i < btns.length; i++) {
+            id=id+''+btns[0].textContent;    
+        }
+    }
     }
     if (where == 'Where'){
-        //btn )
-        insertElements(divHijo,'input',
-        '','',
-        'class',classCampo,
-        'value',')',
-        'id',idCampo+where+'-input'+id,
-        '','');
-        //btn -
+        // btn MenosIZQ
         insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo,
-        'value','-',
-        'id',idCampo+where+id,
-        'onclick','addParentesis(this.value)'
+            'type','button',
+            'class',classCampo,
+            'value','-',
+            'id',id,
+            'onclick','getIzqMenos(this.id)'
         );
-        // btn +
+
+        // btn MasIZQ
         insertElements(divHijo,'button',
-        'type','button',
-        'class',classCampo,
-        'value','+',
-        'id',idCampo+where+id,
-        'onclick','addParentesis(this.value)'
+            'type','button',
+            'class',classCampo,
+            'value','+',
+            'id',id,
+            'onclick','getIzqMas(this.id)'
+        );
+        // btn ParentIZQ
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo+' queryParentIzq',
+            'value','(',
+            'id',idCampo+where+ParentIZQ+id,
+            '',''
+        );
+        // btn campo 'ORI'+ORIid
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo+ ' btn '+addClass+' ORI'+ORIid +' '+queryCampoWhere, // id origen
+            'value',ORIid,
+            'id',idCampo+where+id,
+            'onclick','quitarBtnAddOptionWhere(this.value)'
+        );
+        // cuando es OR decrementar el parentesis de apertura (
+        if (isOR){
+            getIzqMenos(preId);
+        }
+    }else {
+            // btn campo Select
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo+ ' btn '+addClass, // id origen solo en Where
+            'value',id,
+            'id',idCampo+where+id,
+            'onclick','quitarBtnAddOptionSelect(this.value)'
         );
     }
 
+
+    if (idCampo == "idCampoInsert" || where == 'Where' ){    
+        // input RESULT
+        insertElements(divHijo,'input',
+            '','',
+            'class',classCampo+' '+queryCampoWhereResult,
+            'value','Escribe aquí...',
+            'id',idCampo+where+RESULT+id,
+            '',''
+        );
+    }
+    if (where == 'Where'){
+        //btn ParentDERE
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo+' queryParentDer',
+            'value',')',
+            'id',idCampo+where+ParentDER+id,
+            '',''
+        );
+        //btn MenosDERE
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo,
+            'value','-',
+            'id',id,
+            'onclick','getDereMenos(this.id)'
+        );
+        // btn MasDER
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo,
+            'value','+',
+            'id',id,
+            'onclick','getDereMas(this.id)'
+        );
+    }
     if (where != 'Where'){
         document.querySelector('#'+idCampo+where+id).remove();
-        //console.log('limpiarCampo -> id: '+'#'+idCampo+where+id);
     }else{
-        //console.log('limpiarCampo -> id: NOO ');
         document.getElementById(idCampo+where).value = 'select';
-    }
-    
-    
+    } 
 }
 function limpiarCampoAll(){
     const divPadre = document.querySelector('#'+container+where);
     const $select = document.getElementById(idCampo+where);
-
-    
+ 
     let addClass='';
     if (where == 'Where'){
         addClass='Where';
     }else{
-        addClass='Select';
+        addClass='queryCampo';
     }
     
     for (var option of document.getElementById(idCampo+where).options) {
@@ -214,80 +289,82 @@ function limpiarCampoAll(){
             if (where == 'Where'){
                 // btn -
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo,
-                'value','-',
-                'id',idCampo+where+option.value,
-                'onclick','addParentesis(this.value)'
+                    'type','button',
+                    'class',classCampo,
+                    'value','-',
+                    'id',idCampo+where+option.value,
+                    'onclick','addParentesis(this.value)'
                 );
                 // btn +
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo,
-                'value','+',
-                'id',idCampo+where+option.value,
-                'onclick','addParentesis(this.value)'
+                    'type','button',
+                    'class',classCampo,
+                    'value','+',
+                    'id',idCampo+where+option.value,
+                    'onclick','addParentesis(this.value)'
                 );
                 // btn (
                 insertElements(divHijo,'input',
-                '','',
-                'class',classCampo,
-                'value','(',
-                'id',idCampo+where+'-input'+option.value,
-                '',''); 
+                    '','',
+                    'class',classCampo,
+                    'value','(',
+                    'id',idCampo+where+'-input'+option.value,
+                    '',''
+                ); 
                 // btn campo where
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo+ ' btn '+addClass,
-                'value',option.value,
-                'id',idCampo+where+option.value,
-                'onclick','quitarBtnAddOptionWhere(this.value)'
+                    'type','button',
+                    'class',classCampo+ ' btn '+addClass+' '+queryCampoWhere,
+                    'value',option.value,
+                    'id',idCampo+where+option.value,
+                    'onclick','quitarBtnAddOptionWhere(this.value)'
                 );               
 
             }else{
                 // btn selec
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo+ ' btn '+addClass,
-                'value',option.value,
-                'id',idCampo+where+option.value,
-                'onclick','quitarBtnAddOptionSelect(this.value)'
+                    'type','button',
+                    'class',classCampo+ ' btn '+addClass,
+                    'value',option.value,
+                    'id',idCampo+where+option.value,
+                    'onclick','quitarBtnAddOptionSelect(this.value)'
                 );
             }
   
 
             if (idCampo == "idCampoInsert"|| where == 'Where'){
                 insertElements(divHijo,'input',
-                '','',
-                'class',classCampo,
-                'value','',
-                'id',idCampo+where+'-input'+option.value,
-                '',''
+                    '','',
+                    'class',classCampo,
+                    'value','escribe aquí',
+                    'id',idCampo+where+'-input'+option.value,
+                    '',''
                 );
             }
             if (where == 'Where'){
                 // btn )
                 insertElements(divHijo,'input',
-                '','',
-                'class',classCampo,
-                'value',')',
-                'id',idCampo+where+'-input'+option.value,
-                '','');   
+                    '','',
+                    'class',classCampo,
+                    'value',')',
+                    'id',idCampo+where+'-input'+option.value,
+                    '',''
+                );   
                 // btn -
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo,
-                'value','-',
-                'id',idCampo+where+option.value,
-                'onclick','addParentesis(this.value)'
+                    'type','button',
+                    'class',classCampo,
+                    'value','-',
+                    'id',idCampo+where+option.value,
+                    'onclick','addParentesis(this.value)'
                 );
                 // btn +
                 insertElements(divHijo,'button',
-                'type','button',
-                'class',classCampo,
-                'value','+',
-                'id',idCampo+where+option.value,
-                'onclick','addParentesis(this.value)'
+                    'type','button',
+                    'class',classCampo,
+                    'value','+',
+                    'id',idCampo+where+option.value,
+                    'onclick','addParentesis(this.value)'
                 );                
             
             }
@@ -303,14 +380,15 @@ function limpiarCampoAll(){
 
 
 function insertElements(container,elementName,tipoBtnName,tipoBtnValue,className,classValue,valueName,valueValue,idName,idValue,functionName,functionValue) { //recibe el div
-    //console.log(" container: "+container);
-    //console.log(" elementName: "+elementName);
-    //console.log()
+
     const btn = document.createElement(elementName);
 
-    btn.setAttribute(className, classValue);
     btn.setAttribute(valueName,valueValue);
     btn.setAttribute(idName,idValue);
+
+    if(className != ''){
+        btn.setAttribute(className, classValue);
+    }
     if (functionName != ''){
         btn.setAttribute(functionName,functionValue);
     }
@@ -342,23 +420,14 @@ function quitarBtnAddOption(id){
     }
     if (all){
         addOption('*');
-        //sino=false;
     }
-    //console.log('id: '+id);
-    //console.log('Where: '+where);
-    //console.log('btn: '+idCampo+'-input'+id);
     document.querySelector('#'+idCampo+where+id).remove();
     if (idCampo == "idCampoInsert"){
-        //console.log(" Remove Input Insert: -idCampoInsert-input2- id ="+idCampo+'-input'+id);
-        
         document.querySelector('#'+idCampo+'-input'+id).remove();
     }
-    //console.log('fail - '+idCampo+where+'-div-'+id);
     document.querySelector('#'+idCampo+where+'-div-'+id).remove();
     addOption(id);
-    //console.log(" Done --> delete btn: id="+id+" Add Option: id="+idCampo+id);
 }
-
 function limpiarBtnAll(filtro){
 
     if (filtro == 'Where'){
@@ -368,9 +437,7 @@ function limpiarBtnAll(filtro){
     }
 
     var btns = document.querySelectorAll('.'+filtro);
-    //console.log("limpiarBtnAll: "+btns.length);
     for (var i = 0; i < btns.length; i++) {
-        //console.log('valor: '+btns[i].textContent);
         quitarBtnAddOption(btns[i].textContent);    
     }
 }
@@ -392,21 +459,86 @@ function AndOr(id){
         document.getElementById(id).innerText = 'AND';
     }
 }
-  function lanzarSelect(){
+function lanzarSelect(){
     console.log("Pendiente crear la consulta.");
-  }
+    
+
+
+}
+btnLanzarSelect.addEventListener("click", () =>{
+
+
+    
+    console.log(tipoQuery);
+    // campos
+    var campos = document.querySelectorAll('.queryCampo');
+    var primero=true;
+    for ( var i = 0; i < campos.length; i++){
+        if(!primero){
+            console.log(',');
+        }
+        console.log(campos[i].textContent);
+        primero=false;
+    }
+    console.log('from');
+    console.log(document.querySelector('.table').value);
+    // campos where 
+    //console.log('Where');
+    var camposWhere = document.querySelectorAll('.queryCampoWhere');
+    var camposWhereResult = document.querySelectorAll('.queryCampoWhereResult');
+    var queryCondicion = document.querySelectorAll('.queryCondicion');
+    var queryParentIzq = document.querySelectorAll('.queryParentIzq');
+    var queryParentDer = document.querySelectorAll('.queryParentDer');
+    for ( var i=0; i < camposWhere.length; i++){
+        console.log(queryCondicion[i].value);
+        console.log(queryParentIzq[i].value +' ' + camposWhere[i].textContent+' = '+camposWhereResult[i].value+' ' +queryParentDer[i].value);
+        
+    }
+    
+    
+});
+
 
 // incrementos decrementos de parentesis
+// Falta que los campos OR se indivizualicen los id's
 
-function getIzqMas(valor){
-    console.log('izqMas');
+function getIzqMas(id){
+    document.getElementById(idCampo+where+ParentIZQ+id).style.display ='inline';
+    document.getElementById(idCampo+where+ParentIZQ+id).value = document.getElementById(idCampo+where+ParentIZQ+id).value +'(';
+    document.getElementById(idCampo+where+ParentIZQ+id).innerText = document.getElementById(idCampo+where+ParentIZQ+id).innerText+'(';
 }
-function getIzqMenos(valor){
-    
+function getIzqMenos(id){
+    if (document.getElementById(idCampo+where+ParentIZQ+id).innerText == '(' || document.getElementById(idCampo+where+ParentIZQ+id).innerText==''){
+        document.getElementById(idCampo+where+ParentIZQ+id).style.display = 'none';
+    }  
+    document.getElementById(idCampo+where+ParentIZQ+id).innerText 
+        = document.getElementById(idCampo+where+ParentIZQ+id).innerText.slice(0, -1);
+    document.getElementById(idCampo+where+ParentIZQ+id).value 
+        = document.getElementById(idCampo+where+ParentIZQ+id).value.slice(0, -1);
 }
-function getDereMas(valor){
-    
+function getDereMas(id){
+    document.getElementById(idCampo+where+ParentDER+id).style.display ='inline';
+    document.getElementById(idCampo+where+ParentDER+id).value = document.getElementById(idCampo+where+ParentDER+id).value +')';
+    document.getElementById(idCampo+where+ParentDER+id).innerText = document.getElementById(idCampo+where+ParentDER+id).innerText+')';
 }
-function getDereMenos(valor){
+function getDereMenos(id){
+    if (document.getElementById(idCampo+where+ParentDER+id).innerText == ')' || document.getElementById(idCampo+where+ParentDER+id).innerText==''){
+        document.getElementById(idCampo+where+ParentDER+id).style.display = 'none';
+    } 
+    document.getElementById(idCampo+where+ParentDER+id).innerText 
+        = document.getElementById(idCampo+where+ParentDER+id).innerText.slice(0, -1);;
+    document.getElementById(idCampo+where+ParentDER+id).value 
+        = document.getElementById(idCampo+where+ParentDER+id).value.slice(0, -1);      
+}
+function sowLog(value){
+    if (value == 'Mostrar Log'){
+        document.querySelector('#sowlog').textContent = 'Ocultar Log';
+        document.querySelector('#sowlog').value = 'Ocultar Log';
+        document.querySelector('#idlog').style.display = 'inline';
+    }else{
+        document.querySelector('#sowlog').textContent = 'Mostrar Log';
+        document.querySelector('#sowlog').value = 'Mostrar Log';
+        document.querySelector('#idlog').style.display = 'none';
+    }
+}
 
-}
