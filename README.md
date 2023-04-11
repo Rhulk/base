@@ -122,8 +122,12 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Avances:
 		Se implementa el módulo de todo para recuperar el listado.
 		Se implementa mejoras en el menú principal.
+		Fusionar con otras ramas. - >Con SQL
 # Next:
 		Implementar CRUD full
-		Fusionar con otras ramas.
-	
-#####################################################################################	
+		
+
+		
+#####################################################################################
+
+

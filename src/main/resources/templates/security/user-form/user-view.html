@@ -34,6 +34,13 @@
 	<script src="https://cdn.datatables.net/1.10.19/js/dataTables.bootstrap4.min.js"></script>
 	<link rel="stylesheet" href="https://cdnjs.cloudflare.com/ajax/libs/twitter-bootstrap/4.1.1/css/bootstrap.css">	
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
+	
+	<!-- css para el generador de consultas -->
+		<link rel="stylesheet" type="text/css" href="static/css/sql.css"
+		th:href="@{/css/sql.css}">
+	<!-- JavaScript para el gnerador de consultas -->	
+	<script type="text/javascript" th:src="@{/js/sql.js}" />
+	
 
 	<script type="text/javascript">
 	    $(document).ready(function() {
@@ -170,7 +177,7 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<!-- <div th:include="security/user-form/todo-list.html" th:remove="tag"></div> -->
+						<div th:include="mtn/sql/generadorsql.html" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
