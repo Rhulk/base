@@ -52,46 +52,107 @@
 <body>
 	<div class="container">
 	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
+	
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
-			<a class="nav-link" th:classappend="${sqlTab}" id="sql-tab" data-toggle="tab" href="#sql" role="tab" aria-controls="sql" aria-selected="true">SQL</a>				   	
+			 <a class="nav-link" th:classappend=" ${listTabUser}" href="#" th:href="@{/userForm}"     role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
 			</li>
 			<li class="nav-item">
-	<!--  		<a class="nav-link active" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">List</a> -->
-			<a class="nav-link" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">User</a>
+			<a class="nav-link" th:classappend=" ${listTabToDo}"  href="#" th:href="@{/todolist}" > <span>To-Dos </span></a>
 			</li>
 			<li class="nav-item">
-			<!--  <a class="nav-link" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Form</a>	-->	
-			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="false">Form</a>		   	
+			 <a class="nav-link" th:classappend=" ${listTabAdmin}" href="#" th:href="@{/admin}"  >Admin</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout </span><span> ` </span><span class="float-right"> <i class="fas fa-sign-out-alt"></i></span></a>				   	
+			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout </span><span> ` </span><span class="float-right"> <i class="fas fa-sign-out-alt"></i></span></a>			   	
+			</li>			
+			
+		</ul>
+	
+		<ul class="nav nav-tabs justify-content-end">
+		<!--  
+			<li class="nav-item">
+			<a class="nav-link"  text="Usuarios" id="list-tab" data-toggle="tab"  role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
+			<a class="nav-link"  text="To-Dos" id="list-tab" data-toggle="tab"  role="tab" aria-controls="list" aria-selected="false">To-Dos</a>
+			<a class="nav-link"  text="Admin" id="list-tab" data-toggle="tab"  role="tab" aria-controls="list" aria-selected="false">Admin</a>
 			</li>
+		-->
+		<!--  	<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${listTabSql}" th:text="${listTabSql}" id="list-tab" data-toggle="tab" href="#sql" role="tab" aria-controls="list" aria-selected="false">SQL</a>
+			</li>	
+		-->
+		<!-- 	<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${listTabToDo}" id="list-tab" data-toggle="tab" href="#" th:href="@{/todolist}" role="tab" aria-controls="list" aria-selected="false">List To-Do</a>
+			</li>		
+		 
+		 
+			<li class="nav-item">
+			<a class="nav-link" th:classappend=" ${listTab}" id="list-tab" data-toggle="tab" href="#list" role="tab" aria-controls="list" aria-selected="false">Listado</a>
+
+			<a class="nav-link show" th:classappend=" ${listTabToDo}"  href="#" th:href="@{/todolist}"> <span>Listado </span></a>
+
+			<a class="nav-link show" th:classappend=" ${listTabSql}" href="#" th:href="@{/sql}"> <span>SQL </span></a>
+			</li>
+			<li class="nav-item">	
+			<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Alta</a>		
+
+			<a class="nav-link" href="#" th:href="@{/sinDefinir}" role="tab" aria-controls="form" aria-selected="true">Nada</a>	   	
+			</li>
+-->
 		</ul>
 		<div class="tab-content" id="myTabContent">
-			<!--  		<div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">-->
-			<div class="tab-pane fade show" th:classappend=" ${sqlTab}" id="sql" role="tabpanel" aria-labelledby="sql-tab">
+
+
+			<div class="tab-pane fade show" th:classappend=" ${listTabSql}" id="sql" role="tabpanel" aria-labelledby="list-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4>Generador SQL</h4>
-					</div>
-					<div class="card-body">
-						<div th:include="mtn/sql/generadorsql.html" th:remove="tag"></div>
-					</div>
-				</div>
-			</div>
-		<!--  	<div class="tab-pane fade show active" id="list" role="tabpanel" aria-labelledby="list-tab"> -->
-			<div class="tab-pane fade show" th:classappend=" ${listTab}" id="list" role="tabpanel" aria-labelledby="list-tab">
-				<div class="card">
-					<div class="card-header">
-						<h4>Roster</h4>
+						<h4>SQL-Server</h4>
 					</div>
 					<div class="card-body">
 						<div th:include="security/user-form/user-list.html" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
-	<!--  		<div class="tab-pane fade" id="form" role="tabpanel" aria-labelledby="form-tab">-->
+
+
+			<div class="tab-pane fade show" th:classappend=" ${listTabToDo}" id="todo" role="tabpanel" aria-labelledby="list-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>To-Dos</h4>
+						<ul class="nav nav-tabs justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabToDo}"  href="#" th:href="@{/todolist}"> <span>Listado </span></a>
+						</li>
+						<li class="nav-item">			
+						<a class="nav-link" href="#" th:href="@{/todoAlta}" role="tab" aria-controls="form" aria-selected="true">Alta</a>		   	
+						</li>						
+						
+						</ul>
+					</div>
+					<div class="card-body">
+						<div th:include="security/user-form/todo-list.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+
+
+			<div class="tab-pane fade show" th:classappend=" ${listTabUser}" id="list" role="tabpanel" aria-labelledby="list-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>User</h4>
+						
+						<ul class="nav nav-tabs justify-content-end">
+							<li class="nav-item">	
+							<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Alta</a>		  	
+							</li>
+						
+						</ul>
+					</div>
+					<div class="card-body">
+						<div th:include="security/user-form/user-list.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
 			<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
@@ -102,6 +163,25 @@
 					</div>
 				</div>
 			</div>
+			
+			<div class="tab-pane fade show" th:classappend=" ${listTabAdmin}" id="todo" role="tabpanel" aria-labelledby="list-tab">
+				<div class="card">
+					<div class="card-header">
+						<h4>Admin</h4>
+						<ul class="nav nav-tabs justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabAdmin}"  href="#" th:href="@{/sql}"> <span>SQL </span></a>
+						</li>
+					
+						
+						</ul>
+					</div>
+					<div class="card-body">
+						<div th:include="mtn/sql/generadorsql.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			
 		</div>
 	</div>
 </div>
