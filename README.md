@@ -114,11 +114,16 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación:Beta 1
 #####################################################################################
 # Rama: feature/toDo
-# Fecha Committer: 2023-04-03 17:17
+# Fecha Committer: 2023-04-11 12:40
 # LastChange: Funcionalidad basica de to-dos
 # Origen: delop ?
 # Situación: Inicial-Estable
 # Problem: 
 # Avances:
+		Se implementa el módulo de todo para recuperar el listado.
+		Se implementa mejoras en el menú principal.
+# Next:
+		Implementar CRUD full
+		Fusionar con otras ramas.
 	
 #####################################################################################	
