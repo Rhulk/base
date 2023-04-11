@@ -108,10 +108,10 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama:SQL
-# Fecha Committer: 2022-12-13 11:00
-# LastChange: Avances de JS para el generador
+# Fecha Committer: 2023-04-11 19:35
+# LastChange: Up code Visual Studio
 # Origen: sin determinar
-# Situación:Beta 1
+# Situación:Beta 2
 #####################################################################################
 # Rama: feature/toDo
 # Fecha Committer: 2023-04-11 12:40
