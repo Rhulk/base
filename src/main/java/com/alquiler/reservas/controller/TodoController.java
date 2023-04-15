@@ -9,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
 import com.alquiler.reservas.entity.Estado;
+import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.service.TodoService;
@@ -27,6 +28,15 @@ public class TodoController {
 	@Autowired 
 	UserService userService;
 	
+	@GetMapping("/todoAlta")
+	public String altaTodo(Model model) {
+		System.out.println("En construcción: pendiente Objeto: todoForm");
+		model.addAttribute("userForm", new User()); // sobra
+		model.addAttribute("todoForm", new Todo());
+		model.addAttribute("todoformTab","active");
+		return "security/user-form/user-view";
+	}
+	
 	@GetMapping("/todolist")
 	public String listTodo(Model model) {
 		List<Estado> estados = new LinkedList<Estado>();
@@ -37,6 +47,7 @@ public class TodoController {
 		System.out.println("Listado de To-dos Up");
 		System.out.println(todoService.getByEstado(Estado.EnProceso));
 		
+		model.addAttribute("todoForm", new Todo());
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());

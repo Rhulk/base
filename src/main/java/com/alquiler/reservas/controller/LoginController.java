@@ -33,6 +33,7 @@ import org.thymeleaf.context.WebContext;
 import com.alquiler.reservas.Exception.CustomeFieldValidationException;
 import com.alquiler.reservas.entity.ChangePasswordForm;
 import com.alquiler.reservas.entity.Role;
+import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
@@ -158,7 +159,7 @@ public class LoginController {
 				model.addAttribute("listTabUser","active");
 				
 			}catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());//Controlar si se pierde la sesión org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/security/user-form/user-view.html]")
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
@@ -181,11 +182,13 @@ public class LoginController {
 	@GetMapping("/userForm")
 	public String getUserForm(Model model) {
 		model.addAttribute("userForm", new User());
+		model.addAttribute("todoForm", new Todo());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("listTabUser","active");
 		model.addAttribute("listTabSql","No");
 		model.addAttribute("listTabToDo","No");
+		model.addAttribute("todo-formTab","No");
 		return "security/user-form/user-view";
 	}
 	

@@ -11,6 +11,7 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
 import com.alquiler.reservas.entity.Role;
+import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.repository.UserRepository;
@@ -41,6 +42,7 @@ public class MantenimientoController {
 	@GetMapping("/admin")
 	public String index(Model model) {
 		model.addAttribute("userForm", new User());
+		model.addAttribute("todoForm", new Todo());
 		model.addAttribute("listTabUser","No");
 		model.addAttribute("listTabSql","No");
 		model.addAttribute("listTabToDo","No");

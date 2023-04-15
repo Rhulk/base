@@ -100,6 +100,16 @@
 					</div>
 				</div>
 			</div>
+			<div class="tab-pane fade show" th:classappend=" ${todoformTab}" id="todo-form" role="tabpanel" aria-labelledby="form-tab-todo">
+				<div class="card">
+					<div class="card-header">
+						<h4>Alta To-do</h4>
+					</div>
+					<div class="card-body">
+						<div th:include="security/user-form/todo-form.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
 
 
 			<div class="tab-pane fade show" th:classappend=" ${listTabUser}" id="list" role="tabpanel" aria-labelledby="list-tab-user">
