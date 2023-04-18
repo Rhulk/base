@@ -1,5 +1,6 @@
 package com.alquiler.reservas.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -17,8 +18,30 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public List<Todo> getByEstado(Estado estado) {
-		
-		return todoRepository.findByEstado(estado);
+		List<Todo> todos = new LinkedList<Todo>();
+		if (estado.getDescripcion().equals("Todos menos resuelto")) {
+			todos = todoRepository.findByEstado(Estado.Inicial);
+			todos.addAll(todoRepository.findByEstado(Estado.EnProceso));
+			todos.addAll(todoRepository.findByEstado(Estado.Pausado));
+			
+			return todos;
+			
+		}else {
+			if (estado.getDescripcion().equals("Recupera todos")) {
+				todos = todoRepository.findByEstado(Estado.Inicial);
+				todos.addAll(todoRepository.findByEstado(Estado.EnProceso));
+				todos.addAll(todoRepository.findByEstado(Estado.Pausado));
+				todos.addAll(todoRepository.findByEstado(Estado.Resuelto));
+				return todos;
+			}else {
+				return todoRepository.findByEstado(estado);
+			}
+		}
+	}
+
+	@Override
+	public void createTodo(Todo todo) {
+		Todo doneTodo = todoRepository.save(todo);
 	}
 
 }

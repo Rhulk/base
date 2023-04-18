@@ -3,10 +3,16 @@ package com.alquiler.reservas.controller;
 import java.util.LinkedList;
 import java.util.List;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.alquiler.reservas.entity.Estado;
 import com.alquiler.reservas.entity.Todo;
@@ -14,6 +20,7 @@ import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.RoleRepository;
 import com.alquiler.reservas.service.TodoService;
 import com.alquiler.reservas.service.UserService;
+import com.alquiler.reservas.util.Genericos;
 
 @Controller
 public class TodoController {
@@ -28,13 +35,53 @@ public class TodoController {
 	@Autowired 
 	UserService userService;
 	
+	Genericos genericos = new Genericos();
+	
 	@GetMapping("/todoAlta")
 	public String altaTodo(Model model) {
-		System.out.println("En construcción: pendiente Objeto: todoForm");
+		System.out.println("En construcción: Pendiente listPriority");
 		model.addAttribute("userForm", new User()); // sobra
-		model.addAttribute("todoForm", new Todo());
+		model.addAttribute("todoForm", new Todo(Estado.Inicial));
 		model.addAttribute("todoformTab","active");
+		model.addAttribute("tipos",genericos.getAllTipos());
+		
 		return "security/user-form/user-view";
+	}
+	@PostMapping("/todoAlta")
+	public String createTodo(@Valid @ModelAttribute("todoForm")Todo todo, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			System.out.println("En costrucción CreateTodo Error: "+result.toString());
+			model.addAttribute("userForm", new User()); // sobra
+			model.addAttribute("todoForm", new Todo(Estado.Inicial));
+			model.addAttribute("todoformTab","active");
+			model.addAttribute("tipos",genericos.getAllTipos());
+			
+		}else {
+			System.out.println("En costrucción CreateTodo: "+todo.toString());
+			todo.setEstado(Estado.Inicial);
+			todoService.createTodo(todo);		
+
+			model.addAttribute("userForm", new User()); // sobra
+			model.addAttribute("todoForm", new Todo(Estado.Inicial));
+
+			
+			model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
+			
+			model.addAttribute("listTabUser","No");
+			model.addAttribute("listTabSql","No");
+			model.addAttribute("listTabToDo","active");
+			model.addAttribute("todoformTab","no");
+			
+		}
+		
+
+		
+		return "security/user-form/user-view";
+	}
+	
+	@GetMapping("/todoAlta/Cancel")
+	public String cancelarAlta(Model model) {
+		return "redirect:/todolist";
 	}
 	
 	@GetMapping("/todolist")
@@ -45,14 +92,14 @@ public class TodoController {
 		
 		System.out.println(estados.get(0).toString());
 		System.out.println("Listado de To-dos Up");
-		System.out.println(todoService.getByEstado(Estado.EnProceso));
+		System.out.println(todoService.getByEstado(Estado.Activos));
 		
 		model.addAttribute("todoForm", new Todo());
 		model.addAttribute("userForm", new User());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
 		
-		model.addAttribute("toDoList",todoService.getByEstado(Estado.EnProceso));
+		model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
 	
 		model.addAttribute("listTabUser","No");
 		model.addAttribute("listTabSql","No");

@@ -114,15 +114,19 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación:Beta 1
 #####################################################################################
 # Rama: feature/toDo
-# Fecha Committer: 2023-04-11 12:40
+# Fecha Committer: 2023-04-18 18:00
 # LastChange: Funcionalidad basica de to-dos
 # Origen: delop ?
 # Situación: Inicial-Estable
 # Problem: 
+		Falla las validaciones del formulario.
+		Falla la edición de usuarios.
+		Tambien falla la validación de usuarios.
 # Avances:
 		Se implementa el módulo de todo para recuperar el listado.
 		Se implementa mejoras en el menú principal.
 		Fusionar con otras ramas. - >Con SQL
+		Se implementa el alta de to-dos
 # Next:
 		Implementar CRUD full
 		
