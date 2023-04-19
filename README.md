@@ -78,9 +78,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Fecha Committer: 2023-04-19
 # LastChange: Merge with railWayPre
 # Origen: railWayPre -- 2023-03-27 18:39
-# Situación: Estable
-# Problem: Estable
-	* Entorno principal de desarrollo
+# Situación: Faile
+# Problem: 
+	* applicantion.properties no se le reconoce
+		Reason: Failed to determine a suitable driver class
+	
 #####################################################################################
 # Rama: master
 # Fecha Committer: 2022-06-12 18:00
