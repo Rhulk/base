@@ -83,14 +83,14 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno principal de desarrollo
 #####################################################################################
 # Rama: master
-# Fecha Committer: 2022-06-12 18:00
+# Fecha Committer: 2023-04-19 09:30
 # LastChange: Merge with Heroku-mtn
 	* Cambio de servidor de BBDD railWay
 # Origen: delop -- 2021-06-14 12:15
 # Situación: Estable
 # Problem: 
 	Merge with Heroku-mtn
-	Conexión con PostGres
+	Conexión con PostGres - Resuelto- apuntando a SQL
 #####################################################################################
 # Rama: railWayPre
 # Fecha Committer: 2022-11-15 15:00
