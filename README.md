@@ -120,13 +120,16 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación: Inicial-Estable
 # Problem: 
 		Falla las validaciones del formulario.
-		Falla la edición de usuarios.
 		Tambien falla la validación de usuarios.
+		Falla el guardar user.
+# Resueltos:
+		Falla la edición de usuarios. Faltaba el nuevo Objeto de todoForm 
 # Avances:
 		Se implementa el módulo de todo para recuperar el listado.
 		Se implementa mejoras en el menú principal.
 		Fusionar con otras ramas. - >Con SQL
 		Se implementa el alta de to-dos
+		En el main hay pruebas de lectura de xml ?¿
 # Next:
 		Implementar CRUD full
 		

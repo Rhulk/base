@@ -196,6 +196,8 @@ public class LoginController {
 	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
 		User user = userService.getUserById(id);
 		
+		model.addAttribute("todoForm", new Todo());
+		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userForm", user);
