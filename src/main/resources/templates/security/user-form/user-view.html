@@ -96,7 +96,7 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/todo-list.html" th:remove="tag"></div>
+						<div th:include="security/user-form/todo-list.html" th:if="${activoTodo}" th:remove="tag"></div> 
 					</div>
 				</div>
 			</div>
@@ -106,7 +106,7 @@
 						<h4>Alta To-do</h4>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/todo-form.html" th:remove="tag"></div>
+						 <div th:include="security/user-form/todo-form.html" th:if="${activoTodo}" th:remove="tag"></div> 
 					</div>
 				</div>
 			</div>

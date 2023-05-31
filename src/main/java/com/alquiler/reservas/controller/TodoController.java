@@ -104,7 +104,7 @@ public class TodoController {
 		model.addAttribute("listTabUser","No");
 		model.addAttribute("listTabSql","No");
 		model.addAttribute("listTabToDo","active");
-		
+		model.addAttribute("activoTodo",true);
 		return "security/user-form/user-view";
 		//return "todo/todo-list";
 	}

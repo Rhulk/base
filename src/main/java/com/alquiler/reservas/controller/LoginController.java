@@ -176,6 +176,7 @@ public class LoginController {
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
+		model.addAttribute("activoTodo",false);
 		return "security/user-form/user-view";
 	}
 	
@@ -196,7 +197,8 @@ public class LoginController {
 	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
 		User user = userService.getUserById(id);
 		
-		model.addAttribute("todoForm", new Todo());
+		//model.addAttribute("todoForm", new Todo());
+		model.addAttribute("activoTodo",false); // mejor no cargar la parte de todo para optimizar rendimiento.
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());

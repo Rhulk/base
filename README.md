@@ -119,11 +119,12 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Origen: delop ?
 # Situación: Inicial-Estable
 # Problem: 
-		Falla las validaciones del formulario.
-		Tambien falla la validación de usuarios.
-		Falla el guardar user.
+		Falla las validaciones del formulario. "No reproducido"
+		Tambien falla la validación de usuarios. "No reproducido"
+		
 # Resueltos:
-		Falla la edición de usuarios. Faltaba el nuevo Objeto de todoForm 
+		Falla la edición de usuarios. Faltaba el nuevo Objeto de todoForm -- Mejor no cargar el objeto y ocultar la parte que no se usa.
+		Falla el guardar user. Se controla por seguridad no cargar la parte de todo's desde el ata de usuarios.
 # Avances:
 		Se implementa el módulo de todo para recuperar el listado.
 		Se implementa mejoras en el menú principal.
