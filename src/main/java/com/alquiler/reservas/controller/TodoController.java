@@ -40,7 +40,8 @@ public class TodoController {
 	@GetMapping("/todoAlta")
 	public String altaTodo(Model model) {
 		System.out.println("En construcción: Pendiente listPriority");
-		model.addAttribute("userForm", new User()); // sobra
+		model.addAttribute("userForm", new User()); // sobra futuro activoUser
+		model.addAttribute("activoTodo",true);
 		model.addAttribute("todoForm", new Todo(Estado.Inicial));
 		model.addAttribute("todoformTab","active");
 		model.addAttribute("tipos",genericos.getAllTipos());
@@ -61,12 +62,15 @@ public class TodoController {
 			todo.setEstado(Estado.Inicial);
 			todoService.createTodo(todo);		
 
-			model.addAttribute("userForm", new User()); // sobra
-			model.addAttribute("todoForm", new Todo(Estado.Inicial));
-
+			// gestion de la visualización en user-view
+			model.addAttribute("activoTodo",true);
 			
+			// objetos modulos
+			model.addAttribute("userForm", new User()); // to-do -> ocultar de user-view para no usar el objeto.
+			model.addAttribute("todoForm", new Todo(Estado.Inicial));
 			model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
 			
+			// gestion visualización tab activo
 			model.addAttribute("listTabUser","No");
 			model.addAttribute("listTabSql","No");
 			model.addAttribute("listTabToDo","active");
@@ -76,7 +80,7 @@ public class TodoController {
 		
 
 		
-		return "security/user-form/user-view";
+		return "security/user-form/user-view"; // to-do > Cambio de nombre a main-view
 	}
 	
 	@GetMapping("/todoAlta/Cancel")
