@@ -7,7 +7,7 @@
 			<th scope="col">Estado</th>
 			<th scope="col">Prioridad</th>
 			<th scope="col">Tipo</th>
-			<th></th>
+			<th scope="col">Editar</th>
 			<th></th>
 		</tr>
 		</thead>
@@ -19,7 +19,8 @@
 			<td th:text="${todo.prioridad}"></td>
 			<td th:text="${todo.tipo}"></td>
 			<td>	
-	
+<a href="#" th:href="@{'/modTodo/'+ ${todo.id}}"><i class="fas fa-edit"></i></a>
+					
 			</td>
 		<td>	
 				

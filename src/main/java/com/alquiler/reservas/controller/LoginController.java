@@ -159,7 +159,7 @@ public class LoginController {
 				model.addAttribute("listTabUser","active");
 				
 			}catch (CustomeFieldValidationException cfve) {
-				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());//Controlar si se pierde la sesión org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/security/user-form/user-view.html]")
+				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());//Controlar si se pierde la sesión org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/security/user-form/main-view.html]")
 				model.addAttribute("userForm", user);
 				model.addAttribute("formTab","active");
 				model.addAttribute("userList", userService.getAllUsers());
@@ -177,28 +177,36 @@ public class LoginController {
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("activoTodo",false);
-		return "security/user-form/user-view";
+		return "security/user-form/main-view";
 	}
 	
-	@GetMapping("/userForm")
+	@GetMapping("/userForm")		// TODO: change name for listUser and reorder
 	public String getUserForm(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("todoForm", new Todo());
+		
+		// Gestión del contenido de la pag
+
 		model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userList", userService.getAllUsers());
+		
+		// Gestión de los tab o menus a mostrar
 		model.addAttribute("listTabUser","active");
 		model.addAttribute("listTabSql","No");
 		model.addAttribute("listTabToDo","No");
-		model.addAttribute("todo-formTab","No");
-		return "security/user-form/user-view";
+		
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoTodo",false);
+		model.addAttribute("activoUser",false);
+		
+		return "security/user-form/main-view";	//TODO: Change name for main-view
 	}
 	
 	@GetMapping("/editUser/{id}")
 	public String getEditUserForm(Model model, @PathVariable(name="id") Long id) throws Exception {
 		User user = userService.getUserById(id);
 		
-		//model.addAttribute("todoForm", new Todo());
+		// Gestion de los modulos a visualizar
 		model.addAttribute("activoTodo",false); // mejor no cargar la parte de todo para optimizar rendimiento.
+		model.addAttribute("activoUser",true);
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
@@ -208,7 +216,7 @@ public class LoginController {
 		model.addAttribute("editMode",true);//Mira siguiente seccion para mas informacion
 		model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 		
-		return "security/user-form/user-view";
+		return "security/user-form/main-view";
 	}
 	
 	@PostMapping("/editUser")
@@ -222,7 +230,7 @@ public class LoginController {
 			try {
 				
 				userService.updateUser(user);
-				model.addAttribute("userForm", new User());
+				//model.addAttribute("userForm", new User()); // TODO: Analizar si sobra. 
 				model.addAttribute("listTabUser","active");
 			} catch (Exception e) {
 				System.out.println("\n Log: "+e.toString()+"\n");
@@ -238,7 +246,7 @@ public class LoginController {
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
-		return "security/user-form/user-view";
+		return "security/user-form/main-view";
 		
 	}
 	
@@ -351,7 +359,7 @@ public class LoginController {
 	
 	@GetMapping("/user")
 	public String user() {
-		return "security/user-form/user-view";
+		return "security/user-form/main-view";
 	}
 	
 	@GetMapping("/accessdenied")

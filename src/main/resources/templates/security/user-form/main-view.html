@@ -77,10 +77,6 @@
 
 		<div class="tab-content" id="myTabContent">
 
-
-
-
-
 			<div class="tab-pane fade show" th:classappend=" ${listTabToDo}" id="todo" role="tabpanel" aria-labelledby="list-tab-todo">
 				<div class="card">
 					<div class="card-header">
@@ -96,14 +92,15 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/todo-list.html" th:if="${activoTodo}" th:remove="tag"></div> 
+						<div th:include="security/user-form/todo-list.html"  th:remove="tag"></div> 
 					</div>
 				</div>
 			</div>
 			<div class="tab-pane fade show" th:classappend=" ${todoformTab}" id="todo-form" role="tabpanel" aria-labelledby="form-tab-todo">
 				<div class="card">
 					<div class="card-header">
-						<h4>Alta To-do</h4>
+						<h4 th:if="${editModeTodo}">Edit To-do</h4>
+						<h4 th:if="!${editModeTodo}">Alta To-do</h4>
 					</div>
 					<div class="card-body">
 						 <div th:include="security/user-form/todo-form.html" th:if="${activoTodo}" th:remove="tag"></div> 
@@ -115,9 +112,12 @@
 			<div class="tab-pane fade show" th:classappend=" ${listTabUser}" id="list" role="tabpanel" aria-labelledby="list-tab-user">
 				<div class="card">
 					<div class="card-header">
-						<h4>User</h4>
+						<h4>Users</h4>
 						
 						<ul class="nav nav-tabs justify-content-end">
+							<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabUser}"  href="#" th:href="@{/userForm}"> <span>Listado </span></a>
+							</li>
 							<li class="nav-item">	
 							<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Alta</a>		  	
 							</li>
@@ -132,10 +132,11 @@
 			<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4>User Information</h4>
+						<h4 th:if="${editMode}">Edit User</h4>
+						<h4 th:if="!${editMode}">Alta User</h4>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/user-form.html" th:remove="tag"></div>
+						<div th:include="security/user-form/user-form.html" th:if="${activoUser}" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
@@ -162,8 +163,8 @@
 	</div>
 </div>
 		
- <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  -->
-  <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>
+ <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  
+  <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>-->
   <div th:include="security/user-form/confirm-delete-modal.html" th:remove="tag"></div>
   
 </body>

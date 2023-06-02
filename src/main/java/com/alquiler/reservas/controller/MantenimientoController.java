@@ -41,13 +41,18 @@ public class MantenimientoController {
 	
 	@GetMapping("/admin")
 	public String index(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("todoForm", new Todo());
+
+		// Gestión del Menu
 		model.addAttribute("listTabUser","No");
 		model.addAttribute("listTabSql","No");
 		model.addAttribute("listTabToDo","No");
 		model.addAttribute("listTabAdmin","active");
-		return "security/user-form/user-view";
+		
+		// Gestion de los modulos a visualizar
+		model.addAttribute("activoTodo",false); 
+		model.addAttribute("activoUser",false);
+		
+		return "security/user-form/main-view";
 	}
 	
 	@GetMapping("/sql")

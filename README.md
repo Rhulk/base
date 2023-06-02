@@ -131,9 +131,15 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Se implementa mejoras en el menú principal.
 		Fusionar con otras ramas. - >Con SQL
 		Se implementa el alta de to-dos
+		Se implementa el edit to-do falta mejorarlo
+		Se mejora y optimiza la gestión de los módulos evitando cargar partes de la vista no necesarias ni los objetos de dichas partes.
 		En el main hay pruebas de lectura de xml ?¿
 # Next:
 		Implementar CRUD full
+			Editar el todo Avanzado
+			Borrar el to-do
+		
+		Exception evaluating SpringEL expression: "#authentication.getPrincipal().getUsername()" (template: "security/user-form/user-view" - line 72, col 60)
 		
 
 		

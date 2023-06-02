@@ -8,7 +8,7 @@ import com.alquiler.reservas.entity.Todo;
 public interface TodoService {
 	
 	public List<Todo> getByEstado(Estado estado);
-	
+	public Todo getById(Long id) throws Exception;
 	public void createTodo(Todo todo);
 
 }
