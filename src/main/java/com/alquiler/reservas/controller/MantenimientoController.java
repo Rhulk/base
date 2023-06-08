@@ -43,10 +43,9 @@ public class MantenimientoController {
 	public String index(Model model) {
 
 		// Gestión del Menu
-		model.addAttribute("listTabUser","No");
-		model.addAttribute("listTabSql","No");
-		model.addAttribute("listTabToDo","No");
-		model.addAttribute("listTabAdmin","active");
+	
+		model.addAttribute("tabAdmin","active");
+		model.addAttribute("listTabSql", "active");
 		
 		// Gestion de los modulos a visualizar
 		model.addAttribute("activoTodo",false); 
@@ -57,18 +56,24 @@ public class MantenimientoController {
 	
 	@GetMapping("/sql")
 	public String home(Model model) {
-		model.addAttribute("userForm", new User());
-		model.addAttribute("roles",roleRepository.findAll());
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("listTab","active");
+
+		// Gestión del Menu
+		
+		model.addAttribute("tabAdmin","active");
+		model.addAttribute("listTabSql", "active");
+		
+		// Gestion de los modulos a visualizar
+		model.addAttribute("activoTodo",false); 
+		model.addAttribute("activoUser",false);		
+		
 		System.out.println(" -- Tablas: "+userService.getAllTablas().toString());
 		System.out.println(" -- Check Liquibase log -- "+userService.selectDataBaseChangelog().toString());
 		
 		//userService.bloqueo();
 		
-		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
+		//System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
 		//userService.desbloqueo();
-		System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
+		//System.out.println(" -- Check Liquibase block -- "+userService.selectDataBaseChangeloglock().toString());
 		//sqlService.getCampos("SELECT COLUMN_NAME, DATA_TYPE FROM INFORMATION_SCHEMA.COLUMNS WHERE TABLE_NAME ='user'");
 		System.out.println(" Campos de la table User: "+ sqlService.getCampos("usuario").toString());
 		System.out.println(" Campos de la table databasechangeloglock: "+ sqlService.getCampos("databasechangeloglock").toString());
@@ -76,14 +81,26 @@ public class MantenimientoController {
 		//sqlService.desbloqueo();
 		//userService.getFieldByTable("user");
 		//return "security/user-form/user-view";
-		return "security/user-form/user-list-mtn";
+		//return "security/user-form/user-list-mtn";
+		return "security/user-form/main-view";
 		//return "home";
 	}
 	
 	@GetMapping("/log")
 	public String logLiquibase(Model model) {
+		
+		// Gestión del Menu
+		
+		model.addAttribute("tabAdmin","active");
+		model.addAttribute("listTabLog", "active");
+		
+		// Gestion de los modulos a visualizar
+		model.addAttribute("activoTodo",false); 
+		model.addAttribute("activoUser",false);	
+		
 		model.addAttribute("logList",userService.selectDataBaseChangelog());
-		return "mtn/liquibase-log-mtn";
+		//return "mtn/liquibase-log-mtn";
+		return "security/user-form/main-view";
 	}
 	
 	@GetMapping("/lock")

@@ -59,14 +59,14 @@
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
 																																				   
-			 <a class="nav-link" th:classappend=" ${listTabUser}" href="#" th:href="@{/userForm}"     role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
+			 <a class="nav-link" th:classappend=" ${tabUser}" href="#" th:href="@{/listUser}"     role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${listTabToDo}"  href="#" th:href="@{/todolist}" > <span>To-Dos </span></a>
+			<a class="nav-link" th:classappend=" ${tabTodo}"  href="#" th:href="@{/todolist}" > <span>To-Dos </span></a>
 																																									
 			</li>
 			<li class="nav-item">
-			 <a class="nav-link" th:classappend=" ${listTabAdmin}" href="#" th:href="@{/admin}"  >Admin</a>
+			 <a class="nav-link" th:classappend=" ${tabAdmin}" href="#" th:href="@{/admin}"  >Admin</a>
 			</li>
 			<li class="nav-item">
 			<a class="nav-link" href="#" th:href="@{/logout}"><span th:text="${#authentication.getPrincipal().getUsername()}"></span> - <span>logout </span><span> ` </span><span class="float-right"> <i class="fas fa-sign-out-alt"></i></span></a>			   	
@@ -77,13 +77,13 @@
 
 		<div class="tab-content" id="myTabContent">
 
-			<div class="tab-pane fade show" th:classappend=" ${listTabToDo}" id="todo" role="tabpanel" aria-labelledby="list-tab-todo">
+			<div class="tab-pane fade show" th:classappend=" ${listTabTodo}" id="todo" role="tabpanel" aria-labelledby="list-tab-todo">
 				<div class="card">
 					<div class="card-header">
 						<h4>To-Dos</h4>
 						<ul class="nav nav-tabs justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${listTabToDo}"  href="#" th:href="@{/todolist}"> <span>Listado </span></a>
+							<a class="nav-link show" th:classappend=" ${listTabTodo}"  href="#" th:href="@{/todolist}"> <span>Listado </span></a>
 						</li>
 						<li class="nav-item">			
 						<a class="nav-link" href="#" th:href="@{/todoAlta}" role="tab" aria-controls="form" aria-selected="true">Alta</a>		   	
@@ -96,14 +96,14 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade show" th:classappend=" ${todoformTab}" id="todo-form" role="tabpanel" aria-labelledby="form-tab-todo">
+			<div class="tab-pane fade show" th:classappend=" ${formTabTodo}" id="todo-form" role="tabpanel" aria-labelledby="form-tab-todo">
 				<div class="card">
 					<div class="card-header">
 						<h4 th:if="${editModeTodo}">Edit To-do</h4>
 						<h4 th:if="!${editModeTodo}">Alta To-do</h4>
 					</div>
 					<div class="card-body">
-						 <div th:include="security/user-form/todo-form.html" th:if="${activoTodo}" th:remove="tag"></div> 
+						 <div th:include="security/user-form/todo-form.html" th:if="${activoFormTodo}" th:remove="tag"></div> 
 					</div>
 				</div>
 			</div>
@@ -116,12 +116,15 @@
 						
 						<ul class="nav nav-tabs justify-content-end">
 							<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${listTabUser}"  href="#" th:href="@{/userForm}"> <span>Listado </span></a>
+							<a class="nav-link"  id="ajustes-tab" data-toggle="tab" href="#ajustes" role="tab" aria-controls="form" aria-selected="true">Ajustes</a>
+							</li>
+							<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabUser}"  href="#" th:href="@{/listUser}"> <span>Listado </span></a>
 							</li>
 							<li class="nav-item">	
-							<a class="nav-link" th:classappend=" ${formTab}" id="form-tab" data-toggle="tab" href="#form" role="tab" aria-controls="form" aria-selected="true">Alta</a>		  	
+								
+							<a class="nav-link" href="#" th:href="@{/AltaUser}" role="tab" aria-controls="form" aria-selected="true">Alta</a>			  	
 							</li>
-						
 						</ul>
 					</div>
 					<div class="card-body">
@@ -129,32 +132,54 @@
 					</div>
 				</div>
 			</div>
-			<div class="tab-pane fade show" th:classappend=" ${formTab}" id="form" role="tabpanel" aria-labelledby="form-tab">
+			<div class="tab-pane fade show" th:classappend=" ${formTabUser}" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
-						<h4 th:if="${editMode}">Edit User</h4>
-						<h4 th:if="!${editMode}">Alta User</h4>
+						<h4 th:if="${editModeUser}">Edit User</h4>
+						<h4 th:if="!${editModeUser}">Alta User</h4>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/user-form.html" th:if="${activoUser}" th:remove="tag"></div>
+						<div th:include="security/user-form/user-form.html" th:if="${activoFormUser}" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
 			
-			<div class="tab-pane fade show" th:classappend=" ${listTabAdmin}" id="todo" role="tabpanel" aria-labelledby="list-tab-admin">
+			<div class="tab-pane fade show" th:classappend=" ${listTabSql}" id="todo" role="tabpanel" aria-labelledby="list-tab-admin">
 				<div class="card">
 					<div class="card-header">
 						<h4>Admin</h4>
 						<ul class="nav nav-tabs justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${listTabAdmin}"  href="#" th:href="@{/sql}"> <span>SQL </span></a>
+							<a class="nav-link show" th:classappend=" ${listTabSql}"  href="#" th:href="@{/sql}"> <span>SQL </span></a>
 						</li>
-					
+						<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabLog}"  href="#" th:href="@{/log}"> <span>Log </span></a>
+						</li>
 						
 						</ul>
 					</div>
 					<div class="card-body">
 						<div th:include="mtn/sql/generadorsql.html" th:remove="tag"></div>
+					</div>
+				</div>
+			</div>
+			<div class="tab-pane fade show" th:classappend=" ${listTabLog}" id="todo" role="tabpanel" aria-labelledby="list-tab-admin">
+				<div class="card">
+					<div class="card-header">
+						<h4>Admin</h4>
+						<ul class="nav nav-tabs justify-content-end">
+						<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabSql}"  href="#" th:href="@{/sql}"> <span>SQL </span></a>
+						</li>
+						<li class="nav-item">
+							<a class="nav-link show" th:classappend=" ${listTabLog}"  href="#" th:href="@{/log}"> <span>Log </span></a>
+						</li>
+						
+						</ul>
+					</div>
+					<div class="card-body">
+						<label> En construcción</label>
+
 					</div>
 				</div>
 			</div>

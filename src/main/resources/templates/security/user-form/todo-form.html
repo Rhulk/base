@@ -1,6 +1,6 @@
 <div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''cl'')')}">
-<form class="form" role="form" id="todoForm" th:object="${todoForm}" method="post" th:action="${signup} ?@{/signup_fake} :(${editMode} ?@{/editTodo} :@{/todoAlta})"  autocomplete="off" >
-	<input class="form-control" type=hidden th:field="${todoForm.id}"  th:if="${editMode}"> <!--Es necesario para poder pasar la validacion del Model-->
+<form class="form" role="form" id="todoForm" th:object="${todoForm}" method="post" th:action="${signup} ?@{/signup_fake} :(${editModeTodo} ?@{/postModTodo} :@{/todoAlta})"  autocomplete="off" >
+	<input class="form-control" type=hidden th:field="${todoForm.id}"  th:if="${editModeTodo}"> <!--Es necesario para poder pasar la validacion del Model-->
 	
 	
 
@@ -15,7 +15,7 @@
 	<div class="form-group row">
 		<label class="col-lg-3 col-form-label form-control-label">Estado</label>
 		<div class="col-lg-9">
-			<input class="form-control" type="text" th:field="${todoForm.estado}" disabled="true">
+			<input class="form-control" type="text" th:field="${todoForm.estado}" >
 			<div class="alert-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{estado}">Name Error</div>
 		</div>
 	</div>

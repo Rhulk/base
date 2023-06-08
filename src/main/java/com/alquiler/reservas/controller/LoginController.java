@@ -145,13 +145,18 @@ public class LoginController {
 		//return "security/user-form/user-signup";
 		return "index"; //Para dejar de crear usuarios a lo loco
 	}
-	
+	/*
+	 *  Metodo para validar el formulario de Altas o modificaciones de User
+	 * 
+	 * 
+	 *  
+	 */
 	
 	@PostMapping("/userForm")
 	public String createUser(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
 			model.addAttribute("userForm", user);
-			model.addAttribute("formTab","active");
+			model.addAttribute("formTabUser","active");
 		}else {
 			try {
 				userService.createUser(user);
@@ -161,14 +166,14 @@ public class LoginController {
 			}catch (CustomeFieldValidationException cfve) {
 				result.rejectValue(cfve.getFieldName(), null, cfve.getMessage());//Controlar si se pierde la sesión org.thymeleaf.exceptions.TemplateInputException: An error happened during template parsing (template: "class path resource [templates/security/user-form/main-view.html]")
 				model.addAttribute("userForm", user);
-				model.addAttribute("formTab","active");
+				model.addAttribute("formTabUser","active");
 				model.addAttribute("userList", userService.getAllUsers());
 				model.addAttribute("roles",roleRepository.findAll());
 			}
 			catch (Exception e) {
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);
-				model.addAttribute("formTab","active");
+				model.addAttribute("formTabUser","active");
 				model.addAttribute("userList", userService.getAllUsers());
 				model.addAttribute("roles",roleRepository.findAll());
 			}
@@ -176,12 +181,32 @@ public class LoginController {
 		
 		model.addAttribute("userList", userService.getAllUsers());
 		model.addAttribute("roles",roleRepository.findAll());
-		model.addAttribute("activoTodo",false);
+		model.addAttribute("activoFormTodo",false);
+		return "security/user-form/main-view";
+	}
+	@GetMapping("/AltaUser")
+	public String getAltaUser(Model model) {
+		
+		//Contenido
+		model.addAttribute("userForm", new User());
+		model.addAttribute("roles",roleRepository.findAll());
+		
+		//tab active
+		model.addAttribute("tabUser", "active");
+		model.addAttribute("formTabUser", "active");
+		model.addAttribute("listTabUser", "no");
+		
+		
+		//Formularios
+		model.addAttribute("activoFormUser",true);
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("editModeUser",false);
+		
 		return "security/user-form/main-view";
 	}
 	
-	@GetMapping("/userForm")		// TODO: change name for listUser and reorder
-	public String getUserForm(Model model) {
+	@GetMapping("/listUser")		// TODO: change name for listUser and reorder ok -Testeo-
+	public String getListUser(Model model) {
 		
 		// Gestión del contenido de la pag
 
@@ -189,15 +214,16 @@ public class LoginController {
 		model.addAttribute("userList", userService.getAllUsers());
 		
 		// Gestión de los tab o menus a mostrar
+		model.addAttribute("tabUser", "active");
 		model.addAttribute("listTabUser","active");
-		model.addAttribute("listTabSql","No");
-		model.addAttribute("listTabToDo","No");
+		model.addAttribute("tabSql","No");
+		model.addAttribute("tabToDo","No");
 		
 		// Gestión de la activación de los formularios
-		model.addAttribute("activoTodo",false);
-		model.addAttribute("activoUser",false);
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
 		
-		return "security/user-form/main-view";	//TODO: Change name for main-view
+		return "security/user-form/main-view";	
 	}
 	
 	@GetMapping("/editUser/{id}")
@@ -205,15 +231,15 @@ public class LoginController {
 		User user = userService.getUserById(id);
 		
 		// Gestion de los modulos a visualizar
-		model.addAttribute("activoTodo",false); // mejor no cargar la parte de todo para optimizar rendimiento.
-		model.addAttribute("activoUser",true);
+		model.addAttribute("activoFormTodo",false); // mejor no cargar la parte de todo para optimizar rendimiento.
+		model.addAttribute("activoFormUser",true);
 		
-		model.addAttribute("userList", userService.getAllUsers());
-		model.addAttribute("roles",roleRepository.findAll());
+		//model.addAttribute("userList", userService.getAllUsers());
+		//model.addAttribute("roles",roleRepository.findAll());
 		model.addAttribute("userForm", user);
-		model.addAttribute("formTab","active");//Activa el tab del formulario.
+		model.addAttribute("formTabUser","active");//Activa el tab del formulario.
 		
-		model.addAttribute("editMode",true);//Mira siguiente seccion para mas informacion
+		model.addAttribute("editModeUser",true);//Mira siguiente seccion para mas informacion
 		model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 		
 		return "security/user-form/main-view";
@@ -224,22 +250,22 @@ public class LoginController {
 				BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
 			model.addAttribute("userForm", user);
-			model.addAttribute("formTab","active");
-			model.addAttribute("editMode","true");
+			model.addAttribute("formTabUser","active");
+			model.addAttribute("editModeUser","true");
 		}else {
 			try {
 				
 				userService.updateUser(user);
-				//model.addAttribute("userForm", new User()); // TODO: Analizar si sobra. 
-				model.addAttribute("listTabUser","active");
+				model.addAttribute("tabUser","active"); 
+				model.addAttribute("listTabUser","active");  //TODO: Sobra ? 
 			} catch (Exception e) {
 				System.out.println("\n Log: "+e.toString()+"\n");
 				model.addAttribute("formErrorMessage",e.getMessage());
 				model.addAttribute("userForm", user);
-				model.addAttribute("formTab","active");
+				model.addAttribute("formTabUser","active");
 				model.addAttribute("userList", userService.getAllUsers());
 				model.addAttribute("roles",roleRepository.findAll());
-				model.addAttribute("editMode","true");
+				model.addAttribute("editModeUser","true");
 				model.addAttribute("passwordForm",new ChangePasswordForm(user.getId()));
 			}
 		}
@@ -277,7 +303,7 @@ public class LoginController {
 			
 			model.addAttribute("deleteError","The user could not be deleted.");
 		}
-		return getUserForm(model);
+		return getListUser(model);  // TODO: getUserForm now 
 	}
 	/*
 	 * Metodo para activar user desde el correo tras ser creado.
@@ -297,7 +323,7 @@ public class LoginController {
 			System.out.println(" -- Error -- To -- modStatusUserSimple -- "+e.toString());
 			model.addAttribute("modStatusUserError","The user could not be Actived.");
 		}
-		return getUserForm(model);
+		return getListUser(model);
 
 	}
 	
@@ -325,7 +351,7 @@ public class LoginController {
 	
 	@GetMapping("/editUser/cancel")
 	public String cancelEditUser(ModelMap model) {
-		return "redirect:/userForm";
+		return "redirect:/listUser";
 	}
 	
 	@GetMapping("/")

@@ -40,12 +40,21 @@ public class TodoController {
 	
 	@GetMapping("/todoAlta")
 	public String altaTodo(Model model) {
+		
+		
+		// continido pag 
 		System.out.println("En construcción: Pendiente listPriority");
-		model.addAttribute("userForm", new User()); // sobra futuro activoUser
-		model.addAttribute("activoTodo",true);
+		System.out.println("En construcción: Pendiente listEstados");
 		model.addAttribute("todoForm", new Todo(Estado.Inicial));
-		model.addAttribute("todoformTab","active");
 		model.addAttribute("tipos",genericos.getAllTipos());
+		
+		// tab activos
+		model.addAttribute("tabTodo", "active" );
+		model.addAttribute("formTabTodo","active");
+		
+		// Gestión de los formularios
+		model.addAttribute("activoFormTodo",true);
+		model.addAttribute("activoFormUser",false);
 		
 		return "security/user-form/main-view";
 	}
@@ -53,10 +62,16 @@ public class TodoController {
 	public String createTodo(@Valid @ModelAttribute("todoForm")Todo todo, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
 			
-			model.addAttribute("userForm", new User()); // TODO: Remplazar para no cargar objeto de otro móudlo
-			model.addAttribute("todoForm", new Todo(Estado.Inicial));
-			model.addAttribute("todoformTab","active");
+			model.addAttribute("todoForm", todo);
 			model.addAttribute("tipos",genericos.getAllTipos());
+	
+			// tab activos
+			model.addAttribute("tabTodo", "active" );
+			model.addAttribute("formTabTodo","active");
+			
+			// Gestión de los formularios
+			model.addAttribute("activoFormTodo",true);
+			//model.addAttribute("activoFormUser",false);
 			
 		}else {
 			
@@ -64,22 +79,19 @@ public class TodoController {
 			todoService.createTodo(todo);		
 
 			// gestion de la visualización en main-view
-			model.addAttribute("activoTodo",true);
+			//model.addAttribute("activoFormTodo",true);
 			
 			// objetos modulos
-			model.addAttribute("userForm", new User()); // TODO: -> ocultar de main-view para no usar el objeto.
-			model.addAttribute("todoForm", new Todo(Estado.Inicial));
 			model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
 			
-			// gestion visualización tab activo
-			model.addAttribute("listTabUser","No");
-			model.addAttribute("listTabSql","No");
-			model.addAttribute("listTabToDo","active");
-			model.addAttribute("todoformTab","no");
+			// gestion visualización tab act
+			model.addAttribute("tabTodo","active");
+			model.addAttribute("listTabTodo","active");
+			
 			
 		}
 	
-		return "security/user-form/main-view"; // to-do > Cambio de nombre a main-view
+		return "security/user-form/main-view"; 
 	}
 	
 	@GetMapping("/todoAlta/Cancel")
@@ -93,44 +105,68 @@ public class TodoController {
 		estados.add(Estado.Inicial);
 		
 		// Gestión del contenido de la pag
-		model.addAttribute("roles",roleRepository.findAll());
+		//model.addAttribute("roles",roleRepository.findAll());		//TODO: SOBRA
 		model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
+		model.addAttribute("tipos",genericos.getAllTipos());		//TODO: Change
+		//TODO: falta la gestión de las prioridades ?¿
 	
 		// Gestión de tab acvitos o no
-		model.addAttribute("listTabUser","No");
-		model.addAttribute("listTabSql","No");
-		model.addAttribute("listTabToDo","active");
+		model.addAttribute("tabTodo","active");
+		model.addAttribute("listTabTodo","active");
 		
 		// Gestión de la activación de los formularios
-		model.addAttribute("activoTodo",false);
-		model.addAttribute("activoUser",false);
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
 		
-		return "security/user-form/main-view";	
+		return "security/user-form/main-view";	//TODO: Mejora de la ubicación y nombres mas descriptivos de las pag y las carpetas
 
 	}
-	/*
-	 *  En construción
-	 *  
-	 *  TODO: Crear unPostMapping
-	 * 
-	 */
+
 	@GetMapping("/modTodo/{id}")
 	public String modTodo(Model model, @PathVariable(name="id") Long id ) throws Exception {
 
 		// objetos modulos
 		model.addAttribute("todoForm",todoService.getById(id));
+		model.addAttribute("tipos",genericos.getAllTipos());
 		
-		// tab activos
-		model.addAttribute("listTabUser","No");
-		model.addAttribute("listTabSql","No");
-		model.addAttribute("todoformTab","active");
+		// tab modulo y listados activos
+		model.addAttribute("formTabTodo", "active");
+		model.addAttribute("tabTodo","active");
+		
 		
 		// carga de modulos
-		model.addAttribute("activoTodo",true);
-		model.addAttribute("activoUser",false);
+		model.addAttribute("activoFormTodo",true);
+		model.addAttribute("activoFormUser",false);
 		model.addAttribute("editModeTodo",true);
 		
 		return "security/user-form/main-view"; 
+	}
+
+	@PostMapping("/postModTodo")
+	public String postModTodo(@Valid @ModelAttribute("todoForm") Todo todo,
+			BindingResult result, ModelMap model) {
+		if(result.hasErrors()) { // Return for error 
+			// Contenido a mostrar en la pag
+			model.addAttribute("todoForm",todo);
+			model.addAttribute("tipos",genericos.getAllTipos());
+			
+			// tab activos
+			model.addAttribute("formTabTodo","active");
+			model.addAttribute("tabTodo", "active");
+			
+			// carga de modulos
+			model.addAttribute("activoFormTodo",true);
+			model.addAttribute("editModeTodo",true);
+			
+			return "security/user-form/main-view";
+		}else {
+			try {
+				todoService.updateTodo(todo);
+			}catch (Exception e) {
+				System.out.println("\n Log: "+e.toString()+"\n");
+			}	
+		}
+		return "redirect:/todolist";
 	}
 	
 	@GetMapping("/userForm_test")

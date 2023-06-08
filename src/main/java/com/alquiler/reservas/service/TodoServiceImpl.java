@@ -48,10 +48,14 @@ public class TodoServiceImpl implements TodoService {
 
 	@Override
 	public Todo getById(Long id) throws Exception{
-		// TODO Auto-generated method stub
 		
 		Todo todo = todoRepository.findById(id).orElseThrow(() -> new Exception("Todo does not exist"));
 		return todo;
+	}
+
+	@Override
+	public void updateTodo(Todo todo) throws Exception {
+		todoRepository.save(todo);
 	}
 
 }
