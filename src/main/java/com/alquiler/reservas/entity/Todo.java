@@ -31,13 +31,13 @@ public class Todo implements Serializable{
 	
 	@Column
 	//@NotBlank	
-	private int prioridad;
+	private Prioridad prioridad;
 	
 	//tipo
 	@Column
 	//@NotBlank
-	//private Tipo tipo;
-	private int tipo;
+	private Tipo tipo;
+	//private int tipo;
 
 	public Long getId() {
 		return id;
@@ -63,25 +63,25 @@ public class Todo implements Serializable{
 		this.estado = estado;
 	}
 
-	public int getPrioridad() {
+	public Prioridad getPrioridad() {
 		return prioridad;
 	}
 
-	public void setPrioridad(int prioridad) {
+	public void setPrioridad(Prioridad prioridad) {
 		this.prioridad = prioridad;
 	}
 
 	/*
 	 * public Tipo getTipo() { return tipo; }
 	 */
-	public int getTipo() {
+	public Tipo getTipo() {
 		return tipo;
 	}
 
 	/*
 	 * public void setTipo(Tipo tipo) { this.tipo = tipo; }
 	 */
-	public void setTipo(int tipo) {
+	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
 

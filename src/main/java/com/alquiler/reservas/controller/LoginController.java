@@ -223,6 +223,10 @@ public class LoginController {
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
 		
+		//Control model delete
+		model.addAttribute("deleteTodo",false);
+		model.addAttribute("deleteUser",true);
+		
 		return "security/user-form/main-view";	
 	}
 	
@@ -234,8 +238,7 @@ public class LoginController {
 		model.addAttribute("activoFormTodo",false); // mejor no cargar la parte de todo para optimizar rendimiento.
 		model.addAttribute("activoFormUser",true);
 		
-		//model.addAttribute("userList", userService.getAllUsers());
-		//model.addAttribute("roles",roleRepository.findAll());
+		
 		model.addAttribute("userForm", user);
 		model.addAttribute("formTabUser","active");//Activa el tab del formulario.
 		

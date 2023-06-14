@@ -22,9 +22,17 @@ public class TodoServiceImpl implements TodoService {
 	public List<Todo> getByEstado(Estado estado) {
 		List<Todo> todos = new LinkedList<Todo>();
 		if (estado.getDescripcion().equals("Todos menos resuelto")) {
-			todos = todoRepository.findByEstado(Estado.Inicial);
-			todos.addAll(todoRepository.findByEstado(Estado.EnProceso));
-			todos.addAll(todoRepository.findByEstado(Estado.Pausado));
+			try {
+				todos = todoRepository.findByEstado(Estado.EnProceso);
+				todos.addAll(todoRepository.findByEstado(Estado.Pausado));
+				todos.addAll(todoRepository.findByEstado(Estado.Inicial));
+								
+			}catch (Exception e) {
+				System.out.println(Estado.Inicial);
+				System.out.println(todos);
+				System.out.println(e);
+			}
+
 			
 			return todos;
 			
@@ -56,6 +64,12 @@ public class TodoServiceImpl implements TodoService {
 	@Override
 	public void updateTodo(Todo todo) throws Exception {
 		todoRepository.save(todo);
+	}
+
+	@Override
+	public void deleteTodo(Long id) throws Exception {
+		todoRepository.delete(getById(id));
+		
 	}
 
 }

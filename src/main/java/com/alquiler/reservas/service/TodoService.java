@@ -13,5 +13,6 @@ public interface TodoService {
 	public Todo getById(Long id) throws Exception;
 	public void createTodo(Todo todo);
 	public void updateTodo(Todo todo) throws Exception;
+	public void deleteTodo(Long id) throws Exception;
 
 }

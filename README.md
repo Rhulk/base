@@ -135,7 +135,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Se implementa el edit to-do falta mejorarlo
 		Se mejora y optimiza la gestión de los módulos evitando cargar partes de la vista no necesarias ni los objetos de dichas partes.
 		En el main hay pruebas de lectura de xml ?¿
-		
+		falta la gestión de las prioridades ?¿
+		/userForm change for /userList
+		Se implementa metodo /AltaUser anteriormente se cargaba con el mismo que el /listUser -> old userForm Creo
+		Implementación del Crud:
+			Altas.
+			Editar el todo Avanzado
+			Borrar el to-do							
 				Simplificar las variables de acceso o visualización de modulos:
 			Todo:
 			tabTodo: 	 Con valor "active" para mostrar el tab Todo
@@ -158,19 +164,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 			listTabLog: Con valor "active" para mostrar el tab Log
 		
 # Next:
-		Implementar CRUD full
-			Editar el todo Avanzado
-					
-			Borrar el to-do
-			falta la gestión de las prioridades ?¿
-			
 
-			
-		Se implementa metodo /AltaUser anteriormente se cargaba con el mismo que el /listUser -> old userForm Creo
-
-			
-		/userForm change for /userList
-			
+		Testar modulo.			
 		
 		Exception evaluating SpringEL expression: "#authentication.getPrincipal().getUsername()" (template: "security/user-form/user-view" - line 72, col 60)
 		

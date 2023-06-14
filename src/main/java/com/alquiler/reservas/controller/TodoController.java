@@ -43,10 +43,11 @@ public class TodoController {
 		
 		
 		// continido pag 
-		System.out.println("En construcción: Pendiente listPriority");
-		System.out.println("En construcción: Pendiente listEstados");
 		model.addAttribute("todoForm", new Todo(Estado.Inicial));
 		model.addAttribute("tipos",genericos.getAllTipos());
+		model.addAttribute("prioridades", genericos.getAllPrioridades());
+		model.addAttribute("estados",genericos.getEstadosSelected());
+		System.out.println(" Prioridades: "+genericos.getAllPrioridades());
 		
 		// tab activos
 		model.addAttribute("tabTodo", "active" );
@@ -64,7 +65,9 @@ public class TodoController {
 			
 			model.addAttribute("todoForm", todo);
 			model.addAttribute("tipos",genericos.getAllTipos());
-	
+			model.addAttribute("prioridades", genericos.getAllPrioridades());
+			model.addAttribute("estados",genericos.getEstadosSelected());
+			
 			// tab activos
 			model.addAttribute("tabTodo", "active" );
 			model.addAttribute("formTabTodo","active");
@@ -74,8 +77,7 @@ public class TodoController {
 			//model.addAttribute("activoFormUser",false);
 			
 		}else {
-			
-			todo.setEstado(Estado.Inicial);
+
 			todoService.createTodo(todo);		
 
 			// gestion de la visualización en main-view
@@ -87,8 +89,7 @@ public class TodoController {
 			// gestion visualización tab act
 			model.addAttribute("tabTodo","active");
 			model.addAttribute("listTabTodo","active");
-			
-			
+				
 		}
 	
 		return "security/user-form/main-view"; 
@@ -101,22 +102,30 @@ public class TodoController {
 	
 	@GetMapping("/todolist")
 	public String listTodo(Model model) {
-		List<Estado> estados = new LinkedList<Estado>();
-		estados.add(Estado.Inicial);
+
 		
 		// Gestión del contenido de la pag
-		//model.addAttribute("roles",roleRepository.findAll());		//TODO: SOBRA
 		model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
-		model.addAttribute("tipos",genericos.getAllTipos());		//TODO: Change
-		//TODO: falta la gestión de las prioridades ?¿
-	
+		model.addAttribute("tipos",genericos.getAllTipos());	
+		System.out.println(" TEST: "+todoService.getByEstado(Estado.Activos));
+		if (!todoService.getByEstado(Estado.Activos).isEmpty()) {
+			
+			System.out.println("TODO 0 :"+todoService.getByEstado(Estado.Activos).get(0));
+		}
+		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","active");
 		model.addAttribute("listTabTodo","active");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
 		
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		
+		//Control model delete 
+		model.addAttribute("deleteTodo",true);
+		model.addAttribute("deleteUser",false);
 		
 		return "security/user-form/main-view";	//TODO: Mejora de la ubicación y nombres mas descriptivos de las pag y las carpetas
 
@@ -128,6 +137,8 @@ public class TodoController {
 		// objetos modulos
 		model.addAttribute("todoForm",todoService.getById(id));
 		model.addAttribute("tipos",genericos.getAllTipos());
+		model.addAttribute("estados",genericos.getEstadosSelected());
+		model.addAttribute("prioridades", genericos.getAllPrioridades());
 		
 		// tab modulo y listados activos
 		model.addAttribute("formTabTodo", "active");
@@ -149,6 +160,8 @@ public class TodoController {
 			// Contenido a mostrar en la pag
 			model.addAttribute("todoForm",todo);
 			model.addAttribute("tipos",genericos.getAllTipos());
+			model.addAttribute("estados",genericos.getEstadosSelected());
+			model.addAttribute("prioridades", genericos.getAllPrioridades());
 			
 			// tab activos
 			model.addAttribute("formTabTodo","active");
@@ -166,7 +179,20 @@ public class TodoController {
 				System.out.println("\n Log: "+e.toString()+"\n");
 			}	
 		}
+		
 		return "redirect:/todolist";
+	}
+	@GetMapping("/deleteTodo/{id}")
+	public String deleteTodo(Model model, @PathVariable(name="id") Long id) {
+		
+		try {
+			todoService.deleteTodo(id);
+		}catch (Exception e) {
+			model.addAttribute("deleteError", "No se ha podido borrar el ToDo");
+		}
+		
+		return "redirect:/todolist";
+		
 	}
 	
 	@GetMapping("/userForm_test")

@@ -76,7 +76,7 @@
 	
 
 		<div class="tab-content" id="myTabContent">
-
+			<!--  TODO LIST-->
 			<div class="tab-pane fade show" th:classappend=" ${listTabTodo}" id="todo" role="tabpanel" aria-labelledby="list-tab-todo">
 				<div class="card">
 					<div class="card-header">
@@ -92,10 +92,11 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/todo-list.html"  th:remove="tag"></div> 
+						<!-- Falla la tabla --> <div th:include="security/user-form/todo-list.html"  th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
+			<!--  TODO FORM -->
 			<div class="tab-pane fade show" th:classappend=" ${formTabTodo}" id="todo-form" role="tabpanel" aria-labelledby="form-tab-todo">
 				<div class="card">
 					<div class="card-header">
@@ -108,7 +109,7 @@
 				</div>
 			</div>
 
-
+			<!-- USER LIST -->
 			<div class="tab-pane fade show" th:classappend=" ${listTabUser}" id="list" role="tabpanel" aria-labelledby="list-tab-user">
 				<div class="card">
 					<div class="card-header">
@@ -128,10 +129,11 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<div th:include="security/user-form/user-list.html" th:remove="tag"></div>
+						<!-- --> <div th:include="security/user-form/user-list.html" th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
+			<!-- USER FORM -->
 			<div class="tab-pane fade show" th:classappend=" ${formTabUser}" id="form" role="tabpanel" aria-labelledby="form-tab">
 				<div class="card">
 					<div class="card-header">
@@ -144,6 +146,7 @@
 				</div>
 			</div>
 			
+			<!-- ADMIN SQL-->
 			<div class="tab-pane fade show" th:classappend=" ${listTabSql}" id="todo" role="tabpanel" aria-labelledby="list-tab-admin">
 				<div class="card">
 					<div class="card-header">
@@ -163,6 +166,7 @@
 					</div>
 				</div>
 			</div>
+			<!--  ADMIN LOG -->
 			<div class="tab-pane fade show" th:classappend=" ${listTabLog}" id="todo" role="tabpanel" aria-labelledby="list-tab-admin">
 				<div class="card">
 					<div class="card-header">
@@ -188,8 +192,8 @@
 	</div>
 </div>
 		
- <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  
-  <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>-->
+ <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  -->
+  <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>
   <div th:include="security/user-form/confirm-delete-modal.html" th:remove="tag"></div>
   
 </body>

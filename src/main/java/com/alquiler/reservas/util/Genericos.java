@@ -4,6 +4,7 @@ import java.util.LinkedList;
 import java.util.List;
 
 import com.alquiler.reservas.entity.Estado;
+import com.alquiler.reservas.entity.Prioridad;
 import com.alquiler.reservas.entity.Tipo;
 
 public class Genericos {
@@ -44,5 +45,20 @@ public class Genericos {
 		tipos.add(Tipo.TEST);
 		
 		return tipos;
+	}
+	
+	
+	public List<Prioridad> getAllPrioridades(){
+		List<Prioridad> prioridades = new LinkedList<Prioridad>();
+		//Prioridad prio = null;
+		prioridades.add(Prioridad.ALTA);
+		prioridades.add(Prioridad.MEDIA);
+		prioridades.add(Prioridad.BAJA);
+		//prio.setNombre("Otro");
+		//prio.setId(0);
+		
+		//prioridades.add(prio);
+		
+		return prioridades;
 	}
 }
