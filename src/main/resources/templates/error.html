@@ -33,13 +33,13 @@
 			<h4 th:text="${error}">Internal Server Error</h4>
 		</div>
 		<div class="card-body">
-			<a href="/userForm" ><img src="static/img/error/500.png" th:src="@{/img/error/500.png}"/></a>
+			<a href="/listUser" ><img src="static/img/error/500.png" th:src="@{/img/error/500.png}"/></a>
 		</div>
 		<div class="card-footer">
 			<span th:text="${message}">Message</span><br/> 
 			<span th:text="${exception}">Trace </span><br/>
 		</div>
-		<a href="index.html" th:href="@{/}">Back to Home Page</a>   
+		<a href="index.html" th:href="@{/login}">Back to Home Page</a>   
 	</div>	
 	 
 </div>

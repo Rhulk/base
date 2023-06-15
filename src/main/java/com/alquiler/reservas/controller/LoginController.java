@@ -155,8 +155,20 @@ public class LoginController {
 	@PostMapping("/userForm")
 	public String createUser(@Valid @ModelAttribute("userForm")User user, BindingResult result, ModelMap model) {
 		if(result.hasErrors()) {
+			
+			//Contenido pag
 			model.addAttribute("userForm", user);
-			model.addAttribute("formTabUser","active");
+			
+			//tab active
+			model.addAttribute("tabUser", "active");
+			model.addAttribute("formTabUser", "active");
+			model.addAttribute("listTabUser", "no");
+			
+			//Formularios
+			model.addAttribute("activoFormUser",true);
+			model.addAttribute("activoFormTodo",false);
+			model.addAttribute("editModeUser",false);
+			
 		}else {
 			try {
 				userService.createUser(user);

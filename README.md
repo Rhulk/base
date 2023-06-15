@@ -114,19 +114,20 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Situación:Beta 1
 #####################################################################################
 # Rama: feature/toDo
-# Fecha Committer: 2023-06-08 14:20
-# LastChange: Funcionalidad basica de to-dos
+# Fecha Committer: 2023-06-15 16:00
+# LastChange: Implementación módulo todo y mejoras de la gestion de los menus
 # Origen: delop ?
-# Situación: Estable-Pendiente flecos.
+# Situación: Estable.
 # Problem: 
 		 
-		Tambien falla la validación de usuarios. 
+		 
 		
 # Resueltos:
 		Falla la edición de usuarios. Faltaba el nuevo Objeto de todoForm -- Mejor no cargar el objeto y ocultar la parte que no se usa.
 		Falla el guardar user. Se controla por seguridad no cargar la parte de todo's desde el ata de usuarios.
 		No aparece el formulario de ata de todo. --> No estaba el activoTodo a true.
 		Falla las validaciones del formulario.
+		Tambien falla la validación de usuarios.
 # Avances:
 		Se implementa el módulo de todo para recuperar el listado.
 		Se implementa mejoras en el menú principal.
