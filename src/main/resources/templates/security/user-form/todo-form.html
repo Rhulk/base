@@ -1,0 +1,70 @@
+<div th:with="disableFields=!${editMode} and ${#authorization.expression('hasRole(''cl'')')}">
+<form class="form" role="form" id="todoForm" th:object="${todoForm}" method="post" th:action="${signup} ?@{/signup_fake} :(${editModeTodo} ?@{/postModTodo} :@{/todoAlta})"  autocomplete="off" >
+	<input class="form-control" type=hidden th:field="${todoForm.id}"  th:if="${editModeTodo}"> <!--Es necesario para poder pasar la validacion del Model-->
+	
+	
+
+	
+	<div class="form-group row">
+		<label class="col-lg-3 col-form-label form-control-label">Descripción</label>
+		<div class="col-lg-9">
+			<input class="form-control" type="text" th:field="${todoForm.descripcion}" th:disabled="${disableFields}">
+			<div class="alert-danger" th:if="${#fields.hasErrors('descripcion')}" th:errors="*{descripcion}">Name Error</div>
+		</div>
+	</div>
+
+	
+		<div class="form-group row">
+		<label th:text="Esta2" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select th:field="${todoForm.estado}" class="form-control" >
+				<option th:each="estado :${estados}" th:value="${estado}" th:text="${estado.descripcion}">
+				</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('estado')}" th:errors="*{tipo}">Name Error</div>
+		</div>
+	</div>
+	
+
+
+	<div class="form-group row">
+		<label th:text="Prio" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select th:field="${todoForm.prioridad}" class="form-control" th:disabled="${disableFields}">
+				<option th:each="prioridad :${prioridades}" th:value="${prioridad}" th:text="${prioridad.nombre}">
+				</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('prioridad')}" th:errors="*{prioridad}">Name Error</div>
+		</div>
+	</div>
+
+	<div class="form-group row">
+		<label th:text="Tipos" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select th:field="${todoForm.tipo}" class="form-control" th:disabled="${disableFields}">
+				<option th:each="tipo :${tipos}" th:value="${tipo}" th:text="${tipo.nombre}">
+				</option>
+			</select>
+			<div class="alert-danger" th:if="${#fields.hasErrors('tipo')}" th:errors="*{tipo}">Name Error</div>
+		</div>
+	</div>
+
+
+	<div class="form-group row">
+		<div class="col-lg-12 text-center">
+			<a class="btn btn-secondary"  th:href="@{'/todoAlta/Cancel'}">Cancel</a>
+		<!-- 	<button type="button" class="btn btn-secondary" data-toggle="modal" th:if="${editMode}" data-target="#changePasswordModal">Change Password</button> -->
+			<input type="submit" class="btn btn-primary"	value="Save Changes" th:value="${editModeTodo}?'Save Todo':'Create To-Do'">
+				
+
+		</div>
+	</div>
+
+
+
+
+
+
+	<div class="alert alert-danger text-center" th:if="${formErrorMessage}" th:text="${formErrorMessage}">Error MEssage</div>
+</form>
+</div>

@@ -75,9 +75,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno Producción de Heroku estable.
 #####################################################################################
 # Rama: delop
-# Fecha Committer: 2021-06-21 16:55
-# LastChange: Activar user cifrando username
-# Origen: Heroku -- 2021-06-14 11:52
+# Fecha Committer: 2023-03-27
+# LastChange: Merge with railWayPre
+# Origen: railWayPre -- 2023-03-27 18:39
 # Situación: Estable
 # Problem: Estable
 	* Entorno principal de desarrollo
@@ -115,3 +115,65 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Origen: sin determinar
 # Situación:Beta 1
 #####################################################################################
+# Rama: feature/toDo
+# Fecha Committer: 2023-06-15 16:00
+# LastChange: Implementación módulo todo y mejoras de la gestion de los menus
+# Origen: delop ?
+# Situación: Estable.
+# Problem: 
+		 
+		 
+		
+# Resueltos:
+		Falla la edición de usuarios. Faltaba el nuevo Objeto de todoForm -- Mejor no cargar el objeto y ocultar la parte que no se usa.
+		Falla el guardar user. Se controla por seguridad no cargar la parte de todo's desde el ata de usuarios.
+		No aparece el formulario de ata de todo. --> No estaba el activoTodo a true.
+		Falla las validaciones del formulario.
+		Tambien falla la validación de usuarios.
+# Avances:
+		Se implementa el módulo de todo para recuperar el listado.
+		Se implementa mejoras en el menú principal.
+		Fusionar con otras ramas. - >Con SQL
+		Se implementa el alta de to-dos
+		Se implementa el edit to-do falta mejorarlo
+		Se mejora y optimiza la gestión de los módulos evitando cargar partes de la vista no necesarias ni los objetos de dichas partes.
+		En el main hay pruebas de lectura de xml ?¿
+		falta la gestión de las prioridades ?¿
+		/userForm change for /userList
+		Se implementa metodo /AltaUser anteriormente se cargaba con el mismo que el /listUser -> old userForm Creo
+		Implementación del Crud:
+			Altas.
+			Editar el todo Avanzado
+			Borrar el to-do							
+				Simplificar las variables de acceso o visualización de modulos:
+			Todo:
+			tabTodo: 	 Con valor "active" para mostrar el tab Todo
+		*	activoFormTodo: true o false activa link todo-form.html
+		*	formTabTodo: Con valor "active" para mostrar el tab del form del todo 
+			editModeTodo: true o false valida si es modo edición del todo.
+			listTabTodo: Con valor "active" para mostrar el tab módulo Todo.
+			
+			User:
+			tabUser: 	Con valor "active" para mostrar el tab User
+		*	activoFormUser: true o false activa link user-form.html
+		*	formTabUser:	Con valor "active" para mostrar el user-form.html
+			editModeUser:	Con valor true para activar la opción editar del form
+			listTabUser: Con valor "active" muestra el tabUser y tabListUser
+			setupTabaUser: Con valor "active" muestra el tab setup		 
+			
+			Sql:
+			tabAdmin: 	Con valor "active" para motrar el tab Admin
+			listTabSql: Con valor "active" para mostrar el tab Sql
+			listTabLog: Con valor "active" para mostrar el tab Log
+		
+# Next:
+
+		Testar modulo.			
+		
+		Exception evaluating SpringEL expression: "#authentication.getPrincipal().getUsername()" (template: "security/user-form/user-view" - line 72, col 60)
+		
+
+		
+#####################################################################################
+
+
