@@ -75,8 +75,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 	* Entorno Producción de Heroku estable.
 #####################################################################################
 # Rama: delop
-# Fecha Committer: 2023-04-19
-# LastChange: Merge with railWayPre
+# Fecha Committer: 2023-06-16
+# LastChange: Merge with feature/todo
 # Origen: railWayPre -- 2023-03-27 18:39
 # Situación: Estable
 # Problem: 
