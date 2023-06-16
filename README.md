@@ -94,18 +94,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Problem: 
 	Merge with Heroku-mtn
 	Conexión con PostGres - Resuelto- apuntando a SQL
-#####################################################################################
-# Rama: railWayPre
-# Fecha Committer: 2022-11-15 15:00
-# LastChange: Merge with Heroku-mtn
-	* Cambio de servidor de BBDD railWay
-# Origen: delop -- 2021-06-14 12:15
-# Situación: No-Deploy-RailWay
-# Problem: 
-	Configuración para desplegar en RailWay.
-	
-#####################################################################################
-=======
+
 #####################################################################################
 # Rama: railWayPre
 # Fecha Committer: 2023-06-16 09:10
