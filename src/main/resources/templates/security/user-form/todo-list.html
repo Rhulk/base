@@ -1,0 +1,61 @@
+<div class="table-responsive">
+	<table id="todoList" class="table table-bordered table-hover table-striped">
+		<thead class="thead-light">
+		<tr>
+			<th scope="col">#ToDo</th>
+			<th scope="col">Descripcion</th>
+			<th scope="col">Estado</th>
+			<th scope="col">Prioridad</th>
+			<th scope="col">Tipo</th>
+			<th scope="col">Editar</th>
+			<th scope="col">Borrar</th>
+			<th>
+		</tr>
+		</thead>
+		<tbody>
+
+		<tr th:each="todo: ${toDoList}">
+			<td th:text="${todo.id}"></td>
+			<td th:text="${todo.descripcion}"></td>
+			<td th:text="${todo.estado}"></td>
+			<td th:text="${todo.prioridad}"></td>
+			<td th:text="${todo.tipo}"></td>
+			<td>	
+				<a href="#" th:href="@{'/modTodo/'+ ${todo.id}}"><i class="fas fa-edit"></i></a>
+			</td>
+			<td>
+				<!--  <a href="#" th:href="@{'/deleteTodo/'+ ${todo.id}}"><i class="fas fa-delete"></i></a>-->
+				<a href="#" th:onclick="'javascript:confirmDeleteTodo(\''+ ${todo.id} +'\');'"><i class="fas fa-user-times"></i></a>
+			</td>
+			<td>
+
+		</tr>
+
+		</tbody>
+	</table>
+
+	
+</div>
+
+
+ 
+<div id="deleteError" th:if="${deleteError}" class="alert alert-danger text-center" role="alert">
+	<span th:text="${deleteError}"></span>
+</div>
+
+
+<script type="text/javascript">
+function confirmDeleteTodo(id){
+	$('#deleteModal').modal('show');
+	console.log(" fun confirmDelete "+id);
+	$("#todoIdHiddenInput").val(id);
+}
+
+function deleteTodo(){
+	var id = $("#todoIdHiddenInput").val();
+	console.log(" fun deleteTodo "+id);
+    window.location = "deleteTodo/"+id;
+}
+
+</script>
+
