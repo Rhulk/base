@@ -25,6 +25,7 @@
 					<span th:if="${#authorization.expression('hasRole(''ad'')')} or (${#authorization.expression('hasRole(''cl'')')} and ${#httpServletRequest.remoteUser==user.username})">
 					Spring 3	<a href="#" th:href="@{'/editUser/'+ ${user.id}}"><i class="fas fa-edit"></i></a>
 					</span>
+					tem<a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>
 					<span sec:authorize="hasAuthority('ad')">
 					
 					| <a href="#" th:onclick="'javascript:confirmDelete(\''+ ${user.id} +'\');'"><i class="fas fa-user-times"></i></a>

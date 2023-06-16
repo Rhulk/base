@@ -21,7 +21,7 @@
 		}
 	
 		img{
-			width:50%;
+			width:100%;
 		}
 		
 	</style>
@@ -30,18 +30,13 @@
 <div class="container text-center">
 	<div class="mx-auto col-10 card">
 		<div class="card-header">
-			<h4 th:text="${error}">Internal Server Error</h4>
+			<h4>403</h4>
 		</div>
 		<div class="card-body">
-			<a href="/listUser" ><img src="static/img/error/500.png" th:src="@{/img/error/500.png}"/></a>
+			<a href="/listUser" ><img src="static/img/error/404.png" th:src="@{/img/error/404.png}"/></a>
+			<p> Click Back Home</b></p>
 		</div>
-		<div class="card-footer">
-			<span th:text="${message}">Message</span><br/> 
-			<span th:text="${exception}">Trace </span><br/>
-		</div>
-		<a href="index.html" th:href="@{/login}">Back to Home Page</a>   
-	</div>	
-	 
+	</div>	    
 </div>
 </body>
 </html>

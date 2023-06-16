@@ -1,0 +1,120 @@
+<form name="form">		
+    <div>
+<h2>Generador SQL en construccion</h2>
+<div id="funcion" class="funcion">
+    <div><h3>Selecciona una opción:</h3></div>
+    <input type="radio" name="select" onclick="selectOption(this.value)" value="select"><span>Select</span>
+	<input type="radio" name="select" onclick="selectOption(this.value)" value="insert"><span>Insert</span>
+	<input type="radio" name="select" onclick="selectOption(this.value)" value="update"><span>Update</span>
+</div>
+<div id="select" class="form-filter select ocultar">
+    <div class="cabecera">
+	Tablas: 
+	<select>
+		<option>Tabla 1</option>
+		<option>Tabla 2</option>
+		<option>Tabla 3</option>
+	</select>
+	Campos: 
+	<select  id="idCampoSelect" name="campo" class="select-css" onchange="getCampo(this.id)">
+        <option value="select">Seleccionar Campos</option>
+		<option id="idCampoSelect*" value="*">*</option>
+		<option id="idCampoSelect1" value="1" >1</option>
+		<option id="idCampoSelect2" value="2" >2</option>
+		<option id="idCampoSelect3" value="3" >3</option>
+	</select>
+    </div>
+    <div id="containerSelect">
+        Campos: 
+    </div>
+    <div class="cabecera">
+        Where Campos: 
+        <select  id="idCampoSelectWhere" name="campo" class="select-css" onchange="getCampo(this.id)">
+            <option value="select">Seleccionar Campos</option>
+            <option id="idCampoSelectWhere*" value="*" >*</option>
+            <option id="idCampoSelectWhere1" value="1" >1</option>
+            <option id="idCampoSelectWhere2" value="2" >2</option>
+            <option id="idCampoSelectWhere3" value="3" >3</option>
+        </select>
+    </div>
+    <div id="containerSelectWhere">
+        Where: 
+        
+
+    </div>
+
+    <div class="crud cabecera">
+        <button type="button" id="Select" onclick="limpiarBtnAll(this.id)">Limpiar Campos</button>
+        <button type="button" id="Where" onclick="limpiarBtnAll(this.id)">Limpiar Filtro</button>
+        <button type="button" onclick="lanzarSelect()">Ejecutar Consulta</button>
+        <button type="submit" onclick="lanzarSelect()">reset</button>
+    </div>
+    <br><br>
+</div>
+<div id="insert" class="form-filter insert ocultar">
+    <div class="cabecera">
+    Tablas: 
+    <select>
+        <option>Tabla 1</option>
+        <option>Tabla 2</option>
+        <option>Tabla 3</option>
+    </select>
+    Campos: 
+    <select  id="idCampoInsert" name="campo" class="select-css" onchange="getCampo(this.id)">
+        <option value="select">Seleccionar Campos</option>
+        <option id="idCampoInsert*" value="*" >*</option>
+        <option id="idCampoInsert1" value="1" >1</option>
+        <option id="idCampoInsert2" value="2" >2</option>
+        <option id="idCampoInsert3" value="3" >3</option>
+    </select>
+    </div>
+    <div id="containerInsert" class="campos-insert">
+        Campos: 
+         
+
+    </div>
+
+    <div class="crud cabecera">
+        <button type="button" onclick="limpiarBtnAll()">Limpiar Campos</button>
+        
+        <button type="button" onclick="lanzarSelect()">Ejecutar Consulta</button>
+        <button type="submit" onclick="lanzarSelect()">reset</button>
+    </div>
+</div>
+<div id="update" class="form-filter update ocultar">
+    <span>Update comming son</span>
+</div>
+<br>
+
+<div>
+    <input type="checkbox" checked><br>
+    <label> Agrupar entre parentesis para los OR y los AND</label><br>
+
+    <input type="checkbox" checked><br>
+    <label> Incremento y decremento de parentesis</label><br>
+
+    <input type="checkbox" checked><br>
+    <label> Crear id's distintos para el incremento de los parentesis</label><br>
+
+    <input type="checkbox" ><br>
+    <label> Borrar los btn de las condiciones</label><br>
+
+
+    <input type="checkbox" ><br>
+    <label>Ajustar input al contenido</label><br>
+
+    <input type="checkbox" ><br>
+    <label>De OR a AND borrar los demas campos</label><br>
+
+    <input type="checkbox" ><br>
+    <label>Depurar: cuando se crea un OR no crear el div ya que se asocia al AND anterior</label><br>
+
+
+</div>
+
+
+
+<br>
+
+</div>
+</form>
