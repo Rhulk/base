@@ -95,11 +95,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Merge with Heroku-mtn
 #####################################################################################
 # Rama: railWayPre
-# Fecha Committer: 2022-11-15 15:00
-# LastChange: Merge with Heroku-mtn
+# Fecha Committer: 2023-06-16 09:10
+# LastChange: Merge with feature/to-do v1.3.0
 	* Cambio de servidor de BBDD railWay
 # Origen: delop -- 2021-06-14 12:15
-# Situación: Deploy-RailWay-SQL
+# Situación: Deploy-RailWay
 # Problem: 
 	Configuración para desplegar en RailWay.
 	Problema con el build.
@@ -108,6 +108,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 		
 		projectlombok
+		
+
 		
 #####################################################################################
 # Rama:SQL
