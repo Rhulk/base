@@ -8,13 +8,18 @@
           <span aria-hidden="true">&times;</span>
         </button>
       </div>
-      <div class="modal-body">
-        Are you sure you want to delete this user?
+      <div th:if="${deleteUser}" class="modal-body">
+        Are you sure you want to delete this user???
         <input type="hidden" id="userIdHiddenInput" name="userIdHiddenInput"/>
+      </div>
+      <div th:if="${deleteTodo}" class="modal-body">
+        Are you sure you want to delete this to-do???
+        <input type="hidden" id="todoIdHiddenInput" name="todoIdHiddenInput"/>
       </div>
       <div class="modal-footer">
         <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
-        <button type="button" class="btn btn-primary" th:onclick="deleteUser()">Delete User</button>
+        <button id="deleteUser" th:if="${deleteUser}" type="button" class="btn btn-primary" th:onclick="deleteUser()">Delete User</button>
+        <button id="deleteTodo" th:if="${deleteTodo}" type="button" class="btn btn-primary" th:onclick="deleteTodo()">Delete Todo</button>
       </div>
     </div>
   </div>

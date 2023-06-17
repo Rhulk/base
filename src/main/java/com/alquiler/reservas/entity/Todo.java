@@ -24,19 +24,20 @@ public class Todo implements Serializable{
 	
 	//estado
 	@Column
-	@NotBlank
+	//@NotBlank
 	private Estado estado;
 	
 	
 	
 	@Column
-	@NotBlank	
-	private int prioridad;
+	//@NotBlank	
+	private Prioridad prioridad;
 	
 	//tipo
 	@Column
-	@NotBlank
+	//@NotBlank
 	private Tipo tipo;
+	//private int tipo;
 
 	public Long getId() {
 		return id;
@@ -62,18 +63,24 @@ public class Todo implements Serializable{
 		this.estado = estado;
 	}
 
-	public int getPrioridad() {
+	public Prioridad getPrioridad() {
 		return prioridad;
 	}
 
-	public void setPrioridad(int prioridad) {
+	public void setPrioridad(Prioridad prioridad) {
 		this.prioridad = prioridad;
 	}
 
+	/*
+	 * public Tipo getTipo() { return tipo; }
+	 */
 	public Tipo getTipo() {
 		return tipo;
 	}
 
+	/*
+	 * public void setTipo(Tipo tipo) { this.tipo = tipo; }
+	 */
 	public void setTipo(Tipo tipo) {
 		this.tipo = tipo;
 	}
@@ -82,6 +89,15 @@ public class Todo implements Serializable{
 	public String toString() {
 		return "Todo [id=" + id + ", descripcion=" + descripcion + ", estado=" + estado + ", prioridad=" + prioridad
 				+ ", tipo=" + tipo + "]";
+	}
+
+	public Todo(@NotBlank Estado estado) {
+		super();
+		this.estado = estado;
+	}
+
+	public Todo() {
+		super();
 	}
 	
 	

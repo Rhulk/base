@@ -13,4 +13,6 @@ public interface TodoRepository  extends CrudRepository<Todo, Long>{
 
 	
 	public List<Todo> findByEstado(Estado estado);
+	
+	
 }
