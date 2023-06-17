@@ -44,7 +44,7 @@
 	<link rel="stylesheet" href="https://cdn.datatables.net/1.10.19/css/dataTables.bootstrap4.min.css">
 	
 	<!-- JavaScript para el gnerador de consultas  -->
-	<script type="text/javascript" th:src="@{/js/sql.js}" /> </script>
+	
 	<!-- Funcionalidad para el paginado, ordenación de campos y busquedas en la tablas  -->
 	<script type="text/javascript" th:src="@{/js/table.js}" /> </script>
 
@@ -195,6 +195,9 @@
  <!--  <div th:include="security/user-form/confirm-delete-dialog.html" th:remove="tag"></div>  -->
   <div th:if="${editMode}" th:include="security/user-form/change-password.html" th:remove="tag"></div>
   <div th:include="security/user-form/confirm-delete-modal.html" th:remove="tag"></div>
+  
+  <!-- JavaScript para el gnerador de consultas  Es necesario que este al final para acceder a los elementos DOM-->
+  <script type="text/javascript" th:src="@{/js/sql.js}" /> </script>
   
 </body>
 </html>

@@ -13,11 +13,8 @@ let queryCampoWhereResult = 'queryCampoWhereResult';
 let OR = 'OR'; let AND = 'AND'; let MenosIZQ = 'MenosIZQ'; let MasIZQ = 'MasIZQ'; let ParentIZQ ='ParentIZQ';
 let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; let MasDER ='MasDER';
 
+
 var btnLanzarSelect = document.getElementById("btnLanzarSelect");
-
-
-
-
 
 
 function selectOption(valor){
@@ -465,6 +462,8 @@ function lanzarSelect(){
 
 
 }
+
+
 btnLanzarSelect.addEventListener("click", () =>{
 
 
@@ -543,7 +542,6 @@ function sowLog(value){
 }
 
 
-}
 
 	    $(document).ready(function() {
 	        //Asegurate que el id que le diste a la tabla sea igual al texto despues del simbolo #
