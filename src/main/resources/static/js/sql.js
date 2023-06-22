@@ -13,9 +13,32 @@ let queryCampoWhereResult = 'queryCampoWhereResult';
 let OR = 'OR'; let AND = 'AND'; let MenosIZQ = 'MenosIZQ'; let MasIZQ = 'MasIZQ'; let ParentIZQ ='ParentIZQ';
 let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; let MasDER ='MasDER';
 
-
 var btnLanzarSelect = document.getElementById("btnLanzarSelect");
 
+const selectCampos = document.querySelector("#miSelect");
+
+
+
+
+const agregar = () => {
+
+    //TODO: Temporal pruebas desde getTabla() //TODO: borrar
+    console.log("Limpiamos #miSelect Up");
+    for (let i = selectCampos.options.length; i >= 0; i--) {
+        
+        selectCampos.remove(i);
+    }
+    const option = document.createElement('option');
+    const valor = new Date().getTime();
+    option.value = valor;
+    option.text = valor;
+    selectCampos.appendChild(option);
+  };
+
+
+document.addEventListener("DOMContentLoaded", () => {
+    document.querySelector("#btnAgregar").addEventListener("click", agregar);
+  });
 
 function selectOption(valor){
     tipoQuery = valor;
@@ -64,21 +87,52 @@ function getCampo(id){
     }
     
 }
-function getTabla(id){
-    limpiarBtnTabla('table');
+function getTabla(tabla){
+    limpiarBtnTabla('btnTable');
     insertElements(document.querySelector('#'+'containerSelectTable'),'button',
         'type','button',
-        'class','table',
-        'value',document.getElementById(id).value,
-        'id',document.getElementById(id).value,
+        'class','btnTable',
+        'value',tabla,
+        'id',tabla,
         '',''
     );
-document.getElementById('QueryTable').value = 'Select Table';
+	document.getElementById('QueryTable').value = 'Select Table';
+
+	//TODO: Limpiamos el select campos 
+    //console.log("Limpiamos campos #miSelect Up");
+    for (let i = selectCampos.options.length; i >= 0; i--) {
+        selectCampos.remove(i);
+    }
+    //TODO: recuperamos el nuevo listado segun la tabla nueva. 
+  	let cad = '{"results": [{"campo": "campo1"},{"campo": "campo2"}],"status": "OK"}';
+    let json1 = JSON.parse(cad);
+    
+      fetch('./js/campos.json')//TODO: llamar al servicio REST con los campos de la $tabla.
+    .then((data) => data.json())
+    .then(
+    	function (data){
+			// Rellenamos el select con lo recupera del servicio REST
+    		for (x=0; x<Object.keys(data.campos).length;x++){
+    			const option = document.createElement('option');
+    			option.value = data.campos[x].campo;
+    			option.text = data.campos[x].campo;
+    			selectCampos.appendChild(option);
+    		}
+    		
+    	}
+    )
+ 
+
+
+     
+
+    
+
 }
 function limpiarBtnTabla(filtro){
     var btns = document.querySelectorAll('.'+filtro);
     for (var i = 0; i < btns.length; i++) {
-        document.querySelector('#'+btns[i].id).remove();   
+        document.querySelector('#'+btns[i].id).remove(); 
     }
 }
 

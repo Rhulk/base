@@ -1,0 +1,22 @@
+{
+	"campos": 
+		[
+		{
+		"campo": "campo1"
+		}
+		,
+		{
+		"campo": "campo2"
+		}
+		,
+		{
+		"campo": "campo3"
+		}
+		,
+		{
+		"campo": "CampoREST"
+		}
+		]
+		,
+		"status": "OK"
+}

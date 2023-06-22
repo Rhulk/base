@@ -10,6 +10,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.alquiler.reservas.entity.Query;
 import com.alquiler.reservas.entity.Role;
 import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.entity.User;
@@ -29,6 +30,8 @@ public class MantenimientoController {
 	
 	@Autowired
 	SqlService sqlService;
+	
+	Query query;
 	
 	@GetMapping("/desbloquear")
 	public String desbloqueo() {
@@ -65,6 +68,11 @@ public class MantenimientoController {
 		// Gestion de los modulos a visualizar
 		model.addAttribute("activoTodo",false); 
 		model.addAttribute("activoUser",false);		
+		
+		//Contenido de la pag
+	//	query.tablas = userService.getAllTablas();
+		model.addAttribute("Titulotablas", "Tablas");
+		model.addAttribute("tablas", userService.getAllTablas()); // TODO: userService ???
 		
 		System.out.println(" -- Tablas: "+userService.getAllTablas().toString());
 		System.out.println(" -- Check Liquibase log -- "+userService.selectDataBaseChangelog().toString());

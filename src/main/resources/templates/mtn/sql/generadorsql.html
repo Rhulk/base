@@ -1,5 +1,7 @@
 
-<form name="form">	
+
+
+<form  id="queryForm"  method="post" th:action="${signup}"  autocomplete="off" >
     
   
     <div>
@@ -13,12 +15,32 @@
 <div id="select" class="form-filter select ocultar">
     <div class="cabecera">
 	Tablas: 
-	<select id="QueryTable" onchange="getTabla(this.id)">
+	<select id="QueryTable" onchange="getTabla(this.value)">
         <option>Select Table</option>
 		<option>Tabla1</option>
 		<option>Tabla2</option>
 		<option>Tabla3</option>
 	</select>
+
+	
+	<div class="form-group row">
+		<label th:text="${Titulotablas}" class="col-lg-3 col-form-label form-control-label"></label>
+		<div class="col-lg-9">
+			<select  class="form-control" th:disabled="${disableFields}" onchange="getTabla(this.value)">
+				<option th:each="tabla :${tablas}" th:value="${tabla}" th:text="${tabla}">
+				</option>
+			</select>
+			
+		</div>
+        <div>
+            <select id="miSelect">
+                <option>Campos</option>
+
+            </select>
+            <button type="button" id="btnAgregar">Agregar</button>
+        </div>
+	</div>
+	
 	Campos: 
 	<select  id="idCampoSelect" name="campo" class="select-css" onchange="getCampo(this.id)">
         <option value="select">Seleccionar Campos</option>
