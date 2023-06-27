@@ -113,10 +113,26 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama:SQL
-# Fecha Committer: 2023-04-11 19:35
+# Fecha Committer: 2023-06-27 16:27
 # LastChange: Up code Visual Studio
 # Origen: sin determinar
-# Situación:Beta 2
+# Situación:Estable
+# Problem: 	 
+		
+# Resueltos:
+	
+# Avances:
+	Recuperación de las tablas y campos de la BBDD con servicio REST
+	Cambiar las llamas de la capa service de UserService a SqlService
+	Recuperar los campos del nuevo select.
+	Operatividad entre la gestión de los campos
+	
+# Next:
+	Organización y mejoras visuales de la vista tras las cargas de datos de los servicios web
+	Implementar el select del where con los campos de la tabla.
+	Limpiar los campos btn al cambiar de tabla.
+	
+
 #####################################################################################
 # Rama: feature/toDo
 # Fecha Committer: 2023-06-15 16:00

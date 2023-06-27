@@ -49,4 +49,10 @@ public class SqlDAO implements SqlService {
 		
 	}
 
+	@Override
+	public List<String> getAllTablas() {
+		Query query = em.createNativeQuery("SELECT table_name FROM information_schema.tables ");
+		return query.getResultList();
+	}
+
 }

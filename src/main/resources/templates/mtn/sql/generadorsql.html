@@ -7,49 +7,47 @@
     <div>
 <h2>Generador SQL en construccion</h2>
 <div id="funcion" class="funcion">
-    <div><h3>Selecciona una opción:</h3></div>
+    <div><h3><label th:text="#{generadorsql.selectOption}" ></label></h3></div>
     <input type="radio" name="select" onclick="selectOption(this.value)" value="select"><span>Select</span>
 	<input type="radio" name="select" onclick="selectOption(this.value)" value="insert"><span>Insert</span>
 	<input type="radio" name="select" onclick="selectOption(this.value)" value="update"><span>Update</span>
 </div>
 <div id="select" class="form-filter select ocultar">
     <div class="cabecera">
-	Tablas: 
+	<!-- BorrarTablas: 
 	<select id="QueryTable" onchange="getTabla(this.value)">
         <option>Select Table</option>
 		<option>Tabla1</option>
 		<option>Tabla2</option>
 		<option>Tabla3</option>
-	</select>
+	</select>  -->
 
 	
 	<div class="form-group row">
 		<label th:text="${Titulotablas}" class="col-lg-3 col-form-label form-control-label"></label>
 		<div class="col-lg-9">
-			<select  class="form-control" th:disabled="${disableFields}" onchange="getTabla(this.value)">
+			<select id="QueryTable" class="form-control" th:disabled="${disableFields}" onchange="getTabla(this.value)">
+				<option>Select Table</option>
 				<option th:each="tabla :${tablas}" th:value="${tabla}" th:text="${tabla}">
 				</option>
 			</select>
 			
 		</div>
-        <div>
-            <select id="miSelect">
-                <option>Campos</option>
+        
+        <label  text="Campos" class="col-lg-3 col-form-label form-control-label">Campos</label>
+        <div class="col-lg-9">
+            <select  id="idCampoSelect" name="campo" class="select-css form-control" onchange="getCampo(this.id)">
+                <option value="select">Seleccionar Tabla</option>
 
             </select>
-            <button type="button" id="btnAgregar">Agregar</button>
         </div>
+
 	</div>
-	
-	Campos: 
-	<select  id="idCampoSelect" name="campo" class="select-css" onchange="getCampo(this.id)">
-        <option value="select">Seleccionar Campos</option>
-		<option id="idCampoSelect*" value="*" >*</option>
-		<option id="idCampoSelect1" value="1" >1</option>
-		<option id="idCampoSelect2" value="2" >2</option>
-		<option id="idCampoSelect3" value="3" >3</option>
-	</select>
+	<!-- -->
+
     </div>
+    
+    <!-- Fin Cabecera -->
     <div id="containerSelectTable">
         Tabla: 
     </div>

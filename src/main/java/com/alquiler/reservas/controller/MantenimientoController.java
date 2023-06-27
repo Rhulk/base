@@ -53,6 +53,10 @@ public class MantenimientoController {
 		// Gestion de los modulos a visualizar
 		model.addAttribute("activoTodo",false); 
 		model.addAttribute("activoUser",false);
+		//Contenido de la pag
+	//	query.tablas = userService.getAllTablas();
+		model.addAttribute("Titulotablas", "Tablas");
+		model.addAttribute("tablas", userService.getAllTablas()); // TODO: userService ???
 		
 		return "security/user-form/main-view";
 	}

@@ -1,4 +1,4 @@
-console.log("sql.js");
+console.log("sql.jss");
 let idCampo ="";
 let container = "";
 let classCampo = "";
@@ -15,12 +15,12 @@ let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; l
 
 var btnLanzarSelect = document.getElementById("btnLanzarSelect");
 
-const selectCampos = document.querySelector("#miSelect");
+const selectCampos = document.querySelector("#idCampoSelect");
+/// default no es cambio de tabla.
+var cambioTable=false;
 
 
-
-
-const agregar = () => {
+const agregar = () => {// el btn esta comentado nada llama a este codigo solo esta a modo lectivo 
 
     //TODO: Temporal pruebas desde getTabla() //TODO: borrar
     console.log("Limpiamos #miSelect Up");
@@ -36,9 +36,7 @@ const agregar = () => {
   };
 
 
-document.addEventListener("DOMContentLoaded", () => {
-    document.querySelector("#btnAgregar").addEventListener("click", agregar);
-  });
+//document.addEventListener("DOMContentLoaded", () => {    document.querySelector("#btnAgregar").addEventListener("click", agregar);  });
 
 function selectOption(valor){
     tipoQuery = valor;
@@ -83,6 +81,7 @@ function getCampo(id){
     if(document.getElementById(id).value == '*'){
         limpiarCampoAll();
     }else{
+    	console.log(document.getElementById(id).value);
         limpiarCampo(document.getElementById(id).value);  
     }
     
@@ -98,35 +97,47 @@ function getTabla(tabla){
     );
 	document.getElementById('QueryTable').value = 'Select Table';
 
-	//TODO: Limpiamos el select campos 
+	
     //console.log("Limpiamos campos #miSelect Up");
     for (let i = selectCampos.options.length; i >= 0; i--) {
         selectCampos.remove(i);
     }
-    //TODO: recuperamos el nuevo listado segun la tabla nueva. 
+    //TODO: Borrar los los botones si los hay
   	let cad = '{"results": [{"campo": "campo1"},{"campo": "campo2"}],"status": "OK"}';
     let json1 = JSON.parse(cad);
     
-      fetch('./js/campos.json')//TODO: llamar al servicio REST con los campos de la $tabla.
+    fetch("http://localhost:8080/campos/"+tabla)
+     //fetch('./js/campos.json')//TODO: llamar al servicio REST con los campos de la $tabla.
     .then((data) => data.json())
     .then(
     	function (data){
 			// Rellenamos el select con lo recupera del servicio REST
-    		for (x=0; x<Object.keys(data.campos).length;x++){
-    			const option = document.createElement('option');
-    			option.value = data.campos[x].campo;
-    			option.text = data.campos[x].campo;
+            var option = document.createElement('option');
+            option.value = 'Añadir Campo';
+            option.text = 'Añadir Campo';
+            option.id = 'add';
+            selectCampos.appendChild(option);
+            var option = document.createElement('option');
+            option.value = '*';
+            option.text = '*';
+            option.id = '*';
+            selectCampos.appendChild(option);
+
+    		for (x=0; x<Object.keys(data).length;x++){
+                var option = document.createElement('option');
+    			option.value = data[x];
+    			option.text = data[x];
+                option.id = 'idCampoSelect'+data[x];
     			selectCampos.appendChild(option);
     		}
     		
     	}
     )
- 
-
-
-     
-
-    
+    // Limpiamos los btn de los campos al cambiar de tabla.
+    cambioTable=true;
+    limpiarBtnAll('campoSelect');
+    // si es cambio de tabla no recuperamos los campos al cb select option
+    cambioTable=false; // chapu
 
 }
 function limpiarBtnTabla(filtro){
@@ -140,6 +151,10 @@ function limpiarCampo(id){
     var isOR = false;
     const ORIid=id;
     const divPadre = document.querySelector('#'+container+where);
+	
+	console.log('container:'+container);
+	console.log('where:'+where);
+	console.log('divPadre:'+divPadre);
 
     let addClass='';
     if (where == 'Where'){
@@ -150,12 +165,15 @@ function limpiarCampo(id){
     // div padre del contenedor
     insertElements(divPadre,'div',
         '','',
-        'class',classCampo,
+        'class','TEST-NoClass->classCampo',
         'value','',
         'id',idCampo+where+'-div-'+id,
         '',''
     );
     const divHijo = document.querySelector('#'+idCampo+where+'-div-'+id);
+    console.log(document.querySelector('#'+idCampo+where+'-div-'+id));
+    console.log('#'+idCampo+where+'-div-'+id);
+    console.log('divHijo '+divHijo.getAttributeNames);
     // posiblemente hay que borrarlo se queda solo
     // tengo que crear el id acorde con elcampo para los duplicados
     if (where == 'Where'){
@@ -178,6 +196,8 @@ function limpiarCampo(id){
         '',''
     ); 
     const divCondicion = document.querySelector('#'+idCampo+where+'-condicion-'+preId);
+
+    console.log('divCondicion '+divCondicion);
 
     // btn OR AND Where
     if(document.querySelectorAll('.'+'Where').length>0){
@@ -218,6 +238,7 @@ function limpiarCampo(id){
 
         // for uno por cada btn esto solo funciona si el btn or es el primero.
         var btns = document.querySelectorAll('.'+'ORI'+ORIid);
+        console.log('btns:'+btns);
         for (var i = 0; i < btns.length; i++) {
             id=id+''+btns[0].textContent;    
         }
@@ -263,6 +284,8 @@ function limpiarCampo(id){
         }
     }else {
             // btn campo Select
+            console.log('pag 266'+' id '+id);
+            console.log('divHijo:'+divHijo);
         insertElements(divHijo,'button',
             'type','button',
             'class',classCampo+ ' btn '+addClass, // id origen solo en Where
@@ -270,6 +293,7 @@ function limpiarCampo(id){
             'id',idCampo+where+id,
             'onclick','quitarBtnAddOptionSelect(this.value)'
         );
+        console.log('idBtn:'+idCampo+where+id);
     }
 
 
@@ -311,6 +335,8 @@ function limpiarCampo(id){
     }
     if (where != 'Where'){
         document.querySelector('#'+idCampo+where+id).remove();
+        console.log('pag327 Delete campo select'+document.querySelector('#'+idCampo+where+id));
+        console.log('#'+idCampo+where+id);
     }else{
         document.getElementById(idCampo+where).value = 'select';
     } 
@@ -325,12 +351,13 @@ function limpiarCampoAll(){
     }else{
         addClass='queryCampo';
     }
-    
+    console.log('container:'+container+' '+'idCampo: '+idCampo);
     for (var option of document.getElementById(idCampo+where).options) {
-        if (option.value != 'select' &&  option.value != '*'){
+        console.log('In for-> Option.value: '+option.value);
+        if (option.value != 'Añadir Campo' &&  option.value != '*'){
             insertElements(divPadre,'div',
             '','',
-            'class',classCampo,
+            'class','TEST-NoClass->classCampo',
             'value','',
             'id',idCampo+where+'-div-'+option.value,
             '','');
@@ -431,9 +458,10 @@ function limpiarCampoAll(){
 
 
 function insertElements(container,elementName,tipoBtnName,tipoBtnValue,className,classValue,valueName,valueValue,idName,idValue,functionName,functionValue) { //recibe el div
-
+	console.log('pag 448 ' +'elementName '+ elementName+' in:'+container);
     const btn = document.createElement(elementName);
 
+    console.log('btn: '+btn);
     btn.setAttribute(valueName,valueValue);
     btn.setAttribute(idName,idValue);
 
@@ -448,7 +476,7 @@ function insertElements(container,elementName,tipoBtnName,tipoBtnValue,className
     }
     
     btn.innerHTML = valueValue;
-    
+    console.log(btn);
     container.appendChild(btn); //añadido
 }
 
@@ -463,21 +491,33 @@ function quitarBtnAddOptionSelect(id){
 
   
 function quitarBtnAddOption(id){
+    console.log('quitarBtnAddOption( '+id);
     var all=true;
     for (var option of document.getElementById(idCampo+where).options) {
+        // buscamos el * en el cb select option si lo encontramos no hay que añadirlo.
         if (option.value == '*'){
             all=false;
         }
     }
-    if (all){
+    if (all && !cambioTable){
+        console.log('id '+id+' addOptioin(*) ');
         addOption('*');
     }
+    console.log('Borrando btn--> '+'#'+idCampo+where+id+' - '+document.querySelector('#'+idCampo+where+id));
     document.querySelector('#'+idCampo+where+id).remove();
     if (idCampo == "idCampoInsert"){
         document.querySelector('#'+idCampo+'-input'+id).remove();
     }
-    document.querySelector('#'+idCampo+where+'-div-'+id).remove();
+    console.log(' Borrando Div: '+'#'+idCampo+where+'-div-'+id);
+   document.querySelector('#'+idCampo+where+'-div-'+id).remove();
+   
+   // solo añadimos los campos al select si no cambiamos de tabla.
+   console.log('cambioTable:'+cambioTable)
+   if(!cambioTable){
+    console.log('No cambiamos de tabla.')
     addOption(id);
+   }
+    
 }
 function limpiarBtnAll(filtro){
 
@@ -488,7 +528,22 @@ function limpiarBtnAll(filtro){
     }
 
     var btns = document.querySelectorAll('.'+filtro);
+    console.log('filtro: '+filtro);
+    console.log('btn: '+document.querySelectorAll('.'+filtro));
+    console.log('length btns: '+btns.length);
+
+    /*
+
+    <button value="capitulo4" id="idCampoSelectcapitulo4" 
+    class="campoSelect btn queryCampo" onclick="quitarBtnAddOptionSelect(this.value)" type="button">capitulo4</button>
+
+    */
+/*
+    ERROR: Recupero 4 btns con el filtro 2 btn y 2 div  Resuelto le quito la clase a los div y de ese modo no tengo el listado doble.
+*/
+
     for (var i = 0; i < btns.length; i++) {
+        console.log(' quitarbtnAddOption '+btns[i].textContent);
         quitarBtnAddOption(btns[i].textContent);    
     }
 }
