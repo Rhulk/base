@@ -6,6 +6,11 @@ body{
     height: auto;
     width: auto;
   }
+#div-result-query {
+  width: 100%;
+  max-width: 1200px;
+  border: blue solid 1px;
+}
 .crud {
     border: rgb(183, 0, 255) solid 1px;
 }
@@ -15,7 +20,8 @@ body{
 }
 .cabecera{
     border: blue solid 1px;
-    background-color: rgb(241, 135, 30);
+    background-color: rgb(155 159 167);
+    padding-top: 15px /* Para igualar con el padding-botoom */
 }
 
 .ocultar{
@@ -26,7 +32,6 @@ body{
 	background: #000;
 	box-shadow: 10px 10px 3px #D8D8D8;
 	transition: height .4s;
-    
     text-align: center;
 }
 .campos-insert{
@@ -34,4 +39,8 @@ body{
     justify-content: center;
     flex-direction: column;
     align-items: center;
+}
+input[type="text"] {  
+  min-width: 100px;
+  padding-right: 5px;
 }

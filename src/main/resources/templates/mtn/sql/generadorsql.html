@@ -8,7 +8,7 @@
 <h2>Generador SQL en construccion</h2>
 <div id="funcion" class="funcion">
     <div><h3><label th:text="#{generadorsql.selectOption}" ></label></h3></div>
-    <input type="radio" name="select" onclick="selectOption(this.value)" value="select"><span>Select</span>
+    <input selected type="radio" name="select" onclick="selectOption(this.value)" value="select"><span>Select</span>
 	<input type="radio" name="select" onclick="selectOption(this.value)" value="insert"><span>Insert</span>
 	<input type="radio" name="select" onclick="selectOption(this.value)" value="update"><span>Update</span>
 </div>
@@ -71,12 +71,22 @@
 
     </div>
 
+
     <div class="crud cabecera">
         <button type="button" id="Select" onclick="limpiarBtnAll(this.id)">Limpiar Campos</button>
         <button type="button" id="Where" onclick="limpiarBtnAll(this.id)">Limpiar Filtro</button>
         <button id="btnLanzarSelect" type="button" >Ejecutar Consulta</button>
         <button type="submit" onclick="lanzarSelect()">reset</button>
     </div>
+    
+    <!-- Contiene el result de la query -->
+	<div id="div-result-query">
+		<!-- Doble div para el diseño con CSS flex box -->
+		<div id="div-result-contenido" class="div-result-contenido"></div>
+    	
+    	<div id="div-result-crud" class="div-result-crud"></div>
+    </div>
+    
     <br><br>
 </div>
 <div id="insert" class="form-filter insert ocultar">
@@ -105,7 +115,7 @@
     <div class="crud cabecera">
         <button type="button" onclick="limpiarBtnAll()">Limpiar Campos</button>
         
-        <button id="pedo" type="button" onclick="lanzarSelect()">Ejecutar Consulta</button>
+        <button id="pedo" type="button" onclick="lanzarSelect()" >Ejecutar Consulta TEST</button>
         <button type="submit" onclick="lanzarSelect()">reset</button>
     </div>
 </div>
@@ -115,7 +125,7 @@
 <br>
 <div>
 
-    <button type="button" id="sowlog" value="Mostrar Log" onclick="sowLog(this.value)">Mostrar Log</button>
+    <button th:if="false" type="button" id="sowlog" value="Mostrar Log" onclick="sowLog(this.value)">Mostrar Log</button>
 
 </div>
 

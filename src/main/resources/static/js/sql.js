@@ -15,7 +15,8 @@ let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; l
 
 var btnLanzarSelect = document.getElementById("btnLanzarSelect");
 
-const selectCampos = document.querySelector("#idCampoSelect");
+const selectCampos = document.querySelector("#idCampoSelect"); //cb select option
+const selectCamposWhere = document.querySelector("#idCampoSelectWhere"); //cb select option where
 /// default no es cambio de tabla.
 var cambioTable=false;
 
@@ -70,9 +71,10 @@ function selectOption(valor){
    
       }
 }
+selectOption('select');
 
 function getCampo(id){
-    
+    console.log('Pag 77 -- Id:'+id);
     if (id== 'idCampoSelectWhere'){
         where='Where';
     }else{
@@ -81,12 +83,14 @@ function getCampo(id){
     if(document.getElementById(id).value == '*'){
         limpiarCampoAll();
     }else{
-    	console.log(document.getElementById(id).value);
+    	console.log('Pag 86 '+document.getElementById(id).value);
+        // limpia Campo y añade btn's
         limpiarCampo(document.getElementById(id).value);  
     }
     
 }
 function getTabla(tabla){
+    
     limpiarBtnTabla('btnTable');
     insertElements(document.querySelector('#'+'containerSelectTable'),'button',
         'type','button',
@@ -102,12 +106,19 @@ function getTabla(tabla){
     for (let i = selectCampos.options.length; i >= 0; i--) {
         selectCampos.remove(i);
     }
+
+    //selectCamposWhere
+    for (let i = selectCamposWhere.options.length; i >= 0; i--) {
+        selectCamposWhere.remove(i);
+    }
+
     //TODO: Borrar los los botones si los hay
   	let cad = '{"results": [{"campo": "campo1"},{"campo": "campo2"}],"status": "OK"}';
     let json1 = JSON.parse(cad);
     
+    // Recuperamos los campos de la $tabla y rellenamos los select option 
     fetch("http://localhost:8080/campos/"+tabla)
-     //fetch('./js/campos.json')//TODO: llamar al servicio REST con los campos de la $tabla.
+     //fetch('./js/campos.json')
     .then((data) => data.json())
     .then(
     	function (data){
@@ -130,15 +141,36 @@ function getTabla(tabla){
                 option.id = 'idCampoSelect'+data[x];
     			selectCampos.appendChild(option);
     		}
+			// Rellenamos el select con lo recupera del servicio REST
+            var option = document.createElement('option');
+            option.value = 'Añadir Campo';
+            option.text = 'Añadir Campo';
+            option.id = 'add';
+            selectCamposWhere.appendChild(option);
+           /* var option = document.createElement('option');
+            option.value = '*';
+            option.text = '*';
+            option.id = '*';*/
+            selectCamposWhere.appendChild(option);
+
+    		for (x=0; x<Object.keys(data).length;x++){
+                var option = document.createElement('option');
+    			option.value = data[x];
+    			option.text = data[x];
+                option.id = 'idCampoSelect'+data[x];
+    			selectCamposWhere.appendChild(option);
+    		}
     		
     	}
     )
     // Limpiamos los btn de los campos al cambiar de tabla.
     cambioTable=true;
     limpiarBtnAll('campoSelect');
+    //TODO: Limpiar Campos selectWere
+    limpiarBtnAll('Where'); // TEST
     // si es cambio de tabla no recuperamos los campos al cb select option
     cambioTable=false; // chapu
-
+    ocultarTextarea();
 }
 function limpiarBtnTabla(filtro){
     var btns = document.querySelectorAll('.'+filtro);
@@ -152,9 +184,9 @@ function limpiarCampo(id){
     const ORIid=id;
     const divPadre = document.querySelector('#'+container+where);
 	
-	console.log('container:'+container);
-	console.log('where:'+where);
-	console.log('divPadre:'+divPadre);
+	//console.log('container:'+container);
+	//console.log('where:'+where);
+	//console.log('divPadre:'+divPadre);
 
     let addClass='';
     if (where == 'Where'){
@@ -163,6 +195,7 @@ function limpiarCampo(id){
         addClass='queryCampo';
     }
     // div padre del contenedor
+    console.log('Pag 197 '+idCampo+where+'-div-'+id)
     insertElements(divPadre,'div',
         '','',
         'class','TEST-NoClass->classCampo',
@@ -171,9 +204,9 @@ function limpiarCampo(id){
         '',''
     );
     const divHijo = document.querySelector('#'+idCampo+where+'-div-'+id);
-    console.log(document.querySelector('#'+idCampo+where+'-div-'+id));
-    console.log('#'+idCampo+where+'-div-'+id);
-    console.log('divHijo '+divHijo.getAttributeNames);
+    //console.log(document.querySelector('#'+idCampo+where+'-div-'+id));
+    //console.log('#'+idCampo+where+'-div-'+id);
+    //console.log('divHijo '+divHijo.getAttributeNames);
     // posiblemente hay que borrarlo se queda solo
     // tengo que crear el id acorde con elcampo para los duplicados
     if (where == 'Where'){
@@ -188,23 +221,25 @@ function limpiarCampo(id){
             oldId=oldId+''+btns[0].textContent;
         } 
     }
+    console.log('pag 223 -classCampo: '+classCampo);
     insertElements(divHijo,'div',
         '','',
-        'class',classCampo,
+        'class',classCampo+'Where',
         'value','',
         'id',idCampo+where+'-condicion-'+preId,
         '',''
     ); 
     const divCondicion = document.querySelector('#'+idCampo+where+'-condicion-'+preId);
 
-    console.log('divCondicion '+divCondicion);
+    //console.log('divCondicion '+divCondicion);
 
     // btn OR AND Where
     if(document.querySelectorAll('.'+'Where').length>0){
         if (document.getElementById( idCampo+where+AND+id )){
+            console.log('pag 236 -classCampo: '+classCampo);
             insertElements(divCondicion,'button',
                 'type','button',
-                'class',classCampo+' queryCondicion',
+                'class',classCampo+'Where'+' queryCondicion',
                 'value',OR,
                 'id',idCampo+where+condicion+preId,
                 'onclick','AndOr(this.id)'
@@ -213,19 +248,21 @@ function limpiarCampo(id){
             getDereMenos(oldId);// test ok
             isOR=true;// para no crear el parentesis inicial en pag 213
         }else{
+            console.log('pag 248 -classCampo: '+classCampo);
             insertElements(divCondicion,'button',
                 'type','button',
-                'class',classCampo+' queryCondicion',
+                'class',classCampo+'Where'+' queryCondicion',
                 'value',AND,
                 'id',idCampo+where+AND+id,
                 'onclick','AndOr(this.id)'
             );
         }
     }else{
+        console.log('pag 258 -classCampo: '+classCampo);
         insertElements(divCondicion,'button',
             'type','button',
-            'class',classCampo+' queryCondicion',
-            'value','Where:',
+            'class',classCampo+'Where'+' queryCondicion',
+            'value','Where',
             'id',idCampo+where+condicion+preId,
             '',''
         );
@@ -238,7 +275,7 @@ function limpiarCampo(id){
 
         // for uno por cada btn esto solo funciona si el btn or es el primero.
         var btns = document.querySelectorAll('.'+'ORI'+ORIid);
-        console.log('btns:'+btns);
+        //console.log('btns:'+btns);
         for (var i = 0; i < btns.length; i++) {
             id=id+''+btns[0].textContent;    
         }
@@ -246,9 +283,10 @@ function limpiarCampo(id){
     }
     if (where == 'Where'){
         // btn MenosIZQ
+        console.log('pag 283 -classCampo: '+classCampo);
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo,
+            'class',classCampo+'Where',
             'value','-',
             'id',id,
             'onclick','getIzqMenos(this.id)'
@@ -257,7 +295,7 @@ function limpiarCampo(id){
         // btn MasIZQ
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo,
+            'class',classCampo+'Where',
             'value','+',
             'id',id,
             'onclick','getIzqMas(this.id)'
@@ -265,7 +303,7 @@ function limpiarCampo(id){
         // btn ParentIZQ
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo+' queryParentIzq',
+            'class',classCampo+'Where'+' queryParentIzq',
             'value','(',
             'id',idCampo+where+ParentIZQ+id,
             '',''
@@ -273,7 +311,7 @@ function limpiarCampo(id){
         // btn campo 'ORI'+ORIid
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo+ ' btn '+addClass+' ORI'+ORIid +' '+queryCampoWhere, // id origen
+            'class',classCampo+'Where'+ ' btn '+addClass+' ORI'+ORIid +' '+queryCampoWhere, // id origen
             'value',ORIid,
             'id',idCampo+where+id,
             'onclick','quitarBtnAddOptionWhere(this.value)'
@@ -284,8 +322,8 @@ function limpiarCampo(id){
         }
     }else {
             // btn campo Select
-            console.log('pag 266'+' id '+id);
-            console.log('divHijo:'+divHijo);
+            //console.log('pag 266'+' id '+id);
+            //console.log('divHijo:'+divHijo);
         insertElements(divHijo,'button',
             'type','button',
             'class',classCampo+ ' btn '+addClass, // id origen solo en Where
@@ -293,7 +331,7 @@ function limpiarCampo(id){
             'id',idCampo+where+id,
             'onclick','quitarBtnAddOptionSelect(this.value)'
         );
-        console.log('idBtn:'+idCampo+where+id);
+        //console.log('idBtn:'+idCampo+where+id);
     }
 
 
@@ -301,7 +339,7 @@ function limpiarCampo(id){
         // input RESULT
         insertElements(divHijo,'input',
             '','',
-            'class',classCampo+' '+queryCampoWhereResult,
+            'class',classCampo+'Where'+' '+queryCampoWhereResult,
             'value','Escribe aquí...',
             'id',idCampo+where+RESULT+id,
             '',''
@@ -311,7 +349,7 @@ function limpiarCampo(id){
         //btn ParentDERE
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo+' queryParentDer',
+            'class',classCampo+'Where'+' queryParentDer',
             'value',')',
             'id',idCampo+where+ParentDER+id,
             '',''
@@ -319,7 +357,7 @@ function limpiarCampo(id){
         //btn MenosDERE
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo,
+            'class',classCampo+'Where',
             'value','-',
             'id',id,
             'onclick','getDereMenos(this.id)'
@@ -327,7 +365,7 @@ function limpiarCampo(id){
         // btn MasDER
         insertElements(divHijo,'button',
             'type','button',
-            'class',classCampo,
+            'class',classCampo+'Where',
             'value','+',
             'id',id,
             'onclick','getDereMas(this.id)'
@@ -335,10 +373,13 @@ function limpiarCampo(id){
     }
     if (where != 'Where'){
         document.querySelector('#'+idCampo+where+id).remove();
-        console.log('pag327 Delete campo select'+document.querySelector('#'+idCampo+where+id));
-        console.log('#'+idCampo+where+id);
+        console.log('pag375 Delete campo select'+document.querySelector('#'+idCampo+where+id));
+        //console.log('#'+idCampo+where+id);
     }else{
-        document.getElementById(idCampo+where).value = 'select';
+        console.log('Pag 378 '+idCampo+where);
+        console.log(document.getElementById(idCampo+where).value);
+        console.log(document.getElementById(idCampo+where));
+        document.getElementById(idCampo+where).value = 'Añadir Campo';
     } 
 }
 function limpiarCampoAll(){
@@ -351,9 +392,9 @@ function limpiarCampoAll(){
     }else{
         addClass='queryCampo';
     }
-    console.log('container:'+container+' '+'idCampo: '+idCampo);
+    //console.log('container:'+container+' '+'idCampo: '+idCampo);
     for (var option of document.getElementById(idCampo+where).options) {
-        console.log('In for-> Option.value: '+option.value);
+        //console.log('In for-> Option.value: '+option.value);
         if (option.value != 'Añadir Campo' &&  option.value != '*'){
             insertElements(divPadre,'div',
             '','',
@@ -368,7 +409,7 @@ function limpiarCampoAll(){
                 // btn -
                 insertElements(divHijo,'button',
                     'type','button',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','-',
                     'id',idCampo+where+option.value,
                     'onclick','addParentesis(this.value)'
@@ -376,7 +417,7 @@ function limpiarCampoAll(){
                 // btn +
                 insertElements(divHijo,'button',
                     'type','button',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','+',
                     'id',idCampo+where+option.value,
                     'onclick','addParentesis(this.value)'
@@ -384,7 +425,7 @@ function limpiarCampoAll(){
                 // btn (
                 insertElements(divHijo,'input',
                     '','',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','(',
                     'id',idCampo+where+'-input'+option.value,
                     '',''
@@ -392,7 +433,7 @@ function limpiarCampoAll(){
                 // btn campo where
                 insertElements(divHijo,'button',
                     'type','button',
-                    'class',classCampo+ ' btn '+addClass+' '+queryCampoWhere,
+                    'class',classCampo+'Where'+ ' btn '+addClass+' '+queryCampoWhere,
                     'value',option.value,
                     'id',idCampo+where+option.value,
                     'onclick','quitarBtnAddOptionWhere(this.value)'
@@ -413,7 +454,7 @@ function limpiarCampoAll(){
             if (idCampo == "idCampoInsert"|| where == 'Where'){
                 insertElements(divHijo,'input',
                     '','',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','escribe aquí',
                     'id',idCampo+where+'-input'+option.value,
                     '',''
@@ -423,7 +464,7 @@ function limpiarCampoAll(){
                 // btn )
                 insertElements(divHijo,'input',
                     '','',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value',')',
                     'id',idCampo+where+'-input'+option.value,
                     '',''
@@ -431,7 +472,7 @@ function limpiarCampoAll(){
                 // btn -
                 insertElements(divHijo,'button',
                     'type','button',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','-',
                     'id',idCampo+where+option.value,
                     'onclick','addParentesis(this.value)'
@@ -439,7 +480,7 @@ function limpiarCampoAll(){
                 // btn +
                 insertElements(divHijo,'button',
                     'type','button',
-                    'class',classCampo,
+                    'class',classCampo+'Where',
                     'value','+',
                     'id',idCampo+where+option.value,
                     'onclick','addParentesis(this.value)'
@@ -455,13 +496,26 @@ function limpiarCampoAll(){
     }
 
 }
+/*Param 1 Contenedor donde se creara el elemento */
+/*Param 2 Nombre del elemento a crear */
+/*Param 3 - 4  Tipo de btn y el nombre del mismo*/
+/*Param 5 - 6  Nombre de la class y su valor*/
+/*Param 7 - 8  Campo value y su contenido*/
+/*Param 9 - 10 Campo id y su contenido*/
+/*Param 11- 12 Campo funcion y su contenido*/
 
-
-function insertElements(container,elementName,tipoBtnName,tipoBtnValue,className,classValue,valueName,valueValue,idName,idValue,functionName,functionValue) { //recibe el div
-	console.log('pag 448 ' +'elementName '+ elementName+' in:'+container);
+function insertElements(
+/*Param 1 */            container,
+/*Param 2 */            elementName,
+/*Param 3 - 4  */       tipoBtnName,tipoBtnValue,
+/*Param 5 - 6  */       className,classValue,
+/*Param 7 - 8  */       valueName,valueValue,
+/*Param 9 - 10 */       idName,idValue,
+/*Param 11- 12 */       functionName,functionValue) { //recibe el div
+	//console.log('pag 448 ' +'elementName '+ elementName+' in:'+container);
     const btn = document.createElement(elementName);
 
-    console.log('btn: '+btn);
+    //console.log('btn: '+btn);
     btn.setAttribute(valueName,valueValue);
     btn.setAttribute(idName,idValue);
 
@@ -476,7 +530,7 @@ function insertElements(container,elementName,tipoBtnName,tipoBtnValue,className
     }
     
     btn.innerHTML = valueValue;
-    console.log(btn);
+    //console.log(btn);
     container.appendChild(btn); //añadido
 }
 
@@ -500,25 +554,26 @@ function quitarBtnAddOption(id){
         }
     }
     if (all && !cambioTable){
-        console.log('id '+id+' addOptioin(*) ');
+        //console.log('id '+id+' addOptioin(*) ');
         addOption('*');
     }
-    console.log('Borrando btn--> '+'#'+idCampo+where+id+' - '+document.querySelector('#'+idCampo+where+id));
+    console.log('Borrando btn--> '+'#'+idCampo+where+id+' - ');
     document.querySelector('#'+idCampo+where+id).remove();
     if (idCampo == "idCampoInsert"){
         document.querySelector('#'+idCampo+'-input'+id).remove();
     }
-    console.log(' Borrando Div: '+'#'+idCampo+where+'-div-'+id);
+    //console.log(' Borrando Div: '+'#'+idCampo+where+'-div-'+id);
    document.querySelector('#'+idCampo+where+'-div-'+id).remove();
    
    // solo añadimos los campos al select si no cambiamos de tabla.
-   console.log('cambioTable:'+cambioTable)
+   //console.log('cambioTable:'+cambioTable)
    if(!cambioTable){
-    console.log('No cambiamos de tabla.')
+    //console.log('No cambiamos de tabla.')
     addOption(id);
    }
     
 }
+// opciones getTabla --> 'campoSelect' o 'Where'
 function limpiarBtnAll(filtro){
 
     if (filtro == 'Where'){
@@ -527,27 +582,22 @@ function limpiarBtnAll(filtro){
         where='';
     }
 
+
     var btns = document.querySelectorAll('.'+filtro);
     console.log('filtro: '+filtro);
     console.log('btn: '+document.querySelectorAll('.'+filtro));
     console.log('length btns: '+btns.length);
 
-    /*
 
-    <button value="capitulo4" id="idCampoSelectcapitulo4" 
-    class="campoSelect btn queryCampo" onclick="quitarBtnAddOptionSelect(this.value)" type="button">capitulo4</button>
-
-    */
-/*
-    ERROR: Recupero 4 btns con el filtro 2 btn y 2 div  Resuelto le quito la clase a los div y de ese modo no tengo el listado doble.
-*/
 
     for (var i = 0; i < btns.length; i++) {
-        console.log(' quitarbtnAddOption '+btns[i].textContent);
+        //console.log(' quitarbtnAddOption '+btns[i].textContent);
         quitarBtnAddOption(btns[i].textContent);    
     }
+
 }
 function addOption(valor){
+    console.log('Pag 596 Valor: '+valor)
   const $select = document.getElementById(idCampo+where);
   const option = document.createElement('option');
   option.value = valor;
@@ -572,6 +622,19 @@ function lanzarSelect(){
 
 }
 
+// Se amplia el tamaño con jQuery  --> $('input[type="text"]').on('keyup', resizeInput).each(resizeInput);
+function resizeInput() {
+  
+    var valueLength = $(this).prop('value').length;
+    
+      // Para que no arroje error si el input se vacía
+      if (valueLength > 0) {
+        
+        $(this).prop('size', valueLength);
+      }
+  }
+  
+  
 
 btnLanzarSelect.addEventListener("click", () =>{
 
@@ -579,17 +642,37 @@ btnLanzarSelect.addEventListener("click", () =>{
     
     console.log(tipoQuery);
     // campos
+    let resultQuery=tipoQuery+' ';
+    let jCamposIncio = '{"ArrayCampos": [';
+    let jCamposFin = '],"status": "OK"}';
+    
     var campos = document.querySelectorAll('.queryCampo');
+
     var primero=true;
     for ( var i = 0; i < campos.length; i++){
+        
         if(!primero){
             console.log(',');
+            resultQuery=resultQuery+' , ';
+            
+            jCamposIncio=jCamposIncio+',{"campo": "'+campos[i].textContent+'"}'
+        }else{
+            jCamposIncio=jCamposIncio+'{"campo": "'+campos[i].textContent+'"}'
         }
         console.log(campos[i].textContent);
+        resultQuery=resultQuery+campos[i].textContent+' ';
+        
         primero=false;
     }
+    
     console.log('from');
-    console.log(document.querySelector('.table').value);
+    resultQuery=resultQuery+' from ';
+    console.log(document.querySelector('.btnTable').value);
+    resultQuery=resultQuery+document.querySelector('.btnTable').value;
+    let jsonTest = JSON.parse(jCamposIncio+jCamposFin);
+
+    console.log(resultQuery);
+    console.log(jsonTest);
     // campos where 
     //console.log('Where');
     var camposWhere = document.querySelectorAll('.queryCampoWhere');
@@ -599,13 +682,62 @@ btnLanzarSelect.addEventListener("click", () =>{
     var queryParentDer = document.querySelectorAll('.queryParentDer');
     for ( var i=0; i < camposWhere.length; i++){
         console.log(queryCondicion[i].value);
+        resultQuery=resultQuery+' '+queryCondicion[i].value+' ';
         console.log(queryParentIzq[i].value +' ' + camposWhere[i].textContent+' = '+camposWhereResult[i].value+' ' +queryParentDer[i].value);
+        resultQuery=resultQuery+queryParentIzq[i].value +' ' + camposWhere[i].textContent+' = '+camposWhereResult[i].value+' ' +queryParentDer[i].value;
         
     }
+    // input donde mostrar la query div-result-query
+
     
+    //document.querySelector('#'+'div-result-query').remove();
+    const divResult = document.querySelector('#'+'div-result-contenido');
+    const divResultCrud = document.querySelector('#'+'div-result-crud');
+
+    if(document.querySelector('#'+'In-divResult')){
+        console.log('Yes')
+        //document.querySelector('#'+'In-divResult').textContent='Yes'
+        document.getElementById('In-divResult').value = resultQuery
+        document.getElementById('In-divResult').innerText = resultQuery
+    }else{
+        /*Param 1 Contenedor donde se creara el elemento */
+        /*Param 2 Nombre del elemento a crear */
+        /* Nombre atributo y su contenido */
+        /*Param 3 - 4  Atributo style y su valor*/
+        /*Param 5 - 6  Atributo class y su valor*/
+        /*Param 7 - 8  Atributo value y su contenido*/
+        /*Param 9 - 10 Atributo id y su contenido*/
+        /*Param 11- 12 Atributo funcion y su contenido*/
+        // Textarea para mostrar la consulta SQL
+        insertElements(divResult,'textarea',
+        'style',"height: 500px;width: 500px;",
+        'class','textarea-sql',
+        'text',resultQuery,
+        'id','In-divResult',
+        '',''
+        );  
+        // btn para ocultar el textarea de la consulta
+        insertElements(divResultCrud,'button',
+        'type','button',
+        'class','btn-ocultar-sql',
+        'value','Ocultar SQL',
+        'id','btn-ocultar-sql',
+        'onclick','ocultarTextarea()'
+    );     
+    }
+
+    $('input[type="text"]').on('keyup', resizeInput).each(resizeInput);
     
 });
 
+function ocultarTextarea(){
+    console.log('pag 734 '+document.querySelectorAll('.'+'btn-ocultar-sql').length)
+    if (document.querySelectorAll('.'+'btn-ocultar-sql').length>0){
+        document.querySelector('#'+'btn-ocultar-sql').remove();
+        document.querySelector('#'+'In-divResult').remove();
+    }
+
+}
 
 // incrementos decrementos de parentesis
 // Falta que los campos OR se indivizualicen los id's

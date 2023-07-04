@@ -125,12 +125,25 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Recuperación de las tablas y campos de la BBDD con servicio REST
 	Cambiar las llamas de la capa service de UserService a SqlService
 	Recuperar los campos del nuevo select.
-	Operatividad entre la gestión de los campos
+	Operatividad entre la gestión de los campos.
+	Limpiar los campos btn al cambiar de tabla.
+	Organización y mejoras visuales de la vista tras las cargas de datos de los servicios web
+	Imp btn que oculte el textArena de la consulta.
+	Implementar el select del where con los campos de la tabla.(En proceso falta quitar el *)
+	Borrar los where al cambiar de tabla.
+	SelectWhere tiene un blanco al añadir filtros al where.
+	Añadir los filtros where al resultado de la consulta.
+	Eliminar el textarea si se cambiar de tabla.
 	
 # Next:
-	Organización y mejoras visuales de la vista tras las cargas de datos de los servicios web
-	Implementar el select del where con los campos de la tabla.
-	Limpiar los campos btn al cambiar de tabla.
+	
+	Determinar que tipo de campo "date" bigint... se añade al filtro y limitar las opciones segun el campo
+		SELECT o.name AS obj_name, c.name AS col_name,         TYPE_NAME(c.user_type_id) AS type_name 
+		FROM sys.objects AS o JOIN sys.columns AS c  ON o.object_id = c.object_id WHERE o.name = 'Vendor'  
+		ORDER BY col_name;  
+	
+	
+	
 	
 
 #####################################################################################
