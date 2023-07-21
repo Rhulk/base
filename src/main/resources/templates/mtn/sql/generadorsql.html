@@ -26,7 +26,7 @@
 	<div class="form-group row">
 		<label th:text="${Titulotablas}" class="col-lg-3 col-form-label form-control-label"></label>
 		<div class="col-lg-9">
-			<select id="QueryTable" class="form-control" th:disabled="${disableFields}" onchange="getTabla(this.value)">
+			<select id="QueryTable" class="form-control" th:disabled="${disableFields}"  onchange="rellenaFormByTable(this.value)">
 				<option>Select Table</option>
 				<option th:each="tabla :${tablas}" th:value="${tabla}" th:text="${tabla}">
 				</option>
@@ -36,7 +36,7 @@
         
         <label  text="Campos" class="col-lg-3 col-form-label form-control-label">Campos</label>
         <div class="col-lg-9">
-            <select  id="idCampoSelect" name="campo" class="select-css form-control" onchange="getCampo(this.id)">
+            <select  id="idCampoSelect" name="campo" class="select-css form-control" onchange="insertFieldAndRemoveOption(this.id)">
                 <option value="select">Seleccionar Tabla</option>
 
             </select>
@@ -57,9 +57,9 @@
 
     <div class="cabecera">
         Where Campos: 
-        <select  id="idCampoSelectWhere" name="campo" class="select-css" onchange="getCampo(this.id)">
+        <select  id="idCampoSelectWhere" name="campo" class="select-css" onchange="insertField(this.id)">
             <option value="select">Seleccionar Campos</option>
-            <option id="idCampoSelectWhere*" value="*" >*</option>
+            <option class='peta' id="idCampoSelectWhere*" value="*" >*</option>
             <option id="idCampoSelectWhere1" value="1" >1</option>
             <option id="idCampoSelectWhere2" value="2" >2</option>
             <option id="idCampoSelectWhere3" value="3" >3</option>

@@ -135,6 +135,7 @@ public class MantenimientoController {
 		user.setMunicipio("user");
 		user.setObservaciones("user");
 		user.setPassword("123");
+		user.setStatus(1);
 		
 		Role rol = roleRepository.findByName("cl");
 		if ( rol == null) {
@@ -150,7 +151,7 @@ public class MantenimientoController {
 		user.setUsername("user");
 		
 		userService.createUser(user);
-		//System.out.println(" User create: "+ user.toString());
+		System.out.println(" User create: "+ user.toString());
 		
 		// sent view
 		model.addAttribute("userList", userService.getAllUsers());

@@ -94,7 +94,14 @@
             
          </insert>
      
-     </changeSet>
+	     </changeSet>
+	          <changeSet author="rhulk" id="1_add_status">
+
+	         <update tableName="usuario">
+	             <column name="status" value="1"/>
+	             <where>username = 'user'</where>
+	         </update>
+	     </changeSet>
      
      <changeSet author="d" id="1b">
             <preConditions  onFail="WARN">
@@ -114,6 +121,14 @@
             
          </insert>
      </changeSet>
+     	     
+	     <changeSet author="rhulk" id="b_add_status">
+
+	         <update tableName="usuario">
+	             <column name="status" value="1"/>
+	             <where>username = 'admin'</where>
+	         </update>
+	     </changeSet>
 
      <changeSet author="d" id="1c">
          <insert tableName="usuario">
@@ -131,6 +146,13 @@
             
          </insert>
      </changeSet>
+     	  <changeSet author="rhulk" id="c_add_status">
+
+	         <update tableName="usuario">
+	             <column name="status" value="1"/>
+	             <where>username = 'ope'</where>
+	         </update>
+	     </changeSet>
      
      
            <changeSet author="d" id="1d">
@@ -149,7 +171,29 @@
             
          </insert>
      </changeSet>
-     
+	<changeSet author="rhulk" id="c_add_status_">
+
+	 	<update tableName="usuario">
+	    	<column name="status" value="1"/>
+	        	<where>username = 'postgres'</where>
+		</update>
+	</changeSet>
+           <changeSet author="rhulk" id="1e">
+         <insert tableName="usuario">
+         
+                  <column name="firstname" value="kk"></column>
+                  <column name="lastname" value="kk"></column>
+                  <column name="apellido2" value="kk"></column>
+                  <column name="direccion" value="kk"></column>
+                  <column name="email" value="kk"></column>
+                  <column name="municipio" value="kk"></column>
+                  <column name="telefono"  value="kk"></column>
+         		  <column name="observaciones" value="kk"></column>
+         		  <column name="username" value="kk"></column>
+         		  <column name="password" value="$2a$04$LMOlJYEqhkO36y2kl.seV..OyCyqp2nIBPsO7fMPyM2yl8iZ2JWwe"></column>
+            	  <column name="status" value="1"></column>
+         </insert>
+     </changeSet>     
      
      
       <changeSet author="d" id="2">

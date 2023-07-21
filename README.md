@@ -113,11 +113,12 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama:SQL
-# Fecha Committer: 2023-06-27 16:27
+# Fecha Committer: 2023-07-21 18:50
 # LastChange: Up code Visual Studio
 # Origen: sin determinar
 # Situación:Estable
 # Problem: 	 
+
 		
 # Resueltos:
 	
@@ -134,15 +135,24 @@ Doc de los avances y modificaciones en las diferentes ramas
 	SelectWhere tiene un blanco al añadir filtros al where.
 	Añadir los filtros where al resultado de la consulta.
 	Eliminar el textarea si se cambiar de tabla.
+	CLEAN CODE in sql.js -- Avanzado pero no finalizado.
+	Con una BBDD en blanco:
+		Null value was assigned to a property [class com.alquiler.reservas.entity.User.status] of primitive 
+		type setter of com.alquiler.reservas.entity.User.status; nested exception is org.hibernate.PropertyAccessException: 
+		Null value was assigned to a property [class com.alquiler.reservas.entity.User.status] of primitive 
+		type setter of com.alquiler.reservas.entity.User.status	
+		Solución: Añadir en liquibase valores en el campo status para los usuarios creados.
+	Sincronizado el mismo orde para las sql de CamposAndTipos.
+		order by TYPE_NAME(c.user_type_id) 
 	
 # Next:
 	
 	Determinar que tipo de campo "date" bigint... se añade al filtro y limitar las opciones segun el campo
-		SELECT o.name AS obj_name, c.name AS col_name,         TYPE_NAME(c.user_type_id) AS type_name 
-		FROM sys.objects AS o JOIN sys.columns AS c  ON o.object_id = c.object_id WHERE o.name = 'Vendor'  
-		ORDER BY col_name;  
+		SELECT c.name AS col_name,         TYPE_NAME(c.user_type_id) AS type_name 
+		FROM sys.objects AS o JOIN sys.columns AS c  ON o.object_id = c.object_id WHERE o.name = 'dim_Hechos'  
 	
-	
+
+
 	
 	
 

@@ -1,4 +1,5 @@
-console.log("sql.jss");
+const OK_ = true;
+const KO_ = false;
 let idCampo ="";
 let container = "";
 let classCampo = "";
@@ -12,19 +13,46 @@ let queryCampoWhereResult = 'queryCampoWhereResult';
 
 let OR = 'OR'; let AND = 'AND'; let MenosIZQ = 'MenosIZQ'; let MasIZQ = 'MasIZQ'; let ParentIZQ ='ParentIZQ';
 let RESULT = 'RESULT'; let ParentDER = 'ParentDER'; let MenosDER = 'MenosDER'; let MasDER ='MasDER';
+let URL_SERVICIO_REST = "http://localhost:8080/campos/";
 
-var btnLanzarSelect = document.getElementById("btnLanzarSelect");
+
+
+//var btnLanzarSelect = document.getElementById("btnLanzarSelect");
 
 const selectCampos = document.querySelector("#idCampoSelect"); //cb select option
 const selectCamposWhere = document.querySelector("#idCampoSelectWhere"); //cb select option where
 /// default no es cambio de tabla.
 var cambioTable=false;
+let camposAndTipos;
+let campo_tipo = 'campo_tipo';
+
+
+// CLEAN_CODE_OK : unica tarea NO FUNCIONA PIERDO EL JSON CON LOS DATOS
+async function getCamposAndTiposByTable(tabla){
+    let response;
+    try {
+        response =  await
+        fetch("http://localhost:8080/campos/"+tabla)
+       .then((camposAndTipos) => camposAndTipos.json())
+       .then(
+           function (camposAndTipos){    
+            if (Object.keys(camposAndTipos).length<1){
+                return KO_
+            }
+            return camposAndTipos;
+        }
+        );
+    } catch (error) {
+        return error;
+    }
+    return console.log(response); // TODO: de Promise {<pending>} a jSon con console.log lo recupero.
+}
+
 
 
 const agregar = () => {// el btn esta comentado nada llama a este codigo solo esta a modo lectivo 
 
     //TODO: Temporal pruebas desde getTabla() //TODO: borrar
-    console.log("Limpiamos #miSelect Up");
     for (let i = selectCampos.options.length; i >= 0; i--) {
         
         selectCampos.remove(i);
@@ -38,7 +66,9 @@ const agregar = () => {// el btn esta comentado nada llama a este codigo solo es
 
 
 //document.addEventListener("DOMContentLoaded", () => {    document.querySelector("#btnAgregar").addEventListener("click", agregar);  });
-
+/*
+  Se activan unos componentes u otros en funcion de la opción del select que se elija "Select Update o Insert"
+*/
 function selectOption(valor){
     tipoQuery = valor;
     switch (valor) {
@@ -71,25 +101,21 @@ function selectOption(valor){
    
       }
 }
-selectOption('select');
+//selectOption('select'); // TODO: SOLO EN FASE-DESARROLLO
 
-function getCampo(id){
-    console.log('Pag 77 -- Id:'+id);
-    if (id== 'idCampoSelectWhere'){
-        where='Where';
-    }else{
-        where='';
-    }
-    if(document.getElementById(id).value == '*'){
-        limpiarCampoAll();
-    }else{
-    	console.log('Pag 86 '+document.getElementById(id).value);
-        // limpia Campo y añade btn's
-        limpiarCampo(document.getElementById(id).value);  
-    }
-    
-}
-function getTabla(tabla){
+
+/*
+    FASE: TEST-FINAL
+    OBJETIVO: Rellenar los cb's de campos según la tabla seleccionada
+    PASOS:
+        1. Borrammos el posible btn tabla.
+        2. Creamos el nuevo btn de la nueva tabla
+        3. Cambiamos el valor al cb select tabla.
+        4. Borramos los valores de los cb's select
+        5. rellenamos los cb's select consultando al servicio API REST
+        6. Limpiamos todos los posibles btn field and where
+*/
+function rellenaFormByTable(tabla){
     
     limpiarBtnTabla('btnTable');
     insertElements(document.querySelector('#'+'containerSelectTable'),'button',
@@ -102,7 +128,45 @@ function getTabla(tabla){
 	document.getElementById('QueryTable').value = 'Select Table';
 
 	
-    //console.log("Limpiamos campos #miSelect Up");
+    if (!cleanSelectsOption()){
+        console.log("[Error] limpiando los datos de los select antes de recargar lo datos nuevos");
+    }
+
+    
+    // Servicio Rest para recuperar los campos y tipos y rellenar los select option.
+    fetch(URL_SERVICIO_REST+tabla)
+     //fetch('./js/campos.json')
+    .then((camposAndTipos) => camposAndTipos.json())
+    .then(
+    	function (camposAndTipos){
+            campo_tipo = camposAndTipos;
+            
+			// Rellenamos el select con lo recupera del servicio REST
+            if (!rellenarSelect(camposAndTipos)){
+                console.log("[Error] rellenando el select option [STOP]. Ver como trartar esto");
+                return KO_
+            }
+            if (!rellenarSelectWhere(camposAndTipos)){
+                console.log("[Error] rellenando el select combo del where. Ver como trartar esto");
+                return KO_
+            }
+    		
+    	}
+    )
+
+    // Limpiamos los btn de los campos al cambiar de tabla.
+    cambioTable=true;
+    limpiarBtnAll('campoSelect');   //TODO: CLEAN CODE
+    
+    limpiarBtnAll('Where');         //TODO: CLEAN CODE
+    // si es cambio de tabla no recuperamos los campos al cb select option
+    cambioTable=false; // chapu
+    ocultarTextarea();
+}
+
+// CLEAN CODE: Unica tarea limpiar los cb select Option
+function cleanSelectsOption(){
+    
     for (let i = selectCampos.options.length; i >= 0; i--) {
         selectCampos.remove(i);
     }
@@ -112,65 +176,72 @@ function getTabla(tabla){
         selectCamposWhere.remove(i);
     }
 
-    //TODO: Borrar los los botones si los hay
-  	let cad = '{"results": [{"campo": "campo1"},{"campo": "campo2"}],"status": "OK"}';
-    let json1 = JSON.parse(cad);
+    return OK_
+}
+
+
+// IMP Clean Code unica tarea
+// Se rellena el select option con los campos que se le pasan
+// Return String status OK al finalizar
+function rellenarSelect(camposAndTipos){
+    const selectCampos = document.querySelector("#idCampoSelect"); //cb select option
+    var option = document.createElement('option');
+    option.value = 'Añadir Campo';
+    option.text = 'Añadir Campo';
+    option.id = 'add';
+    selectCampos.appendChild(option);
+    var option = document.createElement('option');
+    option.value = '*';
+    option.text = '*';
+    option.id = '*';
+    selectCampos.appendChild(option);
+
+    //campo_tipo = camposAndTipos; Mas dificil de mantener
+        // TODO: Recuperar el tipo de campo
+    for (x=0; x<Object.keys(camposAndTipos).length;x++){
+        var option = document.createElement('option');
+        option.value = camposAndTipos[x].campo;
+        option.text = camposAndTipos[x].campo;
+        
+        option.id = 'idCampoSelect'+camposAndTipos[x].campo;
+        selectCampos.appendChild(option);
+    }
+
+    return OK_
+
+}
+/*
+    CLEAN CODO: Una función con tarea unica
+    Rellenar el select opción del form where
+    1. Se añaden las opciones por defecto al selectWhere 'Añadir Campo'
+    2. Recorremos el listado de campos y los vamos añadiendo al select
+        2.1. Tenemos en cuenta que tipo de campo es
+*/
+function rellenarSelectWhere(camposAndTipos){
+			// Rellenamos el select con lo recupera del servicio REST
+    const selectCamposWhere = document.querySelector("#idCampoSelectWhere"); //cb select option where
+    var option = document.createElement('option');
+        option.value = 'Añadir Campo';
+        option.text = 'Añadir Campo';
+        option.id = 'add';
+    selectCamposWhere.appendChild(option);
+
+    selectCamposWhere.appendChild(option);
+
+    for (x=0; x<Object.keys(camposAndTipos).length;x++){
+        var option = document.createElement('option');
+            //console.log(camposAndTipos[x].campo+' '+camposAndTipos[x].tipo)
+            
+    		option.value = camposAndTipos[x].campo;
+    		option.text = camposAndTipos[x].tipo;
+            //option.name = 'name';
+            option.label =camposAndTipos[x].campo;
+            //option.class = 'clas';
+            option.id = 'idCampoSelect'+camposAndTipos[x].campo;
+        selectCamposWhere.appendChild(option);
+    }
     
-    // Recuperamos los campos de la $tabla y rellenamos los select option 
-    fetch("http://localhost:8080/campos/"+tabla)
-     //fetch('./js/campos.json')
-    .then((data) => data.json())
-    .then(
-    	function (data){
-			// Rellenamos el select con lo recupera del servicio REST
-            var option = document.createElement('option');
-            option.value = 'Añadir Campo';
-            option.text = 'Añadir Campo';
-            option.id = 'add';
-            selectCampos.appendChild(option);
-            var option = document.createElement('option');
-            option.value = '*';
-            option.text = '*';
-            option.id = '*';
-            selectCampos.appendChild(option);
-
-    		for (x=0; x<Object.keys(data).length;x++){
-                var option = document.createElement('option');
-    			option.value = data[x];
-    			option.text = data[x];
-                option.id = 'idCampoSelect'+data[x];
-    			selectCampos.appendChild(option);
-    		}
-			// Rellenamos el select con lo recupera del servicio REST
-            var option = document.createElement('option');
-            option.value = 'Añadir Campo';
-            option.text = 'Añadir Campo';
-            option.id = 'add';
-            selectCamposWhere.appendChild(option);
-           /* var option = document.createElement('option');
-            option.value = '*';
-            option.text = '*';
-            option.id = '*';*/
-            selectCamposWhere.appendChild(option);
-
-    		for (x=0; x<Object.keys(data).length;x++){
-                var option = document.createElement('option');
-    			option.value = data[x];
-    			option.text = data[x];
-                option.id = 'idCampoSelect'+data[x];
-    			selectCamposWhere.appendChild(option);
-    		}
-    		
-    	}
-    )
-    // Limpiamos los btn de los campos al cambiar de tabla.
-    cambioTable=true;
-    limpiarBtnAll('campoSelect');
-    //TODO: Limpiar Campos selectWere
-    limpiarBtnAll('Where'); // TEST
-    // si es cambio de tabla no recuperamos los campos al cb select option
-    cambioTable=false; // chapu
-    ocultarTextarea();
+    return OK_
 }
 function limpiarBtnTabla(filtro){
     var btns = document.querySelectorAll('.'+filtro);
@@ -179,23 +250,36 @@ function limpiarBtnTabla(filtro){
     }
 }
 
-function limpiarCampo(id){
+// CLEAN CODE: Cambiar nombre mas descriptivo --> insertFieldAndRemoveOption Opción select || insertField opción Where 
+// CLEAN CODE: 2 Metodos distintos.
+/*  FASE: TEST-FINAL
+    Objetivo: Crear los campos btn de los filtros [Paso 2] Diferenciar el tipo de field
+    0. Recuperamos el value del opción con el id del select Where
+    1. Creamos divHijo dentro del divPadre
+    2. Creamos divcondicion dentro del divHijo
+    3. Creamos el btn "where, AND u OR" en divcondicion segun el que corresponda
+    4. Incrementamos id a los btn repetidos
+    5. creamos los parentesis y btn (+) y (-)
+        5.1. Recuperar el tipo_field ¿*? getTipoByCampo(campo);
+        5.2. Select case para crear distintos tipos de bnt en funcion del tipo recuperado.
+
+*/
+function insertField(idSelect){
+    var id=document.getElementById(idSelect).value;
+    var addClass='Where';
     var isOR = false;
     const ORIid=id;
-    const divPadre = document.querySelector('#'+container+where);
-	
-	//console.log('container:'+container);
-	//console.log('where:'+where);
-	//console.log('divPadre:'+divPadre);
+    where='Where';
+    //localizar el select option para recuperar el tipo_field
+    var tipo_field=getTipoByCampo(document.getElementById(idSelect).value);
+    campo_tipo;//borrar
 
-    let addClass='';
-    if (where == 'Where'){
-        addClass='Where';
-    }else{
-        addClass='queryCampo';
-    }
-    // div padre del contenedor
-    console.log('Pag 197 '+idCampo+where+'-div-'+id)
+
+
+    
+ 
+    
+    const divPadre = document.querySelector('#'+container+where);
     insertElements(divPadre,'div',
         '','',
         'class','TEST-NoClass->classCampo',
@@ -204,14 +288,7 @@ function limpiarCampo(id){
         '',''
     );
     const divHijo = document.querySelector('#'+idCampo+where+'-div-'+id);
-    //console.log(document.querySelector('#'+idCampo+where+'-div-'+id));
-    //console.log('#'+idCampo+where+'-div-'+id);
-    //console.log('divHijo '+divHijo.getAttributeNames);
-    // posiblemente hay que borrarlo se queda solo
-    // tengo que crear el id acorde con elcampo para los duplicados
-    if (where == 'Where'){
-    // div condición
-    // incremento el id para el div
+
     var btns = document.querySelectorAll('.'+'ORI'+ORIid);
     var preId= id;
     var oldId=id; // genero el id anterior para borrar el parentesis cuando sea OR
@@ -221,22 +298,20 @@ function limpiarCampo(id){
             oldId=oldId+''+btns[0].textContent;
         } 
     }
-    console.log('pag 223 -classCampo: '+classCampo);
+
+    
     insertElements(divHijo,'div',
         '','',
         'class',classCampo+'Where',
         'value','',
         'id',idCampo+where+'-condicion-'+preId,
         '',''
-    ); 
+    );
     const divCondicion = document.querySelector('#'+idCampo+where+'-condicion-'+preId);
-
-    //console.log('divCondicion '+divCondicion);
 
     // btn OR AND Where
     if(document.querySelectorAll('.'+'Where').length>0){
         if (document.getElementById( idCampo+where+AND+id )){
-            console.log('pag 236 -classCampo: '+classCampo);
             insertElements(divCondicion,'button',
                 'type','button',
                 'class',classCampo+'Where'+' queryCondicion',
@@ -248,7 +323,6 @@ function limpiarCampo(id){
             getDereMenos(oldId);// test ok
             isOR=true;// para no crear el parentesis inicial en pag 213
         }else{
-            console.log('pag 248 -classCampo: '+classCampo);
             insertElements(divCondicion,'button',
                 'type','button',
                 'class',classCampo+'Where'+' queryCondicion',
@@ -258,7 +332,6 @@ function limpiarCampo(id){
             );
         }
     }else{
-        console.log('pag 258 -classCampo: '+classCampo);
         insertElements(divCondicion,'button',
             'type','button',
             'class',classCampo+'Where'+' queryCondicion',
@@ -266,180 +339,223 @@ function limpiarCampo(id){
             'id',idCampo+where+condicion+preId,
             '',''
         );
-    }
-    
-    // AND - OR
-    if (!document.getElementById( idCampo+where+condicion+id ) && where == 'Where'){
-
-    }else{
+    } 
+    // Incrementamos id a los btn repetidos
+    if (document.getElementById( idCampo+where+condicion+id ) ){
 
         // for uno por cada btn esto solo funciona si el btn or es el primero.
         var btns = document.querySelectorAll('.'+'ORI'+ORIid);
-        //console.log('btns:'+btns);
+        // Incrementamos el id a los campos repetidos.
         for (var i = 0; i < btns.length; i++) {
+               
             id=id+''+btns[0].textContent;    
         }
     }
-    }
-    if (where == 'Where'){
-        // btn MenosIZQ
-        console.log('pag 283 -classCampo: '+classCampo);
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where',
-            'value','-',
-            'id',id,
-            'onclick','getIzqMenos(this.id)'
-        );
 
-        // btn MasIZQ
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where',
-            'value','+',
-            'id',id,
-            'onclick','getIzqMas(this.id)'
-        );
-        // btn ParentIZQ
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where'+' queryParentIzq',
-            'value','(',
-            'id',idCampo+where+ParentIZQ+id,
-            '',''
-        );
-        // btn campo 'ORI'+ORIid
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where'+ ' btn '+addClass+' ORI'+ORIid +' '+queryCampoWhere, // id origen
-            'value',ORIid,
-            'id',idCampo+where+id,
-            'onclick','quitarBtnAddOptionWhere(this.value)'
-        );
-        // cuando es OR decrementar el parentesis de apertura (
-        if (isOR){
-            getIzqMenos(preId);
-        }
-    }else {
-            // btn campo Select
-            //console.log('pag 266'+' id '+id);
-            //console.log('divHijo:'+divHijo);
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+ ' btn '+addClass, // id origen solo en Where
-            'value',id,
-            'id',idCampo+where+id,
-            'onclick','quitarBtnAddOptionSelect(this.value)'
-        );
-        //console.log('idBtn:'+idCampo+where+id);
+    // creamos los parentesis y btn (+)y (-) field 
+    
+    // btn MenosIZQ
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where',
+        'value','-',
+        'id',id,
+        'onclick','getIzqMenos(this.id)'
+    );
+    
+    // btn MasIZQ
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where',
+        'value','+',
+        'id',id,
+        'onclick','getIzqMas(this.id)'
+    );
+    // btn ParentIZQ
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where'+' queryParentIzq',
+        'value','(',
+        'id',idCampo+where+ParentIZQ+id,
+        '',''
+    );
+    // btn campo 'ORI'+ORIid
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where'+ ' btn '+addClass+' ORI'+ORIid +' '+queryCampoWhere, // id origen
+        'value',ORIid,
+        'id',idCampo+where+id,
+        'onclick','quitarBtnAddOptionWhere(this.value)'
+    );
+    // cuando es OR decrementar el parentesis de apertura (
+    if (isOR){
+        getIzqMenos(preId);
     }
+    // input RESULT TODO: FASE 2: Select case según el tipo de fiel.
+    insertElements(divHijo,'input',
+        'type',convertTypeSqlToTypeHtml(tipo_field),
+        'class',classCampo+'Where'+' '+queryCampoWhereResult,
+        'value',getValueByTypeSQL(tipo_field),
+        'id',idCampo+where+RESULT+id,
+        '',''
+    );
+    //btn ParentDERE
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where'+' queryParentDer',
+        'value',')',
+        'id',idCampo+where+ParentDER+id,
+        '',''
+    );
+    //btn MenosDERE
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where',
+        'value','-',
+        'id',id,
+        'onclick','getDereMenos(this.id)'
+    );
+    // btn MasDER
+    insertElements(divHijo,'button',
+        'type','button',
+        'class',classCampo+'Where',
+        'value','+',
+        'id',id,
+        'onclick','getDereMas(this.id)'
+    );
 
+    document.getElementById(idCampo+where).value = 'Añadir Campo';
 
-    if (idCampo == "idCampoInsert" || where == 'Where' ){    
-        // input RESULT
-        insertElements(divHijo,'input',
-            '','',
-            'class',classCampo+'Where'+' '+queryCampoWhereResult,
-            'value','Escribe aquí...',
-            'id',idCampo+where+RESULT+id,
-            '',''
-        );
-    }
-    if (where == 'Where'){
-        //btn ParentDERE
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where'+' queryParentDer',
-            'value',')',
-            'id',idCampo+where+ParentDER+id,
-            '',''
-        );
-        //btn MenosDERE
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where',
-            'value','-',
-            'id',id,
-            'onclick','getDereMenos(this.id)'
-        );
-        // btn MasDER
-        insertElements(divHijo,'button',
-            'type','button',
-            'class',classCampo+'Where',
-            'value','+',
-            'id',id,
-            'onclick','getDereMas(this.id)'
-        );
-    }
-    if (where != 'Where'){
-        document.querySelector('#'+idCampo+where+id).remove();
-        console.log('pag375 Delete campo select'+document.querySelector('#'+idCampo+where+id));
-        //console.log('#'+idCampo+where+id);
-    }else{
-        console.log('Pag 378 '+idCampo+where);
-        console.log(document.getElementById(idCampo+where).value);
-        console.log(document.getElementById(idCampo+where));
-        document.getElementById(idCampo+where).value = 'Añadir Campo';
-    } 
 }
-function limpiarCampoAll(){
-    const divPadre = document.querySelector('#'+container+where);
-    const $select = document.getElementById(idCampo+where);
- 
-    let addClass='';
-    if (where == 'Where'){
-        addClass='Where';
-    }else{
-        addClass='queryCampo';
+
+/*
+    FASE: INICIAL
+    Recuperar el tipo del campo que se pasa
+
+*/
+function getTipoByCampo(campo){
+
+    for (x=0; x<Object.keys(campo_tipo).length;x++){
+        if(campo ===campo_tipo[x].campo){
+            tipo = campo_tipo[x].tipo;
+            x=Object.keys(campo_tipo).length;
+        }
     }
-    //console.log('container:'+container+' '+'idCampo: '+idCampo);
-    for (var option of document.getElementById(idCampo+where).options) {
-        //console.log('In for-> Option.value: '+option.value);
-        if (option.value != 'Añadir Campo' &&  option.value != '*'){
-            insertElements(divPadre,'div',
-            '','',
-            'class','TEST-NoClass->classCampo',
-            'value','',
-            'id',idCampo+where+'-div-'+option.value,
-            '','');
-            const divHijo = document.querySelector('#'+idCampo+where+'-div-'+option.value);
+    return tipo;
+}
+/*
+    FASE: INICIAL
+    Se le pasa un tipo de SQL y recupera el de html para el input
 
-            // where
-            if (where == 'Where'){
-                // btn -
-                insertElements(divHijo,'button',
-                    'type','button',
-                    'class',classCampo+'Where',
-                    'value','-',
-                    'id',idCampo+where+option.value,
-                    'onclick','addParentesis(this.value)'
-                );
-                // btn +
-                insertElements(divHijo,'button',
-                    'type','button',
-                    'class',classCampo+'Where',
-                    'value','+',
-                    'id',idCampo+where+option.value,
-                    'onclick','addParentesis(this.value)'
-                );
-                // btn (
-                insertElements(divHijo,'input',
-                    '','',
-                    'class',classCampo+'Where',
-                    'value','(',
-                    'id',idCampo+where+'-input'+option.value,
-                    '',''
-                ); 
-                // btn campo where
-                insertElements(divHijo,'button',
-                    'type','button',
-                    'class',classCampo+'Where'+ ' btn '+addClass+' '+queryCampoWhere,
-                    'value',option.value,
-                    'id',idCampo+where+option.value,
-                    'onclick','quitarBtnAddOptionWhere(this.value)'
-                );               
+*/
+function convertTypeSqlToTypeHtml(typeSQL){
+    
+    let typeHtml = 'FAIL';
+    switch (typeSQL) {
+    case 'varchar':
+        console.log('varchar convert to text');
+        typeHtml='text';
+        break;
+    case 'int':
+        console.log('int convert to number');
+        typeHtml='number';
+        break;
+    case 'bit':
+        console.log('bit convert to number');
+        typeHtml='number';
+        break;
+    case 'datetime2':
+        console.log('datetime2 convert to datetime');
+        typeHtml='datetime';
+        break;
 
-            }else{
+    case 'nvarchar':
+        console.log('nvarchar convert to text');
+        typeHtml='text';
+        break;
+    default:
+        console.log(`Sorry, we are out of ${typeSQL}. Convert to text by default.`);
+        typeHtml='text';
+    }
+
+    return typeHtml;
+}
+
+/*
+    FASE: INICIAL
+    Se le pasa un tipo de SQL y recupera el valor acorde para pintar el el input
+
+*/
+function getValueByTypeSQL(typeSQL){
+    
+    
+    switch (typeSQL) {
+    case 'varchar':
+        console.log('Tipo varchar');
+        return 'Escriba aquí'
+    case 'int':
+        console.log('Tipo int');
+        return 0;
+    case 'bit':
+        console.log('Tipo bit');
+        return 0;
+    case 'datetime2':
+        console.log('Tipo datetime2');
+        return formatoFecha(new Date(),'dd-mm-yy');
+    case 'nvarchar':
+        console.log('Tipo nvarchar');
+        return 'Escribe aquí'
+    default:
+        console.log(`Sorry, we are out of ${typeSQL}. Convert to text by default.`);
+
+    }
+
+    return "FAIL";
+}
+/*
+    FASE: INICIAL
+    Dada una fecha y el formato recuperas la fisma formateada
+    Tipos parametros: new Date(), formato yy-dd-mm, yyyy-dd-mm, dd-mm-yy
+*/
+function formatoFecha(fecha, formato) {
+    const map = {
+        dd: fecha.getDate(),
+        mm: fecha.getMonth() + 1,
+        yy: fecha.getFullYear().toString().slice(-2),
+        yyyy: fecha.getFullYear()
+    }
+
+    return formato.replace(/dd|mm|yy|yyy/gi, matched => map[matched])
+}
+
+
+/*  FASE: TEST-FINAL
+    Para insertar el campo elegido:
+    0. Recuperamos el value del opción con el id del select
+        0.1 - Si el field es * recuperamos igual pero con buble para todas las opciones del select
+    1. Creamos divHijo dentro del divPadre
+    2. Creamos btn en divHijo
+    3. Borramos la opción del select elegida
+*/
+function  insertFieldAndRemoveOption(idSelect){
+
+    var field=document.getElementById(idSelect).value;
+    var addClass='queryCampo';
+    var where = '';
+    var veces;
+    if(field == '*'){
+        const divPadre = document.querySelector('#'+container+where);
+        const $select = document.getElementById(idCampo+where);
+        for (var option of document.getElementById(idCampo+where).options) {
+            if (option.value != 'Añadir Campo' &&  option.value != '*'){
+                insertElements(divPadre,'div',
+                '','',
+                'class','TEST-NoClass->classCampo',
+                'value','',
+                'id',idCampo+where+'-div-'+option.value,
+                '','');
+                const divHijo = document.querySelector('#'+idCampo+where+'-div-'+option.value);
+    
                 // btn selec
                 insertElements(divHijo,'button',
                     'type','button',
@@ -449,53 +565,34 @@ function limpiarCampoAll(){
                     'onclick','quitarBtnAddOptionSelect(this.value)'
                 );
             }
-  
-
-            if (idCampo == "idCampoInsert"|| where == 'Where'){
-                insertElements(divHijo,'input',
-                    '','',
-                    'class',classCampo+'Where',
-                    'value','escribe aquí',
-                    'id',idCampo+where+'-input'+option.value,
-                    '',''
-                );
-            }
-            if (where == 'Where'){
-                // btn )
-                insertElements(divHijo,'input',
-                    '','',
-                    'class',classCampo+'Where',
-                    'value',')',
-                    'id',idCampo+where+'-input'+option.value,
-                    '',''
-                );   
-                // btn -
-                insertElements(divHijo,'button',
-                    'type','button',
-                    'class',classCampo+'Where',
-                    'value','-',
-                    'id',idCampo+where+option.value,
-                    'onclick','addParentesis(this.value)'
-                );
-                // btn +
-                insertElements(divHijo,'button',
-                    'type','button',
-                    'class',classCampo+'Where',
-                    'value','+',
-                    'id',idCampo+where+option.value,
-                    'onclick','addParentesis(this.value)'
-                );                
-            
-            }
-            
         }
+    
+        for (let i = $select.options.length; i >= 1; i--) {
+            $select.remove(i);
+        }
+    }else{
+        const divPadre = document.querySelector('#'+container+where);
+        insertElements(divPadre,'div',
+            '','',
+            'class','TEST-NoClass->classCampo',
+            'value','',
+            'id',idCampo+where+'-div-'+field,
+            '',''
+        );
+        const divHijo = document.querySelector('#'+idCampo+where+'-div-'+field);
+        insertElements(divHijo,'button',
+            'type','button',
+            'class',classCampo+ ' btn '+addClass, // id origen solo en Where
+            'value',field,
+            'id',idCampo+where+field,
+            'onclick','quitarBtnAddOptionSelect(this.value)'
+        );
+        document.querySelector('#'+idCampo+where+field).remove();
     }
-
-    for (let i = $select.options.length; i >= 1; i--) {
-        $select.remove(i);
-    }
-
 }
+
+
+
 /*Param 1 Contenedor donde se creara el elemento */
 /*Param 2 Nombre del elemento a crear */
 /*Param 3 - 4  Tipo de btn y el nombre del mismo*/
@@ -512,7 +609,7 @@ function insertElements(
 /*Param 7 - 8  */       valueName,valueValue,
 /*Param 9 - 10 */       idName,idValue,
 /*Param 11- 12 */       functionName,functionValue) { //recibe el div
-	//console.log('pag 448 ' +'elementName '+ elementName+' in:'+container);
+	//console.log('pag 487' +'elementName '+ elementName+' in:'+container);
     const btn = document.createElement(elementName);
 
     //console.log('btn: '+btn);
@@ -530,7 +627,6 @@ function insertElements(
     }
     
     btn.innerHTML = valueValue;
-    //console.log(btn);
     container.appendChild(btn); //añadido
 }
 
@@ -545,7 +641,7 @@ function quitarBtnAddOptionSelect(id){
 
   
 function quitarBtnAddOption(id){
-    console.log('quitarBtnAddOption( '+id);
+    //console.log('quitarBtnAddOption( '+id);
     var all=true;
     for (var option of document.getElementById(idCampo+where).options) {
         // buscamos el * en el cb select option si lo encontramos no hay que añadirlo.
@@ -554,10 +650,9 @@ function quitarBtnAddOption(id){
         }
     }
     if (all && !cambioTable){
-        //console.log('id '+id+' addOptioin(*) ');
         addOption('*');
     }
-    console.log('Borrando btn--> '+'#'+idCampo+where+id+' - ');
+    //console.log('Borrando btn--> '+'#'+idCampo+where+id+' - ');
     document.querySelector('#'+idCampo+where+id).remove();
     if (idCampo == "idCampoInsert"){
         document.querySelector('#'+idCampo+'-input'+id).remove();
@@ -575,13 +670,6 @@ function quitarBtnAddOption(id){
 }
 // opciones getTabla --> 'campoSelect' o 'Where'
 function limpiarBtnAll(filtro){
-
-    if (filtro == 'Where'){
-        where='Where';
-    }else{
-        where='';
-    }
-
 
     var btns = document.querySelectorAll('.'+filtro);
     console.log('filtro: '+filtro);
@@ -634,7 +722,12 @@ function resizeInput() {
       }
   }
   
+  idCampoSelect.addEventListener("click", () =>{
+    console.log(' Text')
   
+
+ 
+  });
 
 btnLanzarSelect.addEventListener("click", () =>{
 
