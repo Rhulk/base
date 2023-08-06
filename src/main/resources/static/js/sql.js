@@ -465,8 +465,8 @@ function convertTypeSqlToTypeHtml(typeSQL){
         typeHtml='number';
         break;
     case 'datetime2':
-        console.log('datetime2 convert to datetime');
-        typeHtml='datetime';
+        console.log('datetime2 convert to date');
+        typeHtml='date';
         break;
 
     case 'nvarchar':
@@ -501,7 +501,7 @@ function getValueByTypeSQL(typeSQL){
         return 0;
     case 'datetime2':
         console.log('Tipo datetime2');
-        return formatoFecha(new Date(),'dd-mm-yy');
+        return formatoFecha(new Date(),'dd/mm/yyyy');
     case 'nvarchar':
         console.log('Tipo nvarchar');
         return 'Escribe aquí'

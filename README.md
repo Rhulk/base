@@ -113,7 +113,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama:SQL
-# Fecha Committer: 2023-07-21 18:50
+# Fecha Committer: 2023-08-07 01:00
 # LastChange: Up code Visual Studio
 # Origen: sin determinar
 # Situación:Estable
