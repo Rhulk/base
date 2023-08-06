@@ -86,9 +86,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 #####################################################################################
 # Rama: master
-# Fecha Committer: 2022-06-12 18:00
-# LastChange: Merge with delop
-	* Cambio de servidor de BBDD railWay
+# Fecha Committer: 2023-08-07 01:00
+# LastChange: Merge with SQL
+	
 # Origen: delop -- 2021-06-14 12:15
 # Situación: Estable
 # Problem: 
