@@ -1,8 +1,8 @@
 # Rama:SQL
-  Fecha Committer: 2023-08-07 01:00
-  LastChange: Up code Visual Studio
-  Origen: sin determinar
-  Situación:Estable
+	Fecha Committer: 2023-08-07 01:00
+ 	LastChange: Up code Visual Studio
+  	Origen: sin determinar
+  	Situación:Estable
   
 # Problem: 	 
 
