@@ -217,5 +217,16 @@ Doc de los avances y modificaciones en las diferentes ramas
 
 		
 #####################################################################################
+# Rama: feature/curso
+# Fecha Committer: 
+# LastChange: Creando las pantallas del módulo
+# Origen: 
+# Situación: Inicial.
+# Problem: 
 
+# Resueltos:
+	Creando las pantallas del módulo
+# Avances:
+	
 
+#####################################################################################
