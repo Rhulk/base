@@ -227,7 +227,7 @@ a:focus {
 
 .main__list-item:first-of-type .main__list-content {
   margin-top: 8px;
-  
+  margin-bottom: 24px;
 }
 
 .main__list-item::before {
