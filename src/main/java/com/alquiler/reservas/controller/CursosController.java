@@ -19,6 +19,7 @@ public class CursosController {
 		model.addAttribute("listTabTodo","no");
 		model.addAttribute("tabUser", "no");
 		model.addAttribute("listTabUser","no");
+		model.addAttribute("detailTabCurso","no");
 		model.addAttribute("tabCurso","active");
 		model.addAttribute("listTabCurso","active");	
 		
@@ -44,6 +45,27 @@ public class CursosController {
 		
 		
 		return "cursos/detalle.html";
+	}
+	
+	@GetMapping("/cursoID")
+	public String cursoDetalleID(Model model) {
+
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
+		
+		// Gestión de tab acvitos o no
+		model.addAttribute("tabTodo","no");
+		model.addAttribute("listTabTodo","no");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
+		model.addAttribute("tabCurso","active");
+		model.addAttribute("listTabCurso","no");
+		model.addAttribute("detailTabCurso","active");
+		
+		
+		
+		return "security/user-form/main-view.html";
 	}
 
 }

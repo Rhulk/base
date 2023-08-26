@@ -19,11 +19,14 @@ $(document).ready(function(){
         // this card was showing - reset the grid
         $("div.cards_cursos")
           .removeClass("showing");
+          console.log(' - Is Showing - ');
+          location.href ='cursoID'
       } else {
         // this card_curso isn't showing - get in with it
         $(this)
           .css({zIndex: zindex})
           .addClass("show");
+          console.log(' - No Showing - ');
 
       }
 
@@ -36,7 +39,7 @@ $(document).ready(function(){
       $(this)
         .css({zIndex:zindex})
         .addClass("show");
-
+        console.log(' - No no Showing - ');
       zindex++;
     }
     

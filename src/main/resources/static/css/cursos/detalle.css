@@ -103,6 +103,7 @@ a:focus {
   flex-grow: 2;
   //background: linear-gradient(to right top, hsla(270, 50%, 8%, .5), hsla(270, 50%, 8%, .6) 20%, hsla(270, 50%, 8%, .1)), linear-gradient(to right bottom, hsl(270, 50%, 8%), transparent 66%), linear-gradient(to bottom, transparent, hsl(270, 50%, 8%) 56%), url("https://images.unsplash.com/photo-1581866327034-c4579d75eb63?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=500&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=1215") no-repeat;
   //background-size: auto 500px;
+  background-color: #e7ebef;
   padding: 2rem 1rem 0 2rem;
   display: flex;
   border-bottom-right-radius: 8px;
@@ -442,4 +443,7 @@ input:checked + label {
 	margin-bottom: -11px;
 	padding-left: 25px;
     font-size: large;
+}
+.isCurso {
+	margin-left: -248px
 }
