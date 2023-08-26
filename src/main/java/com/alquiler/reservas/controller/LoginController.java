@@ -230,6 +230,7 @@ public class LoginController {
 		model.addAttribute("listTabUser","active");
 		model.addAttribute("tabSql","No");
 		model.addAttribute("tabToDo","No");
+		model.addAttribute("detailTabCurso","no");
 		
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);

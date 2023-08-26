@@ -1,8 +1,6 @@
 <!DOCTYPE html>
 <html lang="en" xmlns:th="http://www.thymeleaf.org">
 <head>
-    <meta charset="UTF-8">
-    <meta name="viewport" content="width=device-width, initial-scale=1.0">
 	<title>User Information and Form</title>
 	
 	<!--JQUERY-->
@@ -27,24 +25,18 @@
 	
 	<!-- Los iconos tipo Solid de Fontawesome-->
 	<link rel="stylesheet"
-		href="https://use.fontawesome.com/releases/v6.0.8/css/solid.css">
-	<script src="https://use.fontawesome.com/releases/v6.0.7/js/all.js"></script>
+		href="https://use.fontawesome.com/releases/v5.0.8/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v5.0.7/js/all.js"></script>
 	
 	<!-- Nuestro css-->
 	<link rel="stylesheet" type="text/css" href="static/css/user-form.css"
 		th:href="@{/css/user-form.css}">
 
-	<!-- css para el generador de consultas -->
-	<link rel="stylesheet" type="text/css" href="static/css/sql.css"
+		<!-- css para el generador de consultas -->
+		<link rel="stylesheet" type="text/css" href="static/css/sql.css"
 		th:href="@{/css/sql.css}">
 
-	<!-- css para el dashboard con los cursos -->
-	<link rel="stylesheet" type="text/css" href="static/css/cursos/dashboardCursos.css"
-		th:href="@{/css/cursos/dashboardCursos.css}">
 		
-    	<!-- css para el detalle con los cursos -->
-	<link rel="stylesheet" type="text/css" href="static/css/cursos/detalle.css"
-		th:href="@{/css/cursos/detalle.css}">
 			
 	
 	<!-- DATA TABLE -->
@@ -55,17 +47,16 @@
 	
 	<!-- JavaScript para el gnerador de consultas  -->
 	
-	<!-- Funcionalidad para el paginado, ordenaciÃ³n de campos y busquedas en la tablas  -->
+	<!-- Funcionalidad para el paginado, ordenación de campos y busquedas en la tablas  -->
 	<script type="text/javascript" th:src="@{/js/table.js}" /> </script>
 
-	<!-- Funcionalidades del dashboard  -->
-	<script type="text/javascript" th:src="@{/js/dashboardCursos.js}" /> </script>
+
 	
 	
 </head>
 <body>
 	<div class="container">
-	<div class="mx-auto col-sm-32 main-section" id="myTab" role="tablist">
+	<div class="mx-auto col-sm-8 main-section" id="myTab" role="tablist">
 	
 		<ul class="nav nav-tabs justify-content-end">
 			<li class="nav-item">
@@ -73,10 +64,8 @@
 			 <a class="nav-link" th:classappend=" ${tabUser}" href="#" th:href="@{/listUser}"     role="tab" aria-controls="list" aria-selected="false">Usuarios</a>
 			</li>
 			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${tabCurso}"  href="#" th:href="@{/cursolist}" > <span>Cursos </span></a>																																						
-			</li>
-			<li class="nav-item">
-			<a class="nav-link" th:classappend=" ${tabTodo}"  href="#" th:href="@{/todolist}" > <span>To-Dos </span></a>																																						
+			<a class="nav-link" th:classappend=" ${tabTodo}"  href="#" th:href="@{/todolist}" > <span>To-Dos </span></a>
+																																									
 			</li>
 			<li class="nav-item">
 			 <a class="nav-link" th:classappend=" ${tabAdmin}" href="#" th:href="@{/admin}"  >Admin</a>
@@ -118,43 +107,6 @@
 					</div>
 					<div class="card-body">
 						 <div th:include="security/user-form/todo-form.html" th:if="${activoFormTodo}" th:remove="tag"></div> 
-					</div>
-				</div>
-			</div>
-			
-			<!--  CURSOS LIST-->
-			<div class="tab-pane fade show" th:classappend=" ${listTabCurso}" id="curso-list" role="tabpanel" aria-labelledby="list-tab-curso">
-				<div class="card">
-					<div class="card-header">
-						<h4>Cursos</h4>
-						<ul class="nav nav-tabs justify-content-end">
-						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${listTabCurso}"  href="#" th:href="@{/cursolist}"> <span>All Cursos </span></a>
-						</li>
-					
-						
-						</ul>
-					</div>
-					<div class="card-body-">
-						<div th:include="cursos/dashboard.html"  th:remove="tag"></div>
-					</div>
-				</div>
-			</div>
-			<!--  CURSOS DETAIL-->
-			<div class="tab-pane fade show" th:classappend=" ${detailTabCurso}" id="curso-detail" role="tabpanel" aria-labelledby="detail-tab-curso">
-				<div class="card">
-					<div class="card-header">
-						<h4>Cursos</h4>
-						<ul class="nav nav-tabs justify-content-end">
-						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${detailTabCurso}"  href="#" th:href="@{/cursolist}"> <span>All Cursos </span></a>
-						</li>
-					
-						
-						</ul>
-					</div>
-					<div class="card-body-">
-						<div th:include="cursos/detalle.html"  th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
@@ -232,7 +184,7 @@
 						</ul>
 					</div>
 					<div class="card-body">
-						<label> En construcciÃ³n</label>
+						<label> En construcción</label>
 
 					</div>
 				</div>
