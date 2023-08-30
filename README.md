@@ -228,8 +228,18 @@ Doc de los avances y modificaciones en las diferentes ramas
 # Resueltos:
 	Creando las pantallas del módulo
 	Se muestran todos o casi las pantallas revisión de las propiedades que controlan lo que se ve.
+	SQL estructura inicial.
+		Alta detalle cursos por BBDD
+	Modelo de datos:
+	Entitys:
+		Curso and CategoriaCurso
+	Services:
+		CursoService and CursoServiceImp
+	Repository JPA:
+		CursoRepository
 	
 # Avances:
-	
+
+		
 
 #####################################################################################

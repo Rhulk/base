@@ -1,11 +1,21 @@
 package com.alquiler.reservas.controller;
 
+import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 
+import com.alquiler.reservas.repository.CursoRepository;
+import com.alquiler.reservas.service.CursoService;
+
 @Controller
 public class CursosController {
+	
+	@Autowired
+	CursoService cursoService;
+	
+	@Autowired
+	CursoRepository cursoRepository;
 	
 	@GetMapping("/cursolist")
 	public String cursoList(Model model) {
@@ -21,7 +31,11 @@ public class CursosController {
 		model.addAttribute("listTabUser","no");
 		model.addAttribute("detailTabCurso","no");
 		model.addAttribute("tabCurso","active");
-		model.addAttribute("listTabCurso","active");	
+		model.addAttribute("listTabCurso","active");
+		
+		// modelo de datos
+		
+		System.out.println(" -- TEST 2 --"+cursoRepository.findAll());
 		
 		return "security/user-form/main-view.html";
 	}

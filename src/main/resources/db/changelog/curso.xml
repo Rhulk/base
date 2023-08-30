@@ -34,6 +34,46 @@
      </changeSet>
      
      
+	<changeSet author="delop_sql" id="curso_1a"> 
+		<addColumn 
+				tableName="stg_curso" >
+			<column name="urlImagen"   
+				type="VARCHAR(255)"/>  
+		</addColumn>  
+	</changeSet>
+	<changeSet author="delop_sql" id="curso_1b"> 
+		<addColumn 
+				tableName="stg_curso" >
+			<column name="urlIcono"   
+				type="VARCHAR(255)"/>  
+		</addColumn>  
+	</changeSet>
+	
+	
+	<changeSet  author="delop_sql"  id="curso_1c">  
+    	<modifyDataType   
+            columnName="urlIcono"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+	<changeSet  author="delop_sql"  id="curso_1d">  
+    	<modifyDataType   
+            columnName="urlImagen"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+	<changeSet  author="delop_sql"  id="curso_1e">  
+    	<modifyDataType   
+            columnName="descripcion"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+     
+     
      <changeSet author="develop_SQL" id="curso_2">
          <createTable tableName="stg_curso_user">
          	<column autoIncrement="true" name="id" type="INT">
