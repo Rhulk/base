@@ -9,34 +9,33 @@ import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
 @Entity
-@Table(name="stg_curso")
+@Table(name="stg_curso" )
 public class Curso {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	private Long id;
+	public Long id;
 	
 	@Column
 	@NotBlank
-	private	String nombre;
+	public	String nombre;
 	
 	@Column
 	@NotBlank
-	//private	String categoria; // Mejorable Enum or BBDD
-	private CategoriaCurso categoriaCurso;
+	public CategoriaCurso categoriacurso; 
 	
 	@Column
 	@NotBlank
-	private String descripcion;
+	public String descripcion;
 	
 	@Column
-	private	String fuente;
+	public	String fuente;
 	
 	@Column
-	private	String urlImagen;
+	public	String urlimagen;
 	
 	@Column
-	private	String urlIcono;
+	public	String urlicono;
 
 	public Long getId() {
 		return id;
@@ -72,35 +71,47 @@ public class Curso {
 		this.fuente = fuente;
 	}
 
-	public String getUrlImagen() {
-		return urlImagen;
+
+
+
+
+	public String getUrlimagen() {
+		return urlimagen;
 	}
 
-	public void setUrlImagen(String urlImagen) {
-		this.urlImagen = urlImagen;
+	public void setUrlimagen(String urlimagen) {
+		this.urlimagen = urlimagen;
 	}
 
-	public String getUrlIcono() {
-		return urlIcono;
+	public String getUrlicono() {
+		return urlicono;
 	}
 
-	public void setUrlIcono(String urlIcono) {
-		this.urlIcono = urlIcono;
+	public void setUrlicono(String urlicono) {
+		this.urlicono = urlicono;
 	}
 
-	public CategoriaCurso getCategoriaCurso() {
-		return categoriaCurso;
+	public CategoriaCurso getCategoriacurso() {
+		return categoriacurso;
 	}
 
-	public void setCategoriaCurso(CategoriaCurso categoriaCurso) {
-		this.categoriaCurso = categoriaCurso;
+	public void setCategoriacurso(CategoriaCurso categoriacurso) {
+		this.categoriacurso = categoriacurso;
 	}
 
 	@Override
 	public String toString() {
-		return "Curso [id=" + id + ", nombre=" + nombre + ", categoriaCurso=" + categoriaCurso + ", descripcion="
-				+ descripcion + ", fuente=" + fuente + ", urlImagen=" + urlImagen + ", urlIcono=" + urlIcono + "]";
+		return "Curso [id=" + id + ", nombre=" + nombre + ", categoriacurso=" + categoriacurso + ", descripcion="
+				+ descripcion + ", fuente=" + fuente + ", urlimagen=" + urlimagen + ", urlicono=" + urlicono + "]";
 	}
+
+
+
+
+
+
+
+
 
 
 	

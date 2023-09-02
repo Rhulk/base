@@ -9,10 +9,13 @@ import com.alquiler.reservas.entity.CategoriaCurso;
 import com.alquiler.reservas.entity.Curso;
 
 
+
 @Repository
 public interface CursoRepository  extends CrudRepository<Curso, Long>{
 
+	public List<Curso> findByCategoriacurso(CategoriaCurso categoriacurso);
+	public List<Curso> findByUrlimagen(String url); // Test no es necesario.
+	public List<Curso> findByUrlicono(String url); // Test no es necesario.
 	
-	public List<Curso> findByCategoriaCurso(CategoriaCurso categoriaCurso);
 	
 }

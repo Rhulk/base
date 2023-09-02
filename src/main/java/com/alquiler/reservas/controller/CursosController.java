@@ -4,6 +4,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.PathVariable;
 
 import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.service.CursoService;
@@ -34,7 +35,9 @@ public class CursosController {
 		model.addAttribute("listTabCurso","active");
 		
 		// modelo de datos
+		model.addAttribute("cursos",cursoRepository.findAll());
 		
+		// TEST
 		System.out.println(" -- TEST 2 --"+cursoRepository.findAll());
 		
 		return "security/user-form/main-view.html";
@@ -61,8 +64,8 @@ public class CursosController {
 		return "cursos/detalle.html";
 	}
 	
-	@GetMapping("/cursoID")
-	public String cursoDetalleID(Model model) {
+	@GetMapping("/curso{id}")
+	public String cursoDetalleID(Model model, @PathVariable(name="id") Long id ) {
 
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
@@ -76,6 +79,8 @@ public class CursosController {
 		model.addAttribute("tabCurso","active");
 		model.addAttribute("listTabCurso","no");
 		model.addAttribute("detailTabCurso","active");
+		
+		//Gestión de los datos segun el id
 		
 		
 		

@@ -2,9 +2,11 @@
 
 <div class="cards_cursos">
 
-  <div class="card_curso">
+	<!-- Item div  -->
+  <div class="card_curso" th:each="curso : ${cursos}">
     <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?wave" alt="wave" />
+      <img class="card__image" th:src="${curso.urlimagen}" th:alt="${curso.urlimagen}" />
+      
     </div>
     <div class="card-title">
       <a href="#" class="toggle-info btn">
@@ -12,13 +14,40 @@
         <span class="right"></span>
       </a>
       <h2>
-          Curso de JavaScript
+          <label th:text="${curso.nombre}"></label>
+          <small><label th:text="${curso.fuente}"></label></small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+        <label th:text="${curso.descripcion}"></label>
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <button th:value="${curso.id}" class="btn_blue joinbtn">Join curso</button>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  Fin item div -->
+	<!-- Item div  -->
+  <div class="card_curso" >
+    <div class="card__image-holder">
+      <img class="card__image" src="https://html.com/wp-content/uploads/Code.jpg" alt="wave" />
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+          Spring Boot
           <small>Image from unsplash.com</small>
       </h2>
     </div>
     <div class="card-flap flap1">
       <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
+        Plantilla base descripción
       </div>
       <div class="card-flap flap2">
         <div class="card-actions">
@@ -27,214 +56,8 @@
       </div>
     </div>
   </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?beach" alt="beach" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Curso Spring Boot
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" th:href="@{/cursoID}" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?mountain" alt="mountain" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?field" alt="field" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?water" alt="water" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?river" alt="river" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?kite" alt="kite" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
+<!--  Fin item div -->
   
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?underwater" alt="underwater" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
-
-  <div class="card_curso">
-    <div class="card__image-holder">
-      <img class="card__image" src="https://source.unsplash.com/300x225/?desert" alt="desert" />
-    </div>
-    <div class="card-title">
-      <a href="#" class="toggle-info btn">
-        <span class="left"></span>
-        <span class="right"></span>
-      </a>
-      <h2>
-          Card title
-          <small>Image from unsplash.com</small>
-      </h2>
-    </div>
-    <div class="card-flap flap1">
-      <div class="card-description">
-        This grid is an attempt to make something nice that works on touch devices. Ignoring hover states when they're not available etc.
-      </div>
-      <div class="card-flap flap2">
-        <div class="card-actions">
-          <a href="#" class="btn">Join curso</a>
-        </div>
-      </div>
-    </div>
-  </div>
 
 </div>
 

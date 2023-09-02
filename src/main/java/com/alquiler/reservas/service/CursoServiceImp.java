@@ -15,16 +15,8 @@ public class CursoServiceImp implements CursoService {
 	@Autowired
 	CursoRepository cursoRepository;
 	
-	@Override
-	public List<Curso> getByCategoriaCurso(CategoriaCurso categoriaCurso) {
-		
-		return cursoRepository.findByCategoriaCurso(categoriaCurso);
-	}
+	
 
-	/*
-	 * @Override public List<Curso> getAll() {
-	 * 
-	 * return (List<Curso>) cursoRepository.findAll(); }
-	 */
+	 
 
 }

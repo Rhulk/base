@@ -72,7 +72,34 @@
              
             tableName="stg_curso"/>  
 	</changeSet>
-     
+	
+	<changeSet  author="delop_sql"  id="curso_1f">  
+    <renameColumn    
+            columnDataType="VARCHAR(MAX)"  
+            newColumnName="urlimagen"  
+            oldColumnName="urlImagen"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+	
+	<changeSet  author="delop_sql"  id="curso_1g">  
+    <renameColumn    
+            columnDataType="VARCHAR(MAX)"  
+            newColumnName="urlicono"  
+            oldColumnName="urlIcono"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+  	<changeSet  author="delop_sql"  id="curso_1h">  
+    <renameColumn    
+            columnDataType="VARCHAR(255)"  
+            newColumnName="categoriacurso"  
+            oldColumnName="categoria"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>   
      
      <changeSet author="develop_SQL" id="curso_2">
          <createTable tableName="stg_curso_user">
