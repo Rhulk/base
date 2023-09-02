@@ -238,8 +238,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Repository JPA:
 		CursoRepository
 	
-# Avances:
+	Carga inicial del modelo a la vista.
+	Generado el dashboard dinamicamente
+	
+# Avances - Next :
+	
+	Generar el detalle del curso dinamicamente
 
-		
+	
 
 #####################################################################################
