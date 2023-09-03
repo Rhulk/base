@@ -20,14 +20,15 @@
           <div class="main__col-1">
 
             <!-- HEADING -->
-            <div>
+            <div th:object="${detallecurso}">
               <h2 class="main__heading"><span style="background: linear-gradient(to bottom, hsl(247, 88%, 70%), hsl(282, 82%, 51%)); box-shadow: 0 2px 12px hsla(247, 88%, 70%, .3)">
-                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                  <svg th:xmlns="${detallecurso.urlicono}" fill="none" viewBox="0 0 24 24" stroke="#fff">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
                   </svg>
-                </span> Spring Boot</h2>
-              <p class="main__desc">Mixtures of places that I've visited & traveled which are worth to check out again ^_^</p>
-              <p class="main__sub"><span>Profile Collaborators:</span> <span>Cloud Strife & Jack Sparrow</span></p>
+                  
+                </span><label th:text="${detallecurso.nombre}"></label></h2>
+              <p class="main__desc"><label th:text="${detallecurso.descripcion}"></label></p>
+              <p class="main__sub"><span>Fuente: <label th:text="${detallecurso.fuente}"></label></span></p>
             </div>
 
             <!-- LIST -->

@@ -1,11 +1,14 @@
 package com.alquiler.reservas.controller;
 
+import java.util.Optional;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.alquiler.reservas.entity.Curso;
 import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.service.CursoService;
 
@@ -24,6 +27,7 @@ public class CursosController {
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");
@@ -43,33 +47,13 @@ public class CursosController {
 		return "security/user-form/main-view.html";
 	}
 	
-	@GetMapping("/curso")
-	public String cursoDetalle(Model model) {
-
-		// Gestión de la activación de los formularios
-		model.addAttribute("activoFormTodo",false);
-		model.addAttribute("activoFormUser",false);
-		
-		// Gestión de tab acvitos o no
-		model.addAttribute("tabTodo","no");
-		model.addAttribute("listTabTodo","no");
-		model.addAttribute("tabUser", "no");
-		model.addAttribute("listTabUser","no");
-		model.addAttribute("tabCurso","active");
-		model.addAttribute("listTabCurso","no");
-		model.addAttribute("detailTabCurso","active");
-		
-		
-		
-		return "cursos/detalle.html";
-	}
-	
 	@GetMapping("/curso{id}")
-	public String cursoDetalleID(Model model, @PathVariable(name="id") Long id ) {
+	public String cursoDetalleID(Model model, @PathVariable(name="id") Long id ) throws Exception {
 
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", true);
 		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");
@@ -80,7 +64,9 @@ public class CursosController {
 		model.addAttribute("listTabCurso","no");
 		model.addAttribute("detailTabCurso","active");
 		
-		//Gestión de los datos segun el id
+		//Gestión de los objetos que se mandan a la vista.
+		model.addAttribute("detallecurso", cursoService.getCurso(id));
+		
 		
 		
 		

@@ -9,4 +9,7 @@ public interface CursoService {
 
 	 
 	/* public List<Curso> getAll(); */
+	
+	public Curso getCurso(Long id) throws Exception;
+	
 }

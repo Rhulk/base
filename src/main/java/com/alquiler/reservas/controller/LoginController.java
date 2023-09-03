@@ -168,6 +168,7 @@ public class LoginController {
 			model.addAttribute("activoFormUser",true);
 			model.addAttribute("activoFormTodo",false);
 			model.addAttribute("editModeUser",false);
+			model.addAttribute("activoFormCurso", false);
 			
 		}else {
 			try {
@@ -213,6 +214,7 @@ public class LoginController {
 		model.addAttribute("activoFormUser",true);
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("editModeUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		return "security/user-form/main-view";
 	}
@@ -235,6 +237,7 @@ public class LoginController {
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		//Control model delete
 		model.addAttribute("deleteTodo",false);

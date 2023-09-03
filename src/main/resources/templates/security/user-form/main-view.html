@@ -164,14 +164,14 @@
 						<h4>Cursos</h4>
 						<ul class="nav nav-tabs justify-content-end">
 						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${listTabCurso}"  href="#" th:href="@{/cursolist}"> <span>All Cursos </span></a>
+							<a class="nav-link show" th:classappend=" ${listTabCurso}"   href="#" th:href="@{/cursolist}"> <span>All Cursos </span></a>
 						</li>
 					
 						
 						</ul>
 					</div>
 					<div class="card-body-">
-						 <div th:include="cursos/detalle_plantilla.html"  th:remove="tag"></div>
+						 <div th:include="cursos/detalle_plantilla.html" th:if="${activoFormCurso}"  th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
