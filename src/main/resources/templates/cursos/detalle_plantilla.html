@@ -17,10 +17,10 @@
         <main class="main">
 
           <!-- COL-1 -->
-          <div class="main__col-1">
+          <div th:object="${detallecurso}" class="main__col-1">
 
             <!-- HEADING -->
-            <div th:object="${detallecurso}">
+            <div >
               <h2 class="main__heading"><span style="background: linear-gradient(to bottom, hsl(247, 88%, 70%), hsl(282, 82%, 51%)); box-shadow: 0 2px 12px hsla(247, 88%, 70%, .3)">
                   <svg th:xmlns="${detallecurso.urlicono}" fill="none" viewBox="0 0 24 24" stroke="#fff">
                     <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
@@ -41,120 +41,24 @@
 
 
 
-              <li class="main__list-item">
+              <li class="main__list-item" th:each="capitulo : ${capitulos}">
                 <div class="main__list-content-wrap">
                   <div class="check">
                   	<a href="#" ><i id="ipPropio" class="fas fa-check"></i> </a>  
-                    <p id="novale" class="main__list-content">Introducción</p>
+                    <p id="novale" class="main__list-content"><label th:text="${capitulo.nombre}"></label></p>
                     <div class="dropdown-navb">
-                    	<a href="#" ><i id="rotar_1"  onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
+                    	<a href="#" ><i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
                     </div>            
                   </div>
-				  <div id="hijo_rotar_1" class="check rotar_1">
+				  <div th:id="'hijo_rotar' + ${apartado.id}" class="check "  th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}">
 				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
 				    <div class="align">
-				    	<p class="main__list-sub">Instalación</p>
+				    	<p class="main__list-sub"><label th:text="${apartado.nombre}"></label></p>
 				    </div>
                   </div>
-                  <div id="hijo_rotar_1" class="check rotar_1">
-                  	<a href="#" ><i class="fas fa-check"></i> </a> 
-                  	<div class="align">
-                  		<p class="main__list-sub">Configuración</p>
-                  	</div>
-                  </div>
-                  <div id="hijo_rotar_1" class="check rotar_1">
-                  	<a href="#" ><i class="fas fa-ban"></i> </a> 
-                  	<div class="align">
-                  		<p class="main__list-sub">Resumen del apartado</p>
-                  	</div>
-                  </div>
                 </div>
               </li>
 
-              <li class="main__list-item">
-                <div class="main__list-content-wrap">
-                  <div class="check">
-                  	<a href="#" ><i id="ipPropio" class="fas fa-check"></i> </a>  
-                    <p id="novale" class="main__list-content">Introducción</p>
-                    <div class="dropdown-navb">
-                    	<a href="#" ><i id="rotar_2"  onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
-                    </div>            
-                  </div>
-				  <div id="hijo_rotar_2" class="check rotar_2">
-				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
-				    <div class="align">
-				    	<p class="main__list-sub">Instalación</p>
-				    </div>
-                  </div>
-                  <div id="hijo_rotar_2" class="check rotar_2">
-                  	<a href="#" ><i class="fas fa-check"></i> </a> 
-                  	<div class="align">
-                  		<p class="main__list-sub">Configuración</p>
-                  	</div>
-                  </div>
-                  <div id="hijo_rotar_2" class="check rotar_2">
-                  	<a href="#" ><i class="fas fa-ban"></i> </a> 
-                  	<div class="align">
-                  		<p class="main__list-sub">Resumen del apartado</p>
-                  	</div>
-                  </div>
-                </div>
-              </li>
-
-              <li class="main__list-item">
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Introducción</p>
-                  <p class="main__list-sub">Instalación</p>
-                  <p class="main__list-sub">Configuración</p>
-                  <p class="main__list-sub">Resumen del apartado</p>
-                </div>
-              </li>
-
-              <li class="main__list-item">
-                <div class="main__list-item-image">
-                  <img src="https://images.unsplash.com/photo-1470218091926-22a08a325802?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
-                </div>
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Wadi Namar Waterfall</p>
-                  <p class="main__list-sub">Relaxing</p>
-                </div>
-              </li>
-
-              <li class="main__list-item">
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Wadi Hanifah</p>
-                  <p class="main__list-sub">At Last</p>
-                </div>
-              </li>
-
-              <li class="main__list-item">
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Heet Cave</p>
-                  <p class="main__list-sub">Loved</p>
-                </div>
-              </li>
-
-              <li class="main__list-item">
-                <div class="main__list-item-image">
-                  <img src="https://images.unsplash.com/photo-1575279146056-963c4a35627b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
-                </div>
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Janadriyah Cultural & Heritage Festival</p>
-                  <p class="main__list-sub">Cold</p>
-                </div>
-              </li>
-              
-              <li class="main__list-item">
-                <div class="main__list-item-image">
-                  <img src="https://images.unsplash.com/photo-1575279146056-963c4a35627b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
-                </div>
-                <div class="main__list-content-wrap">
-                  <p class="main__list-content">Janadriyah Cultural & Heritage Festival</p>
-                  <p class="main__list-sub">Cold</p>
-                </div>
-              </li>
-
-            </ul>
 
           </div>
 

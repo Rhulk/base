@@ -21,9 +21,10 @@ function rotarIcono(id){
 
 */
 function plegarMenu(id){
-
-	var items2 = document.querySelectorAll('.'+id);
 	
+	var items2 = document.querySelectorAll('.'+id);
+	console.log(id);
+	console.log(items2.length);
 	for (var i = 0; i < items2.length; i++) {
 		items2[i].classList.add('ocultarNavb');
     }
@@ -33,9 +34,8 @@ function plegarMenu(id){
 	Funcionalidad para mostrar los sub items del menu principal
 */
 function desplegarMenu(id){
-
 	var items2 = document.querySelectorAll('.'+id);
-	
+	console.log(items2.length);
 	for (var i = 0; i < items2.length; i++) {
 		items2[i].classList.remove('ocultarNavb');
     }

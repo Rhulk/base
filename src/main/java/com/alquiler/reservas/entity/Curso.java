@@ -1,10 +1,15 @@
 package com.alquiler.reservas.entity;
 
+import java.util.List;
+
 import javax.persistence.Column;
 import javax.persistence.Entity;
+import javax.persistence.FetchType;
 import javax.persistence.GeneratedValue;
 import javax.persistence.GenerationType;
 import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.OneToMany;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -36,7 +41,11 @@ public class Curso {
 	
 	@Column
 	public	String urlicono;
-
+	
+	@OneToMany(fetch = FetchType.EAGER)
+	@JoinColumn(name="idcurso")
+	List<Capitulo> capitulos;
+			
 	public Long getId() {
 		return id;
 	}
@@ -99,11 +108,22 @@ public class Curso {
 		this.categoriacurso = categoriacurso;
 	}
 
+	public List<Capitulo> getCapitulos() {
+		return capitulos;
+	}
+
+	public void setCapitulos(List<Capitulo> capitulos) {
+		this.capitulos = capitulos;
+	}
+
 	@Override
 	public String toString() {
 		return "Curso [id=" + id + ", nombre=" + nombre + ", categoriacurso=" + categoriacurso + ", descripcion="
-				+ descripcion + ", fuente=" + fuente + ", urlimagen=" + urlimagen + ", urlicono=" + urlicono + "]";
+				+ descripcion + ", fuente=" + fuente + ", urlimagen=" + urlimagen + ", urlicono=" + urlicono
+				+ ", capitulos=" + capitulos + "]";
 	}
+
+
 
 
 

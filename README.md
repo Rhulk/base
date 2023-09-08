@@ -241,12 +241,12 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Carga inicial del modelo a la vista.
 	Generado el dashboard dinamicamente
 	Generar el detalle del curso dinamicamente
-		Falta el listado, el recurso y el apunte
+		Integrado listado
 	
 # Avances - Next :
 	
 	Generar el detalle del curso dinamicamente
-		Falta el listado, el recurso y el apunte
+		Falta el recurso y el apunte
 	
 
 #####################################################################################

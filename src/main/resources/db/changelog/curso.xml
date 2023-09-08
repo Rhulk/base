@@ -149,6 +149,15 @@
          </rollback>
      </changeSet>
      
+	<changeSet  author="delop_sql"  id="curso_2a">  
+    <renameColumn    
+            columnDataType="INT"  
+            newColumnName="idcurso"  
+            oldColumnName="id_curso"  
+ 
+            tableName="stg_capitulo"/>  
+	</changeSet> 
+     
      <changeSet author="develop_SQL" id="curso_4">
          <createTable tableName="stg_apartado">
          	<column autoIncrement="true" name="id" type="INT">
@@ -180,6 +189,15 @@
              <dropTable tableName="stg_apartado"/>
          </rollback>
      </changeSet>    
+     
+	<changeSet  author="delop_sql"  id="curso_4a">  
+    <renameColumn    
+            columnDataType="INT"  
+            newColumnName="idcapitulo"  
+            oldColumnName="id_capitulo"  
+ 
+            tableName="stg_apartado"/>  
+	</changeSet> 
      
      <changeSet author="develop_SQL" id="curso_5">
          <createTable tableName="stg_checkout">

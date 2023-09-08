@@ -1,5 +1,6 @@
 package com.alquiler.reservas.controller;
 
+import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,6 +9,7 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
+import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.Curso;
 import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.service.CursoService;
@@ -66,9 +68,17 @@ public class CursosController {
 		
 		//Gestión de los objetos que se mandan a la vista.
 		model.addAttribute("detallecurso", cursoService.getCurso(id));
+		model.addAttribute("capitulos", cursoService.getCurso(id).getCapitulos());
 		
 		
+		// TEST
+		System.out.println("capitulos : "+cursoService.getCurso(id).getCapitulos());
 		
+		
+		System.out.println("nCapitulos : "+cursoService.getCurso(id).getCapitulos().size());
+		System.out.println("nCapitulos2 : "+cursoService.getCapitulos(cursoService.getCurso(id)).size());
+		
+
 		
 		return "security/user-form/main-view.html";
 	}
