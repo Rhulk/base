@@ -189,18 +189,42 @@ a:focus {
   padding: 0 0 0.7rem 2rem;
   border-left: 2px solid hsla(0, 0%, 50%, .2);
   position: relative;
-  display: flex;
+  /*display: flex;*/
   color: #9D9DAC;
 }
 .check {
 	display: flex;
+	/*align-items: center;*/
 }
+.check:hover {
+	opacity: 50%;
+	background-color: gray;
+	color: black;
+}
+
+
 .align {
 	align-items: flex-start;
 	margin-left: 5px;
 }
 .dropdown-navb{
-	padding-left: 200px;
+	padding-left: 2px;
+}
+.capitulo {
+	background-color: white;
+	flex-grow: 9;
+}
+.selectApartado {
+	background-color: gray;
+    color: white;
+}
+.icono-rotar {
+	background-color: white;
+
+}
+.icono-check {
+	background-color: white;
+
 }
 .ocultarNavb {
 	display: none;
@@ -228,7 +252,7 @@ a:focus {
 
 .main__list-item:first-of-type .main__list-content {
   margin-top: 8px;
-  margin-bottom: 24px;
+  /*margin-bottom: 24px;*/
 }
 
 .main__list-item::before {

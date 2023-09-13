@@ -7,6 +7,26 @@ function rotarIcono(id){
 	
 	var classRotate = document.getElementById(id).classList.contains( 'fa-rotate-180' );
 	
+	console.log(document.getElementById(id).length);
+	
+	if (classRotate){
+		document.getElementById(id).classList.remove('fa-rotate-180');
+		desplegarMenu(id);
+	}else{
+		document.getElementById(id).classList.add('fa-rotate-180');
+		plegarMenu(id);
+	}
+	
+};
+/*
+	Funcionalidad de rotar icono desde otro elemento
+*/
+function rotarIconoExt(id){
+	id='rotar_'+id;
+	var classRotate = document.getElementById(id).classList.contains( 'fa-rotate-180' );
+	
+	console.log(document.getElementById(id).length);
+	
 	if (classRotate){
 		document.getElementById(id).classList.remove('fa-rotate-180');
 		desplegarMenu(id);
@@ -81,4 +101,33 @@ function showHideApunte(){
 		document.getElementById('idshowlinkApu').innerText = 'show';
 	}
 	
+}
+
+/*
+	Funcionalidad para cargar el recurso seleccionado
+*/
+function cargarRecurso(url){
+
+	document.getElementById('idframe').setAttribute('src', url);
+
+}
+
+/*
+	Funcionalidad para resaltar el apartadado clicado
+*/
+function seleccionarApartado(id){
+
+	desSelected()
+
+	document.getElementById(id).classList.add('selectApartado');
+
+}
+
+function desSelected(){
+	var items2 = document.querySelectorAll('.'+'selectApartado');
+	console.log(items2.length);
+	for (var i = 0; i < items2.length; i++) {
+		items2[i].classList.remove('selectApartado');
+    }
+
 }

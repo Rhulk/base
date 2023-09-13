@@ -44,16 +44,24 @@
               <li class="main__list-item" th:each="capitulo : ${capitulos}">
                 <div class="main__list-content-wrap">
                   <div class="check">
-                  	<a href="#" ><i id="ipPropio" class="fas fa-check"></i> </a>  
-                    <p id="novale" class="main__list-content"><label th:text="${capitulo.nombre}"></label></p>
-                    <div class="dropdown-navb">
-                    	<a href="#" ><i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
-                    </div>            
+                  	<div class="icono-check">
+                  		<a href="" ><i id="ipPropio" class="fas fa-check"></i> </a>
+                  	</div>
+                  	  
+                  	<div class="capitulo">
+                  		<p th:id=" ${capitulo.id}" onclick="rotarIconoExt(this.id)"  class="main__list-content"><label th:text="${capitulo.nombre}"></label></p>
+                  	</div>
+                    
+                    <div class="dropdown-navb icono-rotar">
+                    	<a href="" ><i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl fa-rotate-180"></i> </a>
+                    </div>  
+        
                   </div>
-				  <div th:id="'hijo_rotar' + ${apartado.id}" class="check "  th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}">
+				  <div th:id="'hijo_rotar' + ${apartado.id}" class="check ocultarNavb " onclick="seleccionarApartado(this.id)"  th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}">
 				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
 				    <div class="align">
-				    	<p class="main__list-sub"><label th:text="${apartado.nombre}"></label></p>
+				    	<p class="main__list-sub"><label th:id="${apartado.recurso}"  th:text="${apartado.nombre}" onclick="cargarRecurso(this.id)"></label></p>
+				    	
 				    </div>
                   </div>
                 </div>
@@ -76,7 +84,7 @@
               
               <div class="main__detail">
               
-    <iframe id="idframe" class="showHide heigtseiscientos" width="100%" height="100%" src="https://www.youtube.com/embed/ZK9iP5PEhSU" frameborder="0" allow="accelerometer; autoplay="1"; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                   
+    <iframe id="idframe" class="showHide heigtseiscientos" width="100%" height="100%" src="https://www.youtube.com/embed/ZK9iP5PEhSU" frameborder="0" allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                   
               </div>
 
               <div class="main__cards-pagination">
