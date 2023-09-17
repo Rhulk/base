@@ -1,5 +1,6 @@
 package com.alquiler.reservas.service;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -31,7 +32,12 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public List<Apartado> getApartads(Apartado apartado) {
+	public List<Apartado> getApartados(Curso curso) {
+		List<Apartado> apartados = new LinkedList<>();
+		List<Capitulo> capitulos = new LinkedList<>();
+		
+		
+		
 		// TODO Auto-generated method stub
 		return null;
 	}

@@ -16,6 +16,6 @@ public interface CursoService {
 
 	List<Capitulo> getCapitulos(Curso curso);
 	
-	List<Apartado> getApartads(Apartado apartado);
+	List<Apartado> getApartados(Curso curso);
 	
 }

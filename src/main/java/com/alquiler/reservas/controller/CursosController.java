@@ -69,6 +69,7 @@ public class CursosController {
 		//Gestión de los objetos que se mandan a la vista.
 		model.addAttribute("detallecurso", cursoService.getCurso(id));
 		model.addAttribute("capitulos", cursoService.getCurso(id).getCapitulos());
+		model.addAttribute("nCap",cursoService.getCurso(id).getCapitulos().size());
 		
 		
 		// TEST

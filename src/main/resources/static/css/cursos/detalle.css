@@ -353,21 +353,31 @@ a:focus {
 }
 
 .main__cards-buttons>button {
+  
   color: inherit;
   background: transparent;
   border: 0;
   cursor: pointer;
   background: #f8f9fa;
 }
+.opacityOn {
+	opacity: .4
+}
+.opacityOff {
+	
+}
 
 .main__cards-buttons>button:hover {
-  opacity: 1 !important;
+  opacity: 1 ;
 }
 
 .main__cards-buttons svg {
   height: 1.6rem;
 }
-
+.pag {
+	font-size: 30px;
+	margin-top: -34px;
+}
 
 
 .main__discover {

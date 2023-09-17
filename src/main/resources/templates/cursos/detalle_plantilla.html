@@ -45,7 +45,7 @@
                 <div class="main__list-content-wrap">
                   <div class="check">
                   	<div class="icono-check">
-                  		<a href="" ><i id="ipPropio" class="fas fa-check"></i> </a>
+                  		<i id="ipPropio" class="fas fa-check"></i>
                   	</div>
                   	  
                   	<div class="capitulo">
@@ -53,20 +53,23 @@
                   	</div>
                     
                     <div class="dropdown-navb icono-rotar">
-                    	<a href="" ><i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl fa-rotate-180"></i> </a>
+                    	<i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl fa-rotate-180"></i> 
                     </div>  
-        
                   </div>
-				  <div th:id="'hijo_rotar' + ${apartado.id}" class="check ocultarNavb " onclick="seleccionarApartado(this.id)"  th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}">
+                  
+				  <div th:id="'hijo_rotar' + ${apartado.id}" class="apartado check ocultarNavb " onclick="seleccionarApartado(this.id)" 
+				  		th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}"
+				  		th:title="${apartado.recurso}"
+				  		>
 				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
 				    <div class="align">
-				    	<p class="main__list-sub"><label th:id="${apartado.recurso}"  th:text="${apartado.nombre}" onclick="cargarRecurso(this.id)"></label></p>
-				    	
+				    	<p class="main__list-sub"><label class="recurso" th:id="${apartado.recurso}"  th:text="${apartado.nombre}"
+				    		onclick="cargarRecurso(this.id)"></label></p>
 				    </div>
                   </div>
                 </div>
               </li>
-
+			</ul>
 
           </div>
 
@@ -95,16 +98,25 @@
 				</div>
                 
                 <div class="main__cards-buttons">
-                  <button style="opacity: .4">
+                	
+                	
+                  <button id="back_btn"  onclick="backPag()" class="opacityOn">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
                     </svg>
                   </button>
-                  <button>
+                	
+                 
+                 	<label id="pag" value="1" class="pag">1</label>
+                                   
+                  
+                  
+                  <button id="next_btn" onclick="nextPag()">
                     <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
                       <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
                     </svg>
                   </button>
+                 
                 </div>
               </div>
 

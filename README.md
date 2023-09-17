@@ -242,12 +242,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Generado el dashboard dinamicamente
 	Generar el detalle del curso dinamicamente
 		Integrado listado y el recurso 
+		Paginado de los recursos sincronizado con el listado.
 	
 # Avances - Next :
-	
-	Generar el detalle del curso dinamicamente
-		el apunte
-	
-	Paginado de los recursos
+
+	Listado de apuntes CRUD y su paginado.	
+
 
 #####################################################################################
