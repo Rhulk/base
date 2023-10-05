@@ -3,6 +3,7 @@ package com.alquiler.reservas.service;
 import java.util.List;
 
 import com.alquiler.reservas.entity.Apartado;
+import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.CategoriaCurso;
 import com.alquiler.reservas.entity.Curso;
@@ -17,5 +18,8 @@ public interface CursoService {
 	List<Capitulo> getCapitulos(Curso curso);
 	
 	List<Apartado> getApartados(Curso curso);
+
+	public List <Apunte> getApunte(Long apartado,int pag);
+	public int getCantidadAportesByApartado(Long apartado);
 	
 }

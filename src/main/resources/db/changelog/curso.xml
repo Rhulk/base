@@ -246,8 +246,26 @@
          
          
          <rollback>
-             <dropTable tableName="stg_checkout"/>
+             <dropTable tableName="stg_apunte"/>
          </rollback>
-     </changeSet>  
+     </changeSet> 
+     
+     <changeSet  author="delop_sql"  id="curso_6a">  
+    	<renameColumn    
+            columnDataType="INT"  
+            newColumnName="idapartado"  
+            oldColumnName="id_apartado"  
+ 
+            tableName="stg_apunte"/>  
+	</changeSet>  
+	
+	     <changeSet  author="delop_sql"  id="curso_6b">  
+    	<renameColumn    
+            columnDataType="INT"  
+            newColumnName="iduser"  
+            oldColumnName="id_user"  
+ 
+            tableName="stg_apunte"/>  
+	</changeSet>  
 
  </databaseChangeLog>

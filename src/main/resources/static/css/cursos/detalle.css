@@ -317,12 +317,13 @@ a:focus {
 }
 
 .main__cards-container {
-  //width: 70%;
+  
+  
   border-radius: 8px;
   padding: 3rem;
   background: gainsboro;
   box-shadow: 0 6px 16px 0 hsla(270, 30%, 3%, .4);
-  margin-left: auto;
+  margin-left: auto; 
   margin-top: 5px;
   //height: 600px;
   //transform: translateX(4rem)
@@ -379,16 +380,39 @@ a:focus {
 	margin-top: -34px;
 }
 
-
+.oculto {
+	height: 0px; 
+	display: none;
+	
+}
+.kk {
+	resize: none;
+}
+.none {
+	
+	background-color: gainsboro;
+    box-shadow: 0 8px 12px 0 hsla(270, 30%, 5%, .2);
+    border-radius: 8px;
+    
+    margin-top: 50px;
+    margin-bottom:50px;
+    
+   
+    
+    padding-top: 40px;
+    padding-bottom: 20px;
+    padding-left: 20px;
+    padding-right: 20px;
+}
 .main__discover {
-	//width: 100%; 
+	
     background-color: gainsboro;
     box-shadow: 0 8px 12px 0 hsla(270, 30%, 5%, .2);
     border-radius: 8px;
     
     margin-top: 50px;
     margin-bottom:50px;
-    margin-left: auto;
+    
    
     
     padding-top: 40px;

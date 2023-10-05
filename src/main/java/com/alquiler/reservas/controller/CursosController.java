@@ -51,6 +51,8 @@ public class CursosController {
 	
 	@GetMapping("/curso{id}")
 	public String cursoDetalleID(Model model, @PathVariable(name="id") Long id ) throws Exception {
+		
+		Curso curso = cursoService.getCurso(id);
 
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
@@ -67,14 +69,16 @@ public class CursosController {
 		model.addAttribute("detailTabCurso","active");
 		
 		//Gestión de los objetos que se mandan a la vista.
-		model.addAttribute("detallecurso", cursoService.getCurso(id));
-		model.addAttribute("capitulos", cursoService.getCurso(id).getCapitulos());
-		model.addAttribute("nCap",cursoService.getCurso(id).getCapitulos().size());
+		model.addAttribute("detallecurso", curso);
+		model.addAttribute("capitulos", curso.getCapitulos());
+		model.addAttribute("nCap",curso.getCapitulos().size());
+		model.addAttribute("apartados",cursoService.getApartados(curso));
+		model.addAttribute("nApartados",cursoService.getApartados(curso).size());
 		
 		
 		// TEST
 		System.out.println("capitulos : "+cursoService.getCurso(id).getCapitulos());
-		
+		System.out.println("apartados : "+cursoService.getApartados(curso));
 		
 		System.out.println("nCapitulos : "+cursoService.getCurso(id).getCapitulos().size());
 		System.out.println("nCapitulos2 : "+cursoService.getCapitulos(cursoService.getCurso(id)).size());

@@ -608,13 +608,56 @@ function insertElements(
 /*Param 5 - 6  */       className,classValue,
 /*Param 7 - 8  */       valueName,valueValue,
 /*Param 9 - 10 */       idName,idValue,
-/*Param 11- 12 */       functionName,functionValue) { //recibe el div
-	//console.log('pag 487' +'elementName '+ elementName+' in:'+container);
+/*Param 11- 12 */       functionName,functionValue,
+			/* Borrar */
+/*Param 13- 14 */		rowsName, rowsValue,
+/*Param 15- 16 */		colsName, colsValue,
+
+/*Param 17- 18 */		hrefName, hrefValue,
+
+/*Param 19- 20 */		xmlnsName, xmlnsValue,
+/*Param 21- 22 */		fillName, fillValue,
+/*Param 23- 24 */		viewBoxName, viewBoxValue,
+/*Param 25- 26 */		strokeName, strokeValue,
+
+/*Param 27- 28 */		stroke_linecapName, stroke_linecapValue,
+/*Param 29- 30 */		stroke_linejoinName, stroke_linejoinValue,
+/*Param 31- 32 */		stroke_widthName, stroke_widthValue,
+/*Param 33- 34 */		dName, dValue,
+
+/*Param 35- 36 */		styleName, styleValue
+
+) { //recibe el div
+	
     const btn = document.createElement(elementName);
+    
+    if(styleName != ''){
+    	btn.setAttribute(styleName,styleValue);
+    }
+
+    if (hrefName != ''){
+    	btn.setAttribute(hrefName,hrefValue);   
+    }	
+    
+    if (xmlnsName != ''){
+    	btn.setAttribute(xmlnsName,xmlnsValue); 
+    	btn.setAttribute(fillName,fillValue);  
+    	btn.setAttribute(viewBoxName,viewBoxValue);
+    	btn.setAttribute(strokeName,strokeValue); 
+    }
+    if (stroke_linecapName != ''){
+    	btn.setAttribute(stroke_linecapName,stroke_linecapValue); 
+    	btn.setAttribute(stroke_linejoinName,stroke_linejoinValue); 
+    	btn.setAttribute(stroke_widthName,stroke_widthValue); 
+    	btn.setAttribute(dName,dValue); 
+    	  
+    }	
 
     //console.log('btn: '+btn);
-    btn.setAttribute(valueName,valueValue);
-    btn.setAttribute(idName,idValue);
+    if (valueName != ''){
+    	btn.setAttribute(valueName,valueValue);   
+    }
+    btn.setAttribute(idName,idValue); 
 
     if(className != ''){
         btn.setAttribute(className, classValue);
@@ -625,6 +668,12 @@ function insertElements(
     if (tipoBtnName != ''){
         btn.setAttribute(tipoBtnName,tipoBtnValue);
     }
+    if (rowsName != ''){
+    	btn.setAttribute(rowsName,rowsValue);
+    }
+    if (colsName != ''){
+    	btn.setAttribute(colsName,colsValue);
+    }  
     
     btn.innerHTML = valueValue;
     container.appendChild(btn); //añadido

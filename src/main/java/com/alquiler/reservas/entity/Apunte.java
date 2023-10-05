@@ -1,0 +1,90 @@
+package com.alquiler.reservas.entity;
+
+import javax.persistence.Column;
+import javax.persistence.Entity;
+import javax.persistence.FetchType;
+import javax.persistence.GeneratedValue;
+import javax.persistence.GenerationType;
+import javax.persistence.Id;
+import javax.persistence.JoinColumn;
+import javax.persistence.ManyToOne;
+import javax.persistence.Table;
+import javax.persistence.Temporal;
+import javax.persistence.Transient;
+import javax.validation.constraints.NotBlank;
+
+@Entity
+@Table(name="stg_apunte")
+public class Apunte {
+	
+	//stg_apunte  (notas,idapartado,iduser)
+	
+	@Id
+	@GeneratedValue(strategy=GenerationType.IDENTITY)
+	public Long id;	
+
+	
+	public String notas;
+	
+
+	@ManyToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idapartado")
+	public Apartado apartado;
+	
+	@Column
+	//@NotBlank pendiente vinculo con el usuario
+	public Long iduser;
+	
+
+
+	public Apunte(String notas) {
+		this.notas = notas;
+	}
+
+	public Long getId() {
+		return id;
+	}
+
+	public void setId(Long id) {
+		this.id = id;
+	}
+
+	public String getNotas() {
+		return notas;
+	}
+
+	public void setNotas(String notas) {
+		this.notas = notas;
+	}
+
+
+
+	public Long getIduser() {
+		return iduser;
+	}
+
+	public void setIduser(Long iduser) {
+		this.iduser = iduser;
+	}
+
+	public Apartado getApartado() {
+		return apartado;
+	}
+
+	public void setApartado(Apartado apartado) {
+		this.apartado = apartado;
+	}
+
+	@Override
+	public String toString() {
+		return "Apunte [notas=" + notas  + "]";
+	}
+
+
+
+
+	
+	
+	
+	
+}

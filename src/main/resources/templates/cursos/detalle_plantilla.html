@@ -65,6 +65,15 @@
 				    <div class="align">
 				    	<p class="main__list-sub"><label class="recurso" th:id="${apartado.recurso}"  th:text="${apartado.nombre}"
 				    		onclick="cargarRecurso(this.id)"></label></p>
+				    		
+				    	<!--  <div th:id="'aporte' + ${apartado.id}"  th:each="apartadoApunte : ${apartados}" th:if="${apartado.id == apartadoApunte.id }">
+				    		<p th:text="${apartadoApunte.id}"></p>
+				    		<div th:each="apunte : ${apartadoApunte.apuntes}">
+				    			<p th:text="${apunte.id}"></p>
+				    			<p th:text="${apunte.notas}">gg</p>
+				    		</div>
+				    	</div>
+						-->
 				    </div>
                   </div>
                 </div>
@@ -107,7 +116,7 @@
                   </button>
                 	
                  
-                 	<label id="pag" value="1" class="pag">1</label>
+                 	<label id="pag"  class="pag">1</label>
                                    
                   
                   
@@ -122,10 +131,17 @@
 
             </div>
 
-            <!-- DISCOVER APUNTES-->
-            <div id="main__discover" class="main__discover ">
+            <!-- DISCOVER APUNTES  th:id="'hijo_rotar' + ${apartado.id}"
+            <div id="idapunte" th:each="apartadoApunte : ${apartados}" > -->
+           <!--   <div th:id="'apunte' +${apartadoApunte.id}" th:each="apartadoApunte : ${apartados}" class="oculto" >  -->
+            <div id="idapunte"  class="oculto" >
 
-              <div class="main__discover-heading-container">
+            
+            
+           <!--  <div id="main__discover" class="main__discover "   th:each="apunte : ${apartadoApunte.apuntes}" > -->
+            <div id="main__discover" class="main__discover "   >
+
+              <div id="main__discover-heading-container" class="main__discover-heading-container">
                 <h3 class="main__discover-heading ss-heading">Apuntes sobre el apartado</h3>
                 <a id="idshowlinkApu" onclick="showHideApunte()"  href="#" class="ss-show">hide </a>
                 <i id="idshow"  onclick="showHideApunte()" class="fa-solid fa-caret-down fa-2xl "></i>
@@ -133,7 +149,7 @@
               </div>
 
 			<div class="main__discover-detail">
-			 <textarea id="textarea" class=" kk" rows="10" cols="170"></textarea>
+			 <textarea id="textarea" class=" kk" rows="10" cols="170" value="Escribe aqui tus notas sobre este video"></textarea>
 			</div>
 			
 			<div class="main__discover-crud">
@@ -142,20 +158,68 @@
 					<button class="btn_blue">Modificar</button>
 					<button class="btn_red">Eliminar</button>
 				</div>
-	            <div class="main__cards-buttons">
-                  <button style="opacity: .4">
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+	            <div id="idcrud" class="main__cards-buttons">
+                  <button onclick="backStop()"
+                  	style="opacity: .4"
+                  	>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                    	fill="none"
+                    	viewBox="0 0 24 24"
+                    	stroke="currentColor"
+                    >
+                      <path stroke-linecap="round"
+                      	stroke-linejoin="round"
+                      	stroke-width="2"
+                      	d="M15 19l-7-7 7-7"
+                       />
                     </svg>
                   </button>
-                  <button>
-                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
-                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                  <label id="pagApu"  class="pag">1</label>
+                  <button onclick="nextStop()" >
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                    	fill="none"
+                    	viewBox="0 0 24 24" 
+                    	stroke="currentColor"
+                    >
+                      <path 
+                      	stroke-linecap="round" 
+                      	stroke-linejoin="round" 
+                      	stroke-width="2" 
+                      	d="M9 5l7 7-7 7" 
+                      />
                     </svg>
                   </button>
+                  
+                  
+                  	<label id="pagTotal"  class="pag" >1</label>
+                  
+                  
                 </div>
               </div>		
 			</div>
+
+			 
+			</div>
+			
+			<div id="contenedorApunte">
+			
+			
+			</div>
+			
+				<!-- Copia vacia para mantener el ancho -->
+            <div  class="main__discover "   >
+
+              <div class="main__discover-heading-container">
+
+                
+              </div>
+
+			<div class="main__discover-detail kk">
+			 <textarea id="textarea" class=" kk" rows="1" cols="170" disabled></textarea>
+			</div>
+			
+		
+			</div>		
 
             </div>
 

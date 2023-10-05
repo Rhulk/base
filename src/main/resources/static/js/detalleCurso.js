@@ -1,5 +1,9 @@
 let maxApartado;
 let pag =1;
+let apartadoActual;
+
+let pagApu =1;
+let cantApu;
 
 
 $(document).ready(function() {
@@ -167,8 +171,95 @@ function seleccionarApartado(id){
 		}
 		
     }	
+    //alterar el div del aporte filtrado por el id del apartado seleccionado.
+    //var apunte = document.getElementById('idapunte');
+    console.log('id '+id);
+    console.log(id.substr(10, 1));//Apartado
+    apartadoActual = id.substr(10, 1);
+    var idapunte ='apunte'+id.substr(10, 1);
+    console.log(idapunte);
+    console.log(document.getElementById(idapunte));
+    console.log('Recupero div');
+    
+    //Opcion b Construir el div aqui.
+    //crearDivAporte(); //descartado los svg no se crean
+    document.getElementById('idapunte').classList.remove('oculto');
+	recuperarNotas(id.substr(10, 1),0);
+}
+
+function recuperarNotas(apartado, pag){
+		pagApu=1;
+        fetch("http://localhost:8080/apuntes/"+apartado+"/"+pag)
+       .then((apunte) => apunte.json())
+       .then(
+           function (apunte){  
+             	if (apunte.length > 0){
+					document.getElementById('textarea').value = apunte[0].notas;
+				}else{
+					document.getElementById('textarea').value = 'Escribe aqui tus apuntes...';
+				}
+            }
+
+        );	
+        console.log('apartadoActual :'+apartadoActual);
+        apartadoActual = apartado;
+        
+		fetch("http://localhost:8080/apuntes/"+apartado)
+       .then((apunte) => apunte.json())
+       .then(
+           function (apunte){    
+				console.log('cantidad: '+apunte);
+				cantApu= apunte;
+				document.getElementById('pagTotal').textContent = apunte;			
+            }
+
+        );              		
+}
+
+function nextStop(){
+	console.log(pagApu);
+	console.log(cantApu);
+	console.log(apartadoActual);
+	
+	if (pagApu<cantApu){
+		pagApu=pagApu+1;
+		document.getElementById('pagApu').textContent = pagApu;
+		var ajuste = pagApu-1;
+		fetch("http://localhost:8080/apuntes/"+apartadoActual+"/"+ajuste)
+       		.then((apunte) => apunte.json())
+       		.then(
+           		function (apunte){    
+					document.getElementById('textarea').value = apunte[0].notas;
+            	}
+
+        	);
+	}
 
 }
+
+function backStop(){
+
+	console.log(pagApu);
+	console.log(cantApu);
+	
+	if (pagApu>1){
+		pagApu=pagApu-1;
+		document.getElementById('pagApu').textContent = pagApu;
+		var ajuste = pagApu-1;
+		fetch("http://localhost:8080/apuntes/"+apartadoActual+"/"+ajuste)
+       		.then((apunte) => apunte.json())
+       		.then(
+           		function (apunte){    
+					document.getElementById('textarea').value = apunte[0].notas;
+            	}
+
+        	);		
+		
+		
+	}	
+}
+
+
 
 function desSelected(){
 	var items2 = document.querySelectorAll('.'+'selectApartado');
@@ -193,11 +284,13 @@ function nextPag(){
 	//seleccionarApartado((document.querySelectorAll('.'+'apartado')[pag-1].id));
 	
 	document.getElementById(document.querySelectorAll('.'+'apartado')[pag-1].id).classList.add('selectApartado');
-	console.log(document.getElementById(document.querySelectorAll('.'+'recurso')[pag-1].id));
-	
-
 	
 	cargarRecurso(document.querySelectorAll('.'+'recurso')[pag-1].id);
+	
+	let id = document.querySelectorAll('.'+'apartado')[pag-1].id;
+	apartadoActual = id.substr(10, id.length);
+	recuperarNotas(apartadoActual,0);
+	
 }
 
 function backPag(){
@@ -212,6 +305,10 @@ function backPag(){
 	document.getElementById(document.querySelectorAll('.'+'apartado')[pag-1].id).classList.add('selectApartado');
 	
 	cargarRecurso(document.querySelectorAll('.'+'recurso')[pag-1].id);
+	
+	let id = document.querySelectorAll('.'+'apartado')[pag-1].id;
+	apartadoActual = id.substr(10, id.length);
+	recuperarNotas(apartadoActual,0);
 }
 
 
