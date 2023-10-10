@@ -21,7 +21,7 @@ public class Apunte {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long id;	
+	public long id;	
 
 	
 	public String notas;
@@ -36,10 +36,35 @@ public class Apunte {
 	public Long iduser;
 	
 
+	
+
+
+
+
+	public Apunte(String notas, Apartado apartado, Long iduser) {
+		super();
+		this.notas = notas;
+		this.apartado = apartado;
+		this.iduser = iduser;
+	}
+
+
+	public Apunte() {
+
+	}
+
 
 	public Apunte(String notas) {
 		this.notas = notas;
 	}
+
+	
+	public Apunte(long id, String notas) {
+		super();
+		this.id = id;
+		this.notas = notas;
+	}
+
 
 	public Long getId() {
 		return id;
@@ -77,8 +102,10 @@ public class Apunte {
 
 	@Override
 	public String toString() {
-		return "Apunte [notas=" + notas  + "]";
+		return "Apunte [id=" + id + ", notas=" + notas + ", apartado=" + apartado + ", iduser=" + iduser + "]";
 	}
+
+
 
 
 

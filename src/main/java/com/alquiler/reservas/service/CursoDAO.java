@@ -1,5 +1,6 @@
 package com.alquiler.reservas.service;
 
+import java.util.ArrayList;
 import java.util.LinkedList;
 import java.util.List;
 import java.util.function.Supplier;
@@ -35,12 +36,18 @@ public class CursoDAO {
 	public List <Apunte> getApunteDAO(Long apartado, int pag){
 		List <Apunte> apus = new LinkedList<>();
 		List<String> notas = new LinkedList<>();
-		Query query = em.createNativeQuery("select a.notas from stg_apunte a WHERE idapartado ='"+apartado+"' order by id asc");
 
-		notas = query.setFirstResult(pag).setMaxResults(1).getResultList(); 
+		List<Integer> ids = new ArrayList<Integer>();
 		
-		apus.add(new Apunte(notas.get(0)));
-			System.out.println(apus);
+
+		Query nota = em.createNativeQuery("select a.notas from stg_apunte a WHERE idapartado ='"+apartado+"' order by id asc");
+		Query id = em.createNativeQuery("select a.id from stg_apunte a WHERE idapartado ='"+apartado+"' order by id asc");
+
+		notas = nota.setFirstResult(pag).setMaxResults(1).getResultList(); 
+		ids = id.setFirstResult(pag).setMaxResults(1).getResultList();
+		
+		apus.add(new Apunte(ids.get(0),notas.get(0)));
+
 		return apus;
 	}
 	
@@ -50,5 +57,7 @@ public class CursoDAO {
 
 		return (int) query.getResultList().get(0);
 	}
+	
+
 
 }

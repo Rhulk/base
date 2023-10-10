@@ -22,4 +22,10 @@ public interface CursoService {
 	public List <Apunte> getApunte(Long apartado,int pag);
 	public int getCantidadAportesByApartado(Long apartado);
 	
+	
+	public Apunte getApunteById(Long apunte);
+	public void deleteApunte(Apunte apu);
+
+	public void createNewAporte(Long apartado, String notas, Long idUser);
+	
 }

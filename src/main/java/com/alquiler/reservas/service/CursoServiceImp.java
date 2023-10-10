@@ -2,6 +2,7 @@ package com.alquiler.reservas.service;
 
 import java.util.LinkedList;
 import java.util.List;
+import java.util.Optional;
 
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
@@ -16,6 +17,8 @@ import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.CamposAndTipos;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.repository.ApartadoRepository;
+import com.alquiler.reservas.repository.ApunteRepository;
 import com.alquiler.reservas.repository.CursoRepository;
 
 @Service
@@ -23,6 +26,12 @@ public class CursoServiceImp implements CursoService {
 
 	@Autowired
 	CursoRepository cursoRepository;
+	
+	@Autowired
+	ApunteRepository apunteRepository;
+	
+	@Autowired
+	ApartadoRepository apartadoRepository;
 	
 	@Autowired
 	CursoDAO cursoDAO;
@@ -67,6 +76,40 @@ public class CursoServiceImp implements CursoService {
 		return cursoDAO.getCantidadAportesByApartadoDAO(apartado);
 	}
 
-	 
+	public Apunte getApunteById(Long apunte) {
+		Apunte apu = new Apunte();
+		try {
+			apu = apunteRepository.findById(apunte).orElseThrow(() -> new Exception("Apunte does not exist"));
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+		
+		return apu;
+	}
+	
+	public void deleteApunte(Apunte apu) {
+		
+		apunteRepository.delete(apu);
+		
+	}
+
+	@Override
+	public void createNewAporte(Long apartado, String notas, Long idUser) {
+		Apartado apa = new Apartado();
+		try {
+			apa = apartadoRepository.findById(apartado)
+					.orElseThrow(() -> new Exception("Apartado does not exist"));
+		} catch (Exception e) {
+			System.out.println(" Id apartado: "+apartado);
+			e.printStackTrace();
+		}
+		
+		apunteRepository.save(new Apunte(notas,apa,idUser));
+		
+		
+	}
+	
+	
 
 }

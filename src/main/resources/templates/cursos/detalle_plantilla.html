@@ -134,7 +134,7 @@
             <!-- DISCOVER APUNTES  th:id="'hijo_rotar' + ${apartado.id}"
             <div id="idapunte" th:each="apartadoApunte : ${apartados}" > -->
            <!--   <div th:id="'apunte' +${apartadoApunte.id}" th:each="apartadoApunte : ${apartados}" class="oculto" >  -->
-            <div id="idapunte"  class="oculto" >
+            <div id="idapunte"  class="apartadoAporte oculto" >
 
             
             
@@ -154,9 +154,22 @@
 			
 			<div class="main__discover-crud">
 				<div class="main__apn_btn_crud">
-					<button class="btn_green">Alta</button>
-					<button class="btn_blue">Modificar</button>
-					<button class="btn_red">Eliminar</button>
+					<button id="btn_gua"  
+						onclick="saveAporte(this.id)"
+						class="btn_green btn_gua oculto">Guardar
+					</button>
+					<button id="btn_alt"
+						onclick="altAporte(this.id)" 
+					 	class="btn_green btn_alt">Alta
+					 </button>
+					<button id="btn_mod"
+					 	onclick="modAporte(this.id)" 
+					 	class="btn_blue btn_mod ">Modificar
+					 </button>
+					<button id="btn_del"
+					 	onclick="deleteAporte(this.id)" 
+					 	class="btn_red btn_del ">Eliminar
+					 </button>
 				</div>
 	            <div id="idcrud" class="main__cards-buttons">
                   <button onclick="backStop()"

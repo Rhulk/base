@@ -4,6 +4,7 @@ let apartadoActual;
 
 let pagApu =1;
 let cantApu;
+let posicionInicial =0;
 
 
 $(document).ready(function() {
@@ -155,7 +156,7 @@ function cargarRecurso(url){
 	Funcionalidad para resaltar el apartadado clicado
 */
 function seleccionarApartado(id){
-
+	console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id).classList);
 	desSelected()
 	document.getElementById(id).classList.add('selectApartado');
 	
@@ -183,20 +184,64 @@ function seleccionarApartado(id){
     
     //Opcion b Construir el div aqui.
     //crearDivAporte(); //descartado los svg no se crean
-    document.getElementById('idapunte').classList.remove('oculto');
-	recuperarNotas(id.substr(10, 1),0);
+	var idapu = 'idapunte'+ apartadoActual;
+
+    document.querySelectorAll('.'+'apartadoAporte')[0].id = idapu;
+    document.getElementById('idapunte'+apartadoActual).classList.remove('oculto');
+    
+	recuperarNotas(id.substr(10, 1),posicionInicial);
 }
 
 function recuperarNotas(apartado, pag){
+	console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id).classList);
 		pagApu=1;
+		document.getElementById('pagApu').textContent = pagApu;
         fetch("http://localhost:8080/apuntes/"+apartado+"/"+pag)
        .then((apunte) => apunte.json())
        .then(
            function (apunte){  
              	if (apunte.length > 0){
+             		var id_btn_guardar = document.querySelectorAll('.'+'btn_gua')[0].id;
+             		
+					document.getElementById(id_btn_guardar).classList.add('oculto');//no funciona
+					
+						console.log(document.getElementById(id_btn_guardar).classList);
+						console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id));
+						
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_alt')[0].id).classList.remove('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_mod')[0].id).classList.remove('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_del')[0].id).classList.remove('oculto');
 					document.getElementById('textarea').value = apunte[0].notas;
+					
+					document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua' + apunte[0].id;
+					document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt' + apunte[0].id;
+					document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod' + apunte[0].id;
+					document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del' + apunte[0].id;
+					
+
 				}else{
-					document.getElementById('textarea').value = 'Escribe aqui tus apuntes...';
+					document.getElementById('textarea').value = 'Escribe aquí tus apuntes...';
+					// ocultamos el btn delete, mod y alta por el de guardar
+					
+					document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua' + apartadoActual;
+					document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt';
+					
+					document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod';
+					document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del';
+					
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_gua')[0].id).classList.remove('oculto');
+					console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id));
+					
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_alt')[0].id).classList.add('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_mod')[0].id).classList.add('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_del')[0].id).classList.add('oculto');
 				}
             }
 
@@ -213,7 +258,114 @@ function recuperarNotas(apartado, pag){
 				document.getElementById('pagTotal').textContent = apunte;			
             }
 
-        );              		
+        );
+        console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id).classList);              		
+}
+/*
+	Crear nuevo aporte form en blanco previo y activar el btn_guardar activo
+*/
+function altAporte(id){
+
+	document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua';
+	document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt';
+	document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod';
+	document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del';
+	
+	document.getElementById(
+		document.querySelectorAll('.'+'btn_gua')[0].id).classList.remove('oculto');
+	document.getElementById(
+		document.querySelectorAll('.'+'btn_alt')[0].id).classList.add('oculto');
+	document.getElementById(
+		document.querySelectorAll('.'+'btn_mod')[0].id).classList.add('oculto');
+	document.getElementById(
+		document.querySelectorAll('.'+'btn_del')[0].id).classList.add('oculto');
+	
+	document.getElementById('textarea').value = 'Escribe aquí tus apuntes...';
+	
+	document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua'+apartadoActual;
+}
+/*
+	Guardar nuevo aporte
+*/
+function saveAporte(id){
+	id = id.substr(7, id.length);
+	console.log(id);
+
+	var notas = document.getElementById('textarea').value;
+	
+	fetch("http://localhost:8080/saveAporteIn/"+id+"/"+notas)
+       //.then((apunte) => apunte.json())
+       .then(
+           function (respuesta){    
+				document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua';
+				document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt';
+				document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod';
+				document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del';
+				document.getElementById(
+					document.querySelectorAll('.'+'btn_gua')[0].id).classList.add('oculto');
+				document.getElementById(
+					document.querySelectorAll('.'+'btn_alt')[0].id).classList.remove('oculto');
+				document.getElementById(
+					document.querySelectorAll('.'+'btn_mod')[0].id).classList.remove('oculto');
+				document.getElementById(
+					document.querySelectorAll('.'+'btn_del')[0].id).classList.remove('oculto');	
+									
+				recuperarNotas(apartadoActual, posicionInicial);
+            }
+
+     ); 
+	
+
+}
+/*
+	Modificacion del aporte
+
+*/
+
+function modAporte(id){
+	id = id.substr(7, id.length);
+	var notas = document.getElementById('textarea').value;
+	
+	fetch("http://localhost:8080/saveAporteIn/"+id+"/"+notas)
+       .then(
+           function (respuesta){    
+				console.log('Modificacion');
+				
+            }
+
+     ); 
+	
+}
+
+/*
+	Borrado del aporte actual
+
+*/
+
+function deleteAporte(id){
+
+	console.log('detete aporte: '+id.substr(7, id.length));
+	console.log(document.querySelectorAll('.'+'apartadoAporte')[0].id);
+	console.log(document.querySelectorAll('.'+'apartadoAporte')[0].id.substr(8, document.querySelectorAll('.'+'apartadoAporte')[0].id.length));
+
+
+	id = id.substr(7, id.length);	
+	
+	fetch("http://localhost:8080/deleteapunte/"+id)
+       //.then((apunte) => apunte.json())
+       .then(
+           function (apunte){    
+				console.log('delete: '+apunte);
+				console.log('Aporte: '+id+' del apartado: '+document.querySelectorAll('.'+'apartado').id); 
+				// recuperar solo el id id.substr(10, id.length)
+				
+				recuperarNotas(document.querySelectorAll('.'+'apartadoAporte')[0].id.substr(8, document.querySelectorAll('.'+'apartadoAporte')[0].id.length),0);
+				
+				//document.getElementById('idapunte'+apartadoActual).classList.add('oculto');
+            }
+
+     ); 
+	
 }
 
 function nextStop(){

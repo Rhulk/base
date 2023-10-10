@@ -245,12 +245,11 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Paginado de los recursos sincronizado con el listado.
 		
 	Listado de apuntes CRUD y su paginado.
-		Falta la funcionalidad del CRUD
+		
 	
 # Avances - Next :
 
-	Listado de apuntes CRUD y su paginado.	
-		Falta la funcionalidad del CRUD
+
 
 
 #####################################################################################
