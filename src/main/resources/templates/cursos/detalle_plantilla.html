@@ -95,15 +95,33 @@
               </div>
               
               <div class="main__detail">
-              
-    <iframe id="idframe" class="showHide heigtseiscientos" width="100%" height="100%" src="https://www.youtube.com/embed/ZK9iP5PEhSU" frameborder="0" allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                   
+              <!--  
+    			<iframe id="idframe" class="showHide heigtseiscientos"
+    				width="100%" height="100%" 
+    				src="https://www.youtube.com/embed/ZK9iP5PEhSU" 
+    				frameborder="0" 
+    				allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture" 
+    				allowfullscreen>
+    				
+    			</iframe> 
+    			-->
+    			<div id="idframe" 
+    				class="showHide heigtseiscientos"
+    				
+    			>
+    			
+    			</div>
+
+    			                  
               </div>
 
               <div class="main__cards-pagination">
                 
                 <div class="check_visto">
-  					<input type="checkbox" name="my-checkbox" id="opt-in" />
-  					<label for="opt-in">¡Visto!</label>
+  					<input type="checkbox" name="my-checkbox" id="opt-in"
+  						onclick="checking()"
+  					 />
+  					<label id="visto" for="opt-in"  >¡Visto!</label>
 				</div>
                 
                 <div class="main__cards-buttons">

@@ -11,6 +11,7 @@ import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -18,7 +19,6 @@ import javax.validation.constraints.NotBlank;
 @Table(name="stg_apartado")
 public class Apartado {
 	
-	// nombre,descripcion,recurso,orden,idcapitulo)
 
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -47,6 +47,10 @@ public class Apartado {
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="idapartado")
 	public List<Apunte> apuntes;
+	
+	@OneToOne
+	@JoinColumn(name="id_apartado")
+	public Checkout checkout;
 
 	public Long getId() {
 		return id;

@@ -5,10 +5,37 @@ let apartadoActual;
 let pagApu =1;
 let cantApu;
 let posicionInicial =0;
+let video= '08f8_eHrarU';
+
+
+var player;
+function onYouTubePlayerAPIReady() {
+    player = new YT.Player('idframe', {
+      height: '100%',
+      width: '100%',
+      videoId: video,
+      events: {
+        'onReady': onAutoPlay,
+        'onStateChange': onFinish
+      }
+    });
+}
+function onAutoPlay(event) {
+    event.target.playVideo();
+    console.log(player);
+}
+function onFinish(event) {        
+    if(event.data === 0) {            
+        alert("Fin");
+    }
+    console.log(player);
+    console.log(player.videoId);
+}
 
 
 $(document).ready(function() {
 
+	document.getElementById('visto').innerText = '¿Visto?';
 	maxApartado = document.querySelectorAll('.'+'apartado').length;
 	pag =1;
 	// Recuperamos el numero de apartados iniciales
@@ -156,6 +183,7 @@ function cargarRecurso(url){
 	Funcionalidad para resaltar el apartadado clicado
 */
 function seleccionarApartado(id){
+	onYouTubePlayerAPIReady();
 	console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id).classList);
 	desSelected()
 	document.getElementById(id).classList.add('selectApartado');
@@ -190,6 +218,7 @@ function seleccionarApartado(id){
     document.getElementById('idapunte'+apartadoActual).classList.remove('oculto');
     
 	recuperarNotas(id.substr(10, 1),posicionInicial);
+	isCheching();
 }
 
 function recuperarNotas(apartado, pag){
@@ -481,6 +510,56 @@ function active_btn (){
 			
 		}
 	}
+
+}
+function checking(){
+	console.log(" checked "+document.getElementById('opt-in').checked);
+	
+	if (document.getElementById('opt-in').checked){
+		document.getElementById('visto').innerText = '¡Visto!';
+		console.log("http://localhost:8080/checkout/"+apartadoActual+"/true");
+		fetch("http://localhost:8080/checkout/"+apartadoActual+"/true")
+       .then(
+           function (apunte){    
+				console.log(apunte)
+            }
+
+     	); 
+	
+	}else{
+		document.getElementById('visto').innerText = '¿Visto?';
+		console.log("http://localhost:8080/checkout/"+apartadoActual+"/false");
+		fetch("http://localhost:8080/checkout/"+apartadoActual+"/false")
+       .then(
+           function (apunte){    
+				console.log(apunte)
+            }
+
+     	); 
+		
+	}
+}
+
+function isCheching(){
+
+	fetch("http://localhost:8080/checkstatus/"+apartadoActual)
+       .then((respuesta) => respuesta.json())
+       .then(
+           function (respuesta){    
+				console.log(respuesta.check);
+				if (respuesta.check){
+					document.getElementById('opt-in').checked = respuesta.check;
+					document.getElementById('visto').innerText = '¡Visto!';
+				}else{
+					document.getElementById('opt-in').checked = respuesta.check;
+					document.getElementById('visto').innerText = '¿Visto?';				
+				
+				}
+            }
+
+     ); 
+
+
 
 }
 

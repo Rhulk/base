@@ -16,10 +16,14 @@ import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.CamposAndTipos;
 import com.alquiler.reservas.entity.Capitulo;
+import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.ApunteRepository;
+import com.alquiler.reservas.repository.CheckoutRepository;
 import com.alquiler.reservas.repository.CursoRepository;
+import com.alquiler.reservas.repository.UserRepository;
 
 @Service
 public class CursoServiceImp implements CursoService {
@@ -34,6 +38,12 @@ public class CursoServiceImp implements CursoService {
 	ApartadoRepository apartadoRepository;
 	
 	@Autowired
+	CheckoutRepository checkoutRepository;
+	
+	@Autowired
+	UserRepository userRepository;
+	
+	@Autowired
 	CursoDAO cursoDAO;
 
 	@Override
@@ -44,9 +54,7 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public List<Capitulo> getCapitulos(Curso curso) {
-		
-		
-		
+
 		return curso.getCapitulos();
 	}
 
@@ -109,7 +117,55 @@ public class CursoServiceImp implements CursoService {
 		
 		
 	}
+
+	@Override
+	public void checking(Long apartado, boolean check, Long idUser) {
+		Apartado apa = new Apartado();
+		User uu = new User();
+		Checkout cc = new Checkout();
+		try {
+			apa = apartadoRepository.findById(apartado)
+					.orElseThrow(() -> new Exception("Apartado does not exist"));	
+			uu = userRepository.findById(idUser)
+					.orElseThrow(() -> new Exception("Usser does not exist"));	
+		} catch (Exception e) {
+			System.out.println(" Id apartado: "+apartado);
+			System.out.println(" Id user: "+idUser);
+			e.printStackTrace();
+		}
+		
+		cc = checkoutRepository.findByApartadoAndUser(apa, uu);
+		
+		if (cc == null) {
+			checkoutRepository.save(new Checkout(check, apa, uu));
+		}else {
+			cc.setChecking(check);
+			checkoutRepository.save(cc);
+		}
+					
+		
+	}
 	
+	public Checkout getCheckoutByApartadoAndUser(Long apartado, Long idUser) {
+		Apartado apa = new Apartado();
+		User uu = new User();
+		Checkout co = new Checkout();
+		try {
+			apa = apartadoRepository.findById(apartado)
+					.orElseThrow(() -> new Exception("Apartado does not exist"));	
+			uu = userRepository.findById(idUser)
+					.orElseThrow(() -> new Exception("Usser does not exist"));	
+		} catch (Exception e) {
+			System.out.println(" Id apartado: "+apartado);
+			System.out.println(" Id user: "+idUser);
+			e.printStackTrace();
+		}
+		co = checkoutRepository.findByApartadoAndUser(apa, uu);
+		System.out.println(" pag 165 "+co);
+		
+		return co;
+	}
 	
+
 
 }

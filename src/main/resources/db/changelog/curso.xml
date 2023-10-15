@@ -224,6 +224,16 @@
              <dropTable tableName="stg_checkout"/>
          </rollback>
      </changeSet>
+     
+          <changeSet  author="delop_sql"  id="curso_5a">  
+    	<renameColumn    
+            columnDataType="bit"  
+            newColumnName="checking"  
+            oldColumnName="check"  
+ 
+            tableName="stg_checkout"/>  
+	</changeSet> 
+     
      <changeSet author="develop_SQL" id="curso_6">
          <createTable tableName="stg_apunte">
          	<column autoIncrement="true" name="id" type="INT">

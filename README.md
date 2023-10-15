@@ -218,10 +218,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 
-# LastChange: Creando las pantallas del módulo
+# Fecha Committer: 10/10/23
+# LastChange: CRUD de los aportes
 # Origen: 
-# Situación: Inicial.
+# Situación: Avanzada.
+	Creadas las views del listado y detalle del curso.
+	Y la parte correspondiente del negocio.
+	
 # Problem: 
 
 
@@ -245,11 +248,34 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Paginado de los recursos sincronizado con el listado.
 		
 	Listado de apuntes CRUD y su paginado.
-		
+
+	Control de los videos vistos por cada usuario.
+		Crear servicio Rest
+		Al marcar el check.
+		Recuperar si el check esta o no marcado.
 	
-# Avances - Next :
+# Avances - Next to:
 
-
-
+	Control de los videos vistos por cada usuario.
+		Al finalizar el video marcar como visto.
+		Reproducion automatica de videos.
+		
+	Recuperar el usuario logueado.
+	
+	Importar curso nuevo:
+		Fase actual por script sql.
+		Fase 2: Formulario web crear y editar los existentes.
+			Desde un dashboard de cursos seleccionar curso a editar.
+			Mostrar cb con los capitulos, apartados y aportes.
+				Opcion de añadir uno nuevo o editar uno que seleccione.
+				
+		Fase 3: Importar desde un excel.
+		
+		
+	Filtro de cursos por usuario.
+			
+			
+			
+	
 
 #####################################################################################

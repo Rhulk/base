@@ -1,5 +1,6 @@
 package com.alquiler.reservas.controller.rest;
 
+import java.util.LinkedList;
 import java.util.List;
 
 import org.springframework.beans.factory.annotation.Autowired;
@@ -8,7 +9,11 @@ import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
+import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
+import com.alquiler.reservas.entity.Checkout;
+import com.alquiler.reservas.entity.Respuesta;
+import com.alquiler.reservas.repository.CheckoutRepository;
 import com.alquiler.reservas.service.CursoService;
 
 @RestController
@@ -51,4 +56,27 @@ public class CursosRest {
 		return "OK";
 	}	
 	
+	@GetMapping("/checkout/{apartado}/{check}")
+	public String checkOut(@PathVariable(name="apartado") Long apartado, @PathVariable(name="check") boolean check ) {
+		Long idUser =(long) 7;
+		
+		try {
+			cursoService.checking(apartado,check,idUser);
+		} catch (Exception e) {
+			e.printStackTrace();
+			return "KO";
+		}
+		
+		
+		return "OK";
+	}
+	
+	@GetMapping("/checkstatus/{apartado}")
+	public Respuesta checkStatus(@PathVariable(name="apartado") Long apartado) {
+		Long idUser =(long) 7;
+		Respuesta res = new Respuesta();
+		res.setCheck(cursoService.getCheckoutByApartadoAndUser(apartado, idUser).isChecking());
+		
+		return res;
+	}
 }

@@ -6,6 +6,7 @@ import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.CategoriaCurso;
+import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Curso;
 
 public interface CursoService {
@@ -27,5 +28,9 @@ public interface CursoService {
 	public void deleteApunte(Apunte apu);
 
 	public void createNewAporte(Long apartado, String notas, Long idUser);
+
+	public void checking(Long apartado, boolean check, Long idUser);
+	
+	public Checkout getCheckoutByApartadoAndUser(Long apartado, Long idUser);
 	
 }
