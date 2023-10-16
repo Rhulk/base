@@ -93,13 +93,11 @@ public class CursosRest {
 	
 	public User getLoguin() {
 		User userLogado = new User();
-
 		
 	    Authentication auth = SecurityContextHolder
 	            .getContext()
 	            .getAuthentication();
 	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
-	    System.out.println(userDetail.getUsername());
 	    try {
 	    	userLogado = this.usuarioService.getUserByName(userDetail.getUsername());
 		} catch (Exception e) {

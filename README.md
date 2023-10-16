@@ -257,6 +257,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 	Recuperar el usuario logueado.
 	
+	Crear pestañas nuevas sub menus cursos:
+	
+	
 # Avances - Next to:
 
 	Control de los videos vistos por cada usuario.
@@ -273,10 +276,27 @@ Doc de los avances y modificaciones en las diferentes ramas
 				
 		Fase 3: Importar desde un excel.
 		
+	
+			
+	Crear pestañas nuevas sub menus cursos:
+		Mis cursos:
+			Seguimiento de mis cursos actuales.
+		Alta:
+			Creación de nuevos cursos.
+		Editar:
+			Edición de los cursos existentes.
+		All cursos:
+			contiene todos los cursos.
+			
+		Gestiones con los cursos desde el dashboard de cursos:
+			Aplicar curso.
+			Ver curso. "Actual Join Curso"
+			Abandonar curso.
+			Editar curso.
+			Controlar si ya estamos en el curso o no.
+			
 		
-	Filtro de cursos por usuario.
-			
-			
+		
 			
 	
 

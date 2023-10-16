@@ -23,6 +23,99 @@ public class CursosController {
 	@Autowired
 	CursoRepository cursoRepository;
 	
+	
+	@GetMapping("/cursoAlta")
+	public String cursoAlta(Model model) {
+		
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
+		
+		// Gestión de tab acvitos o no
+		model.addAttribute("tabTodo","no");
+		model.addAttribute("listTabTodo","no");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
+		model.addAttribute("detailTabCurso","no");
+		model.addAttribute("tabCurso","active");
+		model.addAttribute("listTabCurso","no");
+		model.addAttribute("misTabCurso","no");
+		model.addAttribute("editarTabCurso","no");
+		model.addAttribute("altaTabCurso","active");
+		
+		// modelo de datos 
+		
+
+// TO-DO: Crear el formulario del alta
+		
+		
+		// TEST
+
+		
+		return "security/user-form/main-view.html";
+	}			
+
+	@GetMapping("/cursolistEdit")
+	public String cursolistEdit(Model model) {
+		
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
+		
+		// Gestión de tab acvitos o no
+		model.addAttribute("tabTodo","no");
+		model.addAttribute("listTabTodo","no");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
+		model.addAttribute("detailTabCurso","no");
+		model.addAttribute("tabCurso","active");
+		model.addAttribute("listTabCurso","no");
+		model.addAttribute("misTabCurso","no");
+		model.addAttribute("editarTabCurso","active");
+		model.addAttribute("altaTabCurso","no");
+		
+		// modelo de datos 
+		model.addAttribute("cursos",cursoRepository.findAll());
+
+// TO-DO: Crear el formulario de edición del curso y su re dirección
+		
+		// TEST
+
+		
+		return "security/user-form/main-view.html";
+	}		
+	
+	@GetMapping("/cursolistPropios")
+	public String cursolistPropios(Model model) {
+		
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoFormTodo",false);
+		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
+		
+		// Gestión de tab acvitos o no
+		model.addAttribute("tabTodo","no");
+		model.addAttribute("listTabTodo","no");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
+		model.addAttribute("detailTabCurso","no");
+		model.addAttribute("tabCurso","active");
+		model.addAttribute("listTabCurso","no");
+		model.addAttribute("misTabCurso","active");
+		model.addAttribute("editarTabCurso","no");
+		model.addAttribute("altaTabCurso","no");
+		
+		// modelo de datos Pendiente solo recuperar los del usuario
+		model.addAttribute("cursos",cursoRepository.findAll());
+		
+		// TEST
+
+		
+		return "security/user-form/main-view.html";
+	}	
+	
 	@GetMapping("/cursolist")
 	public String cursoList(Model model) {
 		
@@ -39,12 +132,15 @@ public class CursosController {
 		model.addAttribute("detailTabCurso","no");
 		model.addAttribute("tabCurso","active");
 		model.addAttribute("listTabCurso","active");
+		model.addAttribute("misTabCurso","no");
+		model.addAttribute("editarTabCurso","no");
+		model.addAttribute("altaTabCurso","no");
 		
 		// modelo de datos
 		model.addAttribute("cursos",cursoRepository.findAll());
 		
 		// TEST
-		System.out.println(" -- TEST 2 --"+cursoRepository.findAll());
+
 		
 		return "security/user-form/main-view.html";
 	}
