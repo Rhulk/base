@@ -218,8 +218,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 10/10/23
-# LastChange: CRUD de los aportes
+# Fecha Committer: 16/10/23
+# LastChange: Recuperar si el check esta o no marcado.
 # Origen: 
 # Situación: Avanzada.
 	Creadas las views del listado y detalle del curso.
@@ -253,6 +253,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Crear servicio Rest
 		Al marcar el check.
 		Recuperar si el check esta o no marcado.
+		...
+		
+	Recuperar el usuario logueado.
 	
 # Avances - Next to:
 
@@ -260,7 +263,6 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Al finalizar el video marcar como visto.
 		Reproducion automatica de videos.
 		
-	Recuperar el usuario logueado.
 	
 	Importar curso nuevo:
 		Fase actual por script sql.

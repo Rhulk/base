@@ -4,12 +4,16 @@ import java.util.LinkedList;
 import java.util.List;
 import java.util.Optional;
 
+import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.data.repository.CrudRepository;
+import org.springframework.security.core.Authentication;
+import org.springframework.security.core.context.SecurityContextHolder;
+import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.entity.Apartado;
@@ -44,6 +48,9 @@ public class CursoServiceImp implements CursoService {
 	UserRepository userRepository;
 	
 	@Autowired
+	UserService usuarioService;
+	
+	@Autowired
 	CursoDAO cursoDAO;
 
 	@Override
@@ -70,6 +77,7 @@ public class CursoServiceImp implements CursoService {
 			apartados.addAll(capitulos.get(i).getApartados());
 			
 		}
+
 		return apartados;
 	}
 
@@ -166,6 +174,27 @@ public class CursoServiceImp implements CursoService {
 		return co;
 	}
 	
+	
 
+
+	
+	public User getLoguin() {
+		User userLogado = new User();
+
+		
+	    Authentication auth = SecurityContextHolder
+	            .getContext()
+	            .getAuthentication();
+	    UserDetails userDetail = (UserDetails) auth.getPrincipal();
+	    System.out.println(userDetail.getUsername());
+	    try {
+	    	userLogado = this.usuarioService.getUserByName(userDetail.getUsername());
+		} catch (Exception e) {
+			// TODO Auto-generated catch block
+			e.printStackTrace();
+		}
+
+		return userLogado;
+	}
 
 }
