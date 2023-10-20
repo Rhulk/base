@@ -410,10 +410,16 @@ function modAporte(id){
 	id = id.substr(7, id.length);
 	var notas = document.getElementById('textarea').value;
 	
-	fetch("http://localhost:8080/saveAporteIn/"+id+"/"+notas)
+	fetch("http://localhost:8080/modApunteIn/"+id+"/"+notas)
+		.then((respuesta) => respuesta.json())
        .then(
-           function (respuesta){    
-				console.log('Modificacion');
+           function (respuesta){   
+           		if (respuesta.check){
+           			console.log('Modificacion OK');
+           		}else{
+           			console.log('Modificacion KO');
+           		}
+				
 				
             }
 

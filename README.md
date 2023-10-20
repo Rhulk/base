@@ -227,7 +227,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 # Problem: 
 
-	Falla la modificación del apunte.
+	
 
 # Resueltos:
 	Creando las pantallas del módulo
@@ -269,6 +269,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Controlar si ya estamos en el curso o no.
 		Mejorar el sistema de btns Follow and Unfollow.
 	
+	Falla la modificación del apunte. OK
+	
+	
 	
 # Avances - Next to:
 
@@ -299,7 +302,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 			contiene todos los cursos.
 			
 
-			
+	Unificar las respuestas REST con objeto Respuesta.	
 		
 		
 			

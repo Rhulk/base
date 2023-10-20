@@ -25,6 +25,7 @@ public interface CursoService {
 	
 	
 	public Apunte getApunteById(Long apunte);
+	public boolean modApunte(Long apunte, String notas);
 	public void deleteApunte(Apunte apu);
 
 	public void createNewAporte(Long apartado, String notas, Long idUser);
@@ -36,5 +37,7 @@ public interface CursoService {
 	public boolean followCurso(Long curso);
 	public boolean unfollowCurso(Long curso);
 	public boolean isFollowCurso(Long curso);
+
+	
 	
 }

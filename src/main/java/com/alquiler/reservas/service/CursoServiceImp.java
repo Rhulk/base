@@ -130,6 +130,21 @@ public class CursoServiceImp implements CursoService {
 		
 		
 	}
+	
+	@Override
+	public boolean modApunte(Long apunte, String notas) {
+		try {
+			Apunte apu = getApunteById(apunte);
+			apu.setNotas(notas);
+			apunteRepository.save(apu);	
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}
+	
+	
 
 	@Override
 	public void checking(Long apartado, boolean check, Long idUser) {
@@ -259,5 +274,7 @@ public class CursoServiceImp implements CursoService {
 		
 		return false;
 	}
+
+
 	
 }

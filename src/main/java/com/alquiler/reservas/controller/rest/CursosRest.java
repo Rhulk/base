@@ -59,7 +59,13 @@ public class CursosRest {
 			return "KO";
 		}
 		return "OK";
-	}	
+	}
+	
+	@GetMapping("/modApunteIn/{apunte}/{notas}")
+	public Respuesta modApunteIn(@PathVariable(name="apunte") Long apunte, @PathVariable(name="notas") String notas) {
+
+		return new Respuesta(cursoService.modApunte(apunte,notas));
+	}
 	
 	@GetMapping("/checkout/{apartado}/{check}")
 	public String checkOut(@PathVariable(name="apartado") Long apartado, @PathVariable(name="check") boolean check ) {
