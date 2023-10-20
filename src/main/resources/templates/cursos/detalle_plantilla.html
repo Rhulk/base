@@ -29,6 +29,26 @@
                 </span><label th:text="${detallecurso.nombre}"></label></h2>
               <p class="main__desc"><label th:text="${detallecurso.descripcion}"></label></p>
               <p class="main__sub"><span>Fuente: <label th:text="${detallecurso.fuente}"></label></span></p>
+              
+			<div id="btns">
+          	<button  
+          		name="uname_follow"
+          		id="btn_follow"
+          	 	th:value="${detallecurso.id}" 
+          	 	class="btn_green follow oculto"
+          	 	onclick="follow()"
+          	 >Follow
+          	</button> 
+          	 
+          	<button 
+          		id="btn_unfollow"
+          	 	th:value="${detallecurso.id}"
+          	 	class="btn_red unfollow oculto" 
+          	 	onclick="unfollow()"
+          	 >Unfollow
+          	</button>          
+          	</div>
+              
             </div>
 
             <!-- LIST -->

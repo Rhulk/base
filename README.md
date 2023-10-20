@@ -227,6 +227,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 # Problem: 
 
+	Falla la modificación del apunte.
 
 # Resueltos:
 	Creando las pantallas del módulo
@@ -260,6 +261,15 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Crear pestañas nuevas sub menus cursos:
 	
 	
+	Gestiones con los cursos desde el dashboard de cursos:
+		Follow curso.
+		Unfollow curso.
+		Detalle curso. "Actual Join Curso"
+		Editar curso.
+		Controlar si ya estamos en el curso o no.
+		Mejorar el sistema de btns Follow and Unfollow.
+	
+	
 # Avances - Next to:
 
 	Control de los videos vistos por cada usuario.
@@ -288,12 +298,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		All cursos:
 			contiene todos los cursos.
 			
-		Gestiones con los cursos desde el dashboard de cursos:
-			Aplicar curso.
-			Ver curso. "Actual Join Curso"
-			Abandonar curso.
-			Editar curso.
-			Controlar si ya estamos en el curso o no.
+
 			
 		
 		

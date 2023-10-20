@@ -1,11 +1,21 @@
+
 $(document).ready(function(){
   var zindex = 10;
+
+    
+
   
-  $("button.joinbtn").click(function(e){
+  $("button.viewbtn").click(function(e){
   
-  	location.href ='curso'+document.querySelector('.joinbtn').value;
+  	location.href ='curso'+document.querySelector('.viewbtn').value;
   
   });
+
+
+  
+  
+
+
   
   $("div.card_curso").click(function(e){
     e.preventDefault();

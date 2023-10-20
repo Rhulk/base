@@ -33,4 +33,8 @@ public interface CursoService {
 	
 	public Checkout getCheckoutByApartadoAndUser(Long apartado, Long idUser);
 	
+	public boolean followCurso(Long curso);
+	public boolean unfollowCurso(Long curso);
+	public boolean isFollowCurso(Long curso);
+	
 }

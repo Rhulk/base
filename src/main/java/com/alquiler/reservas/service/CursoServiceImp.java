@@ -22,11 +22,13 @@ import com.alquiler.reservas.entity.CamposAndTipos;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.entity.CursoUser;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.ApunteRepository;
 import com.alquiler.reservas.repository.CheckoutRepository;
 import com.alquiler.reservas.repository.CursoRepository;
+import com.alquiler.reservas.repository.CursoUserRepository;
 import com.alquiler.reservas.repository.UserRepository;
 
 @Service
@@ -52,6 +54,9 @@ public class CursoServiceImp implements CursoService {
 	
 	@Autowired
 	CursoDAO cursoDAO;
+	
+	@Autowired
+	CursoUserRepository cursoUserRepository;
 
 	@Override
 	public Curso getCurso(Long id) throws Exception {
@@ -174,10 +179,6 @@ public class CursoServiceImp implements CursoService {
 		return co;
 	}
 	
-	
-
-
-	
 	public User getLoguin() {
 		User userLogado = new User();
 
@@ -197,4 +198,66 @@ public class CursoServiceImp implements CursoService {
 		return userLogado;
 	}
 
+	public boolean followCurso(Long curso) {
+		User uu = getLoguin();
+		Curso cc = new Curso();
+		
+		try {
+			cc = cursoRepository.findById(curso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+		} catch (Exception e) {
+			System.out.println("Faild");
+			return false;
+		}
+		if (cursoUserRepository.findByCursoAndUser(cc, uu) == null) {
+			System.out.println("Is null");
+			cursoUserRepository.save(new CursoUser(cc,uu));
+			return true;
+		}
+		System.out.println("Is not null");
+		return true;
+	}
+	
+	public boolean unfollowCurso(Long curso) {
+		User uu = getLoguin();
+		Curso cc = new Curso();
+		CursoUser cu = new CursoUser();
+		
+		try {
+			cc = cursoRepository.findById(curso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		cu = cursoUserRepository.findByCursoAndUser(cc, uu);
+		if (cu != null) {	
+			cursoUserRepository.delete(cu);
+			return true;			
+		}
+
+		
+		return false;
+	}
+
+	@Override
+	public boolean isFollowCurso(Long curso) {	
+		User uu = getLoguin();
+		Curso cc = new Curso();
+		CursoUser cu = new CursoUser();
+		
+		try {
+			cc = cursoRepository.findById(curso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+		} catch (Exception e) {
+			// TODO: handle exception
+		}
+		cu = cursoUserRepository.findByCursoAndUser(cc, uu);
+		if (cu != null) {	
+			return true;			
+		}
+
+		
+		return false;
+	}
+	
 }

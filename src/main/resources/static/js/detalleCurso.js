@@ -8,32 +8,87 @@ let posicionInicial =0;
 let video= '08f8_eHrarU';
 
 
-var player;
-function onYouTubePlayerAPIReady() {
-    player = new YT.Player('idframe', {
-      height: '100%',
-      width: '100%',
-      videoId: video,
-      events: {
-        'onReady': onAutoPlay,
-        'onStateChange': onFinish
-      }
-    });
+
+function follow(){
+
+
+
+	fetch("http://localhost:8080/follow/"+document.querySelector('.follow').value)
+	.then((respuesta) => respuesta.json())
+    .then(
+    	function (respuesta){  
+			
+			if (respuesta.check){
+	 			document.getElementById('btn_unfollow').classList.remove('oculto');
+				document.getElementById('btn_follow').classList.add('oculto');
+			}
+		}
+
+     ); 
+
+	
 }
-function onAutoPlay(event) {
-    event.target.playVideo();
-    console.log(player);
+
+function unfollow(){
+	
+	fetch("http://localhost:8080/unfollow/"+document.querySelector('.unfollow').value)
+	.then((respuesta) => respuesta.json())
+    .then(
+    	function (respuesta){    
+			if (respuesta.check){
+				document.getElementById('btn_follow').classList.remove('oculto');
+				document.getElementById('btn_unfollow').classList.add('oculto');
+			}
+		}
+
+     ); 
+     
 }
-function onFinish(event) {        
-    if(event.data === 0) {            
-        alert("Fin");
+function isfollow(){
+    try {
+		fetch("http://localhost:8080/isfollow/"+document.querySelector('.follow').value)
+		.then((respuesta) => respuesta.json())
+	    .then(
+	    	function (respuesta){  
+	    	 	console.log(respuesta.check);
+			 	siOno = respuesta.check;
+	
+			 	
+			 	if(respuesta.check){//follow
+				    console.log(	document.getElementById(btn_unfollow) );
+					document.getElementById('btn_unfollow').classList.remove('oculto');
+					var contiene = document.getElementById('btn_follow')
+						.classList.contains('oculto'); 
+					if(!contiene){//con contiene
+						document.getElementById('btn_follow').classList.add('oculto');
+					}				 		
+			 	}else{//unfollow
+					document.getElementById('btn_follow').classList.remove('oculto');
+					var contiene = document.getElementById(btn_unfollow)
+						.classList.contains( 'oculto' ); 
+					if(!contiene){
+						document.getElementById('btn_unfollow').classList.add('oculto');
+					}		 		
+			 	}
+			 	return siOno;
+			}
+			
+	
+     	);	    
+    } catch (error) {
+        return error;
     }
-    console.log(player);
-    console.log(player.videoId);
 }
+
+
+
+
+
 
 
 $(document).ready(function() {
+
+	isfollow();
 
 	document.getElementById('visto').innerText = '¿Visto?';
 	maxApartado = document.querySelectorAll('.'+'apartado').length;

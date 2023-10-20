@@ -1,25 +1,19 @@
 package com.alquiler.reservas.controller.rest;
 
-import java.util.LinkedList;
 import java.util.List;
-
-import javax.annotation.PostConstruct;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
-import org.springframework.web.bind.annotation.DeleteMapping;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.RestController;
 
-import com.alquiler.reservas.entity.Apartado;
+
 import com.alquiler.reservas.entity.Apunte;
-import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
-import com.alquiler.reservas.repository.CheckoutRepository;
 import com.alquiler.reservas.service.CursoService;
 import com.alquiler.reservas.service.UserService;
 
@@ -84,11 +78,29 @@ public class CursosRest {
 	
 	@GetMapping("/checkstatus/{apartado}")
 	public Respuesta checkStatus(@PathVariable(name="apartado") Long apartado) {
-		Long idUser =(long) 7;
+		User usuarioActual = getLoguin();
 		Respuesta res = new Respuesta();
-		res.setCheck(cursoService.getCheckoutByApartadoAndUser(apartado, idUser).isChecking());
+		res.setCheck(cursoService.getCheckoutByApartadoAndUser(apartado, usuarioActual.getId()).isChecking());
 		
 		return res;
+	}
+	
+	@GetMapping("/follow/{curso}")
+	public Respuesta follow(@PathVariable(name="curso") Long curso) {
+		
+		return new Respuesta(cursoService.followCurso(curso));
+	}
+	
+	@GetMapping("/unfollow/{curso}")
+	public Respuesta unfollow(@PathVariable(name="curso") Long curso) {
+		
+		return new Respuesta(cursoService.unfollowCurso(curso));
+	}
+	
+	@GetMapping("/isfollow/{curso}")
+	public Respuesta isfollow(@PathVariable(name="curso") Long curso) {
+		
+		return new Respuesta(cursoService.isFollowCurso(curso));
 	}
 	
 	public User getLoguin() {
