@@ -39,26 +39,15 @@ public class CursosRest {
 	}
 
 	@GetMapping("/deleteapunte/{apunte}")
-	public String deleteAporte(@PathVariable(name="apunte") Long apunte) {
+	public Respuesta deleteAporte(@PathVariable(name="apunte") Long apunte) {
 		
-		try {
-			cursoService.deleteApunte(cursoService.getApunteById(apunte));
-		}catch (Exception e) {
-			return "KO";
-		}
-		return "OK";
+		return new Respuesta( cursoService.deleteApunte(cursoService.getApunteById(apunte)) );
 	}
 	
 	@GetMapping("/saveAporteIn/{apartado}/{notas}")
-	public String saveAporteIn(@PathVariable(name="apartado") Long apartado, @PathVariable(name="notas") String notas) {
-		
-		User usuarioActual = getLoguin();
-		try {
-			cursoService.createNewAporte(apartado,notas,usuarioActual.getId());
-		}catch (Exception e) {
-			return "KO";
-		}
-		return "OK";
+	public Respuesta saveAporteIn(@PathVariable(name="apartado") Long apartado, @PathVariable(name="notas") String notas) {
+
+		return new Respuesta( cursoService.createNewAporte(apartado,notas,getLoguin().getId()) );
 	}
 	
 	@GetMapping("/modApunteIn/{apunte}/{notas}")
@@ -68,27 +57,15 @@ public class CursosRest {
 	}
 	
 	@GetMapping("/checkout/{apartado}/{check}")
-	public String checkOut(@PathVariable(name="apartado") Long apartado, @PathVariable(name="check") boolean check ) {
-		User usuarioActual = getLoguin();
+	public Respuesta checkOut(@PathVariable(name="apartado") Long apartado, @PathVariable(name="check") boolean check ) {
 		
-		try {
-			cursoService.checking(apartado,check,usuarioActual.getId());
-		} catch (Exception e) {
-			e.printStackTrace();
-			return "KO";
-		}
-		
-		
-		return "OK";
+		return new Respuesta( cursoService.checking(apartado,check,getLoguin().getId()) );
 	}
 	
 	@GetMapping("/checkstatus/{apartado}")
 	public Respuesta checkStatus(@PathVariable(name="apartado") Long apartado) {
-		User usuarioActual = getLoguin();
-		Respuesta res = new Respuesta();
-		res.setCheck(cursoService.getCheckoutByApartadoAndUser(apartado, usuarioActual.getId()).isChecking());
 		
-		return res;
+		return new Respuesta( cursoService.getCheckoutByApartadoAndUser(apartado, getLoguin().getId()).isChecking() );
 	}
 	
 	@GetMapping("/follow/{curso}")

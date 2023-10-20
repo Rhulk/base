@@ -109,24 +109,32 @@ public class CursoServiceImp implements CursoService {
 		return apu;
 	}
 	
-	public void deleteApunte(Apunte apu) {
+	public boolean deleteApunte(Apunte apu) {
 		
-		apunteRepository.delete(apu);
-		
+		try {
+			apunteRepository.delete(apu);
+			return true;
+		}catch (Exception e) {
+			e.getMessage();
+			return false;
+		}
 	}
 
 	@Override
-	public void createNewAporte(Long apartado, String notas, Long idUser) {
+	public boolean createNewAporte(Long apartado, String notas, Long idUser) {
 		Apartado apa = new Apartado();
 		try {
 			apa = apartadoRepository.findById(apartado)
 					.orElseThrow(() -> new Exception("Apartado does not exist"));
+			apunteRepository.save(new Apunte(notas,apa,idUser));
+			return true;
 		} catch (Exception e) {
 			System.out.println(" Id apartado: "+apartado);
 			e.printStackTrace();
+			return false;
 		}
 		
-		apunteRepository.save(new Apunte(notas,apa,idUser));
+		
 		
 		
 	}
@@ -147,7 +155,7 @@ public class CursoServiceImp implements CursoService {
 	
 
 	@Override
-	public void checking(Long apartado, boolean check, Long idUser) {
+	public boolean checking(Long apartado, boolean check, Long idUser) {
 		Apartado apa = new Apartado();
 		User uu = new User();
 		Checkout cc = new Checkout();
@@ -155,21 +163,25 @@ public class CursoServiceImp implements CursoService {
 			apa = apartadoRepository.findById(apartado)
 					.orElseThrow(() -> new Exception("Apartado does not exist"));	
 			uu = userRepository.findById(idUser)
-					.orElseThrow(() -> new Exception("Usser does not exist"));	
+					.orElseThrow(() -> new Exception("Usser does not exist"));
+			cc = checkoutRepository.findByApartadoAndUser(apa, uu);
+			
+			if (cc == null) {
+				checkoutRepository.save(new Checkout(check, apa, uu));
+			}else {
+				cc.setChecking(check);
+				checkoutRepository.save(cc);
+			}		
+			return true;
+			
 		} catch (Exception e) {
 			System.out.println(" Id apartado: "+apartado);
 			System.out.println(" Id user: "+idUser);
 			e.printStackTrace();
+			return false;
 		}
 		
-		cc = checkoutRepository.findByApartadoAndUser(apa, uu);
-		
-		if (cc == null) {
-			checkoutRepository.save(new Checkout(check, apa, uu));
-		}else {
-			cc.setChecking(check);
-			checkoutRepository.save(cc);
-		}
+
 					
 		
 	}

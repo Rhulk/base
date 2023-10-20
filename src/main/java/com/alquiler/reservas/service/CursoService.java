@@ -26,11 +26,11 @@ public interface CursoService {
 	
 	public Apunte getApunteById(Long apunte);
 	public boolean modApunte(Long apunte, String notas);
-	public void deleteApunte(Apunte apu);
+	public boolean deleteApunte(Apunte apu);
 
-	public void createNewAporte(Long apartado, String notas, Long idUser);
+	public boolean createNewAporte(Long apartado, String notas, Long idUser);
 
-	public void checking(Long apartado, boolean check, Long idUser);
+	public boolean checking(Long apartado, boolean check, Long idUser);
 	
 	public Checkout getCheckoutByApartadoAndUser(Long apartado, Long idUser);
 	

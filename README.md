@@ -271,6 +271,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 	Falla la modificación del apunte. OK
 	
+	Unificar las respuestas REST con objeto Respuesta.
+	
 	
 	
 # Avances - Next to:
@@ -302,7 +304,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 			contiene todos los cursos.
 			
 
-	Unificar las respuestas REST con objeto Respuesta.	
+		
 		
 		
 			

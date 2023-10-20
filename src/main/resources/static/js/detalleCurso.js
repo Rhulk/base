@@ -378,23 +378,26 @@ function saveAporte(id){
 	var notas = document.getElementById('textarea').value;
 	
 	fetch("http://localhost:8080/saveAporteIn/"+id+"/"+notas)
-       //.then((apunte) => apunte.json())
+       .then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    
-				document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua';
-				document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt';
-				document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod';
-				document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del';
-				document.getElementById(
-					document.querySelectorAll('.'+'btn_gua')[0].id).classList.add('oculto');
-				document.getElementById(
-					document.querySelectorAll('.'+'btn_alt')[0].id).classList.remove('oculto');
-				document.getElementById(
-					document.querySelectorAll('.'+'btn_mod')[0].id).classList.remove('oculto');
-				document.getElementById(
-					document.querySelectorAll('.'+'btn_del')[0].id).classList.remove('oculto');	
-									
-				recuperarNotas(apartadoActual, posicionInicial);
+           		if (respuesta.check){
+           			document.querySelectorAll('.'+'btn_gua')[0].id = 'btn_gua';
+					document.querySelectorAll('.'+'btn_alt')[0].id = 'btn_alt';
+					document.querySelectorAll('.'+'btn_mod')[0].id = 'btn_mod';
+					document.querySelectorAll('.'+'btn_del')[0].id = 'btn_del';
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_gua')[0].id).classList.add('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_alt')[0].id).classList.remove('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_mod')[0].id).classList.remove('oculto');
+					document.getElementById(
+						document.querySelectorAll('.'+'btn_del')[0].id).classList.remove('oculto');						
+					recuperarNotas(apartadoActual, posicionInicial);
+           		}else{
+           			console.log("FAILD Save Aporte");
+           		}
             }
 
      ); 
@@ -442,16 +445,15 @@ function deleteAporte(id){
 	id = id.substr(7, id.length);	
 	
 	fetch("http://localhost:8080/deleteapunte/"+id)
-       //.then((apunte) => apunte.json())
+       .then((respuesta) => respuesta.json())
        .then(
-           function (apunte){    
-				console.log('delete: '+apunte);
-				console.log('Aporte: '+id+' del apartado: '+document.querySelectorAll('.'+'apartado').id); 
-				// recuperar solo el id id.substr(10, id.length)
-				
-				recuperarNotas(document.querySelectorAll('.'+'apartadoAporte')[0].id.substr(8, document.querySelectorAll('.'+'apartadoAporte')[0].id.length),0);
-				
-				//document.getElementById('idapunte'+apartadoActual).classList.add('oculto');
+           function (respuesta){    
+				if (respuesta.check){
+					recuperarNotas(document.querySelectorAll(
+						'.'+'apartadoAporte')[0].id.substr(8, document.querySelectorAll('.'+'apartadoAporte')[0].id.length),0);
+				}else{
+					console.log(" FAILD Delete Apunte.");
+				}
             }
 
      ); 
@@ -580,9 +582,14 @@ function checking(){
 		document.getElementById('visto').innerText = '¡Visto!';
 		console.log("http://localhost:8080/checkout/"+apartadoActual+"/true");
 		fetch("http://localhost:8080/checkout/"+apartadoActual+"/true")
+		.then((respuesta) => respuesta.json())
        .then(
-           function (apunte){    
-				console.log(apunte)
+           function (respuesta){    
+				if(respuesta.check){
+					console.log("Checking OK");
+				}else{
+					console.log("Checking KO");
+				}
             }
 
      	); 
@@ -591,9 +598,14 @@ function checking(){
 		document.getElementById('visto').innerText = '¿Visto?';
 		console.log("http://localhost:8080/checkout/"+apartadoActual+"/false");
 		fetch("http://localhost:8080/checkout/"+apartadoActual+"/false")
+		.then((respuesta) => respuesta.json())
        .then(
-           function (apunte){    
-				console.log(apunte)
+           function (respuesta){    
+				if(respuesta.check){
+					console.log("Checking OK");
+				}else{
+					console.log("Checking KO");
+				}
             }
 
      	); 
