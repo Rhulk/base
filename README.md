@@ -226,8 +226,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Y la parte correspondiente del negocio.
 	
 # Problem: 
-
 	
+	Los aportes no estan vinculados al curso ¿why?
 
 # Resueltos:
 	Creando las pantallas del módulo
@@ -273,7 +273,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 	Unificar las respuestas REST con objeto Respuesta.
 	
-	
+	Vinculo del dashboard al detalle siempre coge el 3. OK
 	
 # Avances - Next to:
 

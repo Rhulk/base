@@ -24,7 +24,12 @@
       </div>
       <div class="card-flap flap2">
         <div class="card-actions">
-          <button id="btn_view" th:value="${curso.id}" class="btn_blue viewbtn">Detalle curso</button>
+          <button  
+          	th:id="'btn_view' + ${curso.id}"
+          	onclick="goDetalle(this.id)"
+          	th:value="${curso.id}" 
+          	class="btn_blue viewbtn">Detalle curso
+          </button>
 
 
           

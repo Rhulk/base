@@ -1,19 +1,18 @@
 
+function goDetalle(id){
+
+	location.href ='curso'+document.getElementById(id).value;
+  
+}
+
 $(document).ready(function(){
   var zindex = 10;
 
     
 
   
-  $("button.viewbtn").click(function(e){
-  
-  	location.href ='curso'+document.querySelector('.viewbtn').value;
-  
-  });
 
 
-  
-  
 
 
   
