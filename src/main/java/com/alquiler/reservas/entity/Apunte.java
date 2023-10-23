@@ -8,6 +8,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.ManyToOne;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.persistence.Temporal;
 import javax.persistence.Transient;
@@ -16,8 +17,6 @@ import javax.validation.constraints.NotBlank;
 @Entity
 @Table(name="stg_apunte")
 public class Apunte {
-	
-	//stg_apunte  (notas,idapartado,iduser)
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
@@ -35,17 +34,19 @@ public class Apunte {
 	//@NotBlank pendiente vinculo con el usuario
 	public Long iduser;
 	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idcurso")
+	public Curso curso;
 
-	
 
 
 
-
-	public Apunte(String notas, Apartado apartado, Long iduser) {
+	public Apunte(String notas, Apartado apartado, Long iduser, Curso curso) {
 		super();
 		this.notas = notas;
 		this.apartado = apartado;
 		this.iduser = iduser;
+		this.curso = curso;
 	}
 
 

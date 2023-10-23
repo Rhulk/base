@@ -77,7 +77,8 @@
                     </div>  
                   </div>
                   
-				  <div th:id="'hijo_rotar' + ${apartado.id}" class="apartado check ocultarNavb " onclick="seleccionarApartado(this.id)" 
+				  <div th:id="'hijo_rotar' + ${apartado.id}" class="apartado check ocultarNavb " 
+				  		onclick="seleccionarApartado(this.id)" 
 				  		th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}"
 				  		th:title="${apartado.recurso}"
 				  		>

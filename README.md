@@ -227,7 +227,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 # Problem: 
 	
-	Los aportes no estan vinculados al curso ¿why?
+
 
 # Resueltos:
 	Creando las pantallas del módulo
@@ -275,6 +275,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 	Vinculo del dashboard al detalle siempre coge el 3. OK
 	
+	Los aportes no estan vinculados al curso ¿why?.
+		Se añade el curso a todos los metodos para la correcta vinculación con el mismo.
+	
 # Avances - Next to:
 
 	Control de los videos vistos por cada usuario.
@@ -304,7 +307,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 			contiene todos los cursos.
 			
 
-		
+	Bloquear todo lo referente al seguimiento de un curso si el usuario no lo sigue.	
 		
 		
 			

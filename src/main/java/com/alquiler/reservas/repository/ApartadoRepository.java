@@ -8,6 +8,6 @@ import com.alquiler.reservas.entity.Apartado;
 @Repository
 public interface ApartadoRepository extends CrudRepository<Apartado, Long>{
 
-	
+	//public Apartado findByIdAndCurso(Long apartado, Long curso);
 	
 }

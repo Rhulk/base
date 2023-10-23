@@ -26,46 +26,74 @@ public class CursosRest {
 	@Autowired
 	UserService usuarioService;
 	
-	@GetMapping("/apuntes/{apartado}/{pag}")
-	public List <Apunte> getApunteByApartado(@PathVariable(name="apartado") Long apartado, @PathVariable(name="pag") int pag){
+	@GetMapping("/apuntes/{apartado}/{pag}/{curso}")
+	public List <Apunte> getApunteByApartado(
+			@PathVariable(name="apartado") Long apartado,
+			@PathVariable(name="pag") int pag,
+			@PathVariable(name="curso") Long curso
+			){
 		
-		return cursoService.getApunte(apartado,pag);
+		return cursoService.getApunte(apartado,pag,curso);
 	}
 	
-	@GetMapping("/apuntes/{apartado}")
-	public int getCantidadAportesByApartado(@PathVariable(name="apartado") Long apartado) {
+	@GetMapping("/apuntes/{apartado}/{curso}")
+	public int getCantidadAportesByApartado(
+			@PathVariable(name="apartado") Long apartado,
+			@PathVariable(name="curso") Long curso			
+			) {
 		
-		return cursoService.getCantidadAportesByApartado(apartado);
+		return cursoService.getCantidadAportesByApartadoAndCurso(apartado, curso);
 	}
 
-	@GetMapping("/deleteapunte/{apunte}")
-	public Respuesta deleteAporte(@PathVariable(name="apunte") Long apunte) {
+	@GetMapping("/deleteapunte/{apunte}/{curso}")
+	public Respuesta deleteAporte(
+			@PathVariable(name="apunte") Long apunte,
+			@PathVariable(name="curso") Long curso
+			) {
 		
-		return new Respuesta( cursoService.deleteApunte(cursoService.getApunteById(apunte)) );
+		return new Respuesta( cursoService.deleteApunte(cursoService.getApunteByIdAndCurso(apunte,curso)) );
 	}
 	
-	@GetMapping("/saveAporteIn/{apartado}/{notas}")
-	public Respuesta saveAporteIn(@PathVariable(name="apartado") Long apartado, @PathVariable(name="notas") String notas) {
+	@GetMapping("/saveAporteIn/{apartado}/{notas}/{curso}")
+	public Respuesta saveAporteIn(
+			@PathVariable(name="apartado") Long apartado,
+			@PathVariable(name="notas") String notas,
+			@PathVariable(name="curso") Long curso
+			){
 
-		return new Respuesta( cursoService.createNewAporte(apartado,notas,getLoguin().getId()) );
+		return new Respuesta( 
+				cursoService.createNewAporte(
+						apartado,notas,getLoguin().getId(),curso) 
+				);
 	}
 	
-	@GetMapping("/modApunteIn/{apunte}/{notas}")
-	public Respuesta modApunteIn(@PathVariable(name="apunte") Long apunte, @PathVariable(name="notas") String notas) {
+	@GetMapping("/modApunteIn/{apunte}/{notas}/{curso}")
+	public Respuesta modApunteIn(
+			@PathVariable(name="apunte") Long apunte, 
+			@PathVariable(name="notas") String notas,
+			@PathVariable(name="curso") Long curso
+			) {
 
-		return new Respuesta(cursoService.modApunte(apunte,notas));
+		return new Respuesta(cursoService.modApunte(apunte,notas,curso));
 	}
 	
-	@GetMapping("/checkout/{apartado}/{check}")
-	public Respuesta checkOut(@PathVariable(name="apartado") Long apartado, @PathVariable(name="check") boolean check ) {
+	@GetMapping("/checkout/{apartado}/{check}/{curso}")
+	public Respuesta checkOut(
+			@PathVariable(name="apartado") Long apartado, 
+			@PathVariable(name="check") boolean check,
+			@PathVariable(name="curso") Long curso
+			) {
 		
-		return new Respuesta( cursoService.checking(apartado,check,getLoguin().getId()) );
+		return new Respuesta( cursoService.checking(apartado,check,getLoguin().getId(),curso) );
 	}
 	
-	@GetMapping("/checkstatus/{apartado}")
-	public Respuesta checkStatus(@PathVariable(name="apartado") Long apartado) {
+	@GetMapping("/checkstatus/{apartado}/{curso}")
+	public Respuesta checkStatus(
+			@PathVariable(name="apartado") Long apartado,
+			@PathVariable(name="curso") Long curso
+			) {
 		
-		return new Respuesta( cursoService.getCheckoutByApartadoAndUser(apartado, getLoguin().getId()).isChecking() );
+		return new Respuesta( cursoService.getCheckoutByApartadoAndUserAndCurso(apartado, getLoguin().getId(),curso).isChecking() );
 	}
 	
 	@GetMapping("/follow/{curso}")

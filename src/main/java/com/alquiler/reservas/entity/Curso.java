@@ -10,6 +10,7 @@ import javax.persistence.GenerationType;
 import javax.persistence.Id;
 import javax.persistence.JoinColumn;
 import javax.persistence.OneToMany;
+import javax.persistence.OneToOne;
 import javax.persistence.Table;
 import javax.validation.constraints.NotBlank;
 
@@ -45,6 +46,12 @@ public class Curso {
 	@OneToMany(fetch = FetchType.EAGER)
 	@JoinColumn(name="idcurso")
 	List<Capitulo> capitulos;
+	
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idcurso")
+	public Apunte apunte;
+	
+
 			
 	public Long getId() {
 		return id;

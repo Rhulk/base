@@ -33,27 +33,31 @@ public class CursoDAO {
 	 * sessionFactory.getCurrentSession(); }
 	 */
 	
-	public List <Apunte> getApunteDAO(Long apartado, int pag){
+	public List <Apunte> getApunteDAO(Long apartado, int pag, Long curso){
 		List <Apunte> apus = new LinkedList<>();
 		List<String> notas = new LinkedList<>();
 
 		List<Integer> ids = new ArrayList<Integer>();
 		
 
-		Query nota = em.createNativeQuery("select a.notas from stg_apunte a WHERE idapartado ='"+apartado+"' order by id asc");
-		Query id = em.createNativeQuery("select a.id from stg_apunte a WHERE idapartado ='"+apartado+"' order by id asc");
+		Query nota = em.createNativeQuery("select a.notas from stg_apunte a WHERE idapartado ='"+apartado+"'"
+				+ " and  idcurso ='"+curso+"'  order by id asc");
+		Query id = em.createNativeQuery("select a.id from stg_apunte a WHERE idapartado ='"+apartado+"'"
+				+ " and  idcurso ='"+curso+"'  order by id asc");
 
 		notas = nota.setFirstResult(pag).setMaxResults(1).getResultList(); 
 		ids = id.setFirstResult(pag).setMaxResults(1).getResultList();
 		
-		apus.add(new Apunte(ids.get(0),notas.get(0)));
-
+		if(notas.size()>0) {
+			apus.add(new Apunte(ids.get(0),notas.get(0)));
+		}
 		return apus;
 	}
 	
-	public int getCantidadAportesByApartadoDAO(Long apartado) {
+	public int getCantidadAportesByApartadoAndCursoDAO(Long apartado,Long curso) {
 		
-		Query query = em.createNativeQuery("select count(*) from stg_apunte WHERE idapartado ='"+apartado+"'");
+		Query query = em.createNativeQuery(
+				"select count(*) from stg_apunte WHERE idapartado ='"+apartado+"' and  idcurso ='"+curso+"'");
 
 		return (int) query.getResultList().get(0);
 	}

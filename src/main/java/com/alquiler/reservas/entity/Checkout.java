@@ -31,17 +31,22 @@ public class Checkout {
 	@OneToOne(fetch = FetchType.LAZY)
 	@JoinColumn(name="id_user")
 	public User user;
+
+	@OneToOne(fetch = FetchType.LAZY)
+	@JoinColumn(name="idcurso")
+	public Curso curso;
 	
 	
 	public Checkout() {
 		super();
 	}
 
-	public Checkout(@NotBlank boolean checking, Apartado apartado, User user) {
+	public Checkout(@NotBlank boolean checking, Apartado apartado, User user,Curso curso) {
 		super();
 		this.checking = checking;
 		this.apartado = apartado;
 		this.user = user;
+		this.curso = curso;
 	}
 
 	public Long getId() {

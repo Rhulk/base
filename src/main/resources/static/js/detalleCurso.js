@@ -1,19 +1,20 @@
 let maxApartado;
-let pag =1;
+let pag=1;
 let apartadoActual;
 
-let pagApu =1;
+let pagApu=1;
 let cantApu;
-let posicionInicial =0;
-let video= '08f8_eHrarU';
+let posicionInicial=0;
+let video='08f8_eHrarU';
 
-
+let cursoActual;
+let urlHost="http://localhost:8080";
 
 function follow(){
 
 
 
-	fetch("http://localhost:8080/follow/"+document.querySelector('.follow').value)
+	fetch(urlHost+"/follow/"+document.querySelector('.follow').value)
 	.then((respuesta) => respuesta.json())
     .then(
     	function (respuesta){  
@@ -31,7 +32,7 @@ function follow(){
 
 function unfollow(){
 	
-	fetch("http://localhost:8080/unfollow/"+document.querySelector('.unfollow').value)
+	fetch(urlHost+"/unfollow/"+document.querySelector('.unfollow').value)
 	.then((respuesta) => respuesta.json())
     .then(
     	function (respuesta){    
@@ -45,8 +46,9 @@ function unfollow(){
      
 }
 function isfollow(){
+	cursoActual = document.getElementById('btn_follow').value;
     try {
-		fetch("http://localhost:8080/isfollow/"+document.querySelector('.follow').value)
+		fetch(urlHost+"/isfollow/"+document.querySelector('.follow').value)
 		.then((respuesta) => respuesta.json())
 	    .then(
 	    	function (respuesta){  
@@ -55,7 +57,7 @@ function isfollow(){
 	
 			 	
 			 	if(respuesta.check){//follow
-				    console.log(	document.getElementById(btn_unfollow) );
+				    console.log(	document.getElementById('btn_unfollow') );
 					document.getElementById('btn_unfollow').classList.remove('oculto');
 					var contiene = document.getElementById('btn_follow')
 						.classList.contains('oculto'); 
@@ -64,7 +66,7 @@ function isfollow(){
 					}				 		
 			 	}else{//unfollow
 					document.getElementById('btn_follow').classList.remove('oculto');
-					var contiene = document.getElementById(btn_unfollow)
+					var contiene = document.getElementById('btn_unfollow')
 						.classList.contains( 'oculto' ); 
 					if(!contiene){
 						document.getElementById('btn_unfollow').classList.add('oculto');
@@ -79,11 +81,6 @@ function isfollow(){
         return error;
     }
 }
-
-
-
-
-
 
 
 $(document).ready(function() {
@@ -259,9 +256,9 @@ function seleccionarApartado(id){
     //var apunte = document.getElementById('idapunte');
     console.log('id '+id);
     console.log(id.substr(10, 1));//Apartado
-    apartadoActual = id.substr(10, 1);
+    apartadoActual = id.substr(10, id.length);
     var idapunte ='apunte'+id.substr(10, 1);
-    console.log(idapunte);
+    console.log(apartadoActual);
     console.log(document.getElementById(idapunte));
     console.log('Recupero div');
     
@@ -272,15 +269,15 @@ function seleccionarApartado(id){
     document.querySelectorAll('.'+'apartadoAporte')[0].id = idapu;
     document.getElementById('idapunte'+apartadoActual).classList.remove('oculto');
     
-	recuperarNotas(id.substr(10, 1),posicionInicial);
+	recuperarNotas(id.substr(10, id.length),posicionInicial);
 	isCheching();
 }
 
-function recuperarNotas(apartado, pag){
+function recuperarNotas(apartado, pag){	
 	console.log(document.getElementById(document.querySelectorAll('.'+'btn_gua')[0].id).classList);
 		pagApu=1;
 		document.getElementById('pagApu').textContent = pagApu;
-        fetch("http://localhost:8080/apuntes/"+apartado+"/"+pag)
+        fetch(urlHost+"/apuntes/"+apartado+"/"+pag+"/"+cursoActual)
        .then((apunte) => apunte.json())
        .then(
            function (apunte){  
@@ -333,13 +330,13 @@ function recuperarNotas(apartado, pag){
         console.log('apartadoActual :'+apartadoActual);
         apartadoActual = apartado;
         
-		fetch("http://localhost:8080/apuntes/"+apartado)
-       .then((apunte) => apunte.json())
+		fetch("http://localhost:8080/apuntes/"+apartado+"/"+cursoActual)
+       .then((cantidad) => cantidad.json())
        .then(
-           function (apunte){    
-				console.log('cantidad: '+apunte);
-				cantApu= apunte;
-				document.getElementById('pagTotal').textContent = apunte;			
+           function (cantidad){    
+				console.log('cantidad: '+cantidad);
+				cantApu= cantidad;
+				document.getElementById('pagTotal').textContent = cantidad;			
             }
 
         );
@@ -377,7 +374,7 @@ function saveAporte(id){
 
 	var notas = document.getElementById('textarea').value;
 	
-	fetch("http://localhost:8080/saveAporteIn/"+id+"/"+notas)
+	fetch(urlHost+"/saveAporteIn/"+id+"/"+notas+"/"+cursoActual)
        .then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    
@@ -413,7 +410,7 @@ function modAporte(id){
 	id = id.substr(7, id.length);
 	var notas = document.getElementById('textarea').value;
 	
-	fetch("http://localhost:8080/modApunteIn/"+id+"/"+notas)
+	fetch(urlHost+"/modApunteIn/"+id+"/"+notas+"/"+cursoActual)
 		.then((respuesta) => respuesta.json())
        .then(
            function (respuesta){   
@@ -437,14 +434,9 @@ function modAporte(id){
 
 function deleteAporte(id){
 
-	console.log('detete aporte: '+id.substr(7, id.length));
-	console.log(document.querySelectorAll('.'+'apartadoAporte')[0].id);
-	console.log(document.querySelectorAll('.'+'apartadoAporte')[0].id.substr(8, document.querySelectorAll('.'+'apartadoAporte')[0].id.length));
-
-
 	id = id.substr(7, id.length);	
 	
-	fetch("http://localhost:8080/deleteapunte/"+id)
+	fetch(urlHost+"/deleteapunte/"+id+"/"+cursoActual)
        .then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    
@@ -469,7 +461,7 @@ function nextStop(){
 		pagApu=pagApu+1;
 		document.getElementById('pagApu').textContent = pagApu;
 		var ajuste = pagApu-1;
-		fetch("http://localhost:8080/apuntes/"+apartadoActual+"/"+ajuste)
+		fetch(urlHost+"/apuntes/"+apartadoActual+"/"+ajuste+"/"+cursoActual)
        		.then((apunte) => apunte.json())
        		.then(
            		function (apunte){    
@@ -482,15 +474,12 @@ function nextStop(){
 }
 
 function backStop(){
-
-	console.log(pagApu);
-	console.log(cantApu);
 	
 	if (pagApu>1){
 		pagApu=pagApu-1;
 		document.getElementById('pagApu').textContent = pagApu;
 		var ajuste = pagApu-1;
-		fetch("http://localhost:8080/apuntes/"+apartadoActual+"/"+ajuste)
+		fetch(urlHost+"/apuntes/"+apartadoActual+"/"+ajuste+"/"+cursoActual)
        		.then((apunte) => apunte.json())
        		.then(
            		function (apunte){    
@@ -580,8 +569,8 @@ function checking(){
 	
 	if (document.getElementById('opt-in').checked){
 		document.getElementById('visto').innerText = '¡Visto!';
-		console.log("http://localhost:8080/checkout/"+apartadoActual+"/true");
-		fetch("http://localhost:8080/checkout/"+apartadoActual+"/true")
+		console.log("http://localhost:8080/checkout/"+apartadoActual+"/true"+"/"+cursoActual);
+		fetch(urlHost+"/checkout/"+apartadoActual+"/true"+"/"+cursoActual)
 		.then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    
@@ -596,8 +585,8 @@ function checking(){
 	
 	}else{
 		document.getElementById('visto').innerText = '¿Visto?';
-		console.log("http://localhost:8080/checkout/"+apartadoActual+"/false");
-		fetch("http://localhost:8080/checkout/"+apartadoActual+"/false")
+		console.log("http://localhost:8080/checkout/"+apartadoActual+"/false"+"/"+cursoActual);
+		fetch(urlHost+"/checkout/"+apartadoActual+"/false"+"/"+cursoActual)
 		.then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    
@@ -614,8 +603,8 @@ function checking(){
 }
 
 function isCheching(){
-
-	fetch("http://localhost:8080/checkstatus/"+apartadoActual)
+	console.log(urlHost+"/checkstatus/"+apartadoActual+"/"+cursoActual);
+	fetch(urlHost+"/checkstatus/"+apartadoActual+"/"+cursoActual)
        .then((respuesta) => respuesta.json())
        .then(
            function (respuesta){    

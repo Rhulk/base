@@ -87,20 +87,27 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public List <Apunte> getApunte(Long apartado, int pag) {
+	public List <Apunte> getApunte(Long apartado, int pag, Long curso) {
 		
-		return cursoDAO.getApunteDAO(apartado,pag);
+		System.out.println(cursoDAO.getApunteDAO(apartado,pag,curso));
+		
+		return cursoDAO.getApunteDAO(apartado,pag,curso);
 	}
 	
-	public int getCantidadAportesByApartado(Long apartado) {
+	public int getCantidadAportesByApartadoAndCurso(Long apartado, Long curso) {
 		
-		return cursoDAO.getCantidadAportesByApartadoDAO(apartado);
+		return cursoDAO.getCantidadAportesByApartadoAndCursoDAO(apartado,curso);
 	}
 
-	public Apunte getApunteById(Long apunte) {
+	public Apunte getApunteByIdAndCurso(Long apunte, Long idCurso) {
 		Apunte apu = new Apunte();
+		Curso cur = new Curso();
 		try {
-			apu = apunteRepository.findById(apunte).orElseThrow(() -> new Exception("Apunte does not exist"));
+			// faild, I can not use a type of data Long
+			// I have use the type Curso
+			cur = cursoRepository.findById(idCurso).orElseThrow();
+			apu = apunteRepository.findByIdAndCurso(apunte,cur);
+
 		} catch (Exception e) {
 			// TODO Auto-generated catch block
 			e.printStackTrace();
@@ -121,15 +128,20 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public boolean createNewAporte(Long apartado, String notas, Long idUser) {
+	public boolean createNewAporte(Long apartado, String notas, Long idUser, Long idCurso) {
 		Apartado apa = new Apartado();
+		Curso curso = new Curso();
 		try {
 			apa = apartadoRepository.findById(apartado)
 					.orElseThrow(() -> new Exception("Apartado does not exist"));
-			apunteRepository.save(new Apunte(notas,apa,idUser));
+			curso = cursoRepository.findById(idCurso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+			apunteRepository.save(new Apunte(notas,apa,idUser,curso));
 			return true;
 		} catch (Exception e) {
 			System.out.println(" Id apartado: "+apartado);
+			System.out.println(" Id user: "+idUser);
+			System.out.println(" Id curso: "+idCurso);
 			e.printStackTrace();
 			return false;
 		}
@@ -140,9 +152,10 @@ public class CursoServiceImp implements CursoService {
 	}
 	
 	@Override
-	public boolean modApunte(Long apunte, String notas) {
+	public boolean modApunte(Long apunte, String notas, Long curso) {
+		
 		try {
-			Apunte apu = getApunteById(apunte);
+			Apunte apu = getApunteByIdAndCurso(apunte,curso);
 			apu.setNotas(notas);
 			apunteRepository.save(apu);	
 			return true;
@@ -155,19 +168,24 @@ public class CursoServiceImp implements CursoService {
 	
 
 	@Override
-	public boolean checking(Long apartado, boolean check, Long idUser) {
+	public boolean checking(Long apartado, boolean check, Long idUser, Long idCurso) {
 		Apartado apa = new Apartado();
 		User uu = new User();
 		Checkout cc = new Checkout();
+		Curso curso = new Curso();
+		
 		try {
 			apa = apartadoRepository.findById(apartado)
 					.orElseThrow(() -> new Exception("Apartado does not exist"));	
 			uu = userRepository.findById(idUser)
 					.orElseThrow(() -> new Exception("Usser does not exist"));
-			cc = checkoutRepository.findByApartadoAndUser(apa, uu);
+			curso = cursoRepository.findById(idCurso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+			
+			cc = checkoutRepository.findByApartadoAndUserAndCurso(apa, uu,curso);
 			
 			if (cc == null) {
-				checkoutRepository.save(new Checkout(check, apa, uu));
+				checkoutRepository.save(new Checkout(check, apa, uu,curso));
 			}else {
 				cc.setChecking(check);
 				checkoutRepository.save(cc);
@@ -186,23 +204,35 @@ public class CursoServiceImp implements CursoService {
 		
 	}
 	
-	public Checkout getCheckoutByApartadoAndUser(Long apartado, Long idUser) {
+	public Checkout getCheckoutByApartadoAndUserAndCurso(Long apartado, Long idUser, Long curso) {
 		Apartado apa = new Apartado();
 		User uu = new User();
 		Checkout co = new Checkout();
+		Curso cur = new Curso();
 		try {
 			apa = apartadoRepository.findById(apartado)
 					.orElseThrow(() -> new Exception("Apartado does not exist"));	
 			uu = userRepository.findById(idUser)
 					.orElseThrow(() -> new Exception("Usser does not exist"));	
+			cur = cursoRepository.findById(curso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));	
 		} catch (Exception e) {
 			System.out.println(" Id apartado: "+apartado);
 			System.out.println(" Id user: "+idUser);
 			e.printStackTrace();
 		}
-		co = checkoutRepository.findByApartadoAndUser(apa, uu);
-		System.out.println(" pag 165 "+co);
-		
+		try {
+			co = checkoutRepository.findByApartadoAndUserAndCurso(apa, uu, cur);
+			if (co == null) {
+				checkoutRepository.save(new Checkout(false, apa, uu,cur));
+				co = new Checkout(false, apa, uu,cur);
+			}			
+		}catch (Exception e) {
+			e.printStackTrace();
+			System.out.println(" Checkout: "+co);
+		}
+
+		System.out.println(" Checkout: "+co);
 		return co;
 	}
 	
@@ -286,6 +316,9 @@ public class CursoServiceImp implements CursoService {
 		
 		return false;
 	}
+
+
+
 
 
 	
