@@ -52,7 +52,10 @@
     	<!-- css para el detalle con los cursos -->
 	<link rel="stylesheet" type="text/css" href="static/css/cursos/detalle.css"
 		th:href="@{/css/cursos/detalle.css}">
-			
+
+    	<!-- css para el alta de los cursos -->
+	<link rel="stylesheet" type="text/css" href="static/css/cursos/alta.css"
+		th:href="@{/css/cursos/alta.css}">			
 	
 	<!-- DATA TABLE -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -162,7 +165,7 @@
 						</ul>
 					</div>
 					<div class="card-body-">
-						 
+						<div th:include="cursos/alta.html"  th:remove="tag"></div>
 					</div>
 				</div>
 			</div>
