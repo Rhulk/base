@@ -18,6 +18,8 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Repository;
 
 import com.alquiler.reservas.entity.Apunte;
+import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.entity.User;
 
 @Repository
 public class CursoDAO {
@@ -33,7 +35,7 @@ public class CursoDAO {
 	 * sessionFactory.getCurrentSession(); }
 	 */
 	
-	public List <Apunte> getApunteDAO(Long apartado, int pag, Long curso){
+	public List <Apunte> getApunteDAO(Long apartado, int pag, Integer curso){
 		List <Apunte> apus = new LinkedList<>();
 		List<String> notas = new LinkedList<>();
 
@@ -54,7 +56,7 @@ public class CursoDAO {
 		return apus;
 	}
 	
-	public int getCantidadAportesByApartadoAndCursoDAO(Long apartado,Long curso) {
+	public int getCantidadAportesByApartadoAndCursoDAO(Long apartado,Integer curso) {
 		
 		Query query = em.createNativeQuery(
 				"select count(*) from stg_apunte WHERE idapartado ='"+apartado+"' and  idcurso ='"+curso+"'");
@@ -62,6 +64,21 @@ public class CursoDAO {
 		return (int) query.getResultList().get(0);
 	}
 	
+	public List<Curso> findCursosByUser(User user){
+		List<Curso> cursos = new LinkedList<>();
+		List<Integer> list = new ArrayList<Integer>();
 
+		Query ids = em.createNativeQuery(
+				"select c.id from [appSecurity].[dbo].stg_curso c " + 
+				"	left join [appSecurity].[dbo].stg_curso_user as cu on cu.id_curso=c.id " + 
+				"	 where cu.id_user='"+user.getId()+"'");	
+		
+		list = ids.getResultList();
+		
+		for(int i=0; i< list.size();i++) {
+			cursos.add(new Curso(list.get(i)));
+		}
+		return cursos;
+	}
 
 }

@@ -278,6 +278,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Los aportes no estan vinculados al curso ¿why?.
 		Se añade el curso a todos los metodos para la correcta vinculación con el mismo.
 	
+	Mis cursos:
+		Seguimiento de mis cursos actuales.
+	
 # Avances - Next to:
 
 	Control de los videos vistos por cada usuario.

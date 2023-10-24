@@ -59,7 +59,7 @@ public class CursoServiceImp implements CursoService {
 	CursoUserRepository cursoUserRepository;
 
 	@Override
-	public Curso getCurso(Long id) throws Exception {
+	public Curso getCurso(int id) throws Exception {
 		
 		return cursoRepository.findById(id).orElseThrow(() -> new Exception("Curso does not exist"));
 	}
@@ -87,19 +87,17 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public List <Apunte> getApunte(Long apartado, int pag, Long curso) {
-		
-		System.out.println(cursoDAO.getApunteDAO(apartado,pag,curso));
+	public List <Apunte> getApunte(Long apartado, int pag, Integer curso) {
 		
 		return cursoDAO.getApunteDAO(apartado,pag,curso);
 	}
 	
-	public int getCantidadAportesByApartadoAndCurso(Long apartado, Long curso) {
+	public int getCantidadAportesByApartadoAndCurso(Long apartado, Integer curso) {
 		
 		return cursoDAO.getCantidadAportesByApartadoAndCursoDAO(apartado,curso);
 	}
 
-	public Apunte getApunteByIdAndCurso(Long apunte, Long idCurso) {
+	public Apunte getApunteByIdAndCurso(Long apunte, Integer idCurso) {
 		Apunte apu = new Apunte();
 		Curso cur = new Curso();
 		try {
@@ -128,7 +126,7 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public boolean createNewAporte(Long apartado, String notas, Long idUser, Long idCurso) {
+	public boolean createNewAporte(Long apartado, String notas, Long idUser, Integer idCurso) {
 		Apartado apa = new Apartado();
 		Curso curso = new Curso();
 		try {
@@ -152,7 +150,7 @@ public class CursoServiceImp implements CursoService {
 	}
 	
 	@Override
-	public boolean modApunte(Long apunte, String notas, Long curso) {
+	public boolean modApunte(Long apunte, String notas, Integer curso) {
 		
 		try {
 			Apunte apu = getApunteByIdAndCurso(apunte,curso);
@@ -168,7 +166,7 @@ public class CursoServiceImp implements CursoService {
 	
 
 	@Override
-	public boolean checking(Long apartado, boolean check, Long idUser, Long idCurso) {
+	public boolean checking(Long apartado, boolean check, Long idUser, Integer idCurso) {
 		Apartado apa = new Apartado();
 		User uu = new User();
 		Checkout cc = new Checkout();
@@ -204,7 +202,7 @@ public class CursoServiceImp implements CursoService {
 		
 	}
 	
-	public Checkout getCheckoutByApartadoAndUserAndCurso(Long apartado, Long idUser, Long curso) {
+	public Checkout getCheckoutByApartadoAndUserAndCurso(Long apartado, Long idUser, Integer curso) {
 		Apartado apa = new Apartado();
 		User uu = new User();
 		Checkout co = new Checkout();
@@ -255,7 +253,7 @@ public class CursoServiceImp implements CursoService {
 		return userLogado;
 	}
 
-	public boolean followCurso(Long curso) {
+	public boolean followCurso(Integer curso) {
 		User uu = getLoguin();
 		Curso cc = new Curso();
 		
@@ -275,7 +273,7 @@ public class CursoServiceImp implements CursoService {
 		return true;
 	}
 	
-	public boolean unfollowCurso(Long curso) {
+	public boolean unfollowCurso(Integer curso) {
 		User uu = getLoguin();
 		Curso cc = new Curso();
 		CursoUser cu = new CursoUser();
@@ -291,13 +289,11 @@ public class CursoServiceImp implements CursoService {
 			cursoUserRepository.delete(cu);
 			return true;			
 		}
-
-		
 		return false;
 	}
 
 	@Override
-	public boolean isFollowCurso(Long curso) {	
+	public boolean isFollowCurso(Integer curso) {	
 		User uu = getLoguin();
 		Curso cc = new Curso();
 		CursoUser cu = new CursoUser();
@@ -317,9 +313,21 @@ public class CursoServiceImp implements CursoService {
 		return false;
 	}
 
+	@Override
+	public List<Curso> getCursosByLoguinUser() {
+		List<Curso> ids = cursoDAO.findCursosByUser(getLoguin());
+		List<Curso> cursos = new LinkedList<>();
+		for(int i=0; i<ids.size();i++) {
+			try {
+				System.out.println(ids.get(i));
 
-
-
-
+				cursos.add( getCurso( ids.get(i).getId() ) );
+			} catch (Exception e) {
+				e.printStackTrace();
+			}
+		}
+		return cursos;
+	}
+	
 	
 }

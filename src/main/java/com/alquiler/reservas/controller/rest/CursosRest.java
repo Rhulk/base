@@ -30,7 +30,7 @@ public class CursosRest {
 	public List <Apunte> getApunteByApartado(
 			@PathVariable(name="apartado") Long apartado,
 			@PathVariable(name="pag") int pag,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			){
 		
 		return cursoService.getApunte(apartado,pag,curso);
@@ -39,7 +39,7 @@ public class CursosRest {
 	@GetMapping("/apuntes/{apartado}/{curso}")
 	public int getCantidadAportesByApartado(
 			@PathVariable(name="apartado") Long apartado,
-			@PathVariable(name="curso") Long curso			
+			@PathVariable(name="curso") Integer curso			
 			) {
 		
 		return cursoService.getCantidadAportesByApartadoAndCurso(apartado, curso);
@@ -48,7 +48,7 @@ public class CursosRest {
 	@GetMapping("/deleteapunte/{apunte}/{curso}")
 	public Respuesta deleteAporte(
 			@PathVariable(name="apunte") Long apunte,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			) {
 		
 		return new Respuesta( cursoService.deleteApunte(cursoService.getApunteByIdAndCurso(apunte,curso)) );
@@ -58,7 +58,7 @@ public class CursosRest {
 	public Respuesta saveAporteIn(
 			@PathVariable(name="apartado") Long apartado,
 			@PathVariable(name="notas") String notas,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			){
 
 		return new Respuesta( 
@@ -71,7 +71,7 @@ public class CursosRest {
 	public Respuesta modApunteIn(
 			@PathVariable(name="apunte") Long apunte, 
 			@PathVariable(name="notas") String notas,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			) {
 
 		return new Respuesta(cursoService.modApunte(apunte,notas,curso));
@@ -81,7 +81,7 @@ public class CursosRest {
 	public Respuesta checkOut(
 			@PathVariable(name="apartado") Long apartado, 
 			@PathVariable(name="check") boolean check,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			) {
 		
 		return new Respuesta( cursoService.checking(apartado,check,getLoguin().getId(),curso) );
@@ -90,26 +90,26 @@ public class CursosRest {
 	@GetMapping("/checkstatus/{apartado}/{curso}")
 	public Respuesta checkStatus(
 			@PathVariable(name="apartado") Long apartado,
-			@PathVariable(name="curso") Long curso
+			@PathVariable(name="curso") Integer curso
 			) {
 		
 		return new Respuesta( cursoService.getCheckoutByApartadoAndUserAndCurso(apartado, getLoguin().getId(),curso).isChecking() );
 	}
 	
 	@GetMapping("/follow/{curso}")
-	public Respuesta follow(@PathVariable(name="curso") Long curso) {
+	public Respuesta follow(@PathVariable(name="curso") Integer curso) {
 		
 		return new Respuesta(cursoService.followCurso(curso));
 	}
 	
 	@GetMapping("/unfollow/{curso}")
-	public Respuesta unfollow(@PathVariable(name="curso") Long curso) {
+	public Respuesta unfollow(@PathVariable(name="curso") Integer curso) {
 		
 		return new Respuesta(cursoService.unfollowCurso(curso));
 	}
 	
 	@GetMapping("/isfollow/{curso}")
-	public Respuesta isfollow(@PathVariable(name="curso") Long curso) {
+	public Respuesta isfollow(@PathVariable(name="curso") Integer curso) {
 		
 		return new Respuesta(cursoService.isFollowCurso(curso));
 	}

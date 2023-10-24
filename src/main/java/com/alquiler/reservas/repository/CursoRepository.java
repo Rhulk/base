@@ -11,7 +11,7 @@ import com.alquiler.reservas.entity.Curso;
 
 
 @Repository
-public interface CursoRepository  extends CrudRepository<Curso, Long>{
+public interface CursoRepository  extends CrudRepository<Curso, Integer>{
 
 	public List<Curso> findByCategoriacurso(CategoriaCurso categoriacurso);
 	public List<Curso> findByUrlimagen(String url); // Test no es necesario.

@@ -108,7 +108,7 @@ public class CursosController {
 		model.addAttribute("altaTabCurso","no");
 		
 		// modelo de datos Pendiente solo recuperar los del usuario
-		model.addAttribute("cursos",cursoRepository.findAll());
+		model.addAttribute("cursos",cursoService.getCursosByLoguinUser());
 		
 		// TEST
 
@@ -146,7 +146,7 @@ public class CursosController {
 	}
 	
 	@GetMapping("/curso{id}")
-	public String cursoDetalleID(Model model, @PathVariable(name="id") Long id ) throws Exception {
+	public String cursoDetalleID(Model model, @PathVariable(name="id") Integer id ) throws Exception {
 		
 		Curso curso = cursoService.getCurso(id);
 

@@ -20,7 +20,7 @@ public class Curso {
 	
 	@Id
 	@GeneratedValue(strategy=GenerationType.IDENTITY)
-	public Long id;
+	public int id;
 	
 	@Column
 	@NotBlank
@@ -52,12 +52,12 @@ public class Curso {
 	public Apunte apunte;
 	
 
-			
-	public Long getId() {
+
+	public int getId() {
 		return id;
 	}
 
-	public void setId(Long id) {
+	public void setId(int id) {
 		this.id = id;
 	}
 
@@ -128,6 +128,13 @@ public class Curso {
 		return "Curso [id=" + id + ", nombre=" + nombre + ", categoriacurso=" + categoriacurso + ", descripcion="
 				+ descripcion + ", fuente=" + fuente + ", urlimagen=" + urlimagen + ", urlicono=" + urlicono
 				+ ", capitulos=" + capitulos + "]";
+	}
+
+	public Curso(int id) {
+		this.id = id;
+	}
+
+	public Curso() {
 	}
 
 
