@@ -56,13 +56,21 @@ public class CursosController {
 		return "security/user-form/main-view.html";
 	}			
 
-	@GetMapping("/cursolistEdit")
-	public String cursolistEdit(Model model) {
+	@GetMapping("/cursolistEdit/{id}")
+	public String cursolistEdit(Model model,
+			@PathVariable(name="id") Integer id
+			) throws Exception {
+		
+		Curso curso = cursoService.getCurso(id);
 		
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
 		model.addAttribute("activoFormCurso", false);
+		
+		// Gestion del edit o  del dashboard
+		model.addAttribute("activoDashboardCurso", false);
+		model.addAttribute("activoEditarCurso", true);
 		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");
@@ -77,15 +85,57 @@ public class CursosController {
 		model.addAttribute("altaTabCurso","no");
 		
 		// modelo de datos 
-		model.addAttribute("cursos",cursoRepository.findAll());
-
-// TO-DO: Crear el formulario de edición del curso y su re dirección
+		model.addAttribute("editarcurso",curso );
+		model.addAttribute("capitulos", curso.getCapitulos());
+		model.addAttribute("apartados",cursoService.getApartados(curso));
 		
-		// TEST
+		System.out.println("apartados "+cursoService.getApartados(curso));
+		System.out.println("capitulos " +curso.getCapitulos());
 
 		
 		return "security/user-form/main-view.html";
-	}		
+	}	
+	@GetMapping("/cursolistEdit")
+	public String cursolistEdit(Model model
+			) {
+		
+		// Gestión de la activación de los formularios
+		model.addAttribute("activoFormTodo", false);
+		model.addAttribute("activoFormUser", false);
+		model.addAttribute("activoFormCurso", false);
+		
+		// Gestion del edit o  del dashboard
+		model.addAttribute("activoDashboardCurso", true);
+		model.addAttribute("activoEditarCurso", false);
+		
+		//Gestion de los btn editar o detalle
+		model.addAttribute("detalleCurso", "oculto");
+		model.addAttribute("editarCurso", "");		
+		
+		
+		// Gestión de tab acvitos o no
+		model.addAttribute("tabTodo","no");
+		model.addAttribute("listTabTodo","no");
+		model.addAttribute("tabUser", "no");
+		model.addAttribute("listTabUser","no");
+		model.addAttribute("detailTabCurso","no");
+		model.addAttribute("tabCurso","active");
+		model.addAttribute("listTabCurso","no");
+		model.addAttribute("misTabCurso","no");
+		model.addAttribute("editarTabCurso","active");
+		model.addAttribute("altaTabCurso","no");
+		
+		
+		
+		// modelo de datos 
+		model.addAttribute("cursos",cursoRepository.findAll() );
+
+
+		
+		return "security/user-form/main-view.html";
+	}	
+	
+
 	
 	@GetMapping("/cursolistPropios")
 	public String cursolistPropios(Model model) {
@@ -94,6 +144,14 @@ public class CursosController {
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
 		model.addAttribute("activoFormCurso", false);
+		
+		// Gestion del edit o  del dashboard
+		model.addAttribute("activoDashboardCurso", false);
+		model.addAttribute("activoEditarCurso", false);
+		
+		//Gestion de los btn editar o detalle
+		model.addAttribute("detalleCurso", "");
+		model.addAttribute("editarCurso", "oculto");	
 		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");
@@ -123,6 +181,14 @@ public class CursosController {
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
 		model.addAttribute("activoFormCurso", false);
+		
+		// Gestion del edit o  del dashboard
+		model.addAttribute("activoDashboardCurso", false);
+		model.addAttribute("activoEditarCurso", false);
+		
+		//Gestion de los btn editar o detalle
+		model.addAttribute("detalleCurso", "");
+		model.addAttribute("editarCurso", "oculto");
 		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");

@@ -1,6 +1,7 @@
 
 function goDetalle(id){
 
+	console.log('curso'+document.getElementById(id).value);
 	location.href ='curso'+document.getElementById(id).value;
   
 }

@@ -28,9 +28,18 @@
           	th:id="'btn_view' + ${curso.id}"
           	onclick="goDetalle(this.id)"
           	th:value="${curso.id}" 
-          	class="btn_blue viewbtn">Detalle curso
+          	class="btn_blue viewbtn "
+          	th:classappend=" ${detalleCurso}"
+          	>Detalle curso
           </button>
-
+          <button  
+          	th:id="'btn_view' + ${curso.id}"
+          	onclick="goEditar(this.id)"
+          	th:value="${curso.id}" 
+          	class="btn_blue viewbtn "
+          	th:classappend=" ${editarCurso}"
+          	>Editar curso
+          </button>
 
           
         </div>

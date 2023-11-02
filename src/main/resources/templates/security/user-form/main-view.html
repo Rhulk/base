@@ -55,7 +55,11 @@
 
     	<!-- css para el alta de los cursos -->
 	<link rel="stylesheet" type="text/css" href="static/css/cursos/alta.css"
-		th:href="@{/css/cursos/alta.css}">			
+		th:href="@{/css/cursos/alta.css}">		
+		
+    	<!-- css para el editar de los cursos -->
+	<link rel="stylesheet" type="text/css" href="static/css/cursos/edita.css"
+		th:href="@{/css/cursos/editar.css}">		
 	
 	<!-- DATA TABLE -->
 	<script src="https://cdn.datatables.net/1.10.19/js/jquery.dataTables.min.js"></script>
@@ -73,6 +77,8 @@
 	
   			<!-- Funcionalidades del detallecurso   -->
 	<script type="text/javascript" th:src="@{/js/detallecurso.js}" /> </script>
+		<!-- Editar Curso -->
+	<script type="text/javascript" th:src="@{/js/editarCurso.js}" /> </script>
 	
 	<script type="text/javascript" th:src="@{/js/detalleCursoYoutube.js}" /> </script>
 	
@@ -193,7 +199,12 @@
 						</ul>
 					</div>
 					<div class="card-body-">
-						 <div th:include="cursos/dashboard.html"  th:remove="tag"></div>
+						<div th:include="cursos/dashboard.html" 
+							th:if="${activoDashboardCurso}" th:remove="tag">
+						</div>
+						 <div th:include="cursos/editar.html" 
+						 	th:if="${activoEditarCurso}" th:remove="tag">
+						 </div>
 					</div>
 				</div>
 			</div>			

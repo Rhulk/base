@@ -60,13 +60,12 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public Curso getCurso(int id) throws Exception {
-		
-		return cursoRepository.findById(id).orElseThrow(() -> new Exception("Curso does not exist"));
+		return cursoRepository.findById(id)
+				.orElseThrow(() -> new Exception("Curso does not exist"));
 	}
 
 	@Override
 	public List<Capitulo> getCapitulos(Curso curso) {
-
 		return curso.getCapitulos();
 	}
 
@@ -162,6 +161,31 @@ public class CursoServiceImp implements CursoService {
 			return false;
 		}
 	}
+	
+	@Override
+	public boolean modCurso(Curso curso) {
+		Curso cursoNew = new Curso();
+		try {
+			cursoNew = cursoRepository.findById(curso.id)
+					.orElseThrow( () -> new Exception(" Fail found curso"));
+			System.out.println(cursoNew);
+			cursoNew.nombre = curso.nombre;
+			cursoNew.descripcion = curso.descripcion;
+			//cursoNew.categoriacurso = curso.categoriacurso; Falta implementarlo en el formulario
+			cursoNew.fuente = curso.fuente;
+			cursoNew.urlicono = curso.urlicono;
+			cursoNew.urlimagen = curso.urlimagen;
+			System.out.println(cursoNew);
+			cursoRepository.save(
+					cursoNew
+			);
+			return true;
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+	}	
+	
 	
 	
 
@@ -328,6 +352,8 @@ public class CursoServiceImp implements CursoService {
 		}
 		return cursos;
 	}
+
+
 	
 	
 }

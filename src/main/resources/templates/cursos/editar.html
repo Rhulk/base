@@ -1,24 +1,58 @@
-
+<!-- 
 <form  id="queryForm"  method="post" th:action="${signup_}"  autocomplete="off" >
-    
-<div class="form_alta">
-	<h2>Alta Curso</h2>
+ -->
 
-	<div id="cur">
-	<label>Nombre Curso</label>
-	<input class="form_input" type="text">
-	<br>
-	<label>Descripción</label>
-	<input class="form_input" type="text">
-	<br>
+    
+<div class="form_edit" th:object="${editarcurso}">
+	<h2>Editar Curso</h2>
+
+	
+
+	<div id="cur" class="formCurso">
+	<div class="formRow ">
+		
+		<input
+			id="id_curso"
+			th:value="${editarcurso.id}"
+			type="hidden"
+		>
+	
+		<label>Nombre Curso</label>
+		<input
+			id="id_name_curso"
+			class="form_input width400" type="text"
+			th:value="${editarcurso.nombre}"
+		>	
+	
+	</div>
+	<label value="Descripción">Descripción</label>
+	<input
+		id="id_desc_curso" 
+		class="form_input" type="text"
+		th:value="${editarcurso.descripcion}"
+	>
+
 	<label>Fuente</label>
-	<input class="form_input" type="text">
-	<br>
+	<input 
+		id="id_source_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.fuente}"
+	>
+
 	<label>Url Imagen</label>
-	<input class="form_input" type="text">
-		<br>
+	
+	<input 
+		id="id_img_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.urlimagen}"
+	>
+
 	<label>Url Icono</label>
-	<input class="form_input" type="text">
+	<input 
+		id="id_icono_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.urlicono}"
+	>
 	
 	<div class="main__apn_btn_crud">
 		<button id="btn_gua"  
@@ -40,7 +74,7 @@
 	</div>
 </div>
 <br><br>
-<div id="cap" class="oculto">
+<div id="capitulo" class="oculto">
 	<label>Nuevo Capitulo</label>
 	<input class="form_input" type="text">	
 	<button id="btn_cap"  
@@ -49,16 +83,36 @@
 	</button>
 	<br>
 	<div>
-		<select  id="id_capitulo" 
+		<select  
 			name="campo" 
 			class="select-css form-control" 
-			onchange="selectCapitulo(this.id)">
+			onchange="selectEditarCapitulo(this.value)">
         	<option value="select">Seleccionar Capitulo</option>
+        	<option th:each="capitulo :${capitulos}" 
+        		th:value="${capitulo.id}" th:text="${capitulo}">
         </select>
 	</div>
 	<div >
 	<label>Capitulo seleccionado</label>
-	<input class="form_input" id="id_cap" type="text">	
+	<input class="form_input" id="id_cap_" type="text"
+		placeholder="id"
+	>
+	
+	<label>Nombre</label>
+	<input class="form_input" id="id_cap_nombre" type="text"
+		placeholder="Nombre"
+	>		
+
+	<label>Descripcion</label>
+	<input class="form_input" id="id_cap_descripcion" type="text"
+		placeholder="Descripcion"
+	>	
+	
+	<label>Orden</label>
+	<input class="form_input" id="id_cap_orden" type="text"
+		placeholder="orden"
+	>
+		
 	<button id="btn_gua"  
 		onclick="saveAporte(this.id)"
 		class="btn_green btn_gua ">Guardar
@@ -72,7 +126,7 @@
 	</div>
 </div>
 <br><br>
-<div id="apa" class="oculto">
+<div id="apartado" class="oculto">
 	<label>Nuevo Apartado</label>
 	<input class="form_input" type="text">	
 	<button id="btn_cap"  
@@ -84,18 +138,21 @@
 		<select  id="id_capitulo" 
 			name="campo" 
 			class="select-css form-control" 
-			onchange="selectCapitulo(this.id)">
+			
+			onchange="selectEditApartados(this.id)">
         	<option value="select">Seleccionar Apartado</option>
+        	<option th:each="apartado :${apartados}" 
+        		th:value="${apartado}" th:text="${apartado}">
         </select>
 	</div>
 	<div >
 	<label>Apartado seleccionado</label>
-	<input class="form_input" id="id_cap" type="text">	
+	<input class="form_input" id="id_cap" type="text"
+		
+	>	
 	
 	</div>
 	<div >
-	<label>Recurso del apartado</label>
-	<input class="form_input" id="id_rec" type="text">	
 	<button id="btn_gua"  
 		onclick="saveAporte(this.id)"
 		class="btn_green btn_gua ">Guardar
@@ -113,4 +170,6 @@
 <br>
 
 </div>
-</form>
+<!-- 
+	</form>
+ -->

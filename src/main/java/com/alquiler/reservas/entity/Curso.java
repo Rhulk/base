@@ -27,7 +27,6 @@ public class Curso {
 	public	String nombre;
 	
 	@Column
-	@NotBlank
 	public CategoriaCurso categoriacurso; 
 	
 	@Column
@@ -136,6 +135,20 @@ public class Curso {
 
 	public Curso() {
 	}
+
+	public Curso(int id, @NotBlank String nombre, CategoriaCurso categoriacurso, @NotBlank String descripcion,
+			String fuente, String urlimagen, String urlicono) {
+		super();
+		this.id = id;
+		this.nombre = nombre;
+		this.categoriacurso = categoriacurso;
+		this.descripcion = descripcion;
+		this.fuente = fuente;
+		this.urlimagen = urlimagen;
+		this.urlicono = urlicono;
+	}
+	
+	
 
 
 

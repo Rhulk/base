@@ -7,13 +7,19 @@ import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 
 import com.alquiler.reservas.entity.Apunte;
+import com.alquiler.reservas.entity.Capitulo;
+import com.alquiler.reservas.entity.CategoriaCurso;
+import com.alquiler.reservas.entity.Curso;
 import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
+import com.alquiler.reservas.repository.CapituloRepository;
 import com.alquiler.reservas.service.CursoService;
 import com.alquiler.reservas.service.UserService;
 
@@ -25,6 +31,9 @@ public class CursosRest {
 	
 	@Autowired
 	UserService usuarioService;
+	
+	@Autowired
+	CapituloRepository capituloRepository;
 	
 	@GetMapping("/apuntes/{apartado}/{pag}/{curso}")
 	public List <Apunte> getApunteByApartado(
@@ -112,6 +121,38 @@ public class CursosRest {
 	public Respuesta isfollow(@PathVariable(name="curso") Integer curso) {
 		
 		return new Respuesta(cursoService.isFollowCurso(curso));
+	}
+	
+	@GetMapping("/getCapitulo/{capitulo}")
+	public Capitulo getCapitulo(@PathVariable(name="capitulo") Long capitulo) throws Exception {
+		
+		Capitulo cap = capituloRepository.findById(capitulo)
+				.orElseThrow(() -> new Exception("Capitulos does not exist"));
+		
+		return new Capitulo(cap.id,cap.nombre,cap.descripcion,cap.orden);
+	}
+	
+	@GetMapping("editcurso/{id}/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
+	public Respuesta editCurso(
+			@ModelAttribute("id") int id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("fuente") String fuente,
+			
+			@ModelAttribute("urlIcono") String urlIcono,
+			@ModelAttribute("urlimg") String urlimg
+			
+			) {
+		char cc=urlIcono.charAt(6);
+		char c5=urlIcono.charAt(5);
+		int representacion = (int) cc;
+		int r5 = (int) c5;
+		System.out.println(representacion+" "+r5);
+		System.out.println(urlimg+" GET: urlImgen: "+urlimg+" | urlIcono: "+urlIcono);
+		System.out.println(urlimg+" GET: urlImgen: "+urlimg.replaceAll("÷","/")+" | urlIcono: "+urlIcono.replaceAll("÷","/"));
+		Curso modCurso = 
+				new Curso(id,nombre.replaceAll("÷","/"), CategoriaCurso.BACK, descripcion.replaceAll("÷","/"), fuente.replaceAll("÷","/"), urlimg.replaceAll("÷","/"), urlIcono.replaceAll("÷","/"));
+		return new Respuesta(cursoService.modCurso(modCurso));
 	}
 	
 	public User getLoguin() {

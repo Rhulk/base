@@ -90,11 +90,26 @@ public class Capitulo {
 		this.apartados = apartados;
 	}
 
+
+
 	@Override
 	public String toString() {
-		return "Capitulo [id=" + id + ", nombre=" + nombre + ", descripcion=" + descripcion + ", orden=" + orden
-				+ ", apartados=" + apartados + "]";
+		return " [nombre=" + nombre + ", descripcion=" + descripcion + ", orden=" + orden + "]";
 	}
+
+	public Capitulo(Long id, @NotBlank String nombre, @NotBlank String descripcion, @NotBlank int orden) {
+
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.orden = orden;
+	}
+
+	public Capitulo() {
+
+	}
+	
+	
 
 
 

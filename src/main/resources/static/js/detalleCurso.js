@@ -10,6 +10,8 @@ let video='08f8_eHrarU';
 let cursoActual;
 let urlHost="http://localhost:8080";
 
+
+
 function follow(){
 
 
