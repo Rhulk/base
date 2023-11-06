@@ -16,6 +16,7 @@ public interface CursoService {
 	/* public List<Curso> getAll(); */
 	
 	public boolean modCurso(Curso curso);
+	public boolean modCapitulo(Capitulo capitulo);
 	
 	public Curso getCurso(int id) throws Exception;
 	

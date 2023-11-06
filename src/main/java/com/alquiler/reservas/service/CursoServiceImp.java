@@ -26,6 +26,7 @@ import com.alquiler.reservas.entity.CursoUser;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.ApunteRepository;
+import com.alquiler.reservas.repository.CapituloRepository;
 import com.alquiler.reservas.repository.CheckoutRepository;
 import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.repository.CursoUserRepository;
@@ -36,6 +37,9 @@ public class CursoServiceImp implements CursoService {
 
 	@Autowired
 	CursoRepository cursoRepository;
+	
+	@Autowired
+	CapituloRepository capituloRepository;
 	
 	@Autowired
 	ApunteRepository apunteRepository;
@@ -185,6 +189,27 @@ public class CursoServiceImp implements CursoService {
 			return false;
 		}
 	}	
+	
+	@Override
+	public boolean modCapitulo(Capitulo capitulo) {
+		Capitulo capiNew = new Capitulo();
+		
+		try {
+			capiNew = capituloRepository.findById(capitulo.id)
+					.orElseThrow( () -> new Exception(" Capitulo does not exist !!")  );
+			capiNew.nombre = capitulo.nombre;
+			capiNew.descripcion = capitulo.descripcion;
+			capiNew.orden = capitulo.orden;
+			
+			System.out.println(capiNew);
+			capituloRepository.save(capiNew);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}
+		return true;
+	}
 	
 	
 	
@@ -352,6 +377,7 @@ public class CursoServiceImp implements CursoService {
 		}
 		return cursos;
 	}
+
 
 
 	

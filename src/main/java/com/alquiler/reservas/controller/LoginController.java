@@ -386,7 +386,7 @@ public class LoginController {
 			System.out.println("Create User default in Home");
 		 return	mantenimiento.defaultUsert(model);
 		}else {
-			System.out.println(" Not user null");
+			System.out.println(" Hay usuarios en BBDD");
 		}
 		
 		return "index";

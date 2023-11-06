@@ -31,7 +31,6 @@ public class Capitulo {
 	public String descripcion;
 	
 	@Column
-	@NotBlank
 	public int orden;
 	
 	@ManyToOne

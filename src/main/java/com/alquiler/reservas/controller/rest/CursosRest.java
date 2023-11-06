@@ -143,16 +143,27 @@ public class CursosRest {
 			@ModelAttribute("urlimg") String urlimg
 			
 			) {
-		char cc=urlIcono.charAt(6);
-		char c5=urlIcono.charAt(5);
-		int representacion = (int) cc;
-		int r5 = (int) c5;
-		System.out.println(representacion+" "+r5);
+		
 		System.out.println(urlimg+" GET: urlImgen: "+urlimg+" | urlIcono: "+urlIcono);
-		System.out.println(urlimg+" GET: urlImgen: "+urlimg.replaceAll("÷","/")+" | urlIcono: "+urlIcono.replaceAll("÷","/"));
+		System.out.println(urlimg+" GET: urlImgen: "+formatearURL(urlimg)+" | urlIcono: "+formatearURL(urlIcono));
 		Curso modCurso = 
-				new Curso(id,nombre.replaceAll("÷","/"), CategoriaCurso.BACK, descripcion.replaceAll("÷","/"), fuente.replaceAll("÷","/"), urlimg.replaceAll("÷","/"), urlIcono.replaceAll("÷","/"));
+				new Curso(id,formatearURL(nombre),
+						CategoriaCurso.BACK, formatearURL(descripcion),
+						formatearURL(fuente), formatearURL(urlimg)
+						, formatearURL(urlIcono));
 		return new Respuesta(cursoService.modCurso(modCurso));
+	}
+	@GetMapping("editCapitulo/{id}/{nombre}/{descripcion}/{orden}")
+	public Respuesta editarCapitulo(
+			@ModelAttribute("id") Long id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("orden") int orden			
+			) {
+		System.out.println(" GET REST Editar Capitulo: id : "+id+
+				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
+		
+		return new Respuesta(cursoService.modCapitulo(new Capitulo(id, nombre, descripcion, orden)));
 	}
 	
 	public User getLoguin() {
@@ -170,6 +181,30 @@ public class CursosRest {
 		}
 
 		return userLogado;
+	}
+	
+	/*
+	 * 	Recuperar los caracteres originales de / que no puedo mandar por la petición REST
+	 * 
+	 */
+	public String formatearURL(String url) {
+
+		StringBuilder sb = new StringBuilder(url);
+		for (int n = 0; n <url.length (); n++) {
+			char c = url.charAt (n);
+			if (c == 65533) {
+				System.out.println("Caracter desconocido( "+c+" ) por /");
+
+				sb.setCharAt(n, '/');
+			}
+			if (c == '$') {
+				System.out.println("Dollar ( "+c+" ) por ?");
+				System.out.println(c);
+				sb.setCharAt(n, '?');
+			}
+		}
+		System.out.println( sb.toString() );
+		return sb.toString();
 	}
 	
 	
