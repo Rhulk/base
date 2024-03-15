@@ -1,0 +1,116 @@
+
+<form  id="queryForm"  method="post" th:action="${signup_}"  autocomplete="off" >
+    
+<div class="form_alta">
+	<h2>Alta Curso</h2>
+
+	<div id="cur">
+	<label>Nombre Curso</label>
+	<input class="form_input" type="text">
+	<br>
+	<label>Descripción</label>
+	<input class="form_input" type="text">
+	<br>
+	<label>Fuente</label>
+	<input class="form_input" type="text">
+	<br>
+	<label>Url Imagen</label>
+	<input class="form_input" type="text">
+		<br>
+	<label>Url Icono</label>
+	<input class="form_input" type="text">
+	
+	<div class="main__apn_btn_crud">
+		<button id="btn_gua"  
+			onclick="saveCurso(this.id)"
+			class="btn_green btn_gua ">Guardar
+		</button>
+		<button id="btn_alt"
+			onclick="altAporte(this.id)" 
+			class="btn_green btn_alt oculto">Alta
+		</button>
+		<button id="btn_mod"
+			onclick="modAporte(this.id)" 
+			class="btn_blue btn_mod oculto">Modificar
+		</button>
+		<button id="btn_del"
+			onclick="deleteAporte(this.id)" 
+			class="btn_red btn_del oculto">Eliminar
+		</button>
+	</div>
+</div>
+<br><br>
+<div id="cap" class="oculto">
+	<label>Nuevo Capitulo</label>
+	<input class="form_input" type="text">	
+	<button id="btn_cap"  
+		onclick="saveCapitulo(this.id)"
+		class="btn_green btn_cap ">Add
+	</button>
+	<br>
+	<div>
+		<select  id="id_capitulo" 
+			name="campo" 
+			class="select-css form-control" 
+			onchange="selectCapitulo(this.id)">
+        	<option value="select">Seleccionar Capitulo</option>
+        </select>
+	</div>
+	<div >
+	<label>Capitulo seleccionado</label>
+	<input class="form_input" id="id_cap" type="text">	
+	<button id="btn_gua"  
+		onclick="saveAporte(this.id)"
+		class="btn_green btn_gua ">Guardar
+	</button>
+
+	<button id="btn_del"
+		onclick="deleteAporte(this.id)" 
+		class="btn_red btn_del ">Eliminar
+	</button>	
+	
+	</div>
+</div>
+<br><br>
+<div id="apa" class="oculto">
+	<label>Nuevo Apartado</label>
+	<input class="form_input" type="text">	
+	<button id="btn_cap"  
+		onclick="saveCapitulo(this.id)"
+		class="btn_green btn_cap ">Add
+	</button>
+	<br>
+	<div>
+		<select  id="id_capitulo" 
+			name="campo" 
+			class="select-css form-control" 
+			onchange="selectCapitulo(this.id)">
+        	<option value="select">Seleccionar Apartado</option>
+        </select>
+	</div>
+	<div >
+	<label>Apartado seleccionado</label>
+	<input class="form_input" id="id_cap" type="text">	
+	
+	</div>
+	<div >
+	<label>Recurso del apartado</label>
+	<input class="form_input" id="id_rec" type="text">	
+	<button id="btn_gua"  
+		onclick="saveAporte(this.id)"
+		class="btn_green btn_gua ">Guardar
+	</button>
+
+	<button id="btn_del"
+		onclick="deleteAporte(this.id)" 
+		class="btn_red btn_del ">Eliminar
+	</button>	
+	</div>
+	<br>
+
+</div>
+
+<br>
+
+</div>
+</form>

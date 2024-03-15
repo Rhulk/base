@@ -67,7 +67,7 @@ public class UserServiceImpl implements UserService{
 
 	@Override
 	public User createUser(User user) throws Exception {
-		if (checkUsernameAvailable(user) && checkPasswordValid(user)) {
+		if ( checkPasswordValid(user)) {
 			String encodedPassword = bCryptPasswordEncoder.encode(user.getPassword());
 			user.setPassword(encodedPassword);
 			System.out.println(" -- user -- " + user.toString());

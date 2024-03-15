@@ -1,0 +1,225 @@
+<!-- 
+<form  id="queryForm"  method="post" th:action="${signup_}"  autocomplete="off" >
+ -->
+
+    
+<div class="form_edit" th:object="${editarcurso}">
+	<h2>Editar Curso</h2>
+
+	
+
+	<div id="cursoEditBasic" class="formCurso">
+	<div class="formRow ">
+		
+		<input
+			id="id_curso"
+			th:value="${editarcurso.id}"
+			type="hidden"
+		>
+	
+		<label>Nombre Curso</label>
+		<input
+			id="id_name_curso"
+			class="form_input width400" type="text"
+			th:value="${editarcurso.nombre}"
+		>	
+	
+	</div>
+	<label value="Descripci�n">Descripci�n</label>
+	<input
+		id="id_desc_curso" 
+		class="form_input" type="text"
+		th:value="${editarcurso.descripcion}"
+	>
+
+	<label>Fuente</label>
+	<input 
+		id="id_source_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.fuente}"
+	>
+
+	<label>Url Imagen</label>
+	
+	<input 
+		id="id_img_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.urlimagen}"
+	>
+
+	<label>Url Icono</label>
+	<input 
+		id="id_icono_curso"
+		class="form_input" type="text"
+		th:value="${editarcurso.urlicono}"
+	>
+	
+	<div class="main__apn_btn_crud">
+		<button id="btn_gua"  
+			onclick="saveCurso(this.id)"
+			class="btn_green btn_gua ">Guardar datos
+		</button>
+		<button id="btn_alt"
+			onclick="altAporte(this.id)" 
+			class="btn_green btn_alt oculto">Alta
+		</button>
+		<button id="btn_mod"
+			onclick="modAporte(this.id)" 
+			class="btn_blue btn_mod oculto">Modificar
+		</button>
+		<button id="btn_del"
+			onclick="deleteAporte(this.id)" 
+			class="btn_red btn_del oculto">Eliminar
+		</button>
+		<button id="btn_cap_new"  
+			onclick="showFormCapitulo()"
+			class="btn_green btn_cap ">Add Capitulo
+		</button>
+	</div>
+
+</div>
+
+<div id="capitulo_new" class="oculto">
+	<div class="capNew">
+	<div class="itemCapNew">
+		<label>Nuevo Capitulo</label>
+	</div>
+	<div class="itemCapNew nombreCap">
+		<label>Nombre</label>
+		<input class="form_input" id="id_cap_nombre_new" type="text"
+			placeholder="Nombre"
+		>		
+	</div>
+	<div class="itemCapNew descripcionCap">
+		<label>Descripcion</label>
+		<input class="form_input" id="id_cap_descripcion_new" type="text"
+			placeholder="Descripcion"
+		>	
+	</div>
+	<div class="itemCapNew ordenCap" >
+		<label>Orden</label>
+		<input class="form_input" id="id_cap_orden_new" type="number"
+			onKeyPress="return soloNumeros(event)"
+			placeholder="orden"
+		>
+	</div>
+	<div class="itemCapNew">
+	<button id="btn_cap"  
+		onclick="addCapitulo(this.id)"
+		class="btn_green btn_cap ">Add
+	</button>
+			<button id="btn_cap_cancel"  
+			onclick="showFormCapitulo()"
+			class="btn_red btn_cap ">Cancelar
+		</button>
+	</div>
+	</div>
+</div>
+<div id="capituloList" class="capituloList">
+	<div class="itemCapList">
+		<h3>Listado de Capitulos</h3>
+	</div>
+	<div class="itemCapList">
+		<select  
+			id="selectCap"
+			name="campo" 
+			class="select-css form-control" 
+			onchange="selectEditarCapitulo(this.value)">
+        	<option value="select">Seleccionar Capitulo</option>
+        	<option th:each="capitulo :${capitulos}" 
+        		th:value="${capitulo.id}" th:text="${capitulo}">
+        </select>
+	</div>
+	<div id="capSelect" class="oculto">
+	<div class="itemCapList idCap">
+		<label>Capitulo seleccionado</label>
+		<input 
+			class="form_input" 
+			id="id_cap_" type="text"
+			placeholder="Id"
+			disabled
+		>
+	</div>
+	<div class="itemCapList nombreCap">
+		<label>Nombre</label>
+		<input class="form_input" id="id_cap_nombre" type="text"
+			placeholder="Nombre"
+		>	
+	</div>
+	<div class="itemCapList descripcionCap">
+		<label>Descripcion</label>
+			<input class="form_input" id="id_cap_descripcion" type="text"
+				placeholder="Descripcion"
+			>	
+	</div>
+	<div class="itemCapList ordenCap">
+		<label>Orden</label>
+		<input class="form_input" id="id_cap_orden" type="text"
+			placeholder="orden"
+		>
+	</div>
+	<div class="itemCapList">
+		<button id="btn_gua"  
+			onclick="saveCapitulo(this.id)"
+			class="btn_green btn_gua ">Modificar
+		</button>
+
+		<button id="btn_del"
+			onclick="deleteCapitulo(this.id)" 
+			class="btn_red btn_del ">Eliminar
+		</button>	
+		<button id="btn_cancel"
+			onclick="cancelarCapitulo(this.id)" 
+			class="btn_red btn_del ">Cancelar
+		</button>	
+	</div>
+	</div>
+</div>
+<br><br>
+<div id="apartado" class="oculto_?">
+	<label>Nuevo Apartado</label>
+	<input class="form_input" type="text">	
+	<button id="btn_cap"  
+		onclick="add_Capitulo(this.id)"
+		class="btn_green btn_cap ">Add
+	</button>
+	<br>
+	<div>
+		<select  id="id_capitulo" 
+			name="campo" 
+			class="select-css form-control" 
+			
+			onchange="selectEditApartados(this.id)">
+        	<option value="select">Seleccionar Apartado</option>
+        	<option th:each="apartado :${capitulo.apartados}" 
+        		th:value="${apartado}" th:text="${apartado}">
+        </select>
+	</div>
+	<div >
+	<label>Apartado seleccionado</label>
+	<input class="form_input" id="id_cap" type="text"
+		
+	>	
+	
+	</div>
+	<div >
+	<button id="btn_gua"  
+		onclick="saveAporte(this.id)"
+		class="btn_green btn_gua ">Guardar
+	</button>
+
+	<button id="btn_del"
+		onclick="deleteAporte(this.id)" 
+		class="btn_red btn_del ">Eliminar
+	</button>	
+	</div>
+	<br>
+
+</div>
+
+<br>
+
+</div>
+<!-- 
+	</form>
+ -->

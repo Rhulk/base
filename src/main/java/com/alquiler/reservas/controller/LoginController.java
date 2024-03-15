@@ -168,6 +168,7 @@ public class LoginController {
 			model.addAttribute("activoFormUser",true);
 			model.addAttribute("activoFormTodo",false);
 			model.addAttribute("editModeUser",false);
+			model.addAttribute("activoFormCurso", false);
 			
 		}else {
 			try {
@@ -213,6 +214,7 @@ public class LoginController {
 		model.addAttribute("activoFormUser",true);
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("editModeUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		return "security/user-form/main-view";
 	}
@@ -230,10 +232,12 @@ public class LoginController {
 		model.addAttribute("listTabUser","active");
 		model.addAttribute("tabSql","No");
 		model.addAttribute("tabToDo","No");
+		model.addAttribute("detailTabCurso","no");
 		
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		//Control model delete
 		model.addAttribute("deleteTodo",false);
@@ -382,7 +386,7 @@ public class LoginController {
 			System.out.println("Create User default in Home");
 		 return	mantenimiento.defaultUsert(model);
 		}else {
-			System.out.println(" Not user null");
+			System.out.println(" Hay usuarios en BBDD");
 		}
 		
 		return "index";

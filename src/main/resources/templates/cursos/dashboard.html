@@ -1,0 +1,81 @@
+
+
+<div class="cards_cursos">
+
+	<!-- Item div  -->
+  <div class="card_curso" th:each="curso : ${cursos}">
+    <div class="card__image-holder">
+      <img class="card__image" th:src="${curso.urlimagen}" th:alt="${curso.urlimagen}" />
+      
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+          <label th:text="${curso.nombre}"></label>
+          <small><label th:text="${curso.fuente}"></label></small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+        <label th:text="${curso.descripcion}"></label>
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <button  
+          	th:id="'btn_view' + ${curso.id}"
+          	onclick="goDetalle(this.id)"
+          	th:value="${curso.id}" 
+          	class="btn_blue viewbtn "
+          	th:classappend=" ${detalleCurso}"
+          	>Detalle curso
+          </button>
+          <button  
+          	th:id="'btn_view' + ${curso.id}"
+          	onclick="goEditar(this.id)"
+          	th:value="${curso.id}" 
+          	class="btn_blue viewbtn "
+          	th:classappend=" ${editarCurso}"
+          	>Editar curso
+          </button>
+
+          
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  Fin item div -->
+	<!-- Item div  -->
+  <div class="card_curso" >
+    <div class="card__image-holder">
+      <img class="card__image" src="https://html.com/wp-content/uploads/Code.jpg" alt="wave" />
+    </div>
+    <div class="card-title">
+      <a href="#" class="toggle-info btn">
+        <span class="left"></span>
+        <span class="right"></span>
+      </a>
+      <h2>
+          Spring Boot
+          <small>Image from unsplash.com</small>
+      </h2>
+    </div>
+    <div class="card-flap flap1">
+      <div class="card-description">
+        Plantilla base descripción
+      </div>
+      <div class="card-flap flap2">
+        <div class="card-actions">
+          <a href="#" th:href="@{/cursoID}" class="btn">Join curso</a>
+        </div>
+      </div>
+    </div>
+  </div>
+<!--  Fin item div -->
+  
+
+</div>
+
+

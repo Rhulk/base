@@ -56,6 +56,7 @@ public class TodoController {
 		// Gestión de los formularios
 		model.addAttribute("activoFormTodo",true);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		return "security/user-form/main-view";
 	}
@@ -74,6 +75,7 @@ public class TodoController {
 			
 			// Gestión de los formularios
 			model.addAttribute("activoFormTodo",true);
+			model.addAttribute("activoFormCurso", false);
 			//model.addAttribute("activoFormUser",false);
 			
 		}else {
@@ -122,6 +124,7 @@ public class TodoController {
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
+		model.addAttribute("activoFormCurso", false);
 		
 		//Control model delete 
 		model.addAttribute("deleteTodo",true);
@@ -170,6 +173,7 @@ public class TodoController {
 			// carga de modulos
 			model.addAttribute("activoFormTodo",true);
 			model.addAttribute("editModeTodo",true);
+			model.addAttribute("activoFormCurso", false);
 			
 			return "security/user-form/main-view";
 		}else {

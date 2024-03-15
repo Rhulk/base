@@ -1,0 +1,285 @@
+
+  <div class="superbody">
+  
+  
+  
+
+    <div class="dash">
+
+
+
+      <!-- BODY -->
+      <div class="body">
+
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+          <!-- COL-1 -->
+          <div th:object="${detallecurso}" class="main__col-1">
+
+            <!-- HEADING -->
+            <div >
+              <h2 class="main__heading"><span style="background: linear-gradient(to bottom, hsl(247, 88%, 70%), hsl(282, 82%, 51%)); box-shadow: 0 2px 12px hsla(247, 88%, 70%, .3)">
+                  <svg th:xmlns="${detallecurso.urlicono}" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                  
+                </span><label th:text="${detallecurso.nombre}"></label></h2>
+              <p class="main__desc"><label th:text="${detallecurso.descripcion}"></label></p>
+              <p class="main__sub"><span>Fuente: <label th:text="${detallecurso.fuente}"></label></span></p>
+              
+			<div id="btns">
+          	<button  
+          		name="uname_follow"
+          		id="btn_follow"
+          	 	th:value="${detallecurso.id}" 
+          	 	class="btn_green follow oculto"
+          	 	onclick="follow()"
+          	 >Follow
+          	</button> 
+          	 
+          	<button 
+          		id="btn_unfollow"
+          	 	th:value="${detallecurso.id}"
+          	 	class="btn_red unfollow oculto" 
+          	 	onclick="unfollow()"
+          	 >Unfollow
+          	</button>          
+          	</div>
+              
+            </div>
+
+            <!-- LIST -->
+            <div class="main__list-heading-wrap">
+              <h2 class="main__list-heading ss-heading">Listado de apartados</h2>
+              <a href="#" class="ss-show">show all</a>
+            </div>
+
+            <ul class="main__list">
+
+
+
+              <li class="main__list-item" th:each="capitulo : ${capitulos}">
+                <div class="main__list-content-wrap">
+                  <div class="check">
+                  	<div class="icono-check">
+                  		<i id="ipPropio" class="fas fa-check"></i>
+                  	</div>
+                  	  
+                  	<div class="capitulo">
+                  		<p th:id=" ${capitulo.id}" onclick="rotarIconoExt(this.id)"  class="main__list-content"><label th:text="${capitulo.nombre}"></label></p>
+                  	</div>
+                    
+                    <div class="dropdown-navb icono-rotar">
+                    	<i  th:id="'rotar_' + ${capitulo.id}" onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl fa-rotate-180"></i> 
+                    </div>  
+                  </div>
+                  
+				  <div th:id="'hijo_rotar' + ${apartado.id}" class="apartado check ocultarNavb " 
+				  		onclick="seleccionarApartado(this.id)" 
+				  		th:classappend="'rotar_' + ${capitulo.id}" th:each="apartado : ${capitulo.apartados}"
+				  		th:title="${apartado.recurso}"
+				  		>
+				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
+				    <div class="align">
+				    	<p class="main__list-sub"><label class="recurso" th:id="${apartado.recurso}"  th:text="${apartado.nombre}"
+				    		onclick="cargarRecurso(this.id)"></label></p>
+				    		
+				    	<!--  <div th:id="'aporte' + ${apartado.id}"  th:each="apartadoApunte : ${apartados}" th:if="${apartado.id == apartadoApunte.id }">
+				    		<p th:text="${apartadoApunte.id}"></p>
+				    		<div th:each="apunte : ${apartadoApunte.apuntes}">
+				    			<p th:text="${apunte.id}"></p>
+				    			<p th:text="${apunte.notas}">gg</p>
+				    		</div>
+				    	</div>
+						-->
+				    </div>
+                  </div>
+                </div>
+              </li>
+			</ul>
+
+          </div>
+
+          <!-- COL-2 -->
+          <div class="main__col-2">
+
+            <!-- CARDS >> DETALLE -->
+            <div class="main__cards-container">
+
+              <div class="main__cards-container-heading-wrap">
+                <h2 class="main__cards-container-heading ss-heading">Detalle aporte</h2>
+                <a id="idshowlink" onclick="showHide()"  href="#" class="ss-show">hide </a>
+                 <i id="idshow"  onclick="showHide()" class="fa-solid fa-caret-down fa-2xl "></i>
+              </div>
+              
+              <div class="main__detail">
+              <!--  
+    			<iframe id="idframe" class="showHide heigtseiscientos"
+    				width="100%" height="100%" 
+    				src="https://www.youtube.com/embed/ZK9iP5PEhSU" 
+    				frameborder="0" 
+    				allow="accelerometer;  encrypted-media; gyroscope; picture-in-picture" 
+    				allowfullscreen>
+    				
+    			</iframe> 
+    			-->
+    			<div id="idframe" 
+    				class="showHide heigtseiscientos"
+    				
+    			>
+    			
+    			</div>
+
+    			                  
+              </div>
+
+              <div class="main__cards-pagination">
+                
+                <div class="check_visto">
+  					<input type="checkbox" name="my-checkbox" id="opt-in"
+  						onclick="checking()"
+  					 />
+  					<label id="visto" for="opt-in"  >¡Visto!</label>
+				</div>
+                
+                <div class="main__cards-buttons">
+                	
+                	
+                  <button id="back_btn"  onclick="backPag()" class="opacityOn">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                	
+                 
+                 	<label id="pag"  class="pag">1</label>
+                                   
+                  
+                  
+                  <button id="next_btn" onclick="nextPag()">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                 
+                </div>
+              </div>
+
+            </div>
+
+            <!-- DISCOVER APUNTES  th:id="'hijo_rotar' + ${apartado.id}"
+            <div id="idapunte" th:each="apartadoApunte : ${apartados}" > -->
+           <!--   <div th:id="'apunte' +${apartadoApunte.id}" th:each="apartadoApunte : ${apartados}" class="oculto" >  -->
+            <div id="idapunte"  class="apartadoAporte oculto" >
+
+            
+            
+           <!--  <div id="main__discover" class="main__discover "   th:each="apunte : ${apartadoApunte.apuntes}" > -->
+            <div id="main__discover" class="main__discover "   >
+
+              <div id="main__discover-heading-container" class="main__discover-heading-container">
+                <h3 class="main__discover-heading ss-heading">Apuntes sobre el apartado</h3>
+                <a id="idshowlinkApu" onclick="showHideApunte()"  href="#" class="ss-show">hide </a>
+                <i id="idshow"  onclick="showHideApunte()" class="fa-solid fa-caret-down fa-2xl "></i>
+                
+              </div>
+
+			<div class="main__discover-detail">
+			 <textarea id="textarea" class=" kk" rows="10" cols="170" value="Escribe aqui tus notas sobre este video"></textarea>
+			</div>
+			
+			<div class="main__discover-crud">
+				<div class="main__apn_btn_crud">
+					<button id="btn_gua"  
+						onclick="saveAporte(this.id)"
+						class="btn_green btn_gua oculto">Guardar
+					</button>
+					<button id="btn_alt"
+						onclick="altAporte(this.id)" 
+					 	class="btn_green btn_alt">Alta
+					 </button>
+					<button id="btn_mod"
+					 	onclick="modAporte(this.id)" 
+					 	class="btn_blue btn_mod ">Modificar
+					 </button>
+					<button id="btn_del"
+					 	onclick="deleteAporte(this.id)" 
+					 	class="btn_red btn_del ">Eliminar
+					 </button>
+				</div>
+	            <div id="idcrud" class="main__cards-buttons">
+                  <button onclick="backStop()"
+                  	style="opacity: .4"
+                  	>
+                    <svg xmlns="http://www.w3.org/2000/svg"
+                    	fill="none"
+                    	viewBox="0 0 24 24"
+                    	stroke="currentColor"
+                    >
+                      <path stroke-linecap="round"
+                      	stroke-linejoin="round"
+                      	stroke-width="2"
+                      	d="M15 19l-7-7 7-7"
+                       />
+                    </svg>
+                  </button>
+                  <label id="pagApu"  class="pag">1</label>
+                  <button onclick="nextStop()" >
+                    <svg xmlns="http://www.w3.org/2000/svg" 
+                    	fill="none"
+                    	viewBox="0 0 24 24" 
+                    	stroke="currentColor"
+                    >
+                      <path 
+                      	stroke-linecap="round" 
+                      	stroke-linejoin="round" 
+                      	stroke-width="2" 
+                      	d="M9 5l7 7-7 7" 
+                      />
+                    </svg>
+                  </button>
+                  
+                  
+                  	<label id="pagTotal"  class="pag" >1</label>
+                  
+                  
+                </div>
+              </div>		
+			</div>
+
+			 
+			</div>
+			
+			<div id="contenedorApunte">
+			
+			
+			</div>
+			
+				<!-- Copia vacia para mantener el ancho -->
+            <div  class="main__discover "   >
+
+              <div class="main__discover-heading-container">
+
+                
+              </div>
+
+			<div class="main__discover-detail kk">
+			 <textarea id="textarea" class=" kk" rows="1" cols="170" disabled></textarea>
+			</div>
+			
+		
+			</div>		
+
+            </div>
+
+          </div>
+
+        </main>
+
+      </div>
+
+    </div>
+

@@ -1,0 +1,277 @@
+<!DOCTYPE html>
+<html lang="en">
+
+  <head>
+    <meta charset="UTF-8">
+    <meta name="viewport" content="width=device-width, initial-scale=1.0">
+    <title>Dashboard </title>
+    
+    	<!-- FRAMEWORK BOOTSTRAP para el estilo de la pagina-->
+	<link rel="stylesheet"
+		href="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/css/bootstrap.min.css">
+	<script
+		src="https://maxcdn.bootstrapcdn.com/bootstrap/4.0.0/js/bootstrap.min.js"></script>
+    
+    	<!-- css para el detalle con los cursos -->
+	<link rel="stylesheet" type="text/css" href="static/css/cursos/detalle.css"
+		th:href="@{/css/cursos/detalle.css}">
+    
+    	<!-- Los iconos tipo Solid de Fontawesome-->
+	<link rel="stylesheet"
+		href="https://use.fontawesome.com/releases/v6.0.0/css/solid.css">
+	<script src="https://use.fontawesome.com/releases/v6.0.0/js/all.js"></script>
+	
+		<!-- Funcionalidades del detallecurso  -->
+	<script type="text/javascript" th:src="@{/js/detallecurso.js}" /> </script>
+    
+  </head>
+
+  <body>
+  <div class="superbody">
+  
+  
+  
+
+    <div class="dash">
+
+
+
+      <!-- BODY -->
+      <div class="body">
+
+
+
+        <!-- MAIN -->
+        <main class="main">
+
+          <!-- COL-1 -->
+          <div class="main__col-1">
+
+            <!-- HEADING -->
+            <div>
+              <h2 class="main__heading"><span style="background: linear-gradient(to bottom, hsl(247, 88%, 70%), hsl(282, 82%, 51%)); box-shadow: 0 2px 12px hsla(247, 88%, 70%, .3)">
+                  <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="#fff">
+                    <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M13 7h8m0 0v8m0-8l-8 8-4-4-6 6" />
+                  </svg>
+                </span> Spring Boot</h2>
+              <p class="main__desc">Mixtures of places that I've visited & traveled which are worth to check out again ^_^</p>
+              <p class="main__sub"><span>Profile Collaborators:</span> <span>Cloud Strife & Jack Sparrow</span></p>
+            </div>
+
+            <!-- LIST -->
+            <div class="main__list-heading-wrap">
+              <h2 class="main__list-heading ss-heading">Listado de apartados</h2>
+              <a href="#" class="ss-show">show all</a>
+            </div>
+
+            <ul class="main__list">
+
+
+
+              <li class="main__list-item">
+                <div class="main__list-content-wrap">
+                  <div class="check">
+                  	<a href="#" ><i id="ipPropio" class="fas fa-check"></i> </a>  
+                    <p id="novale" class="main__list-content">Introducción</p>
+                    <div class="dropdown-navb">
+                    	<a href="#" ><i id="rotar_1"  onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
+                    </div>            
+                  </div>
+				  <div id="hijo_rotar_1" class="check rotar_1">
+				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
+				    <div class="align">
+				    	<p class="main__list-sub">Instalación</p>
+				    </div>
+                  </div>
+                  <div id="hijo_rotar_1" class="check rotar_1">
+                  	<a href="#" ><i class="fas fa-check"></i> </a> 
+                  	<div class="align">
+                  		<p class="main__list-sub">Configuración</p>
+                  	</div>
+                  </div>
+                  <div id="hijo_rotar_1" class="check rotar_1">
+                  	<a href="#" ><i class="fas fa-ban"></i> </a> 
+                  	<div class="align">
+                  		<p class="main__list-sub">Resumen del apartado</p>
+                  	</div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-content-wrap">
+                  <div class="check">
+                  	<a href="#" ><i id="ipPropio" class="fas fa-check"></i> </a>  
+                    <p id="novale" class="main__list-content">Introducción</p>
+                    <div class="dropdown-navb">
+                    	<a href="#" ><i id="rotar_2"  onclick="rotarIcono(this.id)" class="fa-solid fa-caret-down fa-2xl "></i> </a>
+                    </div>            
+                  </div>
+				  <div id="hijo_rotar_2" class="check rotar_2">
+				    <a href="#" ><i id="idPropio" class="fas fa-check"></i> </a> 
+				    <div class="align">
+				    	<p class="main__list-sub">Instalación</p>
+				    </div>
+                  </div>
+                  <div id="hijo_rotar_2" class="check rotar_2">
+                  	<a href="#" ><i class="fas fa-check"></i> </a> 
+                  	<div class="align">
+                  		<p class="main__list-sub">Configuración</p>
+                  	</div>
+                  </div>
+                  <div id="hijo_rotar_2" class="check rotar_2">
+                  	<a href="#" ><i class="fas fa-ban"></i> </a> 
+                  	<div class="align">
+                  		<p class="main__list-sub">Resumen del apartado</p>
+                  	</div>
+                  </div>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Introducción</p>
+                  <p class="main__list-sub">Instalación</p>
+                  <p class="main__list-sub">Configuración</p>
+                  <p class="main__list-sub">Resumen del apartado</p>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-item-image">
+                  <img src="https://images.unsplash.com/photo-1470218091926-22a08a325802?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
+                </div>
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Wadi Namar Waterfall</p>
+                  <p class="main__list-sub">Relaxing</p>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Wadi Hanifah</p>
+                  <p class="main__list-sub">At Last</p>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Heet Cave</p>
+                  <p class="main__list-sub">Loved</p>
+                </div>
+              </li>
+
+              <li class="main__list-item">
+                <div class="main__list-item-image">
+                  <img src="https://images.unsplash.com/photo-1575279146056-963c4a35627b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
+                </div>
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Janadriyah Cultural & Heritage Festival</p>
+                  <p class="main__list-sub">Cold</p>
+                </div>
+              </li>
+              
+              <li class="main__list-item">
+                <div class="main__list-item-image">
+                  <img src="https://images.unsplash.com/photo-1575279146056-963c4a35627b?crop=entropy&cs=tinysrgb&fit=crop&fm=jpg&h=40&ixid=eyJhcHBfaWQiOjF9&ixlib=rb-1.2.1&q=80&w=40" alt="">
+                </div>
+                <div class="main__list-content-wrap">
+                  <p class="main__list-content">Janadriyah Cultural & Heritage Festival</p>
+                  <p class="main__list-sub">Cold</p>
+                </div>
+              </li>
+
+            </ul>
+
+          </div>
+
+          <!-- COL-2 -->
+          <div class="main__col-2">
+
+            <!-- CARDS >> DETALLE -->
+            <div class="main__cards-container">
+
+              <div class="main__cards-container-heading-wrap">
+                <h2 class="main__cards-container-heading ss-heading">Detalle aporte</h2>
+                <a id="idshowlink" onclick="showHide()"  href="#" class="ss-show">hide </a>
+                 <i id="idshow"  onclick="showHide()" class="fa-solid fa-caret-down fa-2xl "></i>
+              </div>
+              
+              <div class="main__detail">
+              
+    <iframe id="idframe" class="showHide heigtseiscientos" width="100%" height="100%" src="https://www.youtube.com/embed/ZK9iP5PEhSU" frameborder="0" allow="accelerometer; autoplay="1"; encrypted-media; gyroscope; picture-in-picture" allowfullscreen></iframe>                   
+              </div>
+
+              <div class="main__cards-pagination">
+                
+                <div class="check_visto">
+  					<input type="checkbox" name="my-checkbox" id="opt-in" />
+  					<label for="opt-in">¡Visto!</label>
+				</div>
+                
+                <div class="main__cards-buttons">
+                  <button style="opacity: .4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>
+
+            </div>
+
+            <!-- DISCOVER APUNTES-->
+            <div id="main__discover" class="main__discover ">
+
+              <div class="main__discover-heading-container">
+                <h3 class="main__discover-heading ss-heading">Apuntes sobre el apartado</h3>
+                <a id="idshowlinkApu" onclick="showHideApunte()"  href="#" class="ss-show">hide </a>
+                <i id="idshow"  onclick="showHideApunte()" class="fa-solid fa-caret-down fa-2xl "></i>
+                
+              </div>
+
+			<div class="main__discover-detail">
+			 <textarea id="textarea" class=" kk" rows="10" cols="170"></textarea>
+			</div>
+			
+			<div class="main__discover-crud">
+				<div class="main__apn_btn_crud">
+					<button class="btn_green">Alta</button>
+					<button class="btn_blue">Modificar</button>
+					<button class="btn_red">Eliminar</button>
+				</div>
+	            <div class="main__cards-buttons">
+                  <button style="opacity: .4">
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M15 19l-7-7 7-7" />
+                    </svg>
+                  </button>
+                  <button>
+                    <svg xmlns="http://www.w3.org/2000/svg" fill="none" viewBox="0 0 24 24" stroke="currentColor">
+                      <path stroke-linecap="round" stroke-linejoin="round" stroke-width="2" d="M9 5l7 7-7 7" />
+                    </svg>
+                  </button>
+                </div>
+              </div>		
+			</div>
+
+            </div>
+
+          </div>
+
+        </main>
+
+      </div>
+
+    </div>
+
+	</div>
+
+  </body>
+
+</html>

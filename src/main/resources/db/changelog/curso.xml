@@ -1,0 +1,281 @@
+<?xml version="1.0" encoding="UTF-8"?>
+ <databaseChangeLog
+         xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance"
+         xmlns:ext="http://www.liquibase.org/xml/ns/dbchangelog-ext"
+         xmlns="http://www.liquibase.org/xml/ns/dbchangelog"
+         xsi:schemaLocation="http://www.liquibase.org/xml/ns/dbchangelog http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-3.1.xsd
+     http://www.liquibase.org/xml/ns/dbchangelog-ext http://www.liquibase.org/xml/ns/dbchangelog/dbchangelog-ext.xsd">
+     
+      <changeSet author="develop_SQL" id="curso_1">
+         <createTable tableName="stg_curso">
+             <column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="nombre" type="VARCHAR(255)">
+                 
+             </column>
+             <column name="categoria" type="VARCHAR(255)">
+                 
+             </column>
+             <column name="descripcion" type="VARCHAR(255)">
+                 
+             </column>    
+             <column name="fuente" type="VARCHAR(255)">
+                 
+             </column>  
+             
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_curso"/>
+         </rollback>
+     </changeSet>
+     
+     
+	<changeSet author="delop_sql" id="curso_1a"> 
+		<addColumn 
+				tableName="stg_curso" >
+			<column name="urlImagen"   
+				type="VARCHAR(255)"/>  
+		</addColumn>  
+	</changeSet>
+	<changeSet author="delop_sql" id="curso_1b"> 
+		<addColumn 
+				tableName="stg_curso" >
+			<column name="urlIcono"   
+				type="VARCHAR(255)"/>  
+		</addColumn>  
+	</changeSet>
+	
+	
+	<changeSet  author="delop_sql"  id="curso_1c">  
+    	<modifyDataType   
+            columnName="urlIcono"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+	<changeSet  author="delop_sql"  id="curso_1d">  
+    	<modifyDataType   
+            columnName="urlImagen"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+	<changeSet  author="delop_sql"  id="curso_1e">  
+    	<modifyDataType   
+            columnName="descripcion"  
+            newDataType="VARCHAR(MAX)"  
+             
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+	<changeSet  author="delop_sql"  id="curso_1f">  
+    <renameColumn    
+            columnDataType="VARCHAR(MAX)"  
+            newColumnName="urlimagen"  
+            oldColumnName="urlImagen"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+	
+	<changeSet  author="delop_sql"  id="curso_1g">  
+    <renameColumn    
+            columnDataType="VARCHAR(MAX)"  
+            newColumnName="urlicono"  
+            oldColumnName="urlIcono"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>
+	
+  	<changeSet  author="delop_sql"  id="curso_1h">  
+    <renameColumn    
+            columnDataType="VARCHAR(255)"  
+            newColumnName="categoriacurso"  
+            oldColumnName="categoria"  
+ 
+            tableName="stg_curso"/>  
+	</changeSet>   
+     
+     <changeSet author="develop_SQL" id="curso_2">
+         <createTable tableName="stg_curso_user">
+         	<column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+             </column>
+             <column name="id_curso" type="INT">
+                 <constraints nullable="false"/>
+             </column>
+             <column  name="id_user" type="INT">
+                 <constraints nullable="false"/>
+             </column>
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_curso_user"/>
+         </rollback>
+     </changeSet>
+     
+          <changeSet author="develop_SQL" id="curso_3">
+         <createTable tableName="stg_capitulo">
+         	<column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column  name="nombre" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+            </column>
+			<column name="descripcion" type="VARCHAR(255)">
+            	<constraints nullable="false"/>
+            </column>
+            
+            <column  name="orden" type="INT">
+            	<constraints nullable="false"/>
+            </column>
+            
+            <column name="id_curso" type="INT">
+				<constraints nullable="false"/>
+            </column>         
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_capitulo"/>
+         </rollback>
+     </changeSet>
+     
+	<changeSet  author="delop_sql"  id="curso_2a">  
+    <renameColumn    
+            columnDataType="INT"  
+            newColumnName="idcurso"  
+            oldColumnName="id_curso"  
+ 
+            tableName="stg_capitulo"/>  
+	</changeSet> 
+     
+     <changeSet author="develop_SQL" id="curso_4">
+         <createTable tableName="stg_apartado">
+         	<column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="nombre" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+            </column>
+			<column name="descripcion" type="VARCHAR(255)">
+            	<constraints nullable="false"/>
+            </column>
+
+            <column name="recurso" type="VARCHAR(255)">
+            	<constraints nullable="false"/>
+            </column>
+            
+            <column name="orden" type="INT">
+            	<constraints nullable="false"/>
+            </column>
+            
+            <column name="id_capitulo" type="INT">
+				<constraints nullable="false"/>
+            </column>         
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_apartado"/>
+         </rollback>
+     </changeSet>    
+     
+	<changeSet  author="delop_sql"  id="curso_4a">  
+    <renameColumn    
+            columnDataType="INT"  
+            newColumnName="idcapitulo"  
+            oldColumnName="id_capitulo"  
+ 
+            tableName="stg_apartado"/>  
+	</changeSet> 
+     
+     <changeSet author="develop_SQL" id="curso_5">
+         <createTable tableName="stg_checkout">
+         	<column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="check" type="bit">
+				<constraints nullable="false"/>
+            </column>
+
+            
+            <column name="id_apartado" type="INT">
+				<constraints nullable="false"/>
+            </column>  
+            
+            <column name="id_user" type="INT">
+				<constraints nullable="false"/>
+            </column>        
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_checkout"/>
+         </rollback>
+     </changeSet>
+     
+          <changeSet  author="delop_sql"  id="curso_5a">  
+    	<renameColumn    
+            columnDataType="bit"  
+            newColumnName="checking"  
+            oldColumnName="check"  
+ 
+            tableName="stg_checkout"/>  
+	</changeSet> 
+     
+     <changeSet author="develop_SQL" id="curso_6">
+         <createTable tableName="stg_apunte">
+         	<column autoIncrement="true" name="id" type="INT">
+                 <constraints primaryKey="true"/>
+            </column>
+            <column name="notas" type="VARCHAR(255)">
+				<constraints nullable="false"/>
+            </column>
+
+            
+            <column name="id_apartado" type="INT">
+				<constraints nullable="false"/>
+            </column>  
+            
+            <column name="id_user" type="INT">
+				<constraints nullable="false"/>
+            </column>        
+             
+         </createTable>  
+         
+         
+         <rollback>
+             <dropTable tableName="stg_apunte"/>
+         </rollback>
+     </changeSet> 
+     
+     <changeSet  author="delop_sql"  id="curso_6a">  
+    	<renameColumn    
+            columnDataType="INT"  
+            newColumnName="idapartado"  
+            oldColumnName="id_apartado"  
+ 
+            tableName="stg_apunte"/>  
+	</changeSet>  
+	
+	     <changeSet  author="delop_sql"  id="curso_6b">  
+    	<renameColumn    
+            columnDataType="INT"  
+            newColumnName="iduser"  
+            oldColumnName="id_user"  
+ 
+            tableName="stg_apunte"/>  
+	</changeSet>  
+
+ </databaseChangeLog>

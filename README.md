@@ -217,5 +217,107 @@ Doc de los avances y modificaciones en las diferentes ramas
 
 		
 #####################################################################################
+# Rama: feature/curso
+# Fecha Committer: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+# LastChange: Recuperar si el check esta o no marcado.
+# Origen: 
+# Situación: Avanzada.
+	Creadas las views del listado y detalle del curso.
+	Y la parte correspondiente del negocio.
+	
+# Problem: 
+	
 
 
+# Resueltos:
+	Creando las pantallas del módulo
+	Se muestran todos o casi las pantallas revisión de las propiedades que controlan lo que se ve.
+	SQL estructura inicial.
+		Alta detalle cursos por BBDD
+	Modelo de datos:
+	Entitys:
+		Curso and CategoriaCurso
+	Services:
+		CursoService and CursoServiceImp
+	Repository JPA:
+		CursoRepository
+	
+	Carga inicial del modelo a la vista.
+	Generado el dashboard dinamicamente
+	Generar el detalle del curso dinamicamente
+		Integrado listado y el recurso 
+		Paginado de los recursos sincronizado con el listado.
+		
+	Listado de apuntes CRUD y su paginado.
+
+	Control de los videos vistos por cada usuario.
+		Crear servicio Rest
+		Al marcar el check.
+		Recuperar si el check esta o no marcado.
+		...
+		
+	Recuperar el usuario logueado.
+	
+	Crear pestañas nuevas sub menus cursos:
+	
+	
+	Gestiones con los cursos desde el dashboard de cursos:
+		Follow curso.
+		Unfollow curso.
+		Detalle curso. "Actual Join Curso"
+		Editar curso.
+		Controlar si ya estamos en el curso o no.
+		Mejorar el sistema de btns Follow and Unfollow.
+	
+	Falla la modificación del apunte. OK
+	
+	Unificar las respuestas REST con objeto Respuesta.
+	
+	Vinculo del dashboard al detalle siempre coge el 3. OK
+	
+	Los aportes no estan vinculados al curso ¿why?.
+		Se añade el curso a todos los metodos para la correcta vinculación con el mismo.
+	
+	Mis cursos:
+		Seguimiento de mis cursos actuales.
+	
+	Editar:
+		16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+	
+# Avances - Next to:
+
+	Control de los videos vistos por cada usuario.
+		Al finalizar el video marcar como visto.
+		Reproducion automatica de videos.
+		
+	
+	Importar curso nuevo:
+		Fase actual por script sql.
+		Fase 2: Formulario web crear y editar los existentes.
+			Desde un dashboard de cursos seleccionar curso a editar.
+			Mostrar cb con los capitulos, apartados y aportes.
+				Opcion de añadir uno nuevo o editar uno que seleccione.
+			16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+				
+		Fase 3: Importar desde un excel.
+		
+	
+			
+	Crear pestañas nuevas sub menus cursos:
+		Mis cursos:
+			Seguimiento de mis cursos actuales.
+		Alta:
+			Creación de nuevos cursos.
+		Editar:
+			Edición de los cursos existentes.
+		All cursos:
+			contiene todos los cursos.
+			
+
+	Bloquear todo lo referente al seguimiento de un curso si el usuario no lo sigue.	
+		
+		
+			
+	
+
+#####################################################################################
