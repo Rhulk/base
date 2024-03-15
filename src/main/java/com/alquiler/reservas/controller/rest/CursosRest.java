@@ -69,7 +69,6 @@ public class CursosRest {
 			@PathVariable(name="notas") String notas,
 			@PathVariable(name="curso") Integer curso
 			){
-
 		return new Respuesta( 
 				cursoService.createNewAporte(
 						apartado,notas,getLoguin().getId(),curso) 
@@ -126,6 +125,7 @@ public class CursosRest {
 	@GetMapping("/getCapitulo/{capitulo}")
 	public Capitulo getCapitulo(@PathVariable(name="capitulo") Long capitulo) throws Exception {
 		
+		System.out.println("Get Capitulo: "+capitulo);
 		Capitulo cap = capituloRepository.findById(capitulo)
 				.orElseThrow(() -> new Exception("Capitulos does not exist"));
 		
@@ -164,6 +164,26 @@ public class CursosRest {
 				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
 		
 		return new Respuesta(cursoService.modCapitulo(new Capitulo(id, nombre, descripcion, orden)));
+	}
+	@GetMapping("addCapitulo/{id}/{nombre}/{descripcion}/{orden}")
+	public Respuesta addCapitulo(
+			@ModelAttribute("id") int id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("orden") int orden			
+			) {
+		System.out.println(" GET REST add Capitulo: idCurso : "+id+
+				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
+		
+		return new Respuesta(cursoService.addCapitulo(id, nombre, descripcion, orden));
+	}
+	@GetMapping("deleteCapitulo/{id}")
+	public Respuesta deleteCapitulo(
+			@ModelAttribute("id") Long id			
+			) {
+		System.out.println(" REST delete Capitulo: id : "+id);
+		
+		return new Respuesta(cursoService.deleteCapitulo(id));
 	}
 	
 	public User getLoguin() {

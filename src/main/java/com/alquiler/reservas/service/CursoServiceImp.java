@@ -211,6 +211,25 @@ public class CursoServiceImp implements CursoService {
 		return true;
 	}
 	
+	public boolean addCapitulo(int curso, String nombre, String descripcion, int orden) {
+		Curso findCurso = new Curso();
+		Capitulo newCap = new Capitulo();
+		try {
+			findCurso = cursoRepository.findById(curso)
+					.orElseThrow( () -> new Exception(" Fail found curso"));	
+			newCap.nombre = nombre;
+			newCap.descripcion = descripcion;
+			newCap.orden = orden;
+			newCap.setCurso(findCurso);
+			
+			capituloRepository.save(newCap);
+			
+		}catch (Exception e) {
+			return false;
+		}
+		
+		return true;
+	}
 	
 	
 
@@ -376,6 +395,22 @@ public class CursoServiceImp implements CursoService {
 			}
 		}
 		return cursos;
+	}
+
+	@Override
+	public boolean deleteCapitulo(Long id) {
+		Capitulo capDelete = new Capitulo();
+		try {
+			capDelete = capituloRepository.findById(id)
+					.orElseThrow(() -> new Exception("Capitulo does not exist"));
+			capituloRepository.delete(capDelete);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return false;
+		}	
+		
+		return true;
 	}
 
 

@@ -17,6 +17,7 @@ public interface CursoService {
 	
 	public boolean modCurso(Curso curso);
 	public boolean modCapitulo(Capitulo capitulo);
+	public boolean addCapitulo(int curso, String nombre, String descripcion, int orden);
 	
 	public Curso getCurso(int id) throws Exception;
 	
@@ -41,6 +42,8 @@ public interface CursoService {
 	public boolean followCurso(Integer curso);
 	public boolean unfollowCurso(Integer curso);
 	public boolean isFollowCurso(Integer curso);
+	
+	public boolean deleteCapitulo(Long id);
 
 
 	

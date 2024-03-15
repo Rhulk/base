@@ -218,7 +218,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 16/10/23
+# Fecha Committer: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
 # LastChange: Recuperar si el check esta o no marcado.
 # Origen: 
 # Situación: Avanzada.
@@ -281,6 +281,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Mis cursos:
 		Seguimiento de mis cursos actuales.
 	
+	Editar:
+		16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+	
 # Avances - Next to:
 
 	Control de los videos vistos por cada usuario.
@@ -294,6 +297,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 			Desde un dashboard de cursos seleccionar curso a editar.
 			Mostrar cb con los capitulos, apartados y aportes.
 				Opcion de añadir uno nuevo o editar uno que seleccione.
+			16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
 				
 		Fase 3: Importar desde un excel.
 		

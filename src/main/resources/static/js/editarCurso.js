@@ -1,5 +1,8 @@
 
-
+function soloNumeros(e){
+    var key = window.Event ? e.which : e.keyCode
+    return (key >= 48 && key <= 57)
+}
 
 function goEditar(id){
 	location.href ='cursolistEdit/'+document.getElementById(id).value;
@@ -36,10 +39,79 @@ function saveCapitulo(id){
 	
 }
 
-function saveCurso(id){
+function addCapitulo(id){
+
+	var capitulo = new Object();
+	capitulo.id =
+		document.getElementById('id_curso').value;	
+	capitulo.nombre =
+		document.getElementById('id_cap_nombre_new').value;
+	capitulo.descripcion =
+		document.getElementById('id_cap_descripcion_new').value;
+	capitulo.orden =
+		document.getElementById('id_cap_orden_new').value;
+
+	console.log(capitulo);
 	
-	document.getElementById('capitulo')
-		.classList.remove('oculto');
+	fetch("http://localhost:8080"+"/addCapitulo/"
+		+capitulo.id+"/"+capitulo.nombre.replaceAll("/", "%F7")+"/"
+		+capitulo.descripcion.replaceAll("/", "%F7")
+		+"/"+capitulo.orden.replaceAll("/", "%F7"))
+    .then((respuesta) => respuesta.json())
+    .then(
+    	function (respuesta){    
+			console.log(
+				"Resultado respuesta: "+respuesta.check
+			);
+			if (respuesta.check)
+				location.href =''+document.getElementById('id_curso').value;
+			// que hacer si falla?
+        }
+
+     );
+	
+}
+function showFormCapitulo(){
+	
+	var isClassOculto = 
+		document.getElementById('capitulo_new').classList.contains( 'oculto' );
+	if (isClassOculto){
+		document.getElementById('capitulo_new')
+			.classList.remove('oculto');
+		document.getElementById('btn_cap_new')
+			.classList.remove('btn_green');	
+		document.getElementById('btn_cap_new')
+			.classList.add('btn_red');	
+		document.getElementById('cursoEditBasic')
+			.classList.remove('formCurso');
+		document.getElementById('cursoEditBasic')
+			.classList.add('oculto');	
+		//document.getElementById('btn_cap_new').innerHTML = 'Cancelar alta';
+	}else{
+		document.getElementById('capitulo_new')
+			.classList.add('oculto');
+		document.getElementById('btn_cap_new')
+			.classList.remove('btn_red');	
+		document.getElementById('btn_cap_new')
+			.classList.add('btn_green');
+		document.getElementById('cursoEditBasic')
+			.classList.remove('oculto');
+		document.getElementById('cursoEditBasic')
+			.classList.add('formCurso');		
+		//document.getElementById('btn_cap_new').innerHTML = 'Add Capitulo';
+	}
+
+
+}
+
+
+function saveCurso(id){
+
+	document.getElementById('btn_gua').classList.remove('btn_green');
+	document.getElementById('btn_gua').classList.add('btn_red');
+	document.getElementById('btn_gua').innerHTML = 'Guardando ...';
+	
+	//document.getElementById('capitulo').classList.remove('oculto');
 	console.log(
 		document.getElementById('id_name_curso')
 	);
@@ -98,21 +170,39 @@ function saveCurso(id){
 			console.log(
 				"Resultado respuesta: "+respuesta.check
 			);
-
+			document.getElementById('btn_gua').classList.remove('btn_red');
+			document.getElementById('btn_gua').classList.add('btn_green');
+			document.getElementById('btn_gua').innerHTML = 'Guardar datos';
         }
 
      );	
 
 }
+function cancelarCapitulo(id){
+	document.getElementById('apartado').classList.add('oculto');
+	document.getElementById('capSelect').classList.add('oculto');
+	
+	document.getElementById('cursoEditBasic').classList.remove('oculto');
+	document.getElementById('cursoEditBasic').classList.add('formCurso');
+		
+	document.getElementById('selectCap').selectedIndex = 0;
+	
+}
+
 function selectEditarCapitulo(id){
-	document.getElementById('apartado')
-		.classList.remove('oculto');
+	document.getElementById('apartado').classList.remove('oculto');
+	document.getElementById('capSelect').classList.remove('oculto');
+	document.getElementById('cursoEditBasic').classList.add('oculto');	
+	document.getElementById('cursoEditBasic').classList.remove('formCurso');	
 	console.log(id);
+	console.log(document.getElementById('cursoEditBasic'));
+	console.log("http://localhost:8080"+"/getCapitulo/"+id);
 	
 	fetch("http://localhost:8080"+"/getCapitulo/"+id)
     .then((capitulo) => capitulo.json())
     .then(
-    	function (capitulo){    
+    	function (capitulo){ 
+    		console.log('Respuesta Get Capitulo');   
 			document.getElementById('id_cap_')
 				.value = id;
 			document.getElementById('id_cap_nombre')
@@ -125,6 +215,26 @@ function selectEditarCapitulo(id){
         }
 
      );
+}
+
+function deleteCapitulo(){
+	var id = document.getElementById('id_cap_').value;
+
+	console.log("http://localhost:8080"+"/deleteCapitulo/"+id);
+	
+	fetch("http://localhost:8080"+"/deleteCapitulo/"+id)
+    .then((respuesta) => respuesta.json())
+    .then(
+    	function (respuesta){    
+			console.log(
+				"Resultado respuesta: "+respuesta.check
+			);
+			if (respuesta.check)
+				location.href =''+document.getElementById('id_curso').value;
+        }
+
+     );
+	
 }
 
 function formatDivision(cadena){

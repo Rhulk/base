@@ -5,6 +5,10 @@
 
 .formCurso{
 	display: grid;
+	border: 1px solid;
+    border-radius: 10px;
+    background-color: azure;
+    padding: 10px 15px 0px 15px;
 }
 .formRow{
 	
@@ -17,4 +21,48 @@
 .main__apn_btn_crud {
 	padding-top: 20px;
 	padding-left: 40px;
+}
+.capNew {
+	display: flex;
+	flex-direction: column;
+    gap: 5px;
+	border: solid;
+    border-radius: 5px;
+    border-width: 1px;
+	background-color: azure;
+	padding: 5px 15px;
+} 
+.itemCapNew {
+	width: 100%;
+}
+.nombreCap input {
+	width: 80%;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+.descripcionCap input {
+	width: 76%;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+.ordenCap input {
+	width: 16%;
+	padding-left: 10px;
+	margin-left: 10px;
+}
+.capituloList {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	border: solid;
+    border-radius: 5px;
+    border-width: 1px;
+	background-color: azure;
+	padding: 5px 15px;
+}
+.idCap input {
+	width: 16%;
+	padding-left: 10px;
+	margin-left: 10px;
 }

@@ -3,14 +3,22 @@ package com.alquiler.reservas.controller;
 import java.util.List;
 import java.util.Optional;
 
+import javax.validation.Valid;
+
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
+import org.springframework.ui.ModelMap;
+import org.springframework.validation.BindingResult;
 import org.springframework.web.bind.annotation.GetMapping;
+import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
+import org.springframework.web.bind.annotation.PostMapping;
 
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.entity.Estado;
+import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.service.CursoService;
 
@@ -26,12 +34,10 @@ public class CursosController {
 	
 	@GetMapping("/cursoAlta")
 	public String cursoAlta(Model model) {
-		
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo",false);
 		model.addAttribute("activoFormUser",false);
 		model.addAttribute("activoFormCurso", false);
-		
 		// Gestión de tab acvitos o no
 		model.addAttribute("tabTodo","no");
 		model.addAttribute("listTabTodo","no");
@@ -45,16 +51,65 @@ public class CursosController {
 		model.addAttribute("altaTabCurso","active");
 		
 		// modelo de datos 
-		
 
-// TO-DO: Crear el formulario del alta
-		
-		
-		// TEST
-
-		
 		return "security/user-form/main-view.html";
-	}			
+	}	
+	@PostMapping("/cursoAlta")
+	public String createCurso(@Valid @ModelAttribute("detallecurso")Curso curso, BindingResult result, ModelMap model) {
+		if(result.hasErrors()) {
+			
+			model.addAttribute("detallecurso", curso);
+			//model.addAttribute("tipos",genericos.getAllTipos());
+			//model.addAttribute("prioridades", genericos.getAllPrioridades());
+			//model.addAttribute("estados",genericos.getEstadosSelected());
+			
+			// Gestión de tab acvitos o no
+			model.addAttribute("tabTodo","no");
+			model.addAttribute("listTabTodo","no");
+			model.addAttribute("tabUser", "no");
+			model.addAttribute("listTabUser","no");
+			model.addAttribute("detailTabCurso","no");
+			model.addAttribute("tabCurso","active");
+			model.addAttribute("listTabCurso","no");
+			model.addAttribute("misTabCurso","no");
+			model.addAttribute("editarTabCurso","no");
+			model.addAttribute("altaTabCurso","active");
+			
+			// Gestión de la activación de los formularios
+			model.addAttribute("activoFormTodo",false);
+			model.addAttribute("activoFormUser",false);
+			model.addAttribute("activoFormCurso", false);
+			
+			// TEST
+			System.out.println("Error: "+result.getAllErrors());
+			
+		}else {
+			// TEST
+			System.out.println("Save Curso");
+			//todoService.createTodo(todo);		
+				
+			// gestion de la visualización en main-view
+			//model.addAttribute("activoFormTodo",true);
+			
+			// objetos modulos
+				//model.addAttribute("toDoList",todoService.getByEstado(Estado.Activos));
+			
+			// gestion visualización tab act
+			model.addAttribute("tabTodo","no");
+			model.addAttribute("listTabTodo","no");
+			model.addAttribute("tabUser", "no");
+			model.addAttribute("listTabUser","no");
+			model.addAttribute("detailTabCurso","no");
+			model.addAttribute("tabCurso","active");
+			model.addAttribute("listTabCurso","active");
+			model.addAttribute("misTabCurso","no");
+			model.addAttribute("editarTabCurso","no");
+			model.addAttribute("altaTabCurso","no");
+				
+		}
+	
+		return "security/user-form/main-view"; 
+	}
 
 	@GetMapping("/cursolistEdit/{id}")
 	public String cursolistEdit(Model model,
@@ -91,7 +146,10 @@ public class CursosController {
 		
 		System.out.println("apartados "+cursoService.getApartados(curso));
 		System.out.println("capitulos " +curso.getCapitulos());
-
+		
+		// TEST
+		
+		System.out.println("apartados: "+cursoService.getApartados(curso));
 		
 		return "security/user-form/main-view.html";
 	}	
