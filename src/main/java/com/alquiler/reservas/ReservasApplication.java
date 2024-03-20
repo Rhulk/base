@@ -35,10 +35,7 @@ import javax.xml.transform.dom.DOMSource;
 import org.w3c.dom.DOMImplementation;
 
 import com.alquiler.reservas.conf.SpringConfiguration;
-import com.alquiler.reservas.entity.Cliente;
-import com.alquiler.reservas.entity.Coche;
-import com.alquiler.reservas.entity.Persona;
-import com.alquiler.reservas.entity.Trabajador;
+
 import com.alquiler.reservas.service.UserService;
 import com.alquiler.reservas.util.EmailSenderService;
 import com.alquiler.reservas.util.Tarea;
@@ -52,125 +49,15 @@ public class ReservasApplication {
 	public static void main(String[] args) {
 		SpringApplication.run(ReservasApplication.class, args);
 		
-		
-				int numeroIf=0;
-				
-				if (numeroIf>0){
-					System.out.print("Positivo");
-				}else{
-					if (numeroIf<0){
-						System.out.print("Negativo");
-					}else{
-						System.out.print(" Es cero");
-					}
-				}
-				
-			    int numeroWhile  = 0;
-			    
-			    while(numeroWhile  < 3) {
-			      System.out.println("WHILE :"+numeroWhile ); 
-			      numeroWhile ++;
-			    }
-			    
-			    do {
-			        System.out.println("DO-WHILE: "+numeroWhile); 
-			      } while(numeroWhile < 3);
-			    
-			   
-			    
-			    for (int numeroFor=0;numeroFor<=3;numeroFor++) {
-			    	System.out.println("numeroFor: "+numeroFor);
-			    }
-			    
-			    String estacion="Verano";
-			    switch (estacion) { 
-			    case "Invierno":
-			     	System.out.println("Invierno");
-			     break;
-			    case "Primavera":
-			    	System.out.println("Primavera");
-			     break;
 
-			    case "Verano" :
-			    	System.out.println("Verano");
-			     break;
-			    case "Otoño" :
-			    	System.out.println("Otoño");
-			     break;
-			    default:
-			     		System.out.println("???");
-			  }
-		
-		Coche miCoche = new Coche();
-		miCoche.incrementaNumeroPuertas();
-		System.out.println(miCoche.getNumeroPuertas());
-		
-		//start();
-		//i18n();
-		//EmailSenderService e = new EmailSenderService();
-		//e.testMail();
-	/*	
 		if (abrir_XML_DOM(new File("src/main/resources/static/xml/file.xml")) == 0) {
 			System.out.println("Read file.xml [OK]");
 			System.out.println(recorrerDOMyMostrar(doc));
-			if(annadirDOM( doc,  "titulo", "autor", "ano","tiempo") == 0) {
-				System.out.println(" Añadido node New.");
-				System.out.println(recorrerDOMyMostrar(doc));
-			}else {
-				System.out.println(" Fail add Node");
-			}
 		}else {
 			System.out.println("Read file.xml [KO]");
 		}
-		guardarXML();
-	*/
-		if (abrir_XML_DOM(new File("src/main/resources/static/xml/strava.xml")) == 0) {
-			System.out.println("Read strava.xml [OK]");
-			System.out.println(recorrerDOMyMostrar(doc));
-		}else {
-			System.out.println("Read strava.xml [KO]");
-		}
 		
-		Persona individuo = new Persona();
-		individuo.setNombre("Juan");
-		individuo.setEdad(25);
-		individuo.setTelefono(65785432);
-		
-		System.out.println(" Creada la persona: "+individuo.getNombre()+" con "+individuo.getEdad()+" años y tlf: "+individuo.getTelefono());
-		
-		// Ejercicio 9
-		
-		// parte 1
-		Cliente contacto = new Cliente();
-		contacto.setNombre("Fran");
-		contacto.setEdad(34);
-		contacto.setTelefono(23476567);
-		contacto.setCredito(2344);
-		
-		System.out.println("Cliente: "+contacto.getNombre()+" con credito: "+contacto.getCredito());
-		
-		//parte 2
-		Trabajador currante = new Trabajador();
-		currante.setNombre("Carlos");
-		currante.setEdad(45);
-		currante.setTelefono(345789234);
-		currante.setSalario(323423);
-		
-		System.out.println(" Trabajador: "+currante.getNombre()+" con un salario de "+currante.getSalario());
 	}
-	/*
-	Crear clase Persona.
-
-	Crear variables las privadas edad, nombre y telefono de la clase Persona.
-
-	Crear gets y sets de cada propiedad.
-
-	Crear un objeto persona en el main.
-
-	Utiliza los gets y sets para darle valores a las propiedades edad, nombre y telefono, por último muéstralas por consola.
-
-
-	*/
 
 
 	public static int abrir_XML_DOM(File fichero){
