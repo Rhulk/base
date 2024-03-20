@@ -1,6 +1,7 @@
 package com.alquiler.reservas.controller.rest;
 
 import java.util.List;
+import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
@@ -12,13 +13,15 @@ import org.springframework.web.bind.annotation.PathVariable;
 import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
-
+import com.alquiler.reservas.dto.ApartadoDTO;
+import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.CategoriaCurso;
 import com.alquiler.reservas.entity.Curso;
 import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
+import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.CapituloRepository;
 import com.alquiler.reservas.service.CursoService;
 import com.alquiler.reservas.service.UserService;
@@ -34,6 +37,9 @@ public class CursosRest {
 	
 	@Autowired
 	CapituloRepository capituloRepository;
+	
+	@Autowired
+	ApartadoRepository apartadoRepository;
 	
 	@GetMapping("/apuntes/{apartado}/{pag}/{curso}")
 	public List <Apunte> getApunteByApartado(
@@ -131,6 +137,22 @@ public class CursosRest {
 		
 		return new Capitulo(cap.id,cap.nombre,cap.descripcion,cap.orden);
 	}
+
+	@GetMapping("/getApartado/{apartado}")
+	public Apartado getApartado(@PathVariable(name="apartado") Long apartado) throws Exception {
+		
+		Apartado apar = apartadoRepository.findById(apartado)
+				.orElseThrow(() -> new Exception("Apartado does not exist"));
+		return new Apartado(apar.id,apar.nombre,apar.descripcion,apar.recurso,apar.orden);
+	}	
+	
+	@GetMapping("/getApartadosByCap/{capitulo}")
+	public List<ApartadoDTO> getApartadosByCap(
+			@PathVariable(name="capitulo") Long capitulo
+			) throws Exception {
+
+		return cursoService.getApartadosByCap(capitulo);
+	}
 	
 	@GetMapping("editcurso/{id}/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
 	public Respuesta editCurso(
@@ -163,8 +185,20 @@ public class CursosRest {
 		System.out.println(" GET REST Editar Capitulo: id : "+id+
 				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
 		
-		return new Respuesta(cursoService.modCapitulo(new Capitulo(id, nombre, descripcion, orden)));
+		return cursoService.modCapitulo(new Capitulo(id, nombre, descripcion, orden));
 	}
+	
+	@GetMapping("editarApartado/{id}/{nombre}/{descripcion}/{recurso}/{orden}")
+	public Respuesta editarApartado(
+			@ModelAttribute("id") Long id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("recurso") String recurso,
+			@ModelAttribute("orden") int orden			
+			) {
+		
+		return cursoService.modApartado(new Apartado(id, nombre, descripcion,recurso, orden));
+	}	
 	@GetMapping("addCapitulo/{id}/{nombre}/{descripcion}/{orden}")
 	public Respuesta addCapitulo(
 			@ModelAttribute("id") int id,
@@ -176,6 +210,20 @@ public class CursosRest {
 				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
 		
 		return new Respuesta(cursoService.addCapitulo(id, nombre, descripcion, orden));
+	}
+	@GetMapping("addApartado/{id}/{nombre}/{descripcion}/{recurso}/{orden}")
+	public Respuesta addApartado(
+			@ModelAttribute("id") Long id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("recurso") String recurso,
+			@ModelAttribute("orden") int orden			
+			) {
+		System.out.println(" GET REST add Apartado: idCapitulo : "+id+
+				" | nombre: "+nombre+" descripcion: "+descripcion+" recurso: "+recurso+" orden: "+orden);
+
+		
+		return cursoService.addApartado(id, nombre, descripcion,recurso, orden);
 	}
 	@GetMapping("deleteCapitulo/{id}")
 	public Respuesta deleteCapitulo(

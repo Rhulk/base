@@ -10,7 +10,6 @@ import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.PathVariable;
 
-import com.alquiler.reservas.entity.Query;
 import com.alquiler.reservas.entity.Role;
 import com.alquiler.reservas.entity.Todo;
 import com.alquiler.reservas.entity.User;
@@ -31,7 +30,6 @@ public class MantenimientoController {
 	@Autowired
 	SqlService sqlService;
 	
-	Query query;
 	
 	@GetMapping("/desbloquear")
 	public String desbloqueo() {

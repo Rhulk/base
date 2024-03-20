@@ -37,12 +37,11 @@ public class Apartado {
 	public	String recurso;
 	
 	@Column
-	@NotBlank
 	public int orden;
 	
 	@ManyToOne
 	@JoinColumn(name="idcapitulo")
-	private Capitulo capitulo;
+	public Capitulo capitulo;
 	
 	@OneToMany(fetch = FetchType.LAZY)
 	@JoinColumn(name="idapartado")
@@ -98,6 +97,18 @@ public class Apartado {
 
 	public void setCapitulo(Capitulo capitulo) {
 		this.capitulo = capitulo;
+	}
+
+	
+	public Apartado() {
+	}
+
+	public Apartado(Long id,@NotBlank String nombre, @NotBlank String descripcion, @NotBlank String recurso, int orden) {
+		this.id = id;
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.recurso = recurso;
+		this.orden = orden;
 	}
 
 	@Override

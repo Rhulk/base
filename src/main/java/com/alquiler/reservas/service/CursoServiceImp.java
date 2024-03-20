@@ -16,6 +16,7 @@ import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
+import com.alquiler.reservas.dto.ApartadoDTO;
 import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.CamposAndTipos;
@@ -23,6 +24,7 @@ import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Curso;
 import com.alquiler.reservas.entity.CursoUser;
+import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.ApunteRepository;
@@ -191,7 +193,7 @@ public class CursoServiceImp implements CursoService {
 	}	
 	
 	@Override
-	public boolean modCapitulo(Capitulo capitulo) {
+	public Respuesta modCapitulo(Capitulo capitulo) {
 		Capitulo capiNew = new Capitulo();
 		
 		try {
@@ -201,14 +203,35 @@ public class CursoServiceImp implements CursoService {
 			capiNew.descripcion = capitulo.descripcion;
 			capiNew.orden = capitulo.orden;
 			
-			System.out.println(capiNew);
 			capituloRepository.save(capiNew);
 			
 		}catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return new Respuesta(false, e.getMessage());
 		}
-		return true;
+		return new Respuesta(true,"Capitulo modificado");
+	}
+	
+	@Override
+	public Respuesta modApartado(Apartado apartado) {
+		Apartado modApartado = new Apartado();
+		
+		try {
+			modApartado = apartadoRepository.findById(apartado.id)
+					.orElseThrow( () -> new Exception(" Apartado does not exist !!")  );
+
+			modApartado.nombre = apartado.nombre;
+			modApartado.descripcion = apartado.descripcion;
+			modApartado.orden = apartado.orden;
+			modApartado.recurso = apartado.recurso;
+
+			apartadoRepository.save(modApartado);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new Respuesta(false, e.getMessage());
+		}
+		return new Respuesta(true,"Apartado modificado");
 	}
 	
 	public boolean addCapitulo(int curso, String nombre, String descripcion, int orden) {
@@ -225,12 +248,35 @@ public class CursoServiceImp implements CursoService {
 			capituloRepository.save(newCap);
 			
 		}catch (Exception e) {
+			e.printStackTrace();
 			return false;
 		}
 		
 		return true;
 	}
-	
+
+	public Respuesta addApartado(Long capitulo, String nombre, String descripcion, String recurso, Integer orden) {
+		
+		Capitulo findCapi = new Capitulo();
+		Apartado newApartado = new Apartado();
+		try {
+			findCapi = capituloRepository.findById(capitulo)
+					.orElseThrow( () -> new Exception(" Fail found Capitulo"));	
+			newApartado.nombre = nombre;
+			newApartado.descripcion = descripcion;
+			newApartado.orden = orden;
+			newApartado.recurso = recurso;
+			newApartado.setCapitulo(findCapi);
+			
+			apartadoRepository.save(newApartado);
+			
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new Respuesta(false,e.getMessage());
+		}
+		
+		return new Respuesta(true,"OK");
+	}
 	
 
 	@Override
@@ -412,6 +458,37 @@ public class CursoServiceImp implements CursoService {
 		
 		return true;
 	}
+
+	@Override
+	public List<ApartadoDTO> getApartadosByCap(Long capitulo) {
+		
+		try {
+			Capitulo cap = capituloRepository.findById(capitulo)
+					.orElseThrow(() -> new Exception("Capitulo does not exist"));
+ 
+			return entityToDTO(apartadoRepository.findByCapitulo(cap));
+		} catch (Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
+	
+	public List<ApartadoDTO> entityToDTO(List<Apartado> apartados){
+		List<ApartadoDTO> dtos = new LinkedList<>();
+		
+		for(Apartado apartado : apartados){
+			ApartadoDTO tempDto = new ApartadoDTO();
+			tempDto.setDescripcion(apartado.getDescripcion());
+			tempDto.setId(apartado.getId());
+			tempDto.setNombre(apartado.getNombre());
+			tempDto.setOrden(apartado.getOrden());
+			dtos.add(tempDto);
+		}
+		
+		return dtos;
+	}
+
+
 
 
 

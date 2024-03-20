@@ -2,12 +2,14 @@ package com.alquiler.reservas.service;
 
 import java.util.List;
 
+import com.alquiler.reservas.dto.ApartadoDTO;
 import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
 import com.alquiler.reservas.entity.CategoriaCurso;
 import com.alquiler.reservas.entity.Checkout;
 import com.alquiler.reservas.entity.Curso;
+import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
 
 public interface CursoService {
@@ -16,7 +18,8 @@ public interface CursoService {
 	/* public List<Curso> getAll(); */
 	
 	public boolean modCurso(Curso curso);
-	public boolean modCapitulo(Capitulo capitulo);
+	public Respuesta modCapitulo(Capitulo capitulo);
+	public Respuesta modApartado(Apartado apartado);
 	public boolean addCapitulo(int curso, String nombre, String descripcion, int orden);
 	
 	public Curso getCurso(int id) throws Exception;
@@ -26,6 +29,8 @@ public interface CursoService {
 	List<Capitulo> getCapitulos(Curso curso);
 	
 	List<Apartado> getApartados(Curso curso);
+	List<ApartadoDTO> getApartadosByCap(Long capitulo);
+	public Respuesta addApartado(Long capitulo, String nombre, String descripcion, String recurso, Integer orden);
 
 	public List <Apunte> getApunte(Long apartado,int pag, Integer curso);
 	public int getCantidadAportesByApartadoAndCurso(Long apartado, Integer curso);
