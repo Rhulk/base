@@ -298,6 +298,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 			Mostrar cb con los capitulos, apartados y aportes.
 				Opcion de añadir uno nuevo o editar uno que seleccione.
 			16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+			20/03/24 Mejoras en la view editar e implement del crud de apartados. Faltan retoques.
 				
 		Fase 3: Importar desde un excel.
 		

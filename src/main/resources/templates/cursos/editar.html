@@ -4,10 +4,6 @@
 
     
 <div class="form_edit" th:object="${editarcurso}">
-	<h2>Editar Curso</h2>
-
-	
-
 	<div id="cursoEditBasic" class="formCurso">
 	<div class="formRow ">
 		
@@ -172,50 +168,127 @@
 			onclick="cancelarCapitulo(this.id)" 
 			class="btn_red btn_del ">Cancelar
 		</button>	
+		<button id="btn_new_apartado"  
+			onclick="showFormApartado()"
+			class="btn_green btn_cap ">Add Apartado
+		</button>
 	</div>
 	</div>
 </div>
-<br><br>
-<div id="apartado" class="oculto_?">
-	<label>Nuevo Apartado</label>
-	<input class="form_input" type="text">	
-	<button id="btn_cap"  
-		onclick="add_Capitulo(this.id)"
-		class="btn_green btn_cap ">Add
-	</button>
-	<br>
-	<div>
-		<select  id="id_capitulo" 
+
+
+<div id="apartado_new" class="oculto">
+	<div class="capNew">
+	<div class="itemCapNew">
+		<label>Nuevo Apartado</label>
+	</div>
+	<div class="itemCapNew nombreCap">
+		<label>Nombre</label>
+		<input class="form_input" id="id_apar_nombre_new" type="text"
+			placeholder="Nombre"
+		>		
+	</div>
+	<div class="itemCapNew descripcionCap">
+		<label>Descripcion</label>
+		<input class="form_input" id="id_apar_descripcion_new" type="text"
+			placeholder="Descripcion"
+		>	
+	</div>
+	<div class="itemCapNew descripcionCap">
+		<label>Recurso</label>
+		<input class="form_input" id="id_apar_recurso_new" type="text"
+			placeholder="Recurso"
+		>	
+	</div>
+	<div class="itemCapNew ordenCap" >
+		<label>Orden</label>
+		<input class="form_input" id="id_apar_orden_new" type="number"
+			onKeyPress="return soloNumeros(event)"
+			placeholder="orden"
+		>
+	</div>
+	<div class="itemCapNew">
+		<button id="btn_apar"  
+			onclick="addApartado()"
+			class="btn_green btn_cap ">Add
+		</button>
+		<button id="btn_apar_cancel"  
+				onclick="showFormApartado()"
+				class="btn_red btn_cap ">Cancelar
+		</button>
+	</div>
+	</div>
+</div>
+
+<div id="apartadoList" class="apartadoList ">
+	<div class="itemCapList">
+		<h3>Listado de Apartados</h3>
+	</div>
+	<div class="itemCapList">
+		<select  
+			id="selectApartado"
 			name="campo" 
 			class="select-css form-control" 
-			
-			onchange="selectEditApartados(this.id)">
+			onchange="selectEditarApartado(this.value)">
         	<option value="select">Seleccionar Apartado</option>
-        	<option th:each="apartado :${capitulo.apartados}" 
-        		th:value="${apartado}" th:text="${apartado}">
+        	<!--  <option th:each="apartado :${apartados}" th:value="${apartado.id}" th:text="${apartado}">-->
+        	
+        
         </select>
 	</div>
-	<div >
-	<label>Apartado seleccionado</label>
-	<input class="form_input" id="id_cap" type="text"
-		
-	>	
-	
+	<div id="aparSelect" class="oculto">
+	<div class="itemCapList idCap">
+		<label>Apartado seleccionado</label>
+		<input 
+			class="form_input" 
+			id="id_apar_" type="text"
+			placeholder="Id"
+			disabled
+		>
 	</div>
-	<div >
-	<button id="btn_gua"  
-		onclick="saveAporte(this.id)"
-		class="btn_green btn_gua ">Guardar
-	</button>
-
-	<button id="btn_del"
-		onclick="deleteAporte(this.id)" 
-		class="btn_red btn_del ">Eliminar
-	</button>	
+	<div class="itemCapList nombreCap">
+		<label>Nombre</label>
+		<input class="form_input" id="id_apar_nombre" type="text"
+			placeholder="Nombre"
+		>	
 	</div>
-	<br>
+	<div class="itemCapList descripcionCap">
+		<label>Descripcion</label>
+			<input class="form_input" id="id_apar_descripcion" type="text"
+				placeholder="Descripcion"
+			>	
+	</div>
+	<div class="itemCapList descripcionCap">
+		<label>Recurso</label>
+			<input class="form_input" id="id_apar_recurso" type="text"
+				placeholder="Recurso"
+			>	
+	</div>
+	<div class="itemCapList ordenCap">
+		<label>Orden</label>
+		<input class="form_input" id="id_apar_orden" type="text"
+			placeholder="orden"
+		>
+	</div>
+	<div class="itemCapList">
+		<button id="btn_gua"  
+			onclick="saveApartado()"
+			class="btn_green btn_gua ">Modificar
+		</button>
 
+		<button id="btn_del"
+			onclick="deleteApartado(this.id)" 
+			class="btn_red btn_del ">Eliminar
+		</button>	
+		<button id="btn_cancel"
+			onclick="cancelarApartado(this.id)" 
+			class="btn_red btn_del ">Cancelar
+		</button>	
+	</div>
+	</div>
 </div>
+
+
 
 <br>
 

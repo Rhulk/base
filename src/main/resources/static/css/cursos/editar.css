@@ -61,6 +61,17 @@
 	background-color: azure;
 	padding: 5px 15px;
 }
+.apartadoList {
+	display: flex;
+	flex-direction: column;
+	gap: 5px;
+
+	border: solid;
+    border-radius: 5px;
+    border-width: 1px;
+	background-color: azure;
+	padding: 5px 15px;
+}
 .idCap input {
 	width: 16%;
 	padding-left: 10px;
