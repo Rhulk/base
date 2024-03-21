@@ -229,9 +229,15 @@ public class CursosRest {
 	public Respuesta deleteCapitulo(
 			@ModelAttribute("id") Long id			
 			) {
-		System.out.println(" REST delete Capitulo: id : "+id);
+		return cursoService.deleteCapitulo(id);
+	}
+	@GetMapping("deleteApartado/{id}")
+	public Respuesta deleteApartado(
+			@ModelAttribute("id") Long id			
+			) {
+		System.out.println(" REST delete Apartado: id : "+id);
 		
-		return new Respuesta(cursoService.deleteCapitulo(id));
+		return cursoService.deleteApartado(id);
 	}
 	
 	public User getLoguin() {
