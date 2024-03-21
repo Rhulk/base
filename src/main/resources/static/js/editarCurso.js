@@ -66,6 +66,7 @@ function saveApartado(){
     .then(function (respuesta) {
       if (respuesta.check){
       	console.log("Modificado el apartado");
+      	cancelarApartado();
       }else{
       	console.log("KO falla la modificación: "+respuesta.mensaje);
       }
@@ -232,7 +233,7 @@ function selectEditarApartado(id){
     });
 	
 }
-function cancelarApartado(id){
+function cancelarApartado(){
 	document.getElementById("aparSelect").classList.add("oculto");
   	document.getElementById("selectApartado").selectedIndex = 0;
 }
@@ -279,9 +280,10 @@ function selectEditarCapitulo(id) {
       document.getElementById("id_cap_nombre").value = capitulo.nombre;
       document.getElementById("id_cap_descripcion").value = capitulo.descripcion;
       document.getElementById("id_cap_orden").value = capitulo.orden;
-      //getApartadosByCap();// Actualizo los apartados by cap seleccionado
+      getApartadosByCap();// Actualizo los apartados by cap seleccionado
+      cancelarApartado(); // Y quito el apartado seleccionado
+      
     });
-    getApartadosByCap();
 }
 
 function deleteCapitulo() {
@@ -296,6 +298,19 @@ function deleteCapitulo() {
       if (respuesta.check)
         location.href = "" + document.getElementById("id_curso").value;
     });
+}
+function deleteApartado(){
+	  var id = document.getElementById("id_apar_").value;
+
+  console.log("http://localhost:8080" + "/deleteApartado/" + id);
+
+  fetch("http://localhost:8080" + "/deleteApartado/" + id)
+    .then((respuesta) => respuesta.json())
+    .then(function (respuesta) {
+      console.log("Resultado respuesta: " + respuesta.check);
+      if (respuesta.check)
+        location.href = "" + document.getElementById("id_curso").value;
+    });	
 }
 
 function formatDivision(cadena) {

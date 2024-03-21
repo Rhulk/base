@@ -444,7 +444,7 @@ public class CursoServiceImp implements CursoService {
 	}
 
 	@Override
-	public boolean deleteCapitulo(Long id) {
+	public Respuesta deleteCapitulo(Long id) {
 		Capitulo capDelete = new Capitulo();
 		try {
 			capDelete = capituloRepository.findById(id)
@@ -453,10 +453,24 @@ public class CursoServiceImp implements CursoService {
 		}
 		catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return new Respuesta(false,e.getMessage());
 		}	
 		
-		return true;
+		return new Respuesta(true, "!Delete capitulo!");
+	}
+	@Override
+	public Respuesta deleteApartado(Long id) {
+		Apartado aparDelete = new Apartado();
+		try {
+			aparDelete = apartadoRepository.findById(id)
+					.orElseThrow(() -> new Exception("Apartado does not exist"));
+			apartadoRepository.delete(aparDelete);
+		}
+		catch (Exception e) {
+			e.printStackTrace();
+			return new Respuesta(false,e.getMessage());
+		}	
+		return new Respuesta(true, "!Delete apartado!");
 	}
 
 	@Override

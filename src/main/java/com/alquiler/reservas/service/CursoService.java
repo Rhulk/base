@@ -48,7 +48,8 @@ public interface CursoService {
 	public boolean unfollowCurso(Integer curso);
 	public boolean isFollowCurso(Integer curso);
 	
-	public boolean deleteCapitulo(Long id);
+	public Respuesta deleteCapitulo(Long id);
+	public Respuesta deleteApartado(Long id);
 
 
 	
