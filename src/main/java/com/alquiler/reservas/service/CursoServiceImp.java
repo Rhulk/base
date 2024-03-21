@@ -17,6 +17,7 @@ import org.springframework.security.core.userdetails.UserDetails;
 import org.springframework.stereotype.Service;
 
 import com.alquiler.reservas.dto.ApartadoDTO;
+import com.alquiler.reservas.dto.CapituloDTO;
 import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.CamposAndTipos;
@@ -502,7 +503,34 @@ public class CursoServiceImp implements CursoService {
 		return dtos;
 	}
 
+	@Override
+	public List<CapituloDTO> getCapitulosByCurso(int curso) {
+		Curso findCurso = new Curso();
+		try {
+			findCurso = cursoRepository.findById(curso)
+					.orElseThrow(() -> new Exception("Curso does not exist"));
+			
+			return entityToCapituloDTO(capituloRepository.findByCurso(findCurso));
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+	}
 
+	public List<CapituloDTO> entityToCapituloDTO(List<Capitulo> capitulos){
+		List<CapituloDTO> dtos = new LinkedList<>();
+		
+		for (Capitulo capitulo : capitulos) {
+			CapituloDTO tempDto = new CapituloDTO();
+			tempDto.setDescripcion(capitulo.getDescripcion());
+			tempDto.setId(capitulo.getId());
+			tempDto.setNombre(capitulo.getNombre());
+			tempDto.setOrden(capitulo.getOrden());
+			dtos.add(tempDto);
+		}
+		return dtos;
+	}
 
 
 

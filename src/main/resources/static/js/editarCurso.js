@@ -1,3 +1,34 @@
+
+
+function cargarCapitulosByCurso(){
+
+	var idCurso = document.getElementById("id_curso").value;
+    
+    fetch("http://localhost:8080" + "/getCapitulosByCurso/" + idCurso)
+    .then((respuesta) => respuesta.json())
+    .then(function (respuesta) {
+    	
+    	const selectCampos = document.querySelector("#selectCap");
+    	const $select = document.getElementById("selectCap");
+
+	    for (let i = $select.options.length; i >= 1; i--) {
+            $select.remove(i);
+        }
+      
+		for (x=0; x<Object.keys(respuesta).length;x++){	
+			var option = document.createElement('option');
+			
+        	option.value = respuesta[x].id;
+        	option.text = respuesta[x].nombre;       
+        	option.id = respuesta[x].id;
+        	selectCampos.appendChild(option);
+		}
+    });
+
+}
+
+
+
 function soloNumeros(e) {
   var key = window.Event ? e.which : e.keyCode;
   return key >= 48 && key <= 57;
@@ -73,13 +104,11 @@ function saveApartado(){
     });
 }
 
-function addCapitulo(id) {
+function addCapitulo() {
   var capitulo = new Object();
   capitulo.id = document.getElementById("id_curso").value;
   capitulo.nombre = document.getElementById("id_cap_nombre_new").value;
-  capitulo.descripcion = document.getElementById(
-    "id_cap_descripcion_new"
-  ).value;
+  capitulo.descripcion = document.getElementById("id_cap_descripcion_new").value;
   capitulo.orden = document.getElementById("id_cap_orden_new").value;
 
   console.log(capitulo);
@@ -93,10 +122,16 @@ function addCapitulo(id) {
   	)
     .then((respuesta) => respuesta.json())
     .then(function (respuesta) {
-      console.log("Resultado respuesta: " + respuesta.check);
-      if (respuesta.check)
-        location.href = "" + document.getElementById("id_curso").value;
-      // que hacer si falla?
+      
+      if (respuesta.check){
+      	cargarCapitulosByCurso();
+      	showFormCapitulo();
+      	document.getElementById("id_cap_nombre_new").value = "";
+  		document.getElementById("id_cap_descripcion_new").value = "";
+  		document.getElementById("id_cap_orden_new").value ="";
+      }else{
+      	console.log(respuesta.mensaje);
+      }
     });
 }
 function showFormApartado() {
@@ -116,8 +151,6 @@ function addApartado() {
   apartado.recurso = document.getElementById("id_apar_recurso_new").value;
   apartado.orden = document.getElementById("id_apar_orden_new").value;
 
-  console.log(apartado);
-
   fetch(
     "http://localhost:8080" +"/addApartado/" +apartado.id +"/" +
       apartado.nombre.replaceAll("/", "%F7") +"/" +
@@ -128,9 +161,18 @@ function addApartado() {
     .then((respuesta) => respuesta.json())
     .then(function (respuesta) {
       console.log("Resultado respuesta: " + respuesta.check);
-      if (respuesta.check)
-        location.href = "" + document.getElementById("id_curso").value;
-      // que hacer si falla?
+      if (respuesta.check){
+      	getApartadosByCap();
+      	showFormApartado();
+      	document.getElementById("id_apar_nombre_new").value="";
+  		document.getElementById("id_apar_descripcion_new").value="";
+  		document.getElementById("id_apar_recurso_new").value="";
+  		document.getElementById("id_apar_orden_new").value="";
+      }else{
+      	console.log(respuesta.mensaje);
+      	//TODO: Pintar el pantalla el problema
+      }
+
     });
 }
 function showFormCapitulo() {
@@ -204,7 +246,7 @@ function saveCurso(id) {
       document.getElementById("btn_gua").innerHTML = "Guardar datos";
     });
 }
-function cancelarCapitulo(id) {
+function cancelarCapitulo() {
   
   document.getElementById("capSelect").classList.add("oculto");
 
@@ -246,13 +288,14 @@ function getApartadosByCap(){
     .then(function (apartados) {
     	const selectCampos = document.querySelector("#selectApartado");
     	const $select = document.getElementById("selectApartado");
-    	var option = document.createElement('option');
 
 	    for (let i = $select.options.length; i >= 1; i--) {
             $select.remove(i);
         }
       
 		for (x=0; x<Object.keys(apartados).length;x++){	
+			var option = document.createElement('option');
+			
         	option.value = apartados[x].id;
         	option.text = apartados[x].nombre;       
         	option.id = apartados[x].id;
@@ -295,24 +338,31 @@ function deleteCapitulo() {
     .then((respuesta) => respuesta.json())
     .then(function (respuesta) {
       console.log("Resultado respuesta: " + respuesta.check);
-      if (respuesta.check)
-        location.href = "" + document.getElementById("id_curso").value;
+      if (respuesta.check){
+      	cargarCapitulosByCurso();
+      	cancelarCapitulo();
+      }else{
+      	console.log(respuesta.mensaje);
+      }
     });
 }
 function deleteApartado(){
-	  var id = document.getElementById("id_apar_").value;
-
+  var id = document.getElementById("id_apar_").value;
   console.log("http://localhost:8080" + "/deleteApartado/" + id);
 
   fetch("http://localhost:8080" + "/deleteApartado/" + id)
     .then((respuesta) => respuesta.json())
     .then(function (respuesta) {
-      console.log("Resultado respuesta: " + respuesta.check);
-      if (respuesta.check)
-        location.href = "" + document.getElementById("id_curso").value;
+      if (respuesta.check){
+      	getApartadosByCap();// Actualizo los apartados by cap seleccionado
+      	cancelarApartado(); // Y quito el apartado seleccionado
+      }else{
+      	console.log(respuesta.mensaje);
+      }
     });	
 }
 
 function formatDivision(cadena) {
   const nuevaStr = cadena.replaceAll("/", "%F7");
 }
+cargarCapitulosByCurso();

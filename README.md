@@ -282,7 +282,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Seguimiento de mis cursos actuales.
 	
 	Editar:
-		16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+		21/03/24 Finalizada la funcionalidad de edición. Posible mejora de notificaciones.
 	
 # Avances - Next to:
 
@@ -301,6 +301,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 			20/03/24 Mejoras en la view editar e implement del crud de apartados. Faltan retoques.
 			21/03/24 Impl fun mod y eliminación del aporte y mejoras visuales del form.
 					 Next mejoras Rest para el listado de cap y add de cap y apartados. 
+			21/03/24 Impl mejoras Rest para el listado de capitulos y evitar peticiones.
+			21/03/24 Impl mejoras Rest al añadir capitulos y apartados nuevos.
+			21/03/24 Finalizada la funcionalidad de edición. Posible mejora de notificaciones.
 				
 		Fase 3: Importar desde un excel.
 		

@@ -1,3 +1,23 @@
+.btn_back {
+	
+    font-weight: 370;
+    color: #000000;
+    background-color: transparent;
+    border-width: 3px;
+    border-style: solid;
+
+}
+
+
+
+}
+.btn_back:hover {
+	background-color: #f30e0e;
+	text-decoration: none;
+	border-radius: 10px;
+}
+
+
 .form_edit {
 	padding-left: 30px;
 	padding-right: 30px;

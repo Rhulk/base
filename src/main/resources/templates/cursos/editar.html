@@ -59,6 +59,8 @@
 			onclick="altAporte(this.id)" 
 			class="btn_green btn_alt oculto">Alta
 		</button>
+
+		<a class="btn_back btn_red" href="#" th:href="@{/cursolistEdit}">Cancelar</a>
 		<button id="btn_mod"
 			onclick="modAporte(this.id)" 
 			class="btn_blue btn_mod oculto">Modificar
@@ -122,8 +124,7 @@
 			class="select-css form-control" 
 			onchange="selectEditarCapitulo(this.value)">
         	<option value="select">Seleccionar Capitulo</option>
-        	<option th:each="capitulo :${capitulos}" 
-        		th:value="${capitulo.id}" th:text="${capitulo}">
+        	<!-- <option th:each="capitulo :${capitulos}" th:value="${capitulo.id}" th:text="${capitulo}"> -->
         </select>
 	</div>
 	<div id="capSelect" class="oculto">
@@ -165,7 +166,7 @@
 			class="btn_red btn_del ">Eliminar
 		</button>	
 		<button id="btn_cancel"
-			onclick="cancelarCapitulo(this.id)" 
+			onclick="cancelarCapitulo()" 
 			class="btn_red btn_del ">Cancelar
 		</button>	
 		<button id="btn_new_apartado"  
