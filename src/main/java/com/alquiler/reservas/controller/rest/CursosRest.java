@@ -14,6 +14,7 @@ import org.springframework.web.bind.annotation.PostMapping;
 import org.springframework.web.bind.annotation.RestController;
 
 import com.alquiler.reservas.dto.ApartadoDTO;
+import com.alquiler.reservas.dto.CapituloDTO;
 import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
@@ -131,7 +132,6 @@ public class CursosRest {
 	@GetMapping("/getCapitulo/{capitulo}")
 	public Capitulo getCapitulo(@PathVariable(name="capitulo") Long capitulo) throws Exception {
 		
-		System.out.println("Get Capitulo: "+capitulo);
 		Capitulo cap = capituloRepository.findById(capitulo)
 				.orElseThrow(() -> new Exception("Capitulos does not exist"));
 		
@@ -153,6 +153,13 @@ public class CursosRest {
 
 		return cursoService.getApartadosByCap(capitulo);
 	}
+	@GetMapping("/getCapitulosByCurso/{curso}")
+	public List<CapituloDTO> getCapitulosByCurso(
+			@PathVariable(name="curso") int curso
+			) throws Exception {
+
+		return cursoService.getCapitulosByCurso(curso);
+	}
 	
 	@GetMapping("editcurso/{id}/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
 	public Respuesta editCurso(
@@ -160,14 +167,10 @@ public class CursosRest {
 			@ModelAttribute("nombre") String nombre,
 			@ModelAttribute("descripcion") String descripcion,
 			@ModelAttribute("fuente") String fuente,
-			
 			@ModelAttribute("urlIcono") String urlIcono,
 			@ModelAttribute("urlimg") String urlimg
 			
-			) {
-		
-		System.out.println(urlimg+" GET: urlImgen: "+urlimg+" | urlIcono: "+urlIcono);
-		System.out.println(urlimg+" GET: urlImgen: "+formatearURL(urlimg)+" | urlIcono: "+formatearURL(urlIcono));
+			) {		
 		Curso modCurso = 
 				new Curso(id,formatearURL(nombre),
 						CategoriaCurso.BACK, formatearURL(descripcion),
@@ -182,8 +185,6 @@ public class CursosRest {
 			@ModelAttribute("descripcion") String descripcion,
 			@ModelAttribute("orden") int orden			
 			) {
-		System.out.println(" GET REST Editar Capitulo: id : "+id+
-				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
 		
 		return cursoService.modCapitulo(new Capitulo(id, nombre, descripcion, orden));
 	}
@@ -206,8 +207,6 @@ public class CursosRest {
 			@ModelAttribute("descripcion") String descripcion,
 			@ModelAttribute("orden") int orden			
 			) {
-		System.out.println(" GET REST add Capitulo: idCurso : "+id+
-				" | nombre: "+nombre+" descripcion: "+descripcion+" orden: "+orden);
 		
 		return new Respuesta(cursoService.addCapitulo(id, nombre, descripcion, orden));
 	}
@@ -219,9 +218,6 @@ public class CursosRest {
 			@ModelAttribute("recurso") String recurso,
 			@ModelAttribute("orden") int orden			
 			) {
-		System.out.println(" GET REST add Apartado: idCapitulo : "+id+
-				" | nombre: "+nombre+" descripcion: "+descripcion+" recurso: "+recurso+" orden: "+orden);
-
 		
 		return cursoService.addApartado(id, nombre, descripcion,recurso, orden);
 	}
@@ -235,7 +231,6 @@ public class CursosRest {
 	public Respuesta deleteApartado(
 			@ModelAttribute("id") Long id			
 			) {
-		System.out.println(" REST delete Apartado: id : "+id);
 		
 		return cursoService.deleteApartado(id);
 	}
@@ -250,7 +245,6 @@ public class CursosRest {
 	    try {
 	    	userLogado = this.usuarioService.getUserByName(userDetail.getUsername());
 		} catch (Exception e) {
-			// TODO Auto-generated catch block
 			e.printStackTrace();
 		}
 

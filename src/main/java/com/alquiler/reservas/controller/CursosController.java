@@ -141,15 +141,6 @@ public class CursosController {
 		
 		// modelo de datos 
 		model.addAttribute("editarcurso",curso );
-		model.addAttribute("capitulos", curso.getCapitulos());
-		model.addAttribute("apartados",cursoService.getApartados(curso));
-		
-		System.out.println("apartados "+cursoService.getApartados(curso));
-		System.out.println("capitulos " +curso.getCapitulos());
-		
-		// TEST
-		
-		System.out.println("apartados: "+cursoService.getApartados(curso));
 		
 		return "security/user-form/main-view.html";
 	}	

@@ -3,6 +3,7 @@ package com.alquiler.reservas.service;
 import java.util.List;
 
 import com.alquiler.reservas.dto.ApartadoDTO;
+import com.alquiler.reservas.dto.CapituloDTO;
 import com.alquiler.reservas.entity.Apartado;
 import com.alquiler.reservas.entity.Apunte;
 import com.alquiler.reservas.entity.Capitulo;
@@ -30,6 +31,7 @@ public interface CursoService {
 	
 	List<Apartado> getApartados(Curso curso);
 	List<ApartadoDTO> getApartadosByCap(Long capitulo);
+	List<CapituloDTO> getCapitulosByCurso(int curso);
 	public Respuesta addApartado(Long capitulo, String nombre, String descripcion, String recurso, Integer orden);
 
 	public List <Apunte> getApunte(Long apartado,int pag, Integer curso);
