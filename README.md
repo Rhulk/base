@@ -283,6 +283,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 	
 	Editar:
 		21/03/24 Finalizada la funcionalidad de edición. Posible mejora de notificaciones.
+	Alta:
+		Creación de nuevos cursos.
+		26/03/24 Creación de cursos desde la app.
 	
 # Avances - Next to:
 
@@ -314,8 +317,10 @@ Doc de los avances y modificaciones en las diferentes ramas
 			Seguimiento de mis cursos actuales.
 		Alta:
 			Creación de nuevos cursos.
+			26/03/24 Creación de cursos desde la app.
 		Editar:
 			Edición de los cursos existentes.
+			21/03/24 Finalizada la funcionalidad de edición. Posible mejora de notificaciones.
 		All cursos:
 			contiene todos los cursos.
 			

@@ -176,7 +176,24 @@ public class CursosRest {
 						CategoriaCurso.BACK, formatearURL(descripcion),
 						formatearURL(fuente), formatearURL(urlimg)
 						, formatearURL(urlIcono));
-		return new Respuesta(cursoService.modCurso(modCurso));
+		return cursoService.modCurso(modCurso);
+	}
+	@GetMapping("altacurso/{id}/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
+	public Respuesta altaCurso(
+			@ModelAttribute("id") int id,
+			@ModelAttribute("nombre") String nombre,
+			@ModelAttribute("descripcion") String descripcion,
+			@ModelAttribute("fuente") String fuente,
+			@ModelAttribute("urlIcono") String urlIcono,
+			@ModelAttribute("urlimg") String urlimg
+			
+			) {		
+		Curso modCurso = 
+				new Curso(id,formatearURL(nombre),
+						CategoriaCurso.BACK, formatearURL(descripcion),
+						formatearURL(fuente), formatearURL(urlimg)
+						, formatearURL(urlIcono));
+		return cursoService.altaCurso(modCurso);
 	}
 	@GetMapping("editCapitulo/{id}/{nombre}/{descripcion}/{orden}")
 	public Respuesta editarCapitulo(

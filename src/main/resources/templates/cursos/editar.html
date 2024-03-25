@@ -21,7 +21,7 @@
 		>	
 	
 	</div>
-	<label value="Descripciï¿½n">Descripciï¿½n</label>
+	<label value="Descripción">Descripción</label>
 	<input
 		id="id_desc_curso" 
 		class="form_input" type="text"
@@ -52,15 +52,20 @@
 	
 	<div class="main__apn_btn_crud">
 		<button id="btn_gua"  
-			onclick="saveCurso(this.id)"
-			class="btn_green btn_gua ">Guardar datos
+			onclick="saveCurso()"
+			class="btn_green btn_gua"
+			th:classappend=" ${btn_gua}"
+			>Guardar datos
 		</button>
 		<button id="btn_alt"
-			onclick="altAporte(this.id)" 
-			class="btn_green btn_alt oculto">Alta
+			onclick="altCurso()" 
+			class="btn_green btn_alt "
+			th:classappend=" ${btn_alt}"	
+			>Alta
 		</button>
 
-		<a class="btn_back btn_red" href="#" th:href="@{/cursolistEdit}">Cancelar</a>
+		<a class="btn_back btn_red" 
+			href="#" th:href="@{/cursolistEdit}">Cancelar</a>
 		<button id="btn_mod"
 			onclick="modAporte(this.id)" 
 			class="btn_blue btn_mod oculto">Modificar
@@ -71,7 +76,9 @@
 		</button>
 		<button id="btn_cap_new"  
 			onclick="showFormCapitulo()"
-			class="btn_green btn_cap ">Add Capitulo
+			class="btn_green btn_cap"
+			th:classappend=" ${btn_cap}"
+			>Add Capitulo
 		</button>
 	</div>
 

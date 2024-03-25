@@ -18,7 +18,8 @@ public interface CursoService {
 	 
 	/* public List<Curso> getAll(); */
 	
-	public boolean modCurso(Curso curso);
+	public Respuesta altaCurso(Curso curso);
+	public Respuesta modCurso(Curso curso);
 	public Respuesta modCapitulo(Capitulo capitulo);
 	public Respuesta modApartado(Apartado apartado);
 	public boolean addCapitulo(int curso, String nombre, String descripcion, int orden);
