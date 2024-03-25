@@ -170,7 +170,7 @@ public class CursoServiceImp implements CursoService {
 	}
 	
 	@Override
-	public boolean modCurso(Curso curso) {
+	public Respuesta modCurso(Curso curso) {
 		Curso cursoNew = new Curso();
 		try {
 			cursoNew = cursoRepository.findById(curso.id)
@@ -186,10 +186,10 @@ public class CursoServiceImp implements CursoService {
 			cursoRepository.save(
 					cursoNew
 			);
-			return true;
+			return new Respuesta(true,"Modificado el curso.");
 		}catch (Exception e) {
 			e.printStackTrace();
-			return false;
+			return new Respuesta(false,e.getMessage());
 		}
 	}	
 	
@@ -239,6 +239,7 @@ public class CursoServiceImp implements CursoService {
 		Curso findCurso = new Curso();
 		Capitulo newCap = new Capitulo();
 		try {
+			System.out.println(curso);
 			findCurso = cursoRepository.findById(curso)
 					.orElseThrow( () -> new Exception(" Fail found curso"));	
 			newCap.nombre = nombre;
@@ -530,6 +531,17 @@ public class CursoServiceImp implements CursoService {
 			dtos.add(tempDto);
 		}
 		return dtos;
+	}
+
+	@Override
+	public Respuesta altaCurso(Curso curso) {
+		try {
+			cursoRepository.save(curso);
+			return new Respuesta(true,""+curso.id);
+		}catch (Exception e) {
+			e.printStackTrace();
+			return new Respuesta(false,e.getMessage());
+		}
 	}
 
 

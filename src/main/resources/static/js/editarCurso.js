@@ -3,6 +3,10 @@
 function cargarCapitulosByCurso(){
 
 	var idCurso = document.getElementById("id_curso").value;
+	
+	console.log(idCurso);
+
+    if(idCurso!=0){
     
     fetch("http://localhost:8080" + "/getCapitulosByCurso/" + idCurso)
     .then((respuesta) => respuesta.json())
@@ -24,6 +28,8 @@ function cargarCapitulosByCurso(){
         	selectCampos.appendChild(option);
 		}
     });
+    
+    }
 
 }
 
@@ -194,18 +200,7 @@ function showFormCapitulo() {
     //document.getElementById('btn_cap_new').innerHTML = 'Add Capitulo';
   }
 }
-
-function saveCurso(id) {
-  document.getElementById("btn_gua").classList.remove("btn_green");
-  document.getElementById("btn_gua").classList.add("btn_red");
-  document.getElementById("btn_gua").innerHTML = "Guardando ...";
-
-  //document.getElementById('capitulo').classList.remove('oculto');
-  console.log(document.getElementById("id_name_curso"));
-  console.log(document.getElementById("id_desc_curso"));
-  console.log(document.getElementById("id_source_curso"));
-  console.log(document.getElementById("id_img_curso"));
-  console.log(document.getElementById("id_icono_curso"));
+function altCurso(){
 
   var curso = new Object();
   curso.id = document.getElementById("id_curso").value;
@@ -214,25 +209,8 @@ function saveCurso(id) {
   curso.fuente = document.getElementById("id_source_curso").value;
   curso.urlimagen = document.getElementById("id_img_curso").value;
   curso.urlicono = document.getElementById("id_icono_curso").value;
-
-  console.log(curso);
-  var test = new Object();
-  curso.urlicono = curso.urlicono.replaceAll("/", "%F7");
-  curso.urlicono = curso.urlicono.replaceAll("?", "%24");
-
-  curso.urlimagen = curso.urlimagen.replaceAll("/", "%F7");
-  curso.urlimagen = curso.urlimagen.replaceAll("?", "%24");
-
-  console.log(
-    "http://localhost:8080" + "/editcurso/" +
-      curso.id +"/" +
-      curso.nombre.replaceAll("/", "%F7") +"/" +
-      curso.descripcion.replaceAll("/", "%F7") +"/" +
-      curso.fuente.replaceAll("/", "%F7") +"/" +
-      curso.urlimagen +"/" +
-      curso.urlicono
-  	);
-  fetch("http://localhost:8080" +"/editcurso/" + curso.id+ "/" +
+  
+  fetch("http://localhost:8080" +"/altacurso/" + curso.id+ "/" +
       curso.nombre.replaceAll("/", "%F7") +"/" +
       curso.descripcion.replaceAll("/", "%F7") + "/" +
       curso.fuente.replaceAll("/", "%F7") +"/" +
@@ -240,11 +218,53 @@ function saveCurso(id) {
       curso.urlimagen
   ).then((respuesta) => respuesta.json())
     .then(function (respuesta) {
-      console.log("Resultado respuesta: " + respuesta.check);
+      console.log("Resultado respuesta: " + respuesta.mensaje);
+      document.getElementById("btn_alt").classList.add("oculto");
+      document.getElementById("btn_gua").classList.remove("oculto");
+      document.getElementById("btn_cap_new").classList.remove("oculto");
+      document.getElementById("id_curso").value = respuesta.mensaje;
+      
+      document.getElementById("alta").classList.remove("active");
+      document.getElementById("editar").classList.add("active");
+      
+  	}
+  );
+
+}
+
+function saveCurso() {
+  document.getElementById("btn_gua").classList.remove("btn_green");
+  document.getElementById("btn_gua").classList.add("btn_red");
+  document.getElementById("btn_gua").innerHTML = "Guardando ...";
+  setTimeout(
+  	function(){ 
+  	var curso = new Object();
+  	curso.id = document.getElementById("id_curso").value;
+  	curso.nombre = document.getElementById("id_name_curso").value;
+  	curso.descripcion = document.getElementById("id_desc_curso").value;
+  	curso.fuente = document.getElementById("id_source_curso").value;
+  	curso.urlimagen = document.getElementById("id_img_curso").value;
+  	curso.urlicono = document.getElementById("id_icono_curso").value;
+
+  	curso.urlicono = curso.urlicono.replaceAll("/", "%F7");
+  	curso.urlicono = curso.urlicono.replaceAll("?", "%24");
+  	curso.urlimagen = curso.urlimagen.replaceAll("/", "%F7");
+  	curso.urlimagen = curso.urlimagen.replaceAll("?", "%24");
+
+  	fetch("http://localhost:8080" +"/editcurso/" + curso.id+ "/" +
+      curso.nombre.replaceAll("/", "%F7") +"/" +
+      curso.descripcion.replaceAll("/", "%F7") + "/" +
+      curso.fuente.replaceAll("/", "%F7") +"/" +
+      curso.urlicono +"/" +
+      curso.urlimagen
+  	).then((respuesta) => respuesta.json())
+      .then(function (respuesta) {
       document.getElementById("btn_gua").classList.remove("btn_red");
       document.getElementById("btn_gua").classList.add("btn_green");
       document.getElementById("btn_gua").innerHTML = "Guardar datos";
-    });
+   });
+  	
+  }, 1000);
 }
 function cancelarCapitulo() {
   

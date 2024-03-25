@@ -147,7 +147,7 @@
 				</div>
 			</div>
 <!-- CHANGE MODULO -->
-					<!-- Alta CURSOS *** -->
+					<!-- Alta CURSOS *** 
 			<div class="tab-pane fade  show" th:classappend=" ${altaTabCurso}" id="curso-alta" role="tabpanel" aria-labelledby="detail-tab-curso">
 				<div class="card">
 					<div class="card-header">
@@ -173,19 +173,19 @@
 						<div th:include="cursos/alta.html"  th:remove="tag"></div>
 					</div>
 				</div>
-			</div>
+			</div>-->
 			
 				<!-- Editar CURSOS ***-->
-			<div class="tab-pane fade show" th:classappend=" ${editarTabCurso}" id="curso-edit" role="tabpanel" aria-labelledby="detail-tab-curso">
+			<div class="tab-pane fade show" th:classappend=" ${editarOrAltaTabCurso}" id="curso-edit" role="tabpanel" aria-labelledby="detail-tab-curso">
 				<div class="card">
 					<div class="card-header ">
 						<ul class="nav nav-tabs justify-content-end">
 
 						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${altaTabCurso}"  href="#" th:href="@{/cursoAlta}"> <span>Alta </span></a>
+							<a id="alta" class="nav-link show" th:classappend=" ${altaTabCurso}"  href="#" th:href="@{/cursoAlta}"> <span>Alta </span></a>
 						</li>
 						<li class="nav-item">
-							<a class="nav-link show" th:classappend=" ${editarTabCurso}"  href="#" th:href="@{/cursolistEdit}"> <span>Editar </span></a>
+							<a id="editar" class="nav-link show" th:classappend=" ${editarTabCurso}"  href="#" th:href="@{/cursolistEdit}"> <span>Editar </span></a>
 						</li>
 						<li class="nav-item">
 							<a class="nav-link show" th:classappend=" ${misTabCurso}"  href="#" th:href="@{/cursolistPropios}"> <span>Mis Cursos </span></a>
