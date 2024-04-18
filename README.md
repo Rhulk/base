@@ -286,14 +286,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Alta:
 		Creación de nuevos cursos.
 		26/03/24 Creación de cursos desde la app.
-	
-# Avances - Next to:
-
-	Control de los videos vistos por cada usuario.
-		Al finalizar el video marcar como visto.
-		Reproducion automatica de videos.
 		
-	
 	Importar curso nuevo:
 		Fase actual por script sql.
 		Fase 2: Formulario web crear y editar los existentes.
@@ -309,8 +302,22 @@ Doc de los avances y modificaciones en las diferentes ramas
 			21/03/24 Finalizada la funcionalidad de edición. Posible mejora de notificaciones.
 				
 		Fase 3: Importar desde un excel.
-		
+			18/04/24 Implementado desde excel el alta de cursos.
 	
+# Avances - Next to:
+
+	Editar:
+		Corregir el zoom del 90% al 100% para visualizarlo correctamente.
+		
+	All Cursos:
+		Paginado y total de cursos.
+		Eliminación o borrado de cursos obsoletos o de pruebas.
+		Filtros o busquedas de cursos.
+
+	Control de los videos vistos por cada usuario.
+		Al finalizar el video marcar como visto.
+		Reproducion automatica de videos.
+
 			
 	Crear pestañas nuevas sub menus cursos:
 		Mis cursos:

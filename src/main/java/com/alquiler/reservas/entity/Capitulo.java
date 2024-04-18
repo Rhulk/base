@@ -107,6 +107,13 @@ public class Capitulo {
 	public Capitulo() {
 
 	}
+
+	public Capitulo(@NotBlank String nombre, @NotBlank String descripcion, int orden) {
+		
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.orden = orden;
+	}
 	
 	
 
