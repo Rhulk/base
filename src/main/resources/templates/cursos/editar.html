@@ -50,7 +50,7 @@
 		th:value="${editarcurso.urlicono}"
 	>
 	
-	<div class="main__apn_btn_crud">
+	<div class="main__apn_btn_crud_edit">
 		<button id="btn_gua"  
 			onclick="saveCurso()"
 			class="btn_green btn_gua"
@@ -197,11 +197,11 @@
 				  	}
 				  );            	
             	
-              let jsonObject = JSON.stringify(rowObject);
+/*               let jsonObject = JSON.stringify(rowObject);
               document.getElementById("jsonData").innerHTML = jsonObject;
               //console.log(jsonObject);
               console.log("------");
-              
+               */
               
               
 /* 
@@ -220,12 +220,12 @@
                
             });
           };
-          fileReader.readAsBinaryString(selectedFile);
-          console.log(fileReader);
+/*           fileReader.readAsBinaryString(selectedFile);
+          console.log(fileReader); */
         }
       });   
     
-    function donwLoadPlantilla(){
+/*     function donwLoadPlantilla(){
     	console.log("Descargar plantilla")
  			let filename='reports.xlsx';
               //const filePath = path.join(__dirname, 'ouptputs/test.xlsx');
@@ -239,7 +239,7 @@
                XLSX.writeFile(wb,filename);   	
     	
     }
-
+ */
 
     
     </script>

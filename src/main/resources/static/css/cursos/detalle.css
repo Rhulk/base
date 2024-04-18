@@ -42,8 +42,8 @@ a:focus {
 }
 
 .dash {
-
-  font-size: 62.5%;
+	margin-left: 25px;
+  font-size: 48%;
   //background: hsl(270, 50%, 10%);
   display: flex;
   flex-direction: column;
@@ -110,7 +110,7 @@ a:focus {
 }
 
 .main__col-1 {
-  width: 30%;
+  width: 35%;
 }
 
 .main__heading {
@@ -387,6 +387,8 @@ a:focus {
 }
 .kk {
 	resize: none;
+	font-size: large;
+    width: 700px;
 }
 .none {
 	
@@ -445,7 +447,9 @@ a:focus {
 	width: 96%
 }
 .main__apn_btn_crud {
-	
+	padding-top: 1px;
+	padding-left: 40px;
+	padding-bottom: 5px;
 }
 .btn_green {
     background-color: white;
@@ -503,5 +507,5 @@ input:checked + label {
     font-size: large;
 }
 .isCurso {
-	margin-left: -248px
+	margin-left: -178px
 }

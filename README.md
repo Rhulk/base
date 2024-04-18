@@ -303,11 +303,13 @@ Doc de los avances y modificaciones en las diferentes ramas
 				
 		Fase 3: Importar desde un excel.
 			18/04/24 Implementado desde excel el alta de cursos.
+
+		Editar:
+			18/04/24 Corregir el zoom del 90% al 100% para visualizarlo correctamente.
 	
 # Avances - Next to:
 
-	Editar:
-		Corregir el zoom del 90% al 100% para visualizarlo correctamente.
+
 		
 	All Cursos:
 		Paginado y total de cursos.
