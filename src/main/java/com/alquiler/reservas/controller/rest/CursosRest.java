@@ -7,6 +7,7 @@ import org.springframework.beans.factory.annotation.Autowired;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
+import org.springframework.ui.Model;
 import org.springframework.web.bind.annotation.GetMapping;
 import org.springframework.web.bind.annotation.ModelAttribute;
 import org.springframework.web.bind.annotation.PathVariable;
@@ -26,6 +27,7 @@ import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.CapituloRepository;
 import com.alquiler.reservas.service.CursoService;
 import com.alquiler.reservas.service.UserService;
+import com.alquiler.reservas.util.Excel;
 
 @RestController
 public class CursosRest {
@@ -41,6 +43,8 @@ public class CursosRest {
 	
 	@Autowired
 	ApartadoRepository apartadoRepository;
+
+	Excel utilExcel = new Excel();
 	
 	@GetMapping("/apuntes/{apartado}/{pag}/{curso}")
 	public List <Apunte> getApunteByApartado(
@@ -178,9 +182,9 @@ public class CursosRest {
 						, formatearURL(urlIcono));
 		return cursoService.modCurso(modCurso);
 	}
-	@GetMapping("altacurso/{id}/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
+	@GetMapping("altacurso/{nombre}/{descripcion}/{fuente}/{urlIcono}/{urlimg}")
 	public Respuesta altaCurso(
-			@ModelAttribute("id") int id,
+			
 			@ModelAttribute("nombre") String nombre,
 			@ModelAttribute("descripcion") String descripcion,
 			@ModelAttribute("fuente") String fuente,
@@ -189,8 +193,8 @@ public class CursosRest {
 			
 			) {		
 		Curso modCurso = 
-				new Curso(id,formatearURL(nombre),
-						CategoriaCurso.BACK, formatearURL(descripcion),
+				new Curso(formatearURL(nombre)
+						, formatearURL(descripcion),
 						formatearURL(fuente), formatearURL(urlimg)
 						, formatearURL(urlIcono));
 		return cursoService.altaCurso(modCurso);
@@ -252,6 +256,22 @@ public class CursosRest {
 		return cursoService.deleteApartado(id);
 	}
 	
+	@GetMapping("/importCurso/{json}")
+	public Respuesta importCurso(Model model,
+			@PathVariable(name="json") String json) {
+		System.out.println("Get json"+json);
+		try {
+			json = utilExcel.quitarComillas(json);
+			List<String> campos = utilExcel.getCampos(json);			
+			
+			return new Respuesta(true, String.valueOf(createCursoByStringsExcel(campos).getId()));
+		}catch(Exception e) {
+			e.printStackTrace();
+			return new Respuesta(false, e.getMessage());
+		}
+
+	}
+	
 	public User getLoguin() {
 		User userLogado = new User();
 		
@@ -276,7 +296,7 @@ public class CursosRest {
 
 		StringBuilder sb = new StringBuilder(url);
 		for (int n = 0; n <url.length (); n++) {
-			char c = url.charAt (n);
+			char c = url.charAt(n);
 			if (c == 65533) {
 				System.out.println("Caracter desconocido( "+c+" ) por /");
 
@@ -291,6 +311,82 @@ public class CursosRest {
 		System.out.println( sb.toString() );
 		return sb.toString();
 	}
-	
+
+	 
+    public Curso createCursoByStringsExcel(List<String> campos) {
+
+        Curso curso = new Curso("","","","","");
+        Capitulo capitulo = null;
+        
+        Apartado apartado = null;
+
+        
+            for (int i=0; i<campos.size(); i++) {
+            	//System.out.println(" Get valor previo Switch: "+campos.get(i));
+                switch (campos.get(i)) {
+            	
+            		case "Curso":
+            			i=i+2;            			
+            			curso.setNombre(campos.get(i));
+            			i=i+2;
+            			curso.setDescripcion(campos.get(i));
+            			i=i+2;
+            			curso.setFuente(campos.get(i));
+            			i=i+2;
+            			curso.setUrlimagen(campos.get(i));
+            			i=i+2;
+            			curso.setUrlicono(campos.get(i));
+            			i++;
+            			
+            			cursoService.altaCurso(curso);
+            			//cursoRepository.save(curso);
+            			//System.out.println("Alta curso: "+curso.toString());
+            		break;
+            		case "Capitulo":
+            			
+            			capitulo = new Capitulo("","",-1);
+            			i=i+2;
+            			System.out.println(campos.get(i));
+            			capitulo.setNombre(campos.get(i));
+            			i=i+2;
+            			System.out.println(campos.get(i));
+            			capitulo.setDescripcion(campos.get(i));
+            			i=i+2;
+            			System.out.println(campos.get(i));
+            			capitulo.setOrden(Integer.parseInt(campos.get(i)));
+            			i++;
+						capitulo.setCurso(curso);
+						capituloRepository.save(capitulo);
+						//System.out.println(" Capitulo >> "+capitulo.toString());           			
+            			
+            		break;
+            		case "Apartado":
+            			apartado = new Apartado("","","",-1);
+            			i=i+2;
+						apartado.setNombre(campos.get(i));
+            			i=i+2;
+						apartado.setDescripcion(campos.get(i));
+            			i=i+2;
+						apartado.setRecurso(campos.get(i));
+            			i=i+2;
+						apartado.setOrden(Integer.parseInt(campos.get(i)));
+            			i++;
+						apartado.setCapitulo(capitulo);
+						apartadoRepository.save(apartado);
+						//System.out.println(" Apartado >> "+apartado.toString());                 			
+            			
+            			
+            		break;
+            		default :
+            			System.out.println(" << "+campos.get(i)+" >>");
+            	
+            	
+                }	
+            }
+            //System.out.println(" Creado curso ");
+
+            return curso;
+    } 
+
 	
 }

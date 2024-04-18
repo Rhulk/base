@@ -147,6 +147,21 @@ public class Curso {
 		this.urlimagen = urlimagen;
 		this.urlicono = urlicono;
 	}
+
+	public Curso(
+			String nombre, 
+			String descripcion, 
+			String fuente,
+			String urlimagen, 
+			String urlicono
+			) {
+
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.fuente = fuente;
+		this.urlimagen = urlimagen;
+		this.urlicono = urlicono;
+	}
 	
 	
 

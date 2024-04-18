@@ -203,14 +203,14 @@ function showFormCapitulo() {
 function altCurso(){
 
   var curso = new Object();
-  curso.id = document.getElementById("id_curso").value;
+  //curso.id = document.getElementById("id_curso").value;
   curso.nombre = document.getElementById("id_name_curso").value;
   curso.descripcion = document.getElementById("id_desc_curso").value;
   curso.fuente = document.getElementById("id_source_curso").value;
   curso.urlimagen = document.getElementById("id_img_curso").value;
   curso.urlicono = document.getElementById("id_icono_curso").value;
   
-  fetch("http://localhost:8080" +"/altacurso/" + curso.id+ "/" +
+  fetch("http://localhost:8080" +"/altacurso/" +
       curso.nombre.replaceAll("/", "%F7") +"/" +
       curso.descripcion.replaceAll("/", "%F7") + "/" +
       curso.fuente.replaceAll("/", "%F7") +"/" +
@@ -218,7 +218,8 @@ function altCurso(){
       curso.urlimagen
   ).then((respuesta) => respuesta.json())
     .then(function (respuesta) {
-      console.log("Resultado respuesta: " + respuesta.mensaje);
+    if (respuesta.check){
+      console.log("Id Curso: " + respuesta.mensaje);
       document.getElementById("btn_alt").classList.add("oculto");
       document.getElementById("btn_gua").classList.remove("oculto");
       document.getElementById("btn_cap_new").classList.remove("oculto");
@@ -226,6 +227,15 @@ function altCurso(){
       
       document.getElementById("alta").classList.remove("active");
       document.getElementById("editar").classList.add("active");
+      
+      document.getElementById("fileUpload").classList.add("oculto");
+      document.getElementById("labelInput").classList.add("oculto");
+      document.getElementById("uploadExcel").classList.add("oculto");
+      document.getElementById("download_plantilla").classList.add("oculto");    
+    } else{
+    	console.log("FAIL");
+    }
+
       
   	}
   );
@@ -262,9 +272,11 @@ function saveCurso() {
       document.getElementById("btn_gua").classList.remove("btn_red");
       document.getElementById("btn_gua").classList.add("btn_green");
       document.getElementById("btn_gua").innerHTML = "Guardar datos";
+      
+
    });
   	
-  }, 1000);
+  }, 2000);
 }
 function cancelarCapitulo() {
   
@@ -386,3 +398,72 @@ function formatDivision(cadena) {
   const nuevaStr = cadena.replaceAll("/", "%F7");
 }
 cargarCapitulosByCurso();
+
+function importCurso(){
+	location.href = "importCurso";
+	
+}
+
+var inputs = document.querySelectorAll( '.inputfile' );
+Array.prototype.forEach.call( inputs, function( input ) {
+	var label	 = input.nextElementSibling,
+		labelVal = label.innerHTML;
+	console.log("Test");
+	input.addEventListener( 'change', function( e )	{
+	console.log("Test");
+		var fileName = '';
+		console.log(this.files.name);
+		const fileList = e.target.files;
+    	console.log(fileList);
+    	
+    	document.getElementById('labelInput').innerHTML =
+    		document.getElementById('fileUpload').files[0].name;
+    	document.getElementById('uploadExcel').removeAttribute("disabled");
+		
+    	
+    	
+    	var lector = new FileReader();
+	  	lector.onload = function(e) {
+	  		console.log("TEST");
+
+	  	};
+    	console.log(lector);
+    	    var TmpPath = URL.createObjectURL(e.target.files[0]);
+    // Mostramos la ruta temporal
+    console.log(TmpPath);
+
+	});
+});
+// test btn
+
+
+
+
+// Test envio desde formulario
+
+$(document).ready(function() {
+    $("#form").submit(function(event) {
+        event.preventDefault();
+
+        // Crea un objeto FormData para enviar el archivo
+        var formData = new FormData();
+        formData.append("archivo", $("#archivo")[0].files[0]);
+console.log(formData);
+        // Realiza la petición AJAX
+        $.ajax({
+            url: "fichero.html" , // Cambia la URL al archivo PHP que procesará el archivo
+            type: "POST",
+            data: formData,
+            cache: false,
+            contentType: false,
+            processData: false,
+            success: function(response) {
+                var resultado = $.parseJSON(response);
+                console.log(resultado);
+            },
+            error: function() {
+                console.log("Error al enviar el archivo.");
+            }
+        });
+    });
+});

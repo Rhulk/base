@@ -117,6 +117,14 @@ public class Apartado {
 				+ ", orden=" + orden + "]";
 	}
 
+	public Apartado(@NotBlank String nombre, @NotBlank String descripcion, @NotBlank String recurso, int orden) {
+
+		this.nombre = nombre;
+		this.descripcion = descripcion;
+		this.recurso = recurso;
+		this.orden = orden;
+	}
+
 
 	
 }

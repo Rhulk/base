@@ -1,7 +1,7 @@
 <!-- 
 <form  id="queryForm"  method="post" th:action="${signup_}"  autocomplete="off" >
  -->
-
+<script type="text/javascript" src="https://cdnjs.cloudflare.com/ajax/libs/xlsx/0.15.3/xlsx.full.min.js"></script>
     
 <div class="form_edit" th:object="${editarcurso}">
 	<div id="cursoEditBasic" class="formCurso">
@@ -64,8 +64,11 @@
 			>Alta
 		</button>
 
-		<a class="btn_back btn_red" 
-			href="#" th:href="@{/cursolistEdit}">Cancelar</a>
+		<a id="back" class="btn_red btn_rojo "  
+			th:href="@{/cursolistEdit}">
+			Cancelar			 
+		</a>
+	
 		<button id="btn_mod"
 			onclick="modAporte(this.id)" 
 			class="btn_blue btn_mod oculto">Modificar
@@ -80,6 +83,169 @@
 			th:classappend=" ${btn_cap}"
 			>Add Capitulo
 		</button>
+	<!-- Input type file to upload excel file -->
+	    <a id="download_plantilla"  class="btn_blue btn_download" 
+	    	 th:classappend=" ${btn_import}"
+	    	href="/plantillaExcel/plantillaTipo.xlsx" download="plantillaTipo">
+			Descargar plantilla
+	    </a>	
+	
+		<input 
+			class="inputfile" 
+			type="file" 
+			id="fileUpload" 
+			accept=".xls,.xlsx" 
+			 th:classappend=" ${btn_import}"
+		/>
+        <label 
+        	id="labelInput" 
+        	for="fileUpload"
+        	th:classappend=" ${btn_import}"
+        >Buscar Excel</label>
+                
+        <button
+        	disabled
+            class="btn_green "
+            type="button" 
+            id="uploadExcel"
+             th:classappend=" ${btn_import}"
+        >Importar</button>	
+        
+
+
+
+
+    
+    <script>
+ 
+    var selectedFile;
+    document
+      .getElementById("fileUpload")
+      .addEventListener("change", function(event) {
+        selectedFile = event.target.files[0];
+      });
+    document
+      .getElementById("uploadExcel")
+      .addEventListener("click", function() {
+        if (selectedFile) {
+          var fileReader = new FileReader();
+          fileReader.onload = function(event) {
+            var data = event.target.result;
+            var workbook = XLSX.read(data, {type: "binary"});
+            workbook.SheetNames.forEach(sheet => {
+            	//console.log("Test")
+              let rowObject = XLSX.utils.sheet_to_row_object_array(
+                workbook.Sheets[sheet]
+              );
+            	//console.log("rowObject");
+            	//console.log(rowObject);
+            	let idCurso;
+            	let cadena="";
+            	for (let i in rowObject) {
+					  
+
+            		//console.log(JSON.stringify(rowObject[i].Leyenda));
+            		//console.log(JSON.stringify(rowObject[i]));
+            		if (rowObject[i].Leyenda === "Curso" ) {
+            			// Petición Rest  createCurso
+					  var curso = new Object();
+					  cadena=cadena+rowObject[i].Leyenda+"|";
+					  cadena=cadena+rowObject[i].Nombre+"|";
+					  cadena=cadena+rowObject[i].Descripcion+"|";
+					  cadena=cadena+rowObject[i].Fuente+"|";
+					  cadena=cadena+rowObject[i].URLImagen+"|";
+					  cadena=cadena+rowObject[i].URLIcono+"|";
+					  
+					  curso.descripcion = rowObject[i].Descripcion;
+					  curso.fuente = rowObject[i].fuente;
+					  curso.urlimagen = rowObject[i].URLImagen;
+					  curso.urlicono = rowObject[i].URLIcono;
+
+            		}// fin if curso
+            		if (rowObject[i].Leyenda === "Capitulo" ) {
+            			 cadena=cadena+rowObject[i].Leyenda+"|";
+            			 cadena=cadena+rowObject[i].Nombre+"|";
+            			 cadena=cadena+rowObject[i].Descripcion+"|";
+            			 cadena=cadena+rowObject[i].Orden+"|";
+            		}
+            		if (rowObject[i].Leyenda === "Apartado" ) {
+           			 cadena=cadena+rowObject[i].Leyenda+"|";
+           			 cadena=cadena+rowObject[i].Nombre+"|";
+           			 cadena=cadena+rowObject[i].Descripcion+"|";
+           			 cadena=cadena+rowObject[i].Recurso+"|";
+           			 cadena=cadena+rowObject[i].Orden+"|";
+           		}
+            		cadena = JSON.stringify(rowObject[i]);
+            		//cadena = rowObject[i];
+            		//console.log(cadena)
+            		
+            		//console.log(JSON.stringify(rowObject[i].value))
+            		
+            	}	// fin for
+            	
+				  fetch("http://localhost:8080" +"/importCurso/" +
+						  cadena
+				  ).then((respuesta) => respuesta.json())
+				    .then(function (respuesta) {
+						if (respuesta.check){
+							location.href = "cursolistEdit/" + respuesta.mensaje;
+						} else{
+							console.log(" Fail: " + respuesta.mensaje);
+						}
+				      
+				      
+				  	}
+				  );            	
+            	
+              let jsonObject = JSON.stringify(rowObject);
+              document.getElementById("jsonData").innerHTML = jsonObject;
+              //console.log(jsonObject);
+              console.log("------");
+              
+              
+              
+/* 
+              
+
+              let filename='reports.xlsx';
+              //const filePath = path.join(__dirname, 'ouptputs/test.xlsx');
+              var ws = XLSX.utils.json_to_sheet(
+            		  [{A:4,B:3,C:1}, {B:2,C:3}, {C:4,D:5},{C:5,D:6},{D:8}]
+            		  , {header:['H']}
+            		  );
+             	// var ws = XLSX.utils.json_to_sheet('[{}]');
+               var wb = XLSX.utils.book_new();
+               XLSX.utils.book_append_sheet(wb, ws, "People");
+              // XLSX.writeFile(wb,filename); */
+               
+            });
+          };
+          fileReader.readAsBinaryString(selectedFile);
+          console.log(fileReader);
+        }
+      });   
+    
+    function donwLoadPlantilla(){
+    	console.log("Descargar plantilla")
+ 			let filename='reports.xlsx';
+              //const filePath = path.join(__dirname, 'ouptputs/test.xlsx');
+              var ws = XLSX.utils.json_to_sheet(
+            		  [{A:4,B:3,C:1}, {B:2,C:3}, {C:4,D:5},{C:5,D:6},{D:8}]
+            		  , {header:['H']}
+            		  );
+             	 var ws = XLSX.utils.json_to_sheet('[{}]');
+               var wb = XLSX.utils.book_new();
+               XLSX.utils.book_append_sheet(wb, ws, "People");
+               XLSX.writeFile(wb,filename);   	
+    	
+    }
+
+
+    
+    </script>
+		
+		
+		
 	</div>
 
 </div>

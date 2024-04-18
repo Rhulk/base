@@ -1,21 +1,21 @@
-.btn_back {
-	
-    font-weight: 370;
-    color: #000000;
-    background-color: transparent;
-    border-width: 3px;
-    border-style: solid;
 
+.btn_rojo {
+	color: #000000;
+	margin: 5px;
 }
-
-
-
+.btn_rojo:hover {
+	text-decoration: none;
 }
-.btn_back:hover {
-	background-color: #f30e0e;
+.btn_download {
+	color: #000000;
+}
+.btn_download:hover{
+	background-color: #0000ff;
 	text-decoration: none;
 	border-radius: 10px;
 }
+}
+
 
 
 .form_edit {
@@ -41,6 +41,7 @@
 .main__apn_btn_crud {
 	padding-top: 20px;
 	padding-left: 40px;
+	padding-bottom: 5px;
 }
 .capNew {
 	display: flex;
@@ -96,4 +97,39 @@
 	width: 16%;
 	padding-left: 10px;
 	margin-left: 10px;
+}
+.inputfile {
+	width: 0.1px;
+	height: 0.1px;
+	opacity: 0;
+	overflow: hidden;
+	position: absolute;
+	z-index: -1;
+}
+.inputfile + label {
+	font-size: 0.99em;
+    font-weight: 400;
+    color: black;
+    background-color: white;
+  
+    
+	padding: 0px 15px;
+    cursor: pointer;
+    margin: 5px;
+    border-radius: 7px;
+	border: 2px solid #4CAF50;
+    
+}
+
+.inputfile:focus + label,
+.inputfile + label:hover {
+    background-color: #4CAF50;
+    color: white;
+}
+.inputfile + label {
+	cursor: pointer; /* "hand" cursor */
+}
+.inputfile:focus + label {
+	outline: 1px dotted #000;
+	outline: -webkit-focus-ring-color auto 5px;
 }
