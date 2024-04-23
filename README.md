@@ -306,13 +306,17 @@ Doc de los avances y modificaciones en las diferentes ramas
 
 		Editar:
 			18/04/24 Corregir el zoom del 90% al 100% para visualizarlo correctamente.
+		
+		All Cursos:
+			Paginado y total de cursos.
+			23/04/24 Implementada la paginación jpa controller, valorar como Servicio REST.
 	
 # Avances - Next to:
 
 
 		
 	All Cursos:
-		Paginado y total de cursos.
+		
 		Eliminación o borrado de cursos obsoletos o de pruebas.
 		Filtros o busquedas de cursos.
 

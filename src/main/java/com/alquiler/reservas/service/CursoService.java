@@ -2,6 +2,9 @@ package com.alquiler.reservas.service;
 
 import java.util.List;
 
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
+
 import com.alquiler.reservas.dto.ApartadoDTO;
 import com.alquiler.reservas.dto.CapituloDTO;
 import com.alquiler.reservas.entity.Apartado;
@@ -27,6 +30,8 @@ public interface CursoService {
 	public Curso getCurso(int id) throws Exception;
 	
 	public List<Curso> getCursosByLoguinUser();
+	public Page<Curso> findAll(Pageable pageable);
+	
 
 	List<Capitulo> getCapitulos(Curso curso);
 	

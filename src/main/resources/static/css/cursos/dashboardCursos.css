@@ -156,3 +156,18 @@ div.card_curso.show div.flap1 {
 div.card_curso.show div.flap2 {
   transition: all 0.3s 0.2s ease-out;
 }
+.paginacion{
+    background-color: thistle;
+    width: 370px;
+    padding: 4px;
+    text-align-last: justify;
+    margin: auto;
+    padding-top: 6px;
+}
+.nextBack {
+	text-decoration: none;
+}
+.nextBack:hover  {
+	text-decoration: none;
+	
+}

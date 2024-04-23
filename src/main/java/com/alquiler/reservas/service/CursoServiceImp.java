@@ -8,8 +8,11 @@ import javax.annotation.PostConstruct;
 import javax.persistence.EntityManager;
 import javax.persistence.PersistenceContext;
 import javax.persistence.Query;
+import javax.transaction.Transactional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.Pageable;
 import org.springframework.data.repository.CrudRepository;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
@@ -542,6 +545,21 @@ public class CursoServiceImp implements CursoService {
 			e.printStackTrace();
 			return new Respuesta(false,e.getMessage());
 		}
+	}
+
+	@Override
+	@Transactional
+	public Page<Curso> findAll(Pageable pageable) {
+		try {
+			System.out.println("Page" +pageable);
+			System.out.println(cursoRepository.findAll(pageable));
+			return cursoRepository.findAll(pageable);
+			
+		}catch(Exception e) {
+			e.printStackTrace();
+			return null;
+		}
+		
 	}
 
 

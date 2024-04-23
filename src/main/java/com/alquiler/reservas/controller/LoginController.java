@@ -85,6 +85,8 @@ public class LoginController {
 		model.addAttribute("roles",roles);
 		model.addAttribute("signup", true);
 		
+
+		
 		return "security/user-form/user-signup";
 	}
 	
@@ -242,6 +244,10 @@ public class LoginController {
 		//Control model delete
 		model.addAttribute("deleteTodo",false);
 		model.addAttribute("deleteUser",true);
+		
+		// paginado inicial
+		model.addAttribute("firtPage", 0);
+		model.addAttribute("sizePage", 10);
 		
 		return "security/user-form/main-view";	
 	}
