@@ -46,11 +46,52 @@
       </div>
     </div>
   </div>
+  
+  <div class="paginacion">
+  Pagina:  <label th:text="${pageNumber}"></label>
+  
+    <a class="nextBack" th:if="!${isFirst}"
+  		  
+  		href="#" th:href="@{/cursolist/}+${firtPage}+'/'+${sizePage}" 
+  		>
+  	 	<span> Inicio  </span>
+  	 </a>	
+  
+  	<a class="nextBack" th:if="!${isFirst}"
+  		  
+  		href="#" th:href="@{/cursolist/}+${back}+'/'+${sizePage}" 
+  		>
+  	 	<span> < </span>
+  	 </a>	
+  
+  
+  	<a class="nextBack"  th:if="!${isLast}"
+  		 
+  		href="#" th:href="@{/cursolist/}+${pageNumber}+'/'+${sizePage}" 
+  		>
+  	 	<span> > </span>
+  	 </a>	
+  	 
+   	<a class="nextBack"  th:if="!${isLast}"
+  		 
+  		href="#" th:href="@{/cursolist/}+${lastPage}+'/'+${sizePage}" 
+  		>
+  	 	<span>  Final </span>
+  	 </a> 	 
+  	  
+   <label th:text="${pageSize}"></label>
+   de   <label th:text="${nCursos}"></label> Cursos
+   
+   </div>
+
+																														
 <!--  Fin item div -->
 	<!-- Item div  -->
   <div class="card_curso" >
     <div class="card__image-holder">
-      <img class="card__image" src="https://html.com/wp-content/uploads/Code.jpg" alt="wave" />
+      <img class="card__image" 
+      	src="https://html.com/wp-content/uploads/Code.jpg" 
+      	alt="wave" />
     </div>
     <div class="card-title">
       <a href="#" class="toggle-info btn">

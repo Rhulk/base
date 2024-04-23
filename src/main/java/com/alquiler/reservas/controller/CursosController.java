@@ -15,6 +15,10 @@ import org.apache.poi.ss.usermodel.Row;
 import org.apache.poi.xssf.usermodel.XSSFSheet;
 import org.apache.poi.xssf.usermodel.XSSFWorkbook;
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
+import org.springframework.data.web.PageableDefault;
 import org.springframework.stereotype.Controller;
 import org.springframework.ui.Model;
 import org.springframework.ui.ModelMap;
@@ -270,8 +274,10 @@ public class CursosController {
 		return "security/user-form/main-view.html";
 	}
 
-	@GetMapping("/cursolist")
-	public String cursoList(Model model) {
+	@GetMapping("/cursolist/{page}/{sizePage}")
+	public String cursoList(Model model, @PageableDefault(size = 10) Pageable paginacion
+			, @PathVariable(name = "page") Integer page
+			, @PathVariable(name = "sizePage") Integer sizePage) {
 
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo", false);
@@ -297,10 +303,45 @@ public class CursosController {
 		model.addAttribute("misTabCurso", "no");
 		model.addAttribute("editarTabCurso", "no");
 		model.addAttribute("altaTabCurso", "no");
+		
+
 
 		// modelo de datos
-		model.addAttribute("cursos", cursoRepository.findAll());
+		// cursoService.findAll(pageable)
+		//List<Curso> cursos = (List<Curso>) cursoRepository.findAll();
+		final Pageable pageable = PageRequest.of(page, sizePage);
+		List<Curso> cursos = cursoService.findAll(pageable).getContent();
+		Page<Curso> pag = cursoService.findAll(pageable);
 
+		// Gestión de la paginación
+		model.addAttribute("back", pageable.getPageNumber() -1 );
+		model.addAttribute("firtPage", 0);
+		model.addAttribute("cursos", pag.getContent());
+		model.addAttribute("lastPage", pag.getTotalPages()-1);
+		model.addAttribute("sizePage", 9);		
+		model.addAttribute("nCursos",  pag.getTotalElements());
+		model.addAttribute("pageSize", pag.getTotalPages());	
+		
+		if (pag.isLast()) {
+			model.addAttribute("pageNumber", pageable.getPageNumber() );	
+			model.addAttribute("isLast", true);
+		
+		} else {
+			model.addAttribute("pageNumber", pageable.getPageNumber()+1 );
+			model.addAttribute("isLast", false);
+			
+		}
+		if (pag.isFirst()) {
+			model.addAttribute("isFirst", true);
+		}else {
+			model.addAttribute("isFirst", false);
+		}
+		
+
+		
+
+		
+		
 		// TEST
 
 		return "security/user-form/main-view.html";

@@ -4,6 +4,9 @@ import java.util.List;
 import java.util.Optional;
 
 import org.springframework.beans.factory.annotation.Autowired;
+import org.springframework.data.domain.Page;
+import org.springframework.data.domain.PageRequest;
+import org.springframework.data.domain.Pageable;
 import org.springframework.security.core.Authentication;
 import org.springframework.security.core.context.SecurityContextHolder;
 import org.springframework.security.core.userdetails.UserDetails;
@@ -25,6 +28,7 @@ import com.alquiler.reservas.entity.Respuesta;
 import com.alquiler.reservas.entity.User;
 import com.alquiler.reservas.repository.ApartadoRepository;
 import com.alquiler.reservas.repository.CapituloRepository;
+import com.alquiler.reservas.repository.CursoRepository;
 import com.alquiler.reservas.service.CursoService;
 import com.alquiler.reservas.service.UserService;
 import com.alquiler.reservas.util.Excel;
@@ -43,6 +47,9 @@ public class CursosRest {
 	
 	@Autowired
 	ApartadoRepository apartadoRepository;
+	
+	@Autowired
+	CursoRepository cursoRepository;
 
 	Excel utilExcel = new Excel();
 	
@@ -388,5 +395,18 @@ public class CursosRest {
             return curso;
     } 
 
+    @GetMapping("/cursosPaginados")
+    public String getCursos(){
+    	System.out.println("/cursosPaginados");
+    	final Pageable pageable = PageRequest.of(0, 10);
+    	
+    	System.out.println("/cursosPaginados");
+    	Page<Curso> paginado =cursoService.findAll(pageable);
+    	
+    	System.out.println(paginado.getContent().size());
+    	System.out.println("Paginado: "+paginado);
+		return "/cursosPaginados";
+    	
+    }
 	
 }
