@@ -218,16 +218,16 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
-# LastChange: Recuperar si el check esta o no marcado.
+# Fecha Committer: 26/12/24 Añadidos los primeros test en CursoServiceImpTest
+# LastChange: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
 # Origen: 
 # Situación: Avanzada.
 	Creadas las views del listado y detalle del curso.
 	Y la parte correspondiente del negocio.
 	
 # Problem: 
-	
-
+	Falla la redirección al acceder al detalle de un curso desde all cursos
+	Si se pierde la sesión falla y no redirecciona a la pantalla login.
 
 # Resueltos:
 	Creando las pantallas del módulo
@@ -310,6 +310,10 @@ Doc de los avances y modificaciones en las diferentes ramas
 		All Cursos:
 			Paginado y total de cursos.
 			23/04/24 Implementada la paginación jpa controller, valorar como Servicio REST.
+			
+		Test Unitarios
+			26/12/24 CursoServiceImpTest add test unitarios.
+			
 	
 # Avances - Next to:
 

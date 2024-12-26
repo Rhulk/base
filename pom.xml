@@ -117,7 +117,13 @@
 			<artifactId>spring-security-test</artifactId>
 			<scope>test</scope>
 		</dependency>
+		<dependency>
+    		<groupId>org.jeasy</groupId>
+    		<artifactId>easy-random-core</artifactId>
+    		<version>4.0.0</version>
+		</dependency>	
 		
+
 		<dependency>
 	    	<groupId>com.sun.mail</groupId>
 	    	<artifactId>javax.mail</artifactId>

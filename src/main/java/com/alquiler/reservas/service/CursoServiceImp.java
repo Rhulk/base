@@ -70,8 +70,10 @@ public class CursoServiceImp implements CursoService {
 
 	@Override
 	public Curso getCurso(int id) throws Exception {
+		
 		return cursoRepository.findById(id)
 				.orElseThrow(() -> new Exception("Curso does not exist"));
+		
 	}
 
 	@Override
@@ -86,10 +88,13 @@ public class CursoServiceImp implements CursoService {
 
 		
 		capitulos = getCapitulos(curso);
-		
-		for(int i=0; i<capitulos.size(); i++) {
-			apartados.addAll(capitulos.get(i).getApartados());
-			
+		if (capitulos != null ) {
+			for(int i=0; i<capitulos.size(); i++) {
+				apartados.addAll(capitulos.get(i).getApartados());
+				
+			}
+		}else {
+			return null;
 		}
 
 		return apartados;
