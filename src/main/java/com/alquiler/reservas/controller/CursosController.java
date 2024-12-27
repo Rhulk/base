@@ -273,11 +273,32 @@ public class CursosController {
 
 		return "security/user-form/main-view.html";
 	}
+	
+    public static boolean isNumeric(String cadena) {
+
+        boolean resultado;
+
+        try {
+            Integer.parseInt(cadena);
+            resultado = true;
+        } catch (NumberFormatException excepcion) {
+            resultado = false;
+        }
+
+        return resultado;
+    }
 
 	@GetMapping("/cursolist/{page}/{sizePage}")
 	public String cursoList(Model model, @PageableDefault(size = 10) Pageable paginacion
 			, @PathVariable(name = "page") Integer page
-			, @PathVariable(name = "sizePage") Integer sizePage) {
+			, @PathVariable(name = "sizePage") String sizePageOrCurso) {
+		
+		int sizePage;
+        if (isNumeric(sizePageOrCurso)) {
+        	sizePage = Integer.parseInt(sizePageOrCurso);
+        } else {
+            return "redirect:curso4";
+        }
 
 		// Gestión de la activación de los formularios
 		model.addAttribute("activoFormTodo", false);
@@ -345,7 +366,9 @@ public class CursosController {
 		// TEST
 
 		return "security/user-form/main-view.html";
+		
 	}
+
 
 	@GetMapping("/curso{id}")
 	public String cursoDetalleID(Model model, @PathVariable(name = "id") Integer id) throws Exception {

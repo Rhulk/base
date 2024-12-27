@@ -218,7 +218,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 26/12/24 Añadidos los primeros test en CursoServiceImpTest
+# Fecha Committer: 27/12/24 Falla la redirección al acceder al detalle de un curso desde all cursos
 # LastChange: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
 # Origen: 
 # Situación: Avanzada.
@@ -226,7 +226,7 @@ Doc de los avances y modificaciones en las diferentes ramas
 	Y la parte correspondiente del negocio.
 	
 # Problem: 
-	Falla la redirección al acceder al detalle de un curso desde all cursos
+	
 	Si se pierde la sesión falla y no redirecciona a la pantalla login.
 
 # Resueltos:
@@ -313,6 +313,9 @@ Doc de los avances y modificaciones en las diferentes ramas
 			
 		Test Unitarios
 			26/12/24 CursoServiceImpTest add test unitarios.
+			
+		Errores:
+			27/12/24 Falla la redirección al acceder al detalle de un curso desde all cursos
 			
 	
 # Avances - Next to:
