@@ -218,8 +218,8 @@ Doc de los avances y modificaciones en las diferentes ramas
 		
 #####################################################################################
 # Rama: feature/curso
-# Fecha Committer: 27/12/24 Falla la redirección al acceder al detalle de un curso desde all cursos
-# LastChange: 16/03/24 Mejoras en la view editar, crud capitulos. Next crud apartados.
+# Fecha Committer: 22/03/25 Back al dashboard de cursos 
+# LastChange: 27/12/24 Falla la redirección al acceder al detalle de un curso desde all cursos
 # Origen: 
 # Situación: Avanzada.
 	Creadas las views del listado y detalle del curso.
@@ -317,10 +317,15 @@ Doc de los avances y modificaciones en las diferentes ramas
 		Errores:
 			27/12/24 Falla la redirección al acceder al detalle de un curso desde all cursos
 			
+		Cerrar curso actual:
+			22/03/25 Back al dashboard de cursos
+			
 	
-# Avances - Next to:
+# Avances - Next to do:
 
-
+	Cerrar curso actual:
+		22/03/25 Back al dashboard de cursos
+			Mejorar con petición js y mejoras estilos css
 		
 	All Cursos:
 		

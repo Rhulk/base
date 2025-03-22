@@ -509,3 +509,10 @@ input:checked + label {
 .isCurso {
 	margin-left: -178px
 }
+.back_to_list {
+    
+    width: 25px;
+    height: 25px;
+	margin-top: -2px;
+    margin-left: 700px;
+}
